@@ -76,6 +76,7 @@ flutter:
   assets:
     - assets/language/localization_en.json
     - assets/language/localization_tr.json
+    - assets/images/
 
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

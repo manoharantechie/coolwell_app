@@ -24,6 +24,7 @@ class TextFormFieldCustom extends StatelessWidget {
 
 
   final Widget suffix;
+  final Widget prefix;
   final FormFieldValidator<String> validator;
   final FocusNode focusNode;
   final double radius;
@@ -51,6 +52,7 @@ class TextFormFieldCustom extends StatelessWidget {
       required this.focusNode,
         required this.radius,
       required this.suffix,
+      required this.prefix,
       });
 
   @override
@@ -79,6 +81,7 @@ class TextFormFieldCustom extends StatelessWidget {
           hintText: hintText,
           hintStyle: hintStyle,
           suffixIcon: suffix,
+          prefixIcon: prefix,
           filled: true,
           fillColor: fillColor,
           border: OutlineInputBorder(
