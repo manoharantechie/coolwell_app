@@ -1,3 +1,4 @@
+import 'package:coolwell_app/screens/basics/signin.dart';
 import 'package:coolwell_app/screens/basics/signup.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -83,7 +84,10 @@ class _SplashHomeScreenState extends State<SplashHomeScreen> {
 
                   InkWell(
                     onTap: (){
-
+                      Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  Signin_Screen()));
                     },
                     child: Container(
                       width: MediaQuery.of(context).size.width * 0.6,

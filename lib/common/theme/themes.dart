@@ -48,10 +48,10 @@ class MyThemes {
       splashColor: Color(0xFFE8E8E8),
       highlightColor: Color(0xFFF7F7F7),
       errorColor: Color(0xFFFFEC40),
-      hintColor: Color(0xFF202020),
+      hintColor: Color(0xFF78AAF4),
       hoverColor: Color(0xFF77838F),
-      indicatorColor: Color(0xFF1ABC7B),
-      selectedRowColor: Color(0xFFFAAD34),
+      indicatorColor: Color(0xFF90D272),
+      selectedRowColor: Color(0xFF34A853),
       scaffoldBackgroundColor: Color(0xFFDD2942)
   );
 
