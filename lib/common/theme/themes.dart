@@ -52,7 +52,7 @@ class MyThemes {
       hoverColor: Color(0xFF77838F),
       indicatorColor: Color(0xFF90D272),
       selectedRowColor: Color(0xFF34A853),
-      scaffoldBackgroundColor: Color(0xFFDD2942)
+      scaffoldBackgroundColor: Color(0xFFF1F1F1)
   );
 
   static ThemeData getThemeFromKey(MyThemeKeys themeKey) {

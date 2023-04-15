@@ -76,6 +76,11 @@
   "loc_current_location": "Your current location",
   "loc_some_location": "Some other location",
   "loc_location_service": " LOCATION FOR SERVICE",
-  "loc_verify_num": "Verify Number"
+  "loc_verify_num": "Verify Number",
+  "loc_services": "Services",
+  "loc_buy_save": "Buy More Save More",
+  "loc_cleaning": "Cleaning",
+  "loc_view_details": "View details",
+  "loc_add": "Add "
 
 }

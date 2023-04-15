@@ -1,4 +1,5 @@
 import 'package:coolwell_app/screens/basics/location_success.dart';
+import 'package:coolwell_app/screens/service/service1.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -110,6 +111,11 @@ class _LocationLoginScreenState extends State<LocationLoginScreen> {
           ),
           SizedBox(height: 25.0,),
           InkWell(
+            onTap: (){
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) =>
+                      Service1_Screen()));
+            },
             child: Container(
               padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 10.0),
               decoration: BoxDecoration(
