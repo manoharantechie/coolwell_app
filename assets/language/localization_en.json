@@ -81,7 +81,9 @@
   "loc_buy_save": "Buy More Save More",
   "loc_cleaning": "Cleaning",
   "loc_view_details": "View details",
-  "loc_add": "Add ",
   "loc_service_coolwell": "Cool well expert technicians",
+  "loc_proceed_book": "Proceed to book",
+  "loc_service_note": "Services notes",
+  "loc_faq": "FAQ"
 
 }
