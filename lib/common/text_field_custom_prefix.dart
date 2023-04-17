@@ -24,7 +24,6 @@ class TextFormCustom extends StatelessWidget {
   final FormFieldValidator<String> validator;
   final FocusNode focusNode;
   final double radius;
-  final AutovalidateMode autovalidateMode;
 
   const TextFormCustom(
       {required this.onEditComplete,
@@ -48,7 +47,7 @@ class TextFormCustom extends StatelessWidget {
         required this.focusNode,
         required this.radius,
         required this.suffix,
-        required this.prefix, required this.autovalidateMode
+        required this.prefix,
       });
 
   @override
@@ -66,7 +65,6 @@ class TextFormCustom extends StatelessWidget {
         autocorrect: true,
         enabled: enabled,
         style: textStyle,
-        autovalidateMode: autovalidateMode,
         obscureText: obscureText,
         textInputAction: textInputAction,
         keyboardType: textInputType,

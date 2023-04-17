@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../common/custom_widget.dart';
 import '../../common/localization/localizations.dart';
+import '../../common/text_field_custom_prefix.dart';
 import '../../common/textformfield_custom.dart';
 
 class SignUp_Screen extends StatefulWidget {
@@ -80,7 +81,7 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
                 ),
                 SizedBox(height: 30.0,),
 
-                TextFormFieldCustom(
+                TextFormCustom(
                   onEditComplete: () {
                     nameFocus.unfocus();
                     FocusScope.of(context).requestFocus(phoneNumFocus);
@@ -119,7 +120,7 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
                   controller: nameController,
                 ),
                 SizedBox(height: 15.0,),
-                TextFormFieldCustom(
+                TextFormCustom(
                   onEditComplete: () {
                     phoneNumFocus.unfocus();
                     FocusScope.of(context).requestFocus(phoneNumFocus);
@@ -158,7 +159,7 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
                   controller: nameController,
                 ),
                 SizedBox(height: 15.0,),
-                TextFormFieldCustom(
+                TextFormCustom(
                   onEditComplete: () {
                     emailFocus.unfocus();
                     FocusScope.of(context).requestFocus(passFocus);
@@ -197,7 +198,7 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
                   controller: emailController,
                 ),
                 SizedBox(height: 15.0,),
-                TextFormFieldCustom(
+                TextFormCustom(
                   onEditComplete: () {
                     passFocus.unfocus();
                     // FocusScope.of(context).requestFocus(newPassFocus);

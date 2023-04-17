@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import '../../common/country.dart';
 import '../../common/custom_widget.dart';
 import '../../common/localization/localizations.dart';
+import '../../common/text_field_custom_prefix.dart';
+import '../../common/textfield_custom.dart';
 import '../../common/textformfield_custom.dart';
 import '../../common/theme/custom_theme.dart';
 
@@ -96,7 +98,7 @@ class _Signin_ScreenState extends State<Signin_Screen> {
                 ),
                 SizedBox(height: 30.0,),
 
-                TextFormFieldCustom(
+                TextFormCustom(
                   onEditComplete: () {
                     nameFocus.unfocus();
                     FocusScope.of(context).requestFocus(passFocus);
@@ -135,7 +137,7 @@ class _Signin_ScreenState extends State<Signin_Screen> {
                   controller: nameController,
                 ),
                 SizedBox(height: 15.0,),
-                TextFormFieldCustom(
+                TextFormCustom(
                   onEditComplete: () {
                     passFocus.unfocus();
                     // FocusScope.of(context).requestFocus(newPassFocus);

@@ -126,9 +126,6 @@ class _OTP_ScreenState extends State<OTP_Screen> {
                   suffix: Container(
                     width: 0.0,
                   ),
-                  prefix: Container(
-                    width: 0.0,
-                  ),
                   validator: (value) {
 
                   },

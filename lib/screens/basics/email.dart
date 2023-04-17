@@ -124,9 +124,6 @@ class _EmailViaScreenState extends State<EmailViaScreen> {
                   suffix: Container(
                     width: 0.0,
                   ),
-                  prefix: Container(
-                   width: 0.0,
-                  ),
                   validator: (value) {
 
                   },
