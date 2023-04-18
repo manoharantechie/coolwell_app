@@ -75,7 +75,6 @@ class _Payment_Summary_ScreenState extends State<Payment_Summary_Screen> {
                       ],
                     ),
                   )
-
                 ],
               ),
             )
