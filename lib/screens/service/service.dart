@@ -1,3 +1,4 @@
+import 'package:coolwell_app/screens/payment/payment_summary.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -7,14 +8,14 @@ import '../../common/dotted_line_widget.dart';
 import '../../common/localization/localizations.dart';
 import '../../common/textformfield_custom.dart';
 
-class Service1_Screen extends StatefulWidget {
-  const Service1_Screen({Key? key}) : super(key: key);
+class Service_Screen extends StatefulWidget {
+  const Service_Screen({Key? key}) : super(key: key);
 
   @override
-  State<Service1_Screen> createState() => _Service1_ScreenState();
+  State<Service_Screen> createState() => _Service_ScreenState();
 }
 
-class _Service1_ScreenState extends State<Service1_Screen> {
+class _Service_ScreenState extends State<Service_Screen> {
 
   FocusNode issuesFocus = FocusNode();
   TextEditingController issuesController = TextEditingController();
@@ -101,7 +102,7 @@ class _Service1_ScreenState extends State<Service1_Screen> {
 
                              ],
                            ),
-                           const SizedBox(height: 30.0,),
+                           const SizedBox(height: 50.0,),
                            Container(
                              child: Column(
                                crossAxisAlignment: CrossAxisAlignment.start,
@@ -221,10 +222,10 @@ class _Service1_ScreenState extends State<Service1_Screen> {
             Container(
               color: Theme.of(context).scaffoldBackgroundColor,
 
-              margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.32),
+              margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.34),
               child: Padding(
-                padding: EdgeInsets.fromLTRB(20.0, 00.0, 20.0, 20.0),
-                child:     Container(
+                padding: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 20.0),
+                child: Container(
                     child: SingleChildScrollView(
                       child: ListView.builder(
                         itemCount: texts.length,
@@ -467,40 +468,49 @@ class _Service1_ScreenState extends State<Service1_Screen> {
                                               textAlign: TextAlign.end,
                                             ),
                                           ),
-                                          Container(
-                                            padding: EdgeInsets.fromLTRB(0.0, 5.0, 0.0, 5.0),
-                                            decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(15.0),
-                                              gradient: LinearGradient(
-                                                begin: Alignment.topLeft,
-                                                end: Alignment.bottomRight,
-                                                colors: [
-                                                  const Color(0xFF0DD8FF),
-                                                  const Color(0xFF0FABFF),
-                                                  const Color(0xFF1457FF),
-                                                  const Color(0xFF1636FF),
-                                                  const Color(0xFF0E69C7),
+                                          InkWell(
+                                            onTap:(){
+                                              if (index==0){
+                                                Navigator.of(context).push(MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        Payment_Summary_Screen()));
+                                              }
+                                              },
+                                            child: Container(
+                                              padding: EdgeInsets.fromLTRB(0.0, 5.0, 0.0, 5.0),
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(15.0),
+                                                gradient: LinearGradient(
+                                                  begin: Alignment.topLeft,
+                                                  end: Alignment.bottomRight,
+                                                  colors: [
+                                                    const Color(0xFF0DD8FF),
+                                                    const Color(0xFF0FABFF),
+                                                    const Color(0xFF1457FF),
+                                                    const Color(0xFF1636FF),
+                                                    const Color(0xFF0E69C7),
+                                                  ],
+                                                ),
+                                              ),
+                                              child: Row(
+                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                children: [
+                                                  SvgPicture.asset("assets/images/tools.svg",color: Theme.of(context).focusColor, height: 15.0,),
+                                                  SizedBox(width: 5.0,),
+                                                  Text(
+                                                    AppLocalizations.instance
+                                                        .text("loc_add"),
+                                                    style: CustomWidget(context: context)
+                                                        .CustomSizedTextStyle(
+                                                        10.0,
+                                                        Theme.of(context).focusColor,
+                                                        FontWeight.w600,
+                                                        'FontRegular'),
+                                                    textAlign: TextAlign.center,
+                                                  ),
                                                 ],
                                               ),
-                                            ),
-                                            child: Row(
-                                              crossAxisAlignment: CrossAxisAlignment.center,
-                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              children: [
-                                                SvgPicture.asset("assets/images/tools.svg",color: Theme.of(context).focusColor, height: 15.0,),
-                                                SizedBox(width: 5.0,),
-                                                Text(
-                                                  AppLocalizations.instance
-                                                      .text("loc_add"),
-                                                  style: CustomWidget(context: context)
-                                                      .CustomSizedTextStyle(
-                                                      10.0,
-                                                      Theme.of(context).focusColor,
-                                                      FontWeight.w600,
-                                                      'FontRegular'),
-                                                  textAlign: TextAlign.center,
-                                                ),
-                                              ],
                                             ),
                                           )
                                         ],
@@ -541,9 +551,10 @@ class _Service1_ScreenState extends State<Service1_Screen> {
           return StatefulBuilder(
               builder: (BuildContext context, StateSetter ssetState) {
                 return Container(
+                  margin: EdgeInsets.only(top: 5.0),
                   height: MediaQuery.of(context).size.height * 0.8,
                   width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.only(right: 15.0, left: 15.0),
+                  padding: EdgeInsets.only(right: 15.0, left: 15.0,),
                   child: SingleChildScrollView(
                     controller: controller,
                     child: Column(

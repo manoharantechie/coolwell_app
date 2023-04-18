@@ -8,14 +8,14 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../common/custom_widget.dart';
 import '../../common/localization/localizations.dart';
 
-class Forgot_Password1 extends StatefulWidget  {
-  const Forgot_Password1({Key? key}) : super(key: key);
+class Forgot_Password extends StatefulWidget  {
+  const Forgot_Password({Key? key}) : super(key: key);
 
   @override
-  State<Forgot_Password1> createState() => _Forgot_Password1State();
+  State<Forgot_Password> createState() => _Forgot_PasswordState();
 }
 
-class _Forgot_Password1State extends State<Forgot_Password1> {
+class _Forgot_PasswordState extends State<Forgot_Password> {
 
   bool email = true;
   bool otp = false;
@@ -54,6 +54,9 @@ class _Forgot_Password1State extends State<Forgot_Password1> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Flexible(child: InkWell(
+                onTap: (){
+                  Navigator.pop(context);
+                },
                 child: Container(
                   padding: EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),
                   decoration: BoxDecoration(

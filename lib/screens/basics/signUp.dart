@@ -1,4 +1,5 @@
-import 'package:coolwell_app/screens/basics/forgot_pass1.dart';
+import 'package:coolwell_app/screens/basics/forgot_pass.dart';
+import 'package:coolwell_app/screens/service/service.dart';
 import 'package:country_calling_code_picker/country.dart';
 import 'package:country_calling_code_picker/functions.dart';
 import 'package:flutter/cupertino.dart';
@@ -7,22 +8,25 @@ import 'package:flutter/material.dart';
 import '../../common/country.dart';
 import '../../common/custom_widget.dart';
 import '../../common/localization/localizations.dart';
+import '../../common/model/api_utils.dart';
+import '../../common/model/login.dart';
 import '../../common/text_field_custom_prefix.dart';
-import '../../common/textfield_custom.dart';
-import '../../common/textformfield_custom.dart';
 import '../../common/theme/custom_theme.dart';
 
-class Signin_Screen extends StatefulWidget {
-  const Signin_Screen({Key? key}) : super(key: key);
+class SignUp_Screen extends StatefulWidget {
+  const SignUp_Screen({Key? key}) : super(key: key);
 
   @override
-  State<Signin_Screen> createState() => _Signin_ScreenState();
+  State<SignUp_Screen> createState() => _SignUp_ScreenState();
 }
 
-class _Signin_ScreenState extends State<Signin_Screen> {
+class _SignUp_ScreenState extends State<SignUp_Screen> {
 
+  APIUtils apiUtils = APIUtils();
+  bool loading = false;
+  var snackBar;
   Country? _selectedCountry;
-  bool mobileUIdesign = false;
+  bool mobileUIdesign = true;
   FocusNode mobileFocus = FocusNode();
   bool mobileVerify = true;
   TextEditingController mobile = TextEditingController();
@@ -34,6 +38,7 @@ class _Signin_ScreenState extends State<Signin_Screen> {
   TextEditingController nameController = TextEditingController();
   TextEditingController passController = TextEditingController();
   TextEditingController mobileController = TextEditingController();
+  final emailformKey = GlobalKey<FormState>();
 
 
   void initCountry() async {
@@ -47,6 +52,7 @@ class _Signin_ScreenState extends State<Signin_Screen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Theme.of(context).backgroundColor,
       body: Container(
         margin: EdgeInsets.only(top: 20.0),
@@ -71,174 +77,201 @@ class _Signin_ScreenState extends State<Signin_Screen> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Flexible(child: mobileUIdesign ? Container(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Text(
-                  AppLocalizations.instance
-                      .text("loc_hey"),
-                  style: CustomWidget(context: context)
-                      .CustomSizedTextStyle(
-                      18.0,
-                      Theme.of(context).focusColor,
-                      FontWeight.w600,
-                      'FontRegular'),
-                ),
-                SizedBox(height: 5.0,),
-                Text(
-                  AppLocalizations.instance
-                      .text("loc_welcome_txt"),
-                  style: CustomWidget(context: context)
-                      .CustomSizedTextStyle(
-                      30.0,
-                      Theme.of(context).focusColor,
-                      FontWeight.w600,
-                      'FontRegular'),
-                ),
-                SizedBox(height: 30.0,),
-
-                TextFormCustom(
-                  onEditComplete: () {
-                    nameFocus.unfocus();
-                    FocusScope.of(context).requestFocus(passFocus);
-                  },
-                  radius: 6.0,
-                  error: "Enter Username or mail",
-                  textColor: Theme.of(context).primaryColor,
-                  borderColor: Theme.of(context).dividerColor,
-                  fillColor: Theme.of(context).focusColor,
-                  hintStyle: CustomWidget(context: context).CustomSizedTextStyle(
-                      14.0, Theme.of(context).primaryColor.withOpacity(0.3), FontWeight.w500, 'FontRegular'),
-                  textStyle: CustomWidget(context: context).CustomSizedTextStyle(
-                      14.0, Theme.of(context).primaryColor, FontWeight.w500, 'FontRegular'),
-                  textInputAction: TextInputAction.next,
-                  focusNode: nameFocus,
-                  maxlines: 1,
-                  text: '',
-                  hintText: "Username or mail",
-                  obscureText: false,
-                  textChanged: (value) {},
-                  onChanged: () {},
-                  suffix: Container(
-                    width: 0.0,
+            child: Form(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Text(
+                    AppLocalizations.instance
+                        .text("loc_hey"),
+                    style: CustomWidget(context: context)
+                        .CustomSizedTextStyle(
+                        18.0,
+                        Theme.of(context).focusColor,
+                        FontWeight.w600,
+                        'FontRegular'),
                   ),
-                  prefix: Container(
-                    child: Icon(
-                      Icons.person,
-                      color: Theme.of(context).primaryColor.withOpacity(0.3),
-                    ),
+                  SizedBox(height: 5.0,),
+                  Text(
+                    AppLocalizations.instance
+                        .text("loc_welcome_txt"),
+                    style: CustomWidget(context: context)
+                        .CustomSizedTextStyle(
+                        30.0,
+                        Theme.of(context).focusColor,
+                        FontWeight.w600,
+                        'FontRegular'),
                   ),
-                  validator: (value) {
+                  SizedBox(height: 30.0,),
 
-                  },
-                  enabled: true,
-                  textInputType: TextInputType.name,
-                  controller: nameController,
-                ),
-                SizedBox(height: 15.0,),
-                TextFormCustom(
-                  onEditComplete: () {
-                    passFocus.unfocus();
-                    // FocusScope.of(context).requestFocus(newPassFocus);
-                  },
-                  radius: 6.0,
-                  error: "Enter Password",
-                  textColor: Theme.of(context).primaryColor,
-                  borderColor: Theme.of(context).dividerColor,
-                  fillColor: Theme.of(context).focusColor,
-                  hintStyle: CustomWidget(context: context).CustomSizedTextStyle(
-                      14.0, Theme.of(context).primaryColor.withOpacity(0.3), FontWeight.w500, 'FontRegular'),
-                  textStyle: CustomWidget(context: context).CustomSizedTextStyle(
-                      14.0, Theme.of(context).primaryColor, FontWeight.w500, 'FontRegular'),
-                  textInputAction: TextInputAction.next,
-                  focusNode: passFocus,
-                  maxlines: 1,
-                  text: '',
-                  hintText: "Password",
-                  obscureText: !passVisible,
-                  textChanged: (value) {},
-                  onChanged: () {},
-                  suffix: IconButton(
-
-                    icon: Icon(
-                      passVisible ? Icons.visibility : Icons.visibility_off,
-                      color: Theme.of(context).primaryColor.withOpacity(0.3),
-                    ),
-                    onPressed: () {
-                      setState(() {
-                        passVisible = !passVisible;
-                      });
+                  TextFormCustom(
+                    onEditComplete: () {
+                      nameFocus.unfocus();
+                      FocusScope.of(context).requestFocus(passFocus);
                     },
-                  ),
-                  prefix: Container(
-                    child: Icon(
-                      Icons.lock,
-                      color: Theme.of(context).primaryColor.withOpacity(0.3),
+                    radius: 6.0,
+                    error: "Enter Username or mail",
+                    textColor: Theme.of(context).primaryColor,
+                    borderColor: Theme.of(context).dividerColor,
+                    fillColor: Theme.of(context).focusColor,
+                    hintStyle: CustomWidget(context: context).CustomSizedTextStyle(
+                        14.0, Theme.of(context).primaryColor.withOpacity(0.3), FontWeight.w500, 'FontRegular'),
+                    textStyle: CustomWidget(context: context).CustomSizedTextStyle(
+                        14.0, Theme.of(context).primaryColor, FontWeight.w500, 'FontRegular'),
+                    textInputAction: TextInputAction.next,
+                    focusNode: nameFocus,
+                    maxlines: 1,
+                    text: '',
+                    hintText: "Username or mail",
+                    obscureText: false,
+                    textChanged: (value) {},
+                    onChanged: () {},
+                    suffix: Container(
+                      width: 0.0,
                     ),
+                    prefix: Container(
+                      child: Icon(
+                        Icons.person,
+                        color: Theme.of(context).primaryColor.withOpacity(0.3),
+                      ),
+                    ),
+                    validator: (value) {
+                      if(nameController.text.isEmpty) {
+                        return "Please Enter Email Details";
+                      } else if(!RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                          .hasMatch(nameController.text)) {
+                        return "Please enter valid email format";
+                      }
+                    },
+                    enabled: true,
+                    textInputType: TextInputType.name,
+                    controller: nameController,
                   ),
-                  validator: (value) {
+                  SizedBox(height: 15.0,),
+                  TextFormCustom(
+                    onEditComplete: () {
+                      passFocus.unfocus();
+                      // FocusScope.of(context).requestFocus(newPassFocus);
+                    },
+                    radius: 6.0,
+                    error: "Enter Password",
+                    textColor: Theme.of(context).primaryColor,
+                    borderColor: Theme.of(context).dividerColor,
+                    fillColor: Theme.of(context).focusColor,
+                    hintStyle: CustomWidget(context: context).CustomSizedTextStyle(
+                        14.0, Theme.of(context).primaryColor.withOpacity(0.3), FontWeight.w500, 'FontRegular'),
+                    textStyle: CustomWidget(context: context).CustomSizedTextStyle(
+                        14.0, Theme.of(context).primaryColor, FontWeight.w500, 'FontRegular'),
+                    textInputAction: TextInputAction.next,
+                    focusNode: passFocus,
+                    maxlines: 1,
+                    text: '',
+                    hintText: "Password",
+                    obscureText: !passVisible,
+                    textChanged: (value) {},
+                    onChanged: () {},
+                    suffix: IconButton(
 
-                  },
-                  enabled: true,
-                  textInputType: TextInputType.text,
-                  controller: passController,
-                ),
-                SizedBox(height: 20.0,),
+                      icon: Icon(
+                        passVisible ? Icons.visibility : Icons.visibility_off,
+                        color: Theme.of(context).primaryColor.withOpacity(0.3),
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          passVisible = !passVisible;
+                        });
+                      },
+                    ),
+                    prefix: Container(
+                      child: Icon(
+                        Icons.lock,
+                        color: Theme.of(context).primaryColor.withOpacity(0.3),
+                      ),
+                    ),
+                    validator: (value) {
+                      if(passController.text.isEmpty) {
+                        return "Please Enter Password ";
+                      } else if( passController.text.length< 8 ) {
+                        return "Please enter must not be less than 8 character";
+                      } else if(passController.text.length> 14){
+                        return "Please enter must not be greater than 14 character";
+                      }
+                    },
+                    enabled: true,
+                    textInputType: TextInputType.text,
+                    controller: passController,
+                  ),
+                  SizedBox(height: 20.0,),
 
-                Align(
-                    alignment: Alignment.center,
-                    child:  Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                            AppLocalizations.instance
-                                .text("loc_forgot_pass"),
-                            style: TextStyle(
-                                decoration: TextDecoration.underline,
-                                fontSize: 14.0,
-                                color: Theme
-                                    .of(context)
-                                    .secondaryHeaderColor,
-                                fontWeight: FontWeight.w600,
-                                fontStyle: FontStyle.normal
-                            ),
-                            textAlign: TextAlign.start),
-                        SizedBox(height: 30.0,),
-                        InkWell(
-                          onTap: (){
-
-                          },
-                          child: Container(
-                            width: MediaQuery.of(context).size.width * 0.6,
-                            padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 10.0),
-                            decoration: BoxDecoration(
-                              // border: Border.all(
-                              //   width: 1.0,
-                              //   color: Theme.of(context).cardColor,
-                              // ),
-                              borderRadius: BorderRadius.circular(20.0),
-                              color: Theme.of(context).buttonColor,
-                            ),
-                            child: Center(
-                              child: Text(
+                  Align(
+                      alignment: Alignment.center,
+                      child:  Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          InkWell(
+                            onTap: (){
+                              Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          Forgot_Password()));
+                            },
+                            child: Text(
                                 AppLocalizations.instance
-                                    .text("loc_signup"),
-                                style: CustomWidget(context: context)
-                                    .CustomSizedTextStyle(
-                                    17.0,
-                                    Theme.of(context).focusColor,
-                                    FontWeight.w600,
-                                    'FontRegular'),
+                                    .text("loc_forgot_pass"),
+                                style: TextStyle(
+                                    decoration: TextDecoration.underline,
+                                    fontSize: 14.0,
+                                    color: Theme
+                                        .of(context)
+                                        .secondaryHeaderColor,
+                                    fontWeight: FontWeight.w600,
+                                    fontStyle: FontStyle.normal
+                                ),
+                                textAlign: TextAlign.start),
+                          ),
+                          SizedBox(height: 30.0,),
+                          InkWell(
+                            onTap: (){
+                              if (emailformKey.currentState!.validate()) {
+                                setState(() {
+                                  loading = true;
+                                  verifyMail();
+                                });
+                              }
+                            },
+                            child: Container(
+                              width: MediaQuery.of(context).size.width * 0.6,
+                              padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 10.0),
+                              decoration: BoxDecoration(
+                                // border: Border.all(
+                                //   width: 1.0,
+                                //   color: Theme.of(context).cardColor,
+                                // ),
+                                borderRadius: BorderRadius.circular(20.0),
+                                color: Theme.of(context).buttonColor,
+                              ),
+                              child: Center(
+                                child: Text(
+                                  AppLocalizations.instance
+                                      .text("loc_signup"),
+                                  style: CustomWidget(context: context)
+                                      .CustomSizedTextStyle(
+                                      17.0,
+                                      Theme.of(context).focusColor,
+                                      FontWeight.w600,
+                                      'FontRegular'),
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                        SizedBox(height: 25.0,),
-                      ],
-                    )
-                ),
-              ],
+                          SizedBox(height: 25.0,),
+                        ],
+                      )
+                  ),
+                ],
+              ),
+              key: emailformKey,
             ),
           ) : mobileUI(),flex: 3,),
           Flexible(child: Container(
@@ -628,7 +661,7 @@ class _Signin_ScreenState extends State<Signin_Screen> {
                 Navigator.of(context).push(
                     MaterialPageRoute(
                         builder: (context) =>
-                            Forgot_Password1()));
+                            Forgot_Password()));
               },
               child: Container(
                 width: MediaQuery.of(context).size.width * 0.6,
@@ -660,6 +693,48 @@ class _Signin_ScreenState extends State<Signin_Screen> {
         ],
       ),
     );
+  }
+
+
+  verifyMail() {
+    apiUtils
+        .doLoginEmail(
+      nameController.text.toString(),
+      passController.text.toString(),
+
+    )
+        .then((Login loginData) {
+      setState(() {
+
+        if (loginData.success!) {
+          setState(() {
+            loading = false;
+          });
+          CustomWidget(context: context).
+          custombar("Login", loginData.message.toString(), true);
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) =>
+                  Service_Screen()));
+          nameController.clear();
+          passController.clear();
+
+        } else {
+
+          loading = false;
+          CustomWidget(context: context)
+              .custombar("Login", loginData.message.toString(), false);
+
+        }
+      });
+
+    }).catchError((Object error) {
+
+
+      print(error);
+      setState(() {
+        loading = false;
+      });
+    });
   }
 
 

@@ -1,5 +1,5 @@
-import 'package:coolwell_app/screens/basics/signin.dart';
-import 'package:coolwell_app/screens/basics/signup.dart';
+import 'package:coolwell_app/screens/basics/signUp.dart';
+import 'package:coolwell_app/screens/basics/signIn.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -87,7 +87,7 @@ class _SplashHomeScreenState extends State<SplashHomeScreen> {
                       Navigator.of(context).push(
                           MaterialPageRoute(
                               builder: (context) =>
-                                  Signin_Screen()));
+                                  SignIn_Screen()));
                     },
                     child: Container(
                       width: MediaQuery.of(context).size.width * 0.6,
