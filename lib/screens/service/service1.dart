@@ -34,123 +34,122 @@ class _Service1_ScreenState extends State<Service1_Screen> {
         margin: EdgeInsets.only(top: 20.0),
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
-        child: Column(
+        child: Stack(
           children: [
-            Flexible(child: Container(
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage("assets/images/service.png"),
-                  fit: BoxFit.cover,
-                ),
-              ),
-              child: Padding(
-                padding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        InkWell(
-                          onTap:(){
-                            Navigator.pop(context);
-                            },
-                          child: Container(
-                            padding: EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Theme.of(context).cardColor,
-                            ),
-                            child: Center(
-                              child: Icon(
-                                Icons.arrow_back,
-                                size: 22.0,
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(width: 20.0,),
-                        InkWell(
-                          onTap: (){
-                            setState(() {
-                              viewDetails();
-                            });
-                          },
-                          child: Container(
-                            padding: EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Theme.of(context).splashColor,
-                              border: Border.all(width: 1.0,color: Theme.of(context).focusColor,)
-                            ),
-                            child: Center(
-                              child: SvgPicture.asset(
-                                "assets/images/search.svg",
-                                height: 22.0,
-                                color:  Theme.of(context).focusColor,
-                              ),
-                            ),
-                          ),
-                        ),
-
-                      ],
-                    ),
-                    Container(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            AppLocalizations.instance
-                                .text("loc_services"),
-                            style: CustomWidget(context: context)
-                                .CustomSizedTextStyle(
-                                26.0,
-                                Theme.of(context).focusColor,
-                                FontWeight.w600,
-                                'FontRegular'),
-                            textAlign: TextAlign.center,
-                          ),
-                          SizedBox(height: 5.0,),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.star,
-                                size: 15.0,
-                                color: Theme.of(context).cardColor,
-                              ),
-                              SizedBox(width: 5.0,),
-                              Text(
-                                "4.81 (1.2M Booking)",
-                                style: CustomWidget(context: context)
-                                    .CustomSizedTextStyle(
-                                    10.0,
-                                    Theme.of(context).focusColor,
-                                    FontWeight.w400,
-                                    'FontRegular'),
-                                textAlign: TextAlign.center,
-                              ),
-                            ],
-                          )
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            ),flex: 2,),
-            Flexible(child: Container(
-              color: Theme.of(context).scaffoldBackgroundColor,
-              child: Padding(
-                padding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
+             Container(
+               child: Column(
+                 children: [
                    Container(
+                     width: MediaQuery.of(context).size.width,
+                     decoration: BoxDecoration(
+                       image: DecorationImage(
+                         image: AssetImage("assets/images/service.png"),
+                         fit: BoxFit.cover,
+                       ),
+                     ),
+                     child: Padding(
+                       padding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+                       child: Column(
+                         crossAxisAlignment: CrossAxisAlignment.start,
+                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                         children: [
+                           Row(
+                             crossAxisAlignment: CrossAxisAlignment.center,
+                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                             children: [
+                               InkWell(
+                                 onTap:(){
+                                   Navigator.pop(context);
+                                 },
+                                 child: Container(
+                                   padding: EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),
+                                   decoration: BoxDecoration(
+                                     shape: BoxShape.circle,
+                                     color: Theme.of(context).cardColor,
+                                   ),
+                                   child: Center(
+                                     child: Icon(
+                                       Icons.arrow_back,
+                                       size: 22.0,
+                                     ),
+                                   ),
+                                 ),
+                               ),
+                               SizedBox(width: 20.0,),
+                               InkWell(
+                                 onTap: (){
+                                   setState(() {
+                                     viewDetails();
+                                   });
+                                 },
+                                 child: Container(
+                                   padding: EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),
+                                   decoration: BoxDecoration(
+                                       shape: BoxShape.circle,
+                                       color: Theme.of(context).splashColor,
+                                       border: Border.all(width: 1.0,color: Theme.of(context).focusColor,)
+                                   ),
+                                   child: Center(
+                                     child: SvgPicture.asset(
+                                       "assets/images/search.svg",
+                                       height: 22.0,
+                                       color:  Theme.of(context).focusColor,
+                                     ),
+                                   ),
+                                 ),
+                               ),
+
+                             ],
+                           ),
+                           const SizedBox(height: 30.0,),
+                           Container(
+                             child: Column(
+                               crossAxisAlignment: CrossAxisAlignment.start,
+                               children: [
+                                 Text(
+                                   AppLocalizations.instance
+                                       .text("loc_services"),
+                                   style: CustomWidget(context: context)
+                                       .CustomSizedTextStyle(
+                                       26.0,
+                                       Theme.of(context).focusColor,
+                                       FontWeight.w600,
+                                       'FontRegular'),
+                                   textAlign: TextAlign.center,
+                                 ),
+                                 SizedBox(height: 5.0,),
+                                 Row(
+                                   crossAxisAlignment: CrossAxisAlignment.center,
+                                   children: [
+                                     Icon(
+                                       Icons.star,
+                                       size: 15.0,
+                                       color: Theme.of(context).cardColor,
+                                     ),
+                                     SizedBox(width: 5.0,),
+                                     Text(
+                                       "4.81 (1.2M Booking)",
+                                       style: CustomWidget(context: context)
+                                           .CustomSizedTextStyle(
+                                           10.0,
+                                           Theme.of(context).focusColor,
+                                           FontWeight.w400,
+                                           'FontRegular'),
+                                       textAlign: TextAlign.center,
+                                     ),
+                                   ],
+                                 )
+                               ],
+                             ),
+                           )
+                         ],
+                       ),
+                     ),
+                   ),
+                   const SizedBox(height: 20.0,),
+                   Container(
+                     color: Theme.of(context).scaffoldBackgroundColor,
+                     padding: EdgeInsets.only(left: 20.0),
                      height: 85.0,
                      child:  ListView.builder(
                        itemCount: 3,
@@ -216,11 +215,21 @@ class _Service1_ScreenState extends State<Service1_Screen> {
                        },
                      ),
                    ),
-                    Container(
+                 ],
+               ),
+             ),
+            Container(
+              color: Theme.of(context).scaffoldBackgroundColor,
+
+              margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.32),
+              child: Padding(
+                padding: EdgeInsets.fromLTRB(20.0, 00.0, 20.0, 20.0),
+                child:     Container(
+                    child: SingleChildScrollView(
                       child: ListView.builder(
                         itemCount: texts.length,
                         shrinkWrap: true,
-                        physics: NeverScrollableScrollPhysics(),
+                        physics: ScrollPhysics(),
                         controller: controller,
                         itemBuilder: (BuildContext context, int index) {
                           return Column(
@@ -506,13 +515,11 @@ class _Service1_ScreenState extends State<Service1_Screen> {
                         },
                       ),
                     )
-
-                  ],
-                ),
+                )
               ),
-            ),flex: 8,)
+            )
           ],
-        ),
+        )
       ),
     );
   }
