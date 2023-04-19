@@ -6,6 +6,8 @@ import 'package:flutter_svg/svg.dart';
 import '../../common/custom_widget.dart';
 import '../../common/dotted_line_widget.dart';
 import '../../common/localization/localizations.dart';
+import '../../common/model/api_utils.dart';
+import '../../common/model/get_services_details.dart';
 import '../../common/textformfield_custom.dart';
 
 class Service_Screen extends StatefulWidget {
@@ -17,12 +19,14 @@ class Service_Screen extends StatefulWidget {
 
 class _Service_ScreenState extends State<Service_Screen> {
 
+  APIUtils apiUtils = APIUtils();
+  bool loading = false;
   FocusNode issuesFocus = FocusNode();
   TextEditingController issuesController = TextEditingController();
 
   ScrollController _scrollController = ScrollController();
   ScrollController controller = ScrollController();
-
+  List<Result> totalDetails = [];
   List<String> texts = ["Cleaning", "Repair", "Install"];
   List<String> text_drop =["Experienced\nprofessionals", "Background\nverified", "Background\nverified"];
   List<String> text_service =["CW verified repair quotes", "Talk to expert free", "Upto 30 days warranty ", "No questions asked claim"];
@@ -1166,6 +1170,27 @@ class _Service_ScreenState extends State<Service_Screen> {
                 );
               });
         });
+  }
+
+  getServicesData() {
+    apiUtils.getServicesDetails().then((GetServiceDetails DetailsModel) {
+      if (DetailsModel.success!) {
+        setState(() {
+          totalDetails = DetailsModel.result!;
+        });
+
+      } else {
+        setState(() {
+          loading = false;
+          CustomWidget(context: context)
+              .custombar("Service", DetailsModel.message.toString(), false);
+        });
+      }
+    }).catchError((Object error) {
+      setState(() {
+        loading = false;
+      });
+    });
   }
 
 }
