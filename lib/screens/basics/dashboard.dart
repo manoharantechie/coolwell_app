@@ -1,4 +1,4 @@
-import 'package:carousel_slider/carousel_slider.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -34,127 +34,102 @@ class _DashBoard_ScreenState extends State<DashBoard_Screen> {
         margin: EdgeInsets.only(top: 30.0),
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
+        child:Stack(
           children: [
-            Container(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height * 0.24,
-              padding: EdgeInsets.only(left: 40.0,right: 30.0, bottom: 20.0),
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage("assets/images/dashboard_back.png"),
-                  fit: BoxFit.cover,
-                ),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Align(
-                    alignment: Alignment.topRight,
-                    child: Padding(
-                      padding: EdgeInsets.only(right: 30.0),
-                      child: SvgPicture.asset("assets/images/notification.svg", height: 22.0,),
+            Column(
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height * 0.24,
+                  padding: EdgeInsets.only(left: 40.0,right: 30.0, bottom: 20.0),
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage("assets/images/dashboard_back.png"),
+                      fit: BoxFit.cover,
                     ),
                   ),
-                  SizedBox(
-                    height: 50.0,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Align(
+                        alignment: Alignment.topRight,
+                        child: Padding(
+                          padding: EdgeInsets.only(right: 30.0),
+                          child: SvgPicture.asset("assets/images/notification.svg", height: 22.0,),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 50.0,
+                      ),
+                      Text(
+                        "Your are in",
+                        style: CustomWidget(context: context)
+                            .CustomSizedTextStyle(
+                            10.0,
+                            Theme.of(context).focusColor,
+                            FontWeight.w400,
+                            'FontRegular'),
+                        textAlign: TextAlign.end,
+                      ),
+                      Text(
+                        "Baskar Complex",
+                        style: CustomWidget(context: context)
+                            .CustomSizedTextStyle(
+                            18.0,
+                            Theme.of(context).focusColor,
+                            FontWeight.w600,
+                            'FontRegular'),
+                        textAlign: TextAlign.end,
+                      ),
+                      Text(
+                        "Baskar Complex, 600600.",
+                        style: CustomWidget(context: context)
+                            .CustomSizedTextStyle(
+                            14.0,
+                            Theme.of(context).focusColor,
+                            FontWeight.w800,
+                            'FontRegular'),
+                        textAlign: TextAlign.end,
+                      ),
+                    ],
                   ),
-                  Text(
-                    "Your are in",
-                    style: CustomWidget(context: context)
-                        .CustomSizedTextStyle(
-                        10.0,
-                        Theme.of(context).focusColor,
-                        FontWeight.w400,
-                        'FontRegular'),
-                    textAlign: TextAlign.end,
-                  ),
-                  Text(
-                    "Baskar Complex",
-                    style: CustomWidget(context: context)
-                        .CustomSizedTextStyle(
-                        18.0,
-                        Theme.of(context).focusColor,
-                        FontWeight.w600,
-                        'FontRegular'),
-                    textAlign: TextAlign.end,
-                  ),
-                  Text(
-                    "Baskar Complex, 600600.",
-                    style: CustomWidget(context: context)
-                        .CustomSizedTextStyle(
-                        14.0,
-                        Theme.of(context).focusColor,
-                        FontWeight.w800,
-                        'FontRegular'),
-                    textAlign: TextAlign.end,
-                  ),
-                ],
-              ),
-            ),
+                ),
 
-            Padding(padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),child: Container(
-              width: MediaQuery.of(context).size.width,
-              padding: EdgeInsets.fromLTRB(10.0, 12.0, 10.0, 12.0),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10.0),
-                  border: Border.all(width: 1.0,color: Theme.of(context).accentColor,)
-              ),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  SvgPicture.asset("assets/images/search.svg", height: 20.0, color: Theme.of(context).accentColor,),
-                  SizedBox(width: 10.0,),
-                  Text(
-                    AppLocalizations.instance
-                        .text("loc_search"),
-                    style: CustomWidget(context: context)
-                        .CustomSizedTextStyle(
-                        14.0,
-                        Theme.of(context).accentColor,
-                        FontWeight.w400,
-                        'FontRegular'),
-                    textAlign: TextAlign.end,
+                Padding(padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  padding: EdgeInsets.fromLTRB(10.0, 12.0, 10.0, 12.0),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.0),
+                      border: Border.all(width: 1.0,color: Theme.of(context).accentColor,)
                   ),
-                ],
-              ),
-            ),),
-            // Container(
-            //   height: MediaQuery.of(context).size.height * 0.3,
-            //   width: MediaQuery.of(context).size.width,
-            //   child: CarouselSlider(
-            //     options: CarouselOptions(
-            //       onPageChanged: (index, reason) {
-            //         setState(() {
-            //           slideIndex = index;
-            //         });
-            //       },
-            //       autoPlay: true,
-            //       aspectRatio: 1.0,
-            //       enlargeCenterPage: true,
-            //       viewportFraction: 1,
-            //     ),
-            //     items: bannerList
-            //         .map((item) => Container(
-            //       width: MediaQuery.of(context).size.width,
-            //       height: 150.0,
-            //       decoration:BoxDecoration(
-            //         image:DecorationImage(image: NetworkImage(item),
-            //             fit: BoxFit.fill),
-            //         borderRadius: BorderRadius.circular(15.0),
-            //       ),
-            //       padding: EdgeInsets.all(5.0),
-            //     ),)
-            //         .toList(),
-            //   ),
-            // ),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      SvgPicture.asset("assets/images/search.svg", height: 20.0, color: Theme.of(context).accentColor,),
+                      SizedBox(width: 10.0,),
+                      Text(
+                        AppLocalizations.instance
+                            .text("loc_search"),
+                        style: CustomWidget(context: context)
+                            .CustomSizedTextStyle(
+                            14.0,
+                            Theme.of(context).accentColor,
+                            FontWeight.w400,
+                            'FontRegular'),
+                        textAlign: TextAlign.end,
+                      ),
+                    ],
+                  ),
+                ),),
+
+              ],
+            ),
 
             Container(
               height: MediaQuery.of(context).size.height,
+              margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.33),
               child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -713,9 +688,8 @@ class _DashBoard_ScreenState extends State<DashBoard_Screen> {
                 ),
               ),
             )
-
           ],
-        ),
+        )
       ),
     );
   }

@@ -1,3 +1,4 @@
+import 'package:coolwell_app/screens/basics/dashboard.dart';
 import 'package:coolwell_app/screens/basics/forgot_pass.dart';
 import 'package:coolwell_app/screens/service/service.dart';
 import 'package:country_calling_code_picker/country.dart';
@@ -714,7 +715,7 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
           custombar("Login", loginData.message.toString(), true);
           Navigator.of(context).push(MaterialPageRoute(
               builder: (context) =>
-                  Service_Screen()));
+                  DashBoard_Screen()));
           nameController.clear();
           passController.clear();
 
