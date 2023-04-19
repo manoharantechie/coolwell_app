@@ -13,6 +13,7 @@ import '../../common/model/api_utils.dart';
 import '../../common/model/login.dart';
 import '../../common/text_field_custom_prefix.dart';
 import '../../common/theme/custom_theme.dart';
+import 'home.dart';
 
 class SignUp_Screen extends StatefulWidget {
   const SignUp_Screen({Key? key}) : super(key: key);
@@ -234,12 +235,15 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
                           SizedBox(height: 30.0,),
                           InkWell(
                             onTap: (){
-                              if (emailformKey.currentState!.validate()) {
-                                setState(() {
-                                  loading = true;
-                                  verifyMail();
-                                });
-                              }
+                              // if (emailformKey.currentState!.validate()) {
+                              //   setState(() {
+                              //     loading = true;
+                              //     verifyMail();
+                              //   });
+                              // }
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) =>
+                                      Home_Screen()));
                             },
                             child: Container(
                               width: MediaQuery.of(context).size.width * 0.6,
@@ -701,9 +705,7 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
     apiUtils
         .doLoginEmail(
       nameController.text.toString(),
-      passController.text.toString(),
-
-    )
+      passController.text.toString(),)
         .then((Login loginData) {
       setState(() {
 

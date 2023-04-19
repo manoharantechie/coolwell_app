@@ -89,6 +89,10 @@
   "loc_search": "Serach",
   "loc_our_services": "Our services",
   "loc_book": "Book now",
-  "loc_recent_book": "Recently Booked services"
+  "loc_recent_book": "Recently Booked services",
+  "loc_side_cool": "Cool well",
+  "loc_side_service": "Service",
+  "loc_side_history": "History",
+  "loc_side_account": "Account"
 
 }

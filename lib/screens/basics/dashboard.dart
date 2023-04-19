@@ -1,8 +1,10 @@
 
+import 'package:coolwell_app/screens/service/service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../common/bottom_nav.dart';
 import '../../common/custom_widget.dart';
 import '../../common/localization/localizations.dart';
 
@@ -15,6 +17,8 @@ class DashBoard_Screen extends StatefulWidget {
 
 class _DashBoard_ScreenState extends State<DashBoard_Screen> {
 
+  List<String> titleText=["loc_side_cool","loc_side_service","loc_side_history","loc_side_account"];
+
   List<String> texts = ["Cleaning", "Repair", "Install","Deep clean AC Service"];
   List<String> img_texts = ["assets/images/book_service1.png", "assets/images/book_service2.png", "assets/images/book_service1.png", "assets/images/book_service2.png"];
   ScrollController _scrollController = ScrollController();
@@ -26,6 +30,7 @@ class _DashBoard_ScreenState extends State<DashBoard_Screen> {
   bool  service = true;
   bool  installing = false;
   bool  help = false;
+
   
   @override
   Widget build(BuildContext context) {
@@ -129,12 +134,133 @@ class _DashBoard_ScreenState extends State<DashBoard_Screen> {
 
             Container(
               height: MediaQuery.of(context).size.height,
-              margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.33),
+              margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.34),
               child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
+                    Container(
+                      color: Theme.of(context).scaffoldBackgroundColor,
+                      padding: EdgeInsets.only(left: 20.0),
+                      height: 160.0,
+                      child:  ListView.builder(
+                        itemCount: 3,
+                        scrollDirection: Axis.horizontal,
+                        shrinkWrap: true,
+                        controller: _scrollController,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Row(
+                            children: [
+                              Stack(
+                                children: [
+                                  Container(
+                                    width: MediaQuery.of(context).size.width * 0.68,
+                                    padding: EdgeInsets.fromLTRB(15.0, 0.0, 15.0, 10.0),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(15.0),
+                                      gradient: LinearGradient(
+                                        begin: Alignment.topLeft,
+                                        end: Alignment.bottomRight,
+                                        colors: [
+                                          const Color(0xFF0DD8FF),
+                                          const Color(0xFF0FABFF),
+                                          const Color(0xFF1457FF),
+                                          const Color(0xFF1636FF),
+                                          const Color(0xFF0E69C7),
+                                        ],
+                                      ),
+                                    ),
+                                    child: Row(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+
+                                      children: [
+                                        Flexible(child: Column(
+                                          crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                          children: [
+                                            Container(
+                                              padding: EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),
+                                              decoration: BoxDecoration(
+                                                color:  Theme.of(context).hoverColor,
+                                                borderRadius: BorderRadius.only(
+                                                    bottomLeft: Radius.circular(6.0),
+                                                    bottomRight: Radius.circular(6.0)),
+                                              ),
+                                              child: Text(
+                                                "Summer offer",
+                                                style: CustomWidget(context: context)
+                                                    .CustomSizedTextStyle(
+                                                    8.0,
+                                                    Theme.of(context).primaryColor,
+                                                    FontWeight.w400,
+                                                    'FontRegular'),
+                                                textAlign: TextAlign.end,
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              height: 20.0,
+                                            ),
+                                            Text(
+                                              "Deep clean AC service at just \$59",
+                                              style:
+                                              CustomWidget(context: context)
+                                                  .CustomSizedTextStyle(
+                                                  14.0,
+                                                  Theme.of(context)
+                                                      .focusColor,
+                                                  FontWeight.w800,
+                                                  'FontRegular'),
+                                            ),
+                                            SizedBox(height: 10.0,),
+                                            InkWell(
+                                              onTap:(){
+
+                                              },
+                                              child: Container(
+                                                padding: EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),
+                                                decoration: BoxDecoration(
+                                                    color: Theme.of(context)
+                                                        .hoverColor,
+                                                    borderRadius: BorderRadius.circular(5.0)
+                                                ),
+                                                child: Text(
+                                                  "Book now",
+                                                  style:
+                                                  CustomWidget(context: context)
+                                                      .CustomSizedTextStyle(
+                                                      8.0,
+                                                      Theme.of(context)
+                                                          .primaryColor,
+                                                      FontWeight.w400,
+                                                      'FontRegular'),
+                                                ),
+                                              ),
+                                            )
+                                          ],
+                                        ),flex: 1,),
+                                        SizedBox(width: 5.0,),
+                                        Flexible(child: Column(),flex: 1, )
+                                      ],
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    ),
+                                  ),
+                                 Row(
+                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                   children: [
+                                     Container(width: MediaQuery.of(context).size.width * 0.28,),
+                                       Image.asset("assets/images/ac.png",),
+                                   ],
+                                 )
+                                ],
+                              ),
+                              SizedBox(width: 15.0,)
+                            ],
+                          );
+                        },
+                      ),
+                    ),
+                    SizedBox(height: 20.0,),
                     Container(
                       width: MediaQuery.of(context).size.width,
                       padding: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
@@ -177,11 +303,14 @@ class _DashBoard_ScreenState extends State<DashBoard_Screen> {
                                           installing = false;
                                           help = false;
                                         });
+                                        Navigator.of(context).push(MaterialPageRoute(
+                                            builder: (context) =>
+                                                Service_Screen()));
                                       },
                                       child: Container(
                                         padding: EdgeInsets.all(5.0),
                                         decoration: service? BoxDecoration(
-                                            border: Border.all(width: 1.0,color: Theme.of(context).buttonColor,),
+                                            border: Border.all(width: 1.0,color: Theme.of(context).cardColor,),
                                             borderRadius: BorderRadius.circular(10.0),
                                             boxShadow: [
                                               BoxShadow(
@@ -257,7 +386,7 @@ class _DashBoard_ScreenState extends State<DashBoard_Screen> {
                                       child: Container(
                                         padding: EdgeInsets.all(5.0),
                                         decoration: repair ? BoxDecoration(
-                                            border: Border.all(width: 1.0,color: Theme.of(context).buttonColor,),
+                                            border: Border.all(width: 1.0,color: Theme.of(context).cardColor,),
                                             borderRadius: BorderRadius.circular(10.0),
                                             boxShadow: [
                                               BoxShadow(
@@ -339,7 +468,7 @@ class _DashBoard_ScreenState extends State<DashBoard_Screen> {
                                       child: Container(
                                         padding: EdgeInsets.all(5.0),
                                         decoration: installing ?BoxDecoration(
-                                            border: Border.all(width: 1.0,color: Theme.of(context).buttonColor,),
+                                            border: Border.all(width: 1.0,color: Theme.of(context).cardColor,),
                                             borderRadius: BorderRadius.circular(10.0),
                                             boxShadow: [
                                               BoxShadow(
@@ -415,7 +544,7 @@ class _DashBoard_ScreenState extends State<DashBoard_Screen> {
                                       child: Container(
                                         padding: EdgeInsets.all(5.0),
                                         decoration: help ?BoxDecoration(
-                                            border: Border.all(width: 1.0,color: Theme.of(context).buttonColor,),
+                                            border: Border.all(width: 1.0,color: Theme.of(context).cardColor,),
                                             borderRadius: BorderRadius.circular(10.0),
                                             boxShadow: [
                                               BoxShadow(
@@ -538,7 +667,7 @@ class _DashBoard_ScreenState extends State<DashBoard_Screen> {
                                 Align(
                                   alignment: Alignment.topRight,
                                   child: Padding(
-                                    padding: EdgeInsets.only(right: 15.0,top: 30.0),
+                                    padding: EdgeInsets.only(right: 15.0,top: 40.0),
                                     child: Image.asset("assets/images/repair_logo.png",),
                                   ),
                                 ),
@@ -586,7 +715,7 @@ class _DashBoard_ScreenState extends State<DashBoard_Screen> {
                                 SizedBox(height: 15.0,),
 
                                 Container(
-                                  height: 160.0,
+                                  height: 170.0,
                                   child:  ListView.builder(
                                     itemCount: texts.length,
                                     scrollDirection: Axis.horizontal,
@@ -594,6 +723,7 @@ class _DashBoard_ScreenState extends State<DashBoard_Screen> {
                                     controller: _scrollController,
                                     itemBuilder: (BuildContext context, int index) {
                                       return Row(
+                                        crossAxisAlignment: CrossAxisAlignment.center,
                                         children: [
                                           Container(
                                             child: Column(
@@ -601,7 +731,7 @@ class _DashBoard_ScreenState extends State<DashBoard_Screen> {
                                               mainAxisAlignment: MainAxisAlignment.start,
                                               children: [
                                                 Image.asset(img_texts[index].toString(),),
-                                                SizedBox(height: 10.0,),
+                                                SizedBox(height: 15.0,),
                                                 Container(
                                                   width: MediaQuery.of(context).size.width * 0.25,
                                                   child: Text(
@@ -616,16 +746,16 @@ class _DashBoard_ScreenState extends State<DashBoard_Screen> {
                                                     overflow: TextOverflow.ellipsis,
                                                   ),
                                                 ),
-                                                SizedBox(height: 5.0,),
+                                                SizedBox(height: 10.0,),
                                                 Row(
                                                   crossAxisAlignment: CrossAxisAlignment.center,
                                                   children: [
                                                     Icon(
                                                       Icons.star,
-                                                      size: 15.0,
+                                                      size: 10.0,
                                                       color: Theme.of(context).cardColor,
                                                     ),
-                                                    SizedBox(width: 5.0,),
+                                                    SizedBox(width: 3.0,),
                                                     Text(
                                                       "4.81 (1.2M)",
                                                       style: CustomWidget(context: context)
@@ -638,7 +768,7 @@ class _DashBoard_ScreenState extends State<DashBoard_Screen> {
                                                     ),
                                                   ],
                                                 ),
-                                                SizedBox(height: 5.0,),
+                                                SizedBox(height: 3.0,),
                                                 Row(
                                                   crossAxisAlignment: CrossAxisAlignment.center,
                                                   mainAxisAlignment: MainAxisAlignment.start,
@@ -693,4 +823,5 @@ class _DashBoard_ScreenState extends State<DashBoard_Screen> {
       ),
     );
   }
+
 }

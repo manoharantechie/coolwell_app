@@ -73,7 +73,7 @@ class BottomNavState extends md.State<BottomNav> {
               textStyle: selected
                   ? labelStyle!.getOnSelectTextStyle()
                   : labelStyle!.getTextStyle(),
-              color:  selected?CustomTheme.of(context).focusColor:CustomTheme.of(context).canvasColor,
+              color:  selected?CustomTheme.of(context).cardColor:CustomTheme.of(context).primaryColor,
               bgColor:
                   selected ? bgStyle!.getSelectedColor() : bgStyle!.getColor(),
             );
@@ -294,11 +294,11 @@ class BMNavItem extends md.StatelessWidget {
                         )
                       : md.Container(),
                   md.SizedBox(
-                    height: 2.0,
+                    height: 8.0,
                   ),
                   label != null
                       ? md.Text(
-                          AppLocalizations.instance.text(label!).toUpperCase(),
+                          AppLocalizations.instance.text(label!),
                           style: textStyle)
                       : md.Container()
                 ])),
