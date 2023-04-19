@@ -43,6 +43,7 @@ dependencies:
   permission_handler:
   awesome_snackbar_content:
   provider:
+  carousel_slider:
 
 dev_dependencies:
   flutter_test:

@@ -1,3 +1,4 @@
+import 'package:coolwell_app/screens/basics/dashboard.dart';
 import 'package:coolwell_app/screens/payment/payment_summary.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -225,7 +226,6 @@ class _Service_ScreenState extends State<Service_Screen> {
              ),
             Container(
               color: Theme.of(context).scaffoldBackgroundColor,
-
               margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.34),
               child: Padding(
                 padding: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 20.0),
@@ -320,7 +320,7 @@ class _Service_ScreenState extends State<Service_Screen> {
                                                         fontSize: 10.0,
                                                         decoration: TextDecoration.lineThrough,
                                                         fontWeight: FontWeight.w600,
-                                                        color: Theme.of(context).primaryColor,
+                                                        color: Theme.of(context).accentColor,
                                                         fontStyle: FontStyle.normal
                                                     ),
                                                     textAlign: TextAlign.center,
@@ -478,6 +478,10 @@ class _Service_ScreenState extends State<Service_Screen> {
                                                 Navigator.of(context).push(MaterialPageRoute(
                                                     builder: (context) =>
                                                         Payment_Summary_Screen()));
+                                              } else if (index==1){
+                                                Navigator.of(context).push(MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        DashBoard_Screen()));
                                               }
                                               },
                                             child: Container(
