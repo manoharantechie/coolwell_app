@@ -79,6 +79,7 @@ flutter:
     - assets/language/localization_tr.json
     - assets/images/
     - assets/menu/
+    - assets/profile/
 
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

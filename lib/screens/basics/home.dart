@@ -1,8 +1,12 @@
+import 'dart:io';
+
+import 'package:coolwell_app/screens/service/service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../common/bottom_nav.dart';
 import '../../common/custom_widget.dart';
+import '../profile/profile.dart';
 import 'dashboard.dart';
 
 class Home_Screen extends StatefulWidget {
@@ -18,11 +22,11 @@ class _Home_ScreenState extends State<Home_Screen> {
   List<BottomNavItem>? _bottomItems;
   int currentIndex=0;
   int selectIndex=0;
-  List<Widget>     bottomPage = [
+  List<Widget>  bottomPage = [
     DashBoard_Screen(),
+    Service_Screen(),
     Container(),
-    Container(),
-    Container()
+    Profile_Screen()
   ];
 
   Widget screen = DashBoard_Screen();
@@ -45,8 +49,9 @@ class _Home_ScreenState extends State<Home_Screen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Theme.of(context).backgroundColor,
+    return WillPopScope(
+        child: Scaffold(
+        backgroundColor: Theme.of(context).backgroundColor,
         body:  PageStorage(child:  screen, bucket: bucket),
         bottomNavigationBar: BottomNav(
           index: currentIndex,
@@ -83,7 +88,20 @@ class _Home_ScreenState extends State<Home_Screen> {
           },
           items: _bottomItems,
         )
-    );
+    ), onWillPop: () async {
+      if (currentIndex != 0) {
+        setState(() {
+          currentIndex = 0;
+          // dashView = true;
+
+          //currentScreen = screens[currentTab];
+        });
+        return false;
+      } else {
+        exit(0);
+      }
+      return true;
+    },);
   }
 
 

@@ -7,10 +7,10 @@ enum MyThemeKeys {
 
 class MyThemes {
   static final ThemeData lightTheme = ThemeData(
-      brightness: Brightness.dark,
+      brightness: Brightness.light,
       primaryColor: Color(0xFF000000),
       backgroundColor: Color(0xFFF7F7F7),
-      disabledColor: Color(0xFF181818),
+      disabledColor: Color(0xFFFF0000),
       focusColor: Color(0xFFFFFFFF),
       accentColor: Color(0xFFB8B8B8),
       bottomAppBarColor: Color(0xFF999999),
@@ -24,7 +24,7 @@ class MyThemes {
       highlightColor: Color(0xFFF7F7F7),
       errorColor: Color(0xFFFFEC40),
       hintColor: Color(0xFF78AAF4),
-      hoverColor: Color(0xFF77838F),
+      hoverColor: Color(0xFFFBBC05),
       indicatorColor: Color(0xFF90D272),
       selectedRowColor: Color(0xFF34A853),
       scaffoldBackgroundColor: Color(0xFFF1F1F1)
@@ -35,7 +35,7 @@ class MyThemes {
       brightness: Brightness.dark,
       primaryColor: Color(0xFF000000),
       backgroundColor: Color(0xFFF7F7F7),
-      disabledColor: Color(0xFF181818),
+      disabledColor: Color(0xFFFF0000),
       focusColor: Color(0xFFFFFFFF),
       accentColor: Color(0xFFB8B8B8),
       bottomAppBarColor: Color(0xFF999999),
