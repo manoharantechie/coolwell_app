@@ -114,6 +114,19 @@
   "loc_help_feed": "Help & Feedback",
   "loc_edit_profile": "Edit profile",
   "loc_deactive": "Deactivate account",
-  "loc_dele_acc": "Delete Account"
+  "loc_dele_acc": "Delete Account",
+  "loc_help": "Help",
+  "loc_tech_name": "Technician name",
+  "loc_tech_id": "Tech ID",
+  "loc_serv_details": "Service details",
+  "loc_clean_foam": "Cleaning foam",
+  "loc_clean_power": "Power jet cleaning",
+  "loc_indoor_outer": "indoor & outer unit servicing",
+  "loc_duration": "Duration",
+  "loc_photo": "Photos",
+  "loc_video": "Videos",
+  "loc_add_review": "Add Written Review",
+  "loc_give_star":"Give star",
+  "loc_overall_rate": "Overall Rating"
 
 }

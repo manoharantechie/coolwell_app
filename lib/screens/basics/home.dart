@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import '../../common/bottom_nav.dart';
 import '../../common/custom_widget.dart';
 import '../profile/profile.dart';
+import '../service/history.dart';
 import 'dashboard.dart';
 
 class Home_Screen extends StatefulWidget {
@@ -25,7 +26,7 @@ class _Home_ScreenState extends State<Home_Screen> {
   List<Widget>  bottomPage = [
     DashBoard_Screen(),
     Service_Screen(),
-    Container(),
+    Service_history(),
     Profile_Screen()
   ];
 
