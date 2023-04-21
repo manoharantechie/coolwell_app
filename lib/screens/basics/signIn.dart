@@ -341,12 +341,12 @@ class _SignIn_ScreenState extends State<SignIn_Screen> {
                           SizedBox(height: 25.0,),
                           InkWell(
                             onTap: (){
-                              if (emailformKey.currentState!.validate()) {
-                                setState(() {
-                                  loading = true;
-                                  RegisterEmail();
-                                });
-                              }
+                              // if (emailformKey.currentState!.validate()) {
+                              //   setState(() {
+                              //     loading = true;
+                              //     RegisterEmail();
+                              //   });
+                              // }
                               //
                               // setState(() {
                               //

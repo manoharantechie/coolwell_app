@@ -41,14 +41,18 @@ class _Service_ScreenState extends State<Service_Screen> {
         margin: EdgeInsets.only(top: 20.0),
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
+        color: Theme.of(context).backgroundColor,
         child: Stack(
           children: [
              Container(
+               color: Theme.of(context).backgroundColor,
                child: Column(
                  children: [
                    Container(
                      width: MediaQuery.of(context).size.width,
+
                      decoration: BoxDecoration(
+
                        image: DecorationImage(
                          image: AssetImage("assets/images/service.png"),
                          fit: BoxFit.cover,
@@ -64,24 +68,7 @@ class _Service_ScreenState extends State<Service_Screen> {
                              crossAxisAlignment: CrossAxisAlignment.center,
                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                              children: [
-                               InkWell(
-                                 onTap:(){
-                                   Navigator.pop(context);
-                                 },
-                                 child: Container(
-                                   padding: EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),
-                                   decoration: BoxDecoration(
-                                     shape: BoxShape.circle,
-                                     color: Theme.of(context).cardColor,
-                                   ),
-                                   child: Center(
-                                     child: Icon(
-                                       Icons.arrow_back,
-                                       size: 22.0,
-                                     ),
-                                   ),
-                                 ),
-                               ),
+
                                SizedBox(width: 20.0,),
                                InkWell(
                                  onTap: (){
@@ -155,7 +142,7 @@ class _Service_ScreenState extends State<Service_Screen> {
                    ),
                    const SizedBox(height: 20.0,),
                    Container(
-                     color: Theme.of(context).scaffoldBackgroundColor,
+                     color: Theme.of(context).backgroundColor,
                      padding: EdgeInsets.only(left: 20.0),
                      height: 85.0,
                      child:  ListView.builder(
@@ -226,10 +213,10 @@ class _Service_ScreenState extends State<Service_Screen> {
                ),
              ),
             Container(
-              color: Theme.of(context).scaffoldBackgroundColor,
-              margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.34),
+              color: Theme.of(context).backgroundColor,
+              margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.36),
               child: Padding(
-                padding: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 20.0),
+                padding: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
                 child: Container(
                     child: SingleChildScrollView(
                       child: ListView.builder(

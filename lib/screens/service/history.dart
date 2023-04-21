@@ -1,4 +1,5 @@
 import 'package:coolwell_app/common/dotted_line_widget.dart';
+import 'package:coolwell_app/common/theme/custom_theme.dart';
 import 'package:coolwell_app/screens/service/history_details.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +28,7 @@ class _Service_historyState extends State<Service_history> {
         color: Theme.of(context).focusColor,
         child: Stack(
           children: [
-            const SizedBox(height: 30.0,),
+
             Padding(padding: EdgeInsets.only(left: 20.0, right: 20.0, top: 30.0),child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -99,6 +100,25 @@ class _Service_historyState extends State<Service_history> {
                 itemBuilder: (BuildContext context, int index) {
                   return Column(
                     children: [
+
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: 20.0,
+                     decoration: BoxDecoration(
+                       gradient: new LinearGradient(
+                           colors: [
+                             CustomTheme.of(context).cardColor.withOpacity(0.1),
+                             CustomTheme.of(context).buttonColor.withOpacity(0.1)
+                           ],
+                           begin: Alignment.topRight,
+                           //const FractionalOffset(0.0, 0.5),
+                           end: Alignment.bottomLeft,
+                           //const FractionalOffset(1.0, 0.6),
+                           stops: [0.0, 1.0],
+                           tileMode: TileMode.clamp),
+                     ),
+                      ),
+                      const SizedBox(height: 15.0,),
                       InkWell(
                         onTap:(){
                           Navigator.of(context).push(MaterialPageRoute(
@@ -106,17 +126,8 @@ class _Service_historyState extends State<Service_history> {
                                   Service_History_Details()));
                           },
                         child: Container(
-                          decoration: BoxDecoration(
-                              color: Theme.of(context).focusColor,
-                              boxShadow: [
-                                BoxShadow(
-                                    color: Theme.of(context).cardColor.withOpacity(0.2),
-                                    blurRadius: 10.0,
-                                    offset: Offset(0.0, 0.5)
-                                ),
-                              ]
-                          ),
-                          padding: EdgeInsets.only(left: 20.0, right: 20.0,top: 20.0, bottom: 20.0),
+
+                          padding: EdgeInsets.only(left: 20.0, right: 20.0,top: 0.0, bottom: 20.0),
                           child: Container(
                             width: MediaQuery.of(context).size.width,
                             height: MediaQuery.of(context).size.height * 0.28,
@@ -276,7 +287,7 @@ class _Service_historyState extends State<Service_history> {
                           ),
                         ),
                       ),
-                      const SizedBox(height: 15.0,)
+
                     ],
                   );
                 },

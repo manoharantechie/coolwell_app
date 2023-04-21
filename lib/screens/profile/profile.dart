@@ -213,8 +213,8 @@ class _Profile_ScreenState extends State<Profile_Screen> {
                           begin: Alignment.centerRight,
                           end: Alignment.centerLeft,
                           colors: [
-                            const Color(0xFFFFFFFF),
-                            const Color(0xFFFFFFFF).withOpacity(0.2),
+                            const Color(0xFFFFFFFF).withOpacity(0.8),
+                            const Color(0xFFFFFFFF).withOpacity(0.5),
                             const Color(0xFF1636FF).withOpacity(0.3),
                             const Color(0xFF0FABFF).withOpacity(0.3),
 
