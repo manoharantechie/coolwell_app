@@ -24,6 +24,7 @@ class _SplashHomeScreenState extends State<SplashHomeScreen> {
       backgroundColor: Theme.of(context).backgroundColor,
 
 
+
       body: Container(
 
         height: MediaQuery.of(context).size.height,

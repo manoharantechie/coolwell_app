@@ -38,7 +38,7 @@ class _Service_ScreenState extends State<Service_Screen> {
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       body: Container(
-        margin: EdgeInsets.only(top: 20.0),
+
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         color: Theme.of(context).backgroundColor,

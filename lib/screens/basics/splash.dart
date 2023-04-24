@@ -52,16 +52,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:
-      AppBar(
-        flexibleSpace: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              colors: [Colors.cyan, Colors.yellow], stops: [0.5, 1.0],
-            ),
-          ),
-        ),
-      ),
+
       body: SafeArea(
         child: Container(
           height: MediaQuery.of(context).size.height,

@@ -23,7 +23,7 @@ class _Service_Details_ScreenState extends State<Service_Details_Screen> {
     return Scaffold(
       backgroundColor: Theme.of(context).focusColor,
       body: Container(
-          margin: EdgeInsets.only(top: 20.0),
+
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
           child: Stack(
@@ -40,7 +40,7 @@ class _Service_Details_ScreenState extends State<Service_Details_Screen> {
                         ),
                       ),
                       child: Padding(
-                        padding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+                        padding: EdgeInsets.fromLTRB(20.0,30.0, 20.0, 20.0),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -92,7 +92,7 @@ class _Service_Details_ScreenState extends State<Service_Details_Screen> {
 
                               ],
                             ),
-                            const SizedBox(height: 50.0,),
+                            const SizedBox(height: 40.0,),
                             Container(
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -141,7 +141,7 @@ class _Service_Details_ScreenState extends State<Service_Details_Screen> {
                     Container(
                       color: Theme.of(context).focusColor,
                       padding: EdgeInsets.only(left: 20.0),
-                      height: 85.0,
+                      height: 90.0,
                       child:  ListView.builder(
                         itemCount: 3,
                         scrollDirection: Axis.horizontal,
@@ -211,7 +211,7 @@ class _Service_Details_ScreenState extends State<Service_Details_Screen> {
               ),
               Container(
                 color: Theme.of(context).focusColor,
-                margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.34),
+                margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.36),
                 child: Padding(
                     padding: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 20.0),
                     child: Container(
@@ -561,15 +561,13 @@ class _Service_Details_ScreenState extends State<Service_Details_Screen> {
 
   viewDetails() {
     showModalBottomSheet(
-        isScrollControlled: true,
-        barrierColor: Colors.white.withOpacity(0),
-        backgroundColor: Colors.white,
+
+
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            topRight: Radius.circular(30.0),
-            topLeft: Radius.circular(30.0),
-          ),
+
         ),
+
+        backgroundColor: Colors.transparent,
         enableDrag: true,
         context: context,
         builder: (BuildContext con) {
@@ -577,33 +575,25 @@ class _Service_Details_ScreenState extends State<Service_Details_Screen> {
               builder: (BuildContext context, StateSetter ssetState) {
                 return Container(
                   margin: EdgeInsets.only(top: 5.0),
-                  height: MediaQuery.of(context).size.height * 0.4,
+
                   width: MediaQuery.of(context).size.width,
                   padding: EdgeInsets.only(right: 15.0, left: 15.0,),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      topRight: Radius.circular(30.0),
+                      topLeft: Radius.circular(30.0),
+                    )
+                  ),
                   child: SingleChildScrollView(
                     controller: controller,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const SizedBox(height: 8.0,),
-                        // Center(
-                        //   child: GestureDetector(
-                        //     onTap: () {
-                        //       ssetState(() {
-                        //         Navigator.pop(context);
-                        //       });
-                        //     },
-                        //     child: Container(
-                        //       alignment: Alignment.center,
-                        //       width: 86.0,
-                        //       height: 3.0,
-                        //       color: Theme.of(context).backgroundColor,
-                        //     ),
-                        //   ),
-                        // ),
+
                         SizedBox(
-                          height: 20.0,
+                          height: 30.0,
                         ),
                         Align(
                           alignment: Alignment.center,
@@ -682,7 +672,7 @@ class _Service_Details_ScreenState extends State<Service_Details_Screen> {
 
                             },
                             child: Container(
-                              padding: EdgeInsets.fromLTRB(25.0, 15.0, 25.0, 15.0),
+                              padding: EdgeInsets.fromLTRB(25.0, 10.0, 25.0, 10.0),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(30.0),
                                 color: Theme.of(context).buttonColor,
@@ -700,7 +690,10 @@ class _Service_Details_ScreenState extends State<Service_Details_Screen> {
                               ),
                             ),
                           ),
-                        )
+                        ),
+                        SizedBox(
+                          height:10.0,
+                        ),
                       ],
                     ),
                   ),

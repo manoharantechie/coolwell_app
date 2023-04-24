@@ -36,7 +36,7 @@ class _DashBoard_ScreenState extends State<DashBoard_Screen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        margin: EdgeInsets.only(top: 30.0),
+
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         child:Stack(

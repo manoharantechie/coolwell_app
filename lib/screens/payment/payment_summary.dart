@@ -19,16 +19,18 @@ class _Payment_Summary_ScreenState extends State<Payment_Summary_Screen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
-        margin: EdgeInsets.only(top: 30.0),
+
         color: Theme.of(context).focusColor,
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
+              const SizedBox(height: 15.0,),
               Container(
                 decoration: BoxDecoration(
                     color: Theme.of(context).focusColor,
