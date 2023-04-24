@@ -22,33 +22,15 @@ class _SplashHomeScreenState extends State<SplashHomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
-      // appBar: AppBar(
-      //   backgroundColor: Theme.of(context).backgroundColor,
-      //   elevation: 0.0,
-      //   toolbarHeight: 10.0,
-      //   systemOverlayStyle: SystemUiOverlayStyle(
-      //     // Status bar color
-      //     statusBarColor: Theme.of(context).backgroundColor,
-      //
-      //     // Status bar brightness (optional)
-      //     statusBarIconBrightness: Brightness.dark, // For Android (dark icons)
-      //     statusBarBrightness: Brightness.light, // For iOS (dark icons)
-      //   ),
-      // ),
+
+
       body: Container(
-        margin: EdgeInsets.only(top: 20.0),
+
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
-        // decoration: BoxDecoration(
-        //   image: DecorationImage(
-        //     image: AssetImage("assets/images/back.png"),
-        //     fit: BoxFit.contain,
-        //   ),
-        // ),
-        // color:  Theme.of(context).backgroundColor,
         child: Stack(
           children: [
-            Image.asset("assets/images/back.png", fit: BoxFit.cover,width: MediaQuery.of(context).size.width,),
+            Image.asset("assets/images/back.png", fit: BoxFit.fill,width: MediaQuery.of(context).size.width,),
 
             contentUI(),
 

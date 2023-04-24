@@ -48,22 +48,37 @@ class _SplashScreenState extends State<SplashScreen> {
     // }
   }
 
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: MediaQuery.of(context).size.height,
-      width: MediaQuery.of(context).size.width,
-      color:  Theme.of(context).backgroundColor,
-      padding: EdgeInsets.fromLTRB(80.0, 0.0, 80.0, 0.0),
-      child: Center(
-        child: Image.asset("assets/images/logoo.png", height: 150.0,),
-          // child: SvgPicture.asset(
-          //   'assets/images/logo.svg',
-          //   height: 150.0,
-          //   // color: Color(0xFF0DD8FF),
-          //
-          // )
+    return Scaffold(
+      appBar:
+      AppBar(
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Colors.cyan, Colors.yellow], stops: [0.5, 1.0],
+            ),
+          ),
+        ),
       ),
+      body: SafeArea(
+        child: Container(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          color:  Theme.of(context).backgroundColor,
+          padding: EdgeInsets.fromLTRB(80.0, 0.0, 80.0, 0.0),
+          child: Center(
+            child: Image.asset("assets/images/logoo.png", height: 150.0,),
+            // child: SvgPicture.asset(
+            //   'assets/images/logo.svg',
+            //   height: 150.0,
+            //   // color: Color(0xFF0DD8FF),
+            //
+            // )
+          ),
+        ),
+      )
     );
   }
 }
