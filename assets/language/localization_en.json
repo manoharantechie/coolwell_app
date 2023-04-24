@@ -133,6 +133,10 @@
   "loc_slot_txt2": "Your service will take approx. 45 minutes",
   "loc_slot_txt3": "Free cancellation till 3 hrs before the booked slot , post that ₹1.99\nchargeable",
   "loc_slot_txt_service": "Select start time of service",
-  "loc_prceed_select_loc": "Proceed to select location "
+  "loc_prceed_select_loc": "Proceed to select location ",
+  "loc_change": "change",
+  "loc_home": "Home",
+  "loc_other": "Others",
+  "loc_Proceed_checkout": "Proceed to checkout"
 
 }

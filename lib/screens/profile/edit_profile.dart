@@ -43,7 +43,6 @@ class _Edit_Profile_ScreenState extends State<Edit_Profile_Screen> {
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        margin: EdgeInsets.only(top: 30.0),
         decoration: BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.centerRight,
@@ -63,7 +62,7 @@ class _Edit_Profile_ScreenState extends State<Edit_Profile_Screen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SizedBox(height: 30.0,),
+                  const SizedBox(height: 50.0,),
                   Container(
                     margin: EdgeInsets.only(left: 20.0, right: 20.0),
                     width: MediaQuery.of(context).size.width * 0.7,

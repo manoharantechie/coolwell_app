@@ -23,7 +23,6 @@ class _Payment_Summary_ScreenState extends State<Payment_Summary_Screen> {
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
-
         color: Theme.of(context).focusColor,
         child: SingleChildScrollView(
           child: Column(
@@ -47,7 +46,7 @@ class _Payment_Summary_ScreenState extends State<Payment_Summary_Screen> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Container(
-                      padding: EdgeInsets.only(left: 20.0,right: 20.0, top: 30.0),
+                      padding: EdgeInsets.only(left: 20.0,right: 20.0, top: 50.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [

@@ -22,7 +22,6 @@ class _Profile_ScreenState extends State<Profile_Screen> {
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        margin: EdgeInsets.only(top: 30.0),
         decoration: BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.centerRight,
@@ -39,7 +38,7 @@ class _Profile_ScreenState extends State<Profile_Screen> {
           children: [
             Flexible(child: Container(
               width: MediaQuery.of(context).size.width,
-              padding: EdgeInsets.only(left: 20.0, right: 20.0, top: 30.0),
+              padding: EdgeInsets.only(left: 20.0, right: 20.0, top: 50.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
