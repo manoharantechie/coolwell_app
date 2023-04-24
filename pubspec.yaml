@@ -45,6 +45,10 @@ dependencies:
   provider:
   carousel_slider:
   scrollable_positioned_list:
+  flutter_map:
+  geolocator:
+  location:
+  latlong2:
 
 dev_dependencies:
   flutter_test:

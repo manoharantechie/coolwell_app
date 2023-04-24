@@ -1,5 +1,12 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_map/flutter_map.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:latlong2/latlong.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import '../../common/custom_widget.dart';
 import '../../common/localization/localizations.dart';
@@ -12,6 +19,96 @@ class Location_Screen extends StatefulWidget {
 }
 
 class _Location_ScreenState extends State<Location_Screen> {
+  double doubleInRange(Random source, num start, num end) =>
+      source.nextDouble() * (end - start) + start;
+
+  late final MapController _mapController;
+  double lat= 0.00;
+  double long= 0.00;
+  var position;
+  var lastPosition;
+  List<Marker> markers = [];
+  List<Marker> allMarkers = [];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _getCurrentLocation();
+    getPermission();
+    _getLocation();
+    _mapController = MapController();
+    Future.microtask(() {
+      final r = Random();
+      for (var x = 0; x < 20; x++) {
+        allMarkers.add(
+          Marker(
+
+              point: LatLng(
+                // 9.939093,78.121719,
+                doubleInRange(r, 10, 35),
+                doubleInRange(r, 71, 90),
+              ),
+              builder: (context) => SvgPicture.asset('assets/images/map_pin.svg',height: 30.0,)
+          ),
+        );
+      }
+      setState(() {});
+    });
+
+  }
+
+  getPermission() async {
+
+    if (await Permission.location.request().isGranted) {
+      _getCurrentLocation();
+    } else {
+      Map<Permission, PermissionStatus> statuses = await [
+        Permission.location,
+      ].request();
+      if (statuses[Permission.location] == PermissionStatus.granted) {
+        _getCurrentLocation();
+      }
+    }
+  }
+
+  _getCurrentLocation() async {
+    await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
+        .then((Position position) async {
+      setState(() {
+        lat=position.latitude;
+        long=position.longitude;
+        addPin(LatLng(position.latitude, position.longitude));
+
+      });
+    }).catchError((e) {
+
+
+    });
+  }
+
+  _getLocation() async{
+
+    position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    lastPosition = await Geolocator.getLastKnownPosition();
+    setState(() {
+    });
+  }
+
+  addPin(LatLng latlng) {
+    setState(() {
+      markers.add(Marker(
+        width: 30.0,
+        height: 30.0,
+        point: latlng,
+        builder: (ctx) => Container(
+          child: SvgPicture.asset('assets/images/map_pin.svg',height: 50.0,),
+        ),
+      ));
+    });
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -102,9 +199,37 @@ class _Location_ScreenState extends State<Location_Screen> {
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-
+                  SizedBox(height: 10.0,),
+                 Container(
+                   height: MediaQuery.of(context).size.height *0.6,
+                   width: MediaQuery.of(context).size.width,
+                   child:  FlutterMap(
+                     mapController: _mapController,
+                     options: MapOptions(
+                       center: LatLng(25, 80),
+                       zoom: 6,
+                       interactiveFlags: InteractiveFlag.all - InteractiveFlag.rotate,
+                     ),
+                     children: [
+                       TileLayer(
+                         urlTemplate:
+                         "https://api.mapbox.com/styles/v1/sadham7866/cldpzdl3l008z01t9hh8rmiai/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1Ijoic2FkaGFtNzg2NiIsImEiOiJjbGRvZWlqOWEwMG93M29xd2JmOHN0ZGdzIn0.CkrgphN30vtdI3uln9xBpA",
+                         additionalOptions: {
+                           'mapStyleId': 'cldofwgi5000d01ruov0d377n',
+                           'accessToken': 'sk.eyJ1Ijoic2FkaGFtNzg2NiIsImEiOiJjbGRvZzEwM2owMDhmM3VscHNjeHBqZmVnIn0.neun916O4dDcO1Jjcg1y_Q',
+                         },
+                       ),
+                       // TileLayer(
+                       //   urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                       //   userAgentPackageName: 'dev.fleaflet.flutter_map.example',
+                       // ),
+                       // MarkerLayer(
+                       //     markers: allMarkers.sublist(
+                       //         0, min(allMarkers.length, 2))),
+                     ],
+                   ),
+                 ),
                 ],
               ),
             ),
@@ -113,4 +238,20 @@ class _Location_ScreenState extends State<Location_Screen> {
       ),
     );
   }
+}
+
+class MapMarker {
+  final String? image;
+  final String? title;
+  final String? address;
+  final LatLng? location;
+  final int? rating;
+
+  MapMarker({
+    required this.image,
+    required this.title,
+    required this.address,
+    required this.location,
+    required this.rating,
+  });
 }
