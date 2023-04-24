@@ -1,9 +1,11 @@
+import 'package:coolwell_app/screens/payment/payment_summary.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../common/custom_widget.dart';
 import '../../common/localization/localizations.dart';
+import '../basics/slot_screen.dart';
 import 'edit_profile.dart';
 
 class Profile_Screen extends StatefulWidget {
@@ -244,6 +246,11 @@ class _Profile_ScreenState extends State<Profile_Screen> {
                   ),
                   const SizedBox(height: 5.0,),
                   InkWell(
+                    onTap: (){
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) =>
+                              Slot_Screen()));
+                    },
                     child: Container(
                       padding: EdgeInsets.only(top: 10.0, bottom: 10.0, left: 20.0, right: 20.0),
                       decoration: BoxDecoration(
@@ -282,6 +289,11 @@ class _Profile_ScreenState extends State<Profile_Screen> {
                   ),
                   const SizedBox(height: 5.0,),
                   InkWell(
+                    onTap: (){
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) =>
+                              Payment_Summary_Screen()));
+                    },
                     child: Container(
                       padding: EdgeInsets.only(top: 10.0, bottom: 10.0, left: 20.0, right: 20.0),
                       decoration: BoxDecoration(

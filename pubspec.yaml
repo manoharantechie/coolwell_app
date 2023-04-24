@@ -44,6 +44,7 @@ dependencies:
   awesome_snackbar_content:
   provider:
   carousel_slider:
+  scrollable_positioned_list:
 
 dev_dependencies:
   flutter_test:

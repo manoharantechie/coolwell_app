@@ -127,6 +127,12 @@
   "loc_video": "Videos",
   "loc_add_review": "Add Written Review",
   "loc_give_star":"Give star",
-  "loc_overall_rate": "Overall Rating"
+  "loc_overall_rate": "Overall Rating",
+  "loc_schedule_slot": "Schedule slot ",
+  "loc_slot_txt1": "When should the professional arrive ?",
+  "loc_slot_txt2": "Your service will take approx. 45 minutes",
+  "loc_slot_txt3": "Free cancellation till 3 hrs before the booked slot , post that ₹1.99\nchargeable",
+  "loc_slot_txt_service": "Select start time of service",
+  "loc_prceed_select_loc": "Proceed to select location "
 
 }
