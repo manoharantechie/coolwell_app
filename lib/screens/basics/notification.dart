@@ -720,7 +720,6 @@ class _Notification_ScreenState extends State<Notification_Screen> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-
                         SizedBox(
                           height: 30.0,
                         ),
@@ -740,7 +739,6 @@ class _Notification_ScreenState extends State<Notification_Screen> {
                         SizedBox(
                           height: 10.0,
                         ),
-
                       ],
                     ),
                   ),

@@ -28,7 +28,6 @@ class _Service_historyState extends State<Service_history> {
         color: Theme.of(context).focusColor,
         child: Stack(
           children: [
-
             Padding(padding: EdgeInsets.only(left: 20.0, right: 20.0, top: 30.0),child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -100,7 +99,6 @@ class _Service_historyState extends State<Service_history> {
                 itemBuilder: (BuildContext context, int index) {
                   return Column(
                     children: [
-
                       Container(
                         width: MediaQuery.of(context).size.width,
                         height: 20.0,
