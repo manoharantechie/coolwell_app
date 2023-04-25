@@ -68,7 +68,7 @@ class _Payment_Summary_ScreenState extends State<Payment_Summary_Screen> {
                               children: [
                                 InkWell(
                                   onTap:(){
-                                    // Navigator.pop(context);
+                                    Navigator.pop(context);
                                   },
                                   child: Container(
                                     padding: EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),

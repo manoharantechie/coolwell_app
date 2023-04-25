@@ -1,8 +1,11 @@
+import 'package:coolwell_app/screens/basics/signUp.dart';
 import 'package:coolwell_app/screens/payment/payment_summary.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../common/custom_button.dart';
 import '../../common/custom_widget.dart';
 import '../../common/localization/localizations.dart';
 import '../basics/slot_screen.dart';
@@ -16,6 +19,9 @@ class Profile_Screen extends StatefulWidget {
 }
 
 class _Profile_ScreenState extends State<Profile_Screen> {
+
+  bool loading = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -455,6 +461,12 @@ class _Profile_ScreenState extends State<Profile_Screen> {
                   ),
                   const SizedBox(height: 5.0,),
                   InkWell(
+                    onTap: (){
+                      setState(() {
+                        showSuccessAlertDialog("Logout",
+                            "Are you sure want to logout ?");
+                      });
+                    },
                     child: Container(
                       padding: EdgeInsets.only(top: 10.0, bottom: 10.0, left: 20.0, right: 20.0),
                       decoration: BoxDecoration(
@@ -502,5 +514,144 @@ class _Profile_ScreenState extends State<Profile_Screen> {
         ),
       ),
     );
+  }
+
+  showSuccessAlertDialog(
+      String title,
+      String message,
+      ) {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Dialog(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0)), //this right here
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10.0),
+                gradient: LinearGradient(
+                  begin: Alignment.centerLeft,
+                  end: Alignment.centerRight,
+                  colors: [
+                    // const Color(0xFF0FABFF).withOpacity(0.5),
+                    // const Color(0xFF1636FF).withOpacity(0.5),
+
+                    const Color(0xFF0DD8FF).withOpacity(0.4),
+                    const Color(0xFF0FABFF).withOpacity(0.4),
+                    const Color(0xFF1457FF).withOpacity(0.4),
+                    const Color(0xFF1636FF).withOpacity(0.4),
+
+                  ],
+                ),
+                // gradient: LinearGradient(
+                //     colors: [
+                //       Theme.of(context).primaryColor,
+                //       Theme.of(context).primaryColor,
+                //     ],
+                //     begin: Alignment.topRight,
+                //     //const FractionalOffset(0.0, 0.5),
+                //     end: Alignment.bottomLeft,
+                //     //const FractionalOffset(1.0, 0.6),
+                //     stops: [0.0, 1.0],
+                //     tileMode: TileMode.clamp),
+              ),
+              height: MediaQuery.of(context).size.height * 0.30,
+              child: Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      title.toUpperCase(),
+                      style: TextStyle(
+                        fontSize: 16.0,
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'OpenSansBold',
+                      ),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(top: 7.0, bottom: 10.0),
+                      height: 2.0,
+                      color: Theme.of(context).focusColor,
+                    ),
+                    Text(
+                      message,
+                      style: TextStyle(
+                        fontSize: 14.0,
+                        color: Colors.black,
+                        fontFamily: 'OpenSans',
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10.0,
+                    ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        SizedBox(
+                          width: 100,
+                          height: 45,
+                          child: ButtonCustom(
+                              text: AppLocalizations.instance
+                                  .text("loc_ok")
+                                  .toUpperCase(),
+                              iconEnable: false,
+                              radius: 5.0,
+                              icon: "",
+                              textStyle: CustomWidget(context: context)
+                                  .CustomSizedTextStyle(
+                                  14.0,
+                                  Theme.of(context).focusColor,
+                                  FontWeight.w500,
+                                  'FontRegular'),
+                              iconColor: Theme.of(context).primaryColor,
+                              buttonColor: Theme.of(context).primaryColor,
+                              splashColor: Theme.of(context).primaryColor,
+                              onPressed: () async {
+                                SharedPreferences prefs = await SharedPreferences.getInstance();
+                                prefs.clear();
+                                Navigator.of(context).pop(true);
+                                Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
+                                    SignUp_Screen()), (Route<dynamic> route) => false);
+                                loading = true;
+                              },
+                              paddng: 1.0),
+                        ),
+                        SizedBox(
+                          width: 100,
+                          height: 45,
+                          child: ButtonCustom(
+                              text: AppLocalizations.instance
+                                  .text("loc_cancel")
+                                  .toUpperCase(),
+                              iconEnable: false,
+                              radius: 5.0,
+                              icon: "",
+                              textStyle: CustomWidget(context: context)
+                                  .CustomSizedTextStyle(
+                                  14.0,
+                                  Theme.of(context).focusColor,
+                                  FontWeight.w500,
+                                  'FontRegular'),
+                              iconColor: Theme.of(context).primaryColor,
+                              buttonColor:Theme.of(context).primaryColor,
+                              splashColor: Theme.of(context).primaryColor,
+                              onPressed: () {
+                                Navigator.of(context).pop(true);
+                              },
+                              paddng: 1.0),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        });
+    // show the dialog
   }
 }
