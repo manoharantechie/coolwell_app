@@ -63,7 +63,7 @@ class _Notification_ScreenState extends State<Notification_Screen> {
                       children: [
                         InkWell(
                           onTap:(){
-                            // Navigator.pop(context);
+                            Navigator.pop(context);
                           },
                           child: Container(
                             padding: EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),
