@@ -561,12 +561,8 @@ class _Service_Details_ScreenState extends State<Service_Details_Screen> {
 
   viewDetails() {
     showModalBottomSheet(
-
-
         shape: RoundedRectangleBorder(
-
         ),
-
         backgroundColor: Colors.transparent,
         enableDrag: true,
         context: context,

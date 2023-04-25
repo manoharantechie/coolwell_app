@@ -137,6 +137,16 @@
   "loc_change": "change",
   "loc_home": "Home",
   "loc_other": "Others",
-  "loc_Proceed_checkout": "Proceed to checkout"
+  "loc_Proceed_checkout": "Proceed to checkout",
+  "loc_notification": "Notification",
+  "loc_chat": "Chat",
+  "loc_all":"All",
+  "loc_book_info": "Booking info",
+  "loc_offers": "Offers",
+  "loc_giv_rate": "Give Rating",
+  "loc_share_feedback": "Share feedback",
+  "loc_know_more": "Know more",
+  "loc_booked_serv": "Booked Services",
+  "loc_deep_clean": "Deep clean AC Service"
 
 }

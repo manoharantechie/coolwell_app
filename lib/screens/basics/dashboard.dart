@@ -7,6 +7,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../../common/bottom_nav.dart';
 import '../../common/custom_widget.dart';
 import '../../common/localization/localizations.dart';
+import 'notification.dart';
 
 class DashBoard_Screen extends StatefulWidget {
   const DashBoard_Screen({Key? key}) : super(key: key);
@@ -59,9 +60,17 @@ class _DashBoard_ScreenState extends State<DashBoard_Screen> {
                     children: [
                       Align(
                         alignment: Alignment.topRight,
-                        child: Padding(
-                          padding: EdgeInsets.only(right: 30.0),
-                          child: SvgPicture.asset("assets/images/notification.svg", height: 22.0,),
+                        child: InkWell(
+                          onTap: (){
+                            Navigator.of(context).push(
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        Notification_Screen()));
+                          },
+                          child: Padding(
+                            padding: EdgeInsets.only(right: 30.0),
+                            child: SvgPicture.asset("assets/images/notification.svg", height: 22.0,),
+                          ),
                         ),
                       ),
                       SizedBox(

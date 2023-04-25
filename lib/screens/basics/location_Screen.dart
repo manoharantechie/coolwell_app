@@ -215,8 +215,9 @@ class _Location_ScreenState extends State<Location_Screen> {
                 children: [
                   SizedBox(height: 10.0,),
                  Container(
-                   height: MediaQuery.of(context).size.height *0.6,
+                   height: MediaQuery.of(context).size.height* 0.7,
                    width: MediaQuery.of(context).size.width,
+                   color: Theme.of(context).focusColor,
                    child:  FlutterMap(
                      mapController: _mapController,
                      options: MapOptions(
@@ -238,8 +239,8 @@ class _Location_ScreenState extends State<Location_Screen> {
                        //   userAgentPackageName: 'dev.fleaflet.flutter_map.example',
                        // ),
                        MarkerLayer(
-                           markers: allMarkers.sublist(
-                               0, min(allMarkers.length, 2))),
+                           markers: markers.sublist(
+                               0, min(markers.length, 1))),
                      ],
                    ),
                  ),

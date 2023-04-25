@@ -49,7 +49,7 @@ class _Service_ScreenState extends State<Service_Screen> {
                  children: [
                    Container(
                      width: MediaQuery.of(context).size.width,
-
+                     padding: EdgeInsets.only(top: 20.0),
                      decoration: BoxDecoration(
 
                        image: DecorationImage(
@@ -647,7 +647,6 @@ class _Service_ScreenState extends State<Service_Screen> {
   viewDetails() {
     showModalBottomSheet(
         isScrollControlled: true,
-        barrierColor: Colors.white.withOpacity(0),
         backgroundColor: Colors.white,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
@@ -661,6 +660,13 @@ class _Service_ScreenState extends State<Service_Screen> {
           return StatefulBuilder(
               builder: (BuildContext context, StateSetter ssetState) {
                 return Container(
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(30.0),
+                        topLeft: Radius.circular(30.0),
+                      )
+                  ),
                   margin: EdgeInsets.only(top: 5.0),
                   height: MediaQuery.of(context).size.height * 0.8,
                   width: MediaQuery.of(context).size.width,

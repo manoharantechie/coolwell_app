@@ -133,9 +133,9 @@ class _Service_historyState extends State<Service_history> {
                             height: MediaQuery.of(context).size.height * 0.28,
                             padding: EdgeInsets.fromLTRB(10.0, 15.0, 10.0, 15.0),
                             decoration: BoxDecoration(
-                              // color: Theme.of(context).primaryColor,
+                              color: Color(0xFF1F598E).withOpacity(0.8),
                                 image: DecorationImage(
-                                  image: AssetImage("assets/images/history_back.png"),
+                                  image: AssetImage("assets/images/serv_back_1.png"),
                                   fit: BoxFit.cover,
                                 ),
                                 borderRadius: BorderRadius.circular(15.0)
