@@ -1,263 +1,265 @@
-import 'package:coolwell_app/common/custom_widget.dart';
-import 'package:coolwell_app/common/localization/localizations.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/svg.dart';
 
+import '../../common/custom_widget.dart';
+import '../../common/localization/localizations.dart';
 
-
-class Notification_Screen extends StatefulWidget {
-  const Notification_Screen({Key? key}) : super(key: key);
+class Tech_DashBoard_Screen extends StatefulWidget {
+  const Tech_DashBoard_Screen({Key? key}) : super(key: key);
 
   @override
-  State<Notification_Screen> createState() => _Notification_ScreenState();
+  State<Tech_DashBoard_Screen> createState() => _Tech_DashBoard_ScreenState();
 }
 
-class _Notification_ScreenState extends State<Notification_Screen> {
+class _Tech_DashBoard_ScreenState extends State<Tech_DashBoard_Screen> {
 
   ScrollController _scrollController = ScrollController();
-  bool all = true;
-  bool info = false;
-  bool offer = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.centerRight,
-            end: Alignment.centerLeft,
-            colors: [
-              const Color(0xFF1636FF).withOpacity(0.3),
-              const Color(0xFF0FABFF).withOpacity(0.3),
-
-            ],
-          ),
-        ),
+        width: MediaQuery.of(context).size.width,
         child: Stack(
           children: [
-            Container(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(height: 50.0,),
-                  Container(
-                    padding: EdgeInsets.only(left: 20.0, right: 20.0, top: 20.0,bottom: 20.0),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Flexible(child: Container(
-                          width: MediaQuery.of(context).size.width * 0.7,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30.0),
-                            gradient: LinearGradient(
-                              begin: Alignment.centerLeft,
-                              end: Alignment.centerRight,
-                              colors: [
-                                const Color(0xFFF4F4F4).withOpacity(0.5),
-                                const Color(0xFFF4F4F4).withOpacity(0.3),
-                                const Color(0xFFF4F4F4).withOpacity(0.1),
-                              ],
-                            ),
-                          ),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              InkWell(
-                                onTap:(){
-                                  Navigator.pop(context);
-                                },
-                                child: Container(
-                                  padding: EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: Theme.of(context).cardColor,
-                                  ),
-                                  child: Center(
-                                    child: Icon(
-                                      Icons.arrow_back,
-                                      size: 25.0,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(width: 20.0,),
-                              Text(
-                                AppLocalizations.instance
-                                    .text("loc_notification"),
-                                style: CustomWidget(context: context)
-                                    .CustomSizedTextStyle(
-                                    18.0,
-                                    Theme.of(context).primaryColor,
-                                    FontWeight.w400,
-                                    'FontRegular'),
-                                textAlign: TextAlign.center,
-                              ),
-                            ],
-                          ),
-                        ), flex: 3,),
-                        const SizedBox(width: 15.0,),
-                        Flexible(child: Container(
-                          width: MediaQuery.of(context).size.width,
-                          padding: EdgeInsets.fromLTRB(0.0, 5.0, 0.0, 5.0),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30.0),
-                            gradient: LinearGradient(
-                              begin: Alignment.bottomLeft,
-                              end: Alignment.topRight,
-                              colors: [
-                                const Color(0xFF0DD8FF),
-                                const Color(0xFF0FABFF),
-                                const Color(0xFF1457FF).withOpacity(0.8),
-                                const Color(0xFF1636FF),
-                                const Color(0xFF0E69C7),
-                              ],
-                            ),
-                          ),
-                          child: Text(
-                            AppLocalizations.instance.text("loc_chat"),
-                            style: CustomWidget(context: context)
-                                .CustomSizedTextStyle(
-                                14.0,
-                                Theme.of(context).focusColor,
-                                FontWeight.w500,
-                                'FontRegular'),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),flex: 1,)
-                      ],
+            Column(
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height * 0.26,
+                  padding: EdgeInsets.only(left: 40.0,right: 30.0, bottom: 20.0),
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage("assets/tech/tech_dash_back.png"),
+                      fit: BoxFit.fill,
                     ),
                   ),
-                  const SizedBox(height: 5.0,),
-                  Container(
-                    height: 1.0,
-                    color: Theme.of(context).accentColor,
-                  ),
-                  const SizedBox(height: 10.0,),
-                  Container(
-                    padding: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
-                    child: Row(
-                      children: [
-                        InkWell(
-                          onTap: (){
-                            setState(() {
-                              all = true;
-                              info =false;
-                              offer =false;
-                            });
-                          },
-                          child:  Container(
-                            padding: EdgeInsets.fromLTRB(25.0, 5.0, 25.0, 5.0),
-                            decoration: all?  BoxDecoration(
-                                borderRadius: BorderRadius.circular(30.0),
-                                color: Theme.of(context).cardColor.withOpacity(0.5),
-                                border: Border.all(width: 1.0, color: Theme.of(context).cardColor,)
-                            ) : BoxDecoration(
-                                borderRadius: BorderRadius.circular(30.0),
-                                color: Colors.transparent,
-                                border: Border.all(width: 1.0, color: Theme.of(context).canvasColor,)
-                            ),
-                            child: Text(
-                              AppLocalizations.instance.text("loc_all"),
-                              style: CustomWidget(context: context)
-                                  .CustomSizedTextStyle(
-                                  14.0,
-                                  all ? Theme.of(context).primaryColor :Theme.of(context).canvasColor,
-                                  FontWeight.w500,
-                                  'FontRegular'),
-                              textAlign: TextAlign.center,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          InkWell(
+                            onTap: (){
+                              // Navigator.of(context).push(
+                              //     MaterialPageRoute(
+                              //         builder: (context) =>
+                              //             Notification_Screen()));
+                            },
+                            child: Padding(
+                              padding: EdgeInsets.only(right: 10.0),
+                              child: SvgPicture.asset("assets/tech/chat.svg", height: 22.0,),
                             ),
                           ),
-                        ),
-                        const SizedBox(width: 10.0,),
-                        InkWell(
-                          onTap: (){
-                            setState(() {
-                              all = false;
-                              info =true;
-                              offer =false;
-                            });
-                          },
-                          child: Container(
-                            padding: EdgeInsets.fromLTRB(15.0, 5.0, 15.0, 5.0),
-                            decoration: info? BoxDecoration(
-                                borderRadius: BorderRadius.circular(30.0),
-                                color: Theme.of(context).cardColor.withOpacity(0.5),
-                                border: Border.all(width: 1.0, color: Theme.of(context).cardColor,)
-                            ) : BoxDecoration(
-                                borderRadius: BorderRadius.circular(30.0),
-                                color: Colors.transparent,
-                                border: Border.all(width: 1.0, color: Theme.of(context).canvasColor,)
+                          InkWell(
+                            onTap: (){
+                              // Navigator.of(context).push(
+                              //     MaterialPageRoute(
+                              //         builder: (context) =>
+                              //             Notification_Screen()));
+                            },
+                            child: Padding(
+                              padding: EdgeInsets.only(right: 30.0),
+                              child: SvgPicture.asset("assets/images/notification.svg", height: 22.0,),
                             ),
-                            child: Text(
-                              AppLocalizations.instance.text("loc_book_info"),
-                              style: CustomWidget(context: context)
-                                  .CustomSizedTextStyle(
-                                  14.0,
-                                  info? Theme.of(context).primaryColor :Theme.of(context).canvasColor,
-                                  FontWeight.w500,
-                                  'FontRegular'),
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(width: 10.0,),
-                        InkWell(
-                          onTap: (){
-                            setState(() {
-                              all = false;
-                              info =false;
-                              offer =true;
-                            });
-                          },
-                          child: Container(
-                            padding: EdgeInsets.fromLTRB(15.0, 5.0, 15.0, 5.0),
-                            decoration: offer?  BoxDecoration(
-                                borderRadius: BorderRadius.circular(30.0),
-                                color: Theme.of(context).cardColor.withOpacity(0.5),
-                                border: Border.all(width: 1.0, color: Theme.of(context).cardColor,)
-                            ) : BoxDecoration(
-                                borderRadius: BorderRadius.circular(30.0),
-                                color: Colors.transparent,
-                                border: Border.all(width: 1.0, color: Theme.of(context).canvasColor,)
-                            ),
-                            child: Text(
-                              AppLocalizations.instance.text("loc_offers"),
-                              style: CustomWidget(context: context)
-                                  .CustomSizedTextStyle(
-                                  14.0,
-                                  offer? Theme.of(context).primaryColor :Theme.of(context).canvasColor,
-                                  FontWeight.w500,
-                                  'FontRegular'),
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
+                          )
+                        ],
+                      ),
+
+                      SizedBox(
+                        height: 50.0,
+                      ),
+                      Text(
+                        "Hi,",
+                        style: CustomWidget(context: context)
+                            .CustomSizedTextStyle(
+                            14.0,
+                            Theme.of(context).focusColor,
+                            FontWeight.w600,
+                            'FontRegular'),
+                        textAlign: TextAlign.end,
+                      ),
+                      SizedBox(
+                        height: 5.0,
+                      ),
+                      Text(
+                        "Vinoth Kumar",
+                        style: CustomWidget(context: context)
+                            .CustomSizedTextStyle(
+                            20.0,
+                            Theme.of(context).focusColor,
+                            FontWeight.w600,
+                            'FontRegular'),
+                        textAlign: TextAlign.end,
+                      ),
+                    ],
                   ),
-                  const SizedBox(height: 10.0,),
-                  Container(
-                    height: 1.0,
-                    color: Theme.of(context).accentColor,
+                ),
+                Padding(padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  padding: EdgeInsets.fromLTRB(10.0, 12.0, 10.0, 12.0),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.0),
+                      border: Border.all(width: 1.0,color: Theme.of(context).accentColor,)
                   ),
-                  const SizedBox(height: 10.0,),
-                ],
-              ),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      SvgPicture.asset("assets/images/search.svg", height: 20.0, color: Theme.of(context).accentColor,),
+                      SizedBox(width: 10.0,),
+                      Text(
+                        AppLocalizations.instance
+                            .text("loc_search"),
+                        style: CustomWidget(context: context)
+                            .CustomSizedTextStyle(
+                            14.0,
+                            Theme.of(context).accentColor,
+                            FontWeight.w400,
+                            'FontRegular'),
+                        textAlign: TextAlign.end,
+                      ),
+                    ],
+                  ),
+                ),),
+              ],
             ),
+
             Container(
-              margin: EdgeInsets.only(
-                  top: MediaQuery.of(context).size.height * 0.24),
+              height: MediaQuery.of(context).size.height,
+              margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.35),
               child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
+                   Container(
+                     padding: EdgeInsets.only(left: 20.0, right: 20.0),
+                     child: Column(
+                       crossAxisAlignment: CrossAxisAlignment.start,
+                       mainAxisAlignment: MainAxisAlignment.start,
+                       children: [
+                         Text(
+                           AppLocalizations.instance
+                               .text("loc_let_serv"),
+                           style: CustomWidget(context: context)
+                               .CustomSizedTextStyle(
+                               18.0,
+                               Theme.of(context).primaryColor,
+                               FontWeight.w600,
+                               'FontRegular'),
+                           textAlign: TextAlign.start,
+                         ),
+                         const SizedBox(height: 15.0,),
+                         Container(
+                           width: MediaQuery.of(context).size.width,
+                           height: MediaQuery.of(context).size.height * 0.2,
+                           decoration: BoxDecoration(
+                             borderRadius: BorderRadius.circular(10.0),
+                           // color: Theme.of(context).primaryColor,
+                           ),
+                           child: Row(
+                             children: [
+                               Flexible(child: Container(
+                                 decoration: BoxDecoration(
+                                   // borderRadius: BorderRadius.only(
+                                   //   topLeft: Radius.circular(10.0),
+                                   //   bottomLeft: Radius.circular(10.0),
+                                   // ),
+                                   image: DecorationImage(
+                                     image: AssetImage("assets/images/cleaning.png"),
+                                     fit: BoxFit.fill,
+                                   ),
+                                 ),
+                                 // child: Image.asset("assets/images/cleaning.png",),
+                               ),flex: 1,),
+                               Flexible(child: Container(
+                                 padding: EdgeInsets.only(left: 10.0),
+                                 child: Column(
+                                   crossAxisAlignment: CrossAxisAlignment.start,
+                                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                   children: [
+                                     Text(
+                                       AppLocalizations.instance
+                                           .text("loc_dash_tech_txt1"),
+                                       style: CustomWidget(context: context)
+                                           .CustomSizedTextStyle(
+                                           18.0,
+                                           Theme.of(context).primaryColor,
+                                           FontWeight.w600,
+                                           'FontRegular'),
+                                       textAlign: TextAlign.start,
+                                     ),
+                                     InkWell(
+                                       onTap:(){
+
+                                       },
+                                       child: Container(
+                                         padding: EdgeInsets.fromLTRB(0.0, 5.0, 0.0, 5.0),
+                                         decoration: BoxDecoration(
+                                           borderRadius: BorderRadius.circular(15.0),
+                                           gradient: LinearGradient(
+                                             begin: Alignment.topLeft,
+                                             end: Alignment.bottomRight,
+                                             colors: [
+                                               const Color(0xFF0DD8FF),
+                                               const Color(0xFF0FABFF),
+                                               const Color(0xFF1457FF),
+                                               const Color(0xFF1636FF),
+                                               const Color(0xFF0E69C7),
+                                             ],
+                                           ),
+                                         ),
+                                         child: Row(
+                                           crossAxisAlignment: CrossAxisAlignment.center,
+                                           mainAxisAlignment: MainAxisAlignment.center,
+                                           children: [
+                                             SvgPicture.asset("assets/tech/assign.svg",color: Theme.of(context).focusColor, height: 15.0,),
+                                             SizedBox(width: 5.0,),
+                                             Text(
+                                               AppLocalizations.instance
+                                                   .text("loc_assign_order"),
+                                               style: CustomWidget(context: context)
+                                                   .CustomSizedTextStyle(
+                                                   14.0,
+                                                   Theme.of(context).focusColor,
+                                                   FontWeight.w500,
+                                                   'FontRegular'),
+                                               textAlign: TextAlign.center,
+                                             ),
+                                           ],
+                                         ),
+                                       ),
+                                     )
+                                   ],
+                                 ),
+                               ), flex: 1,)
+                             ],
+                           ),
+                         )
+                       ],
+                     ),
+                   ),
+                    const SizedBox(height: 15.0,),
+
                     Stack(
                       children: [
                         Container(
-                          height: MediaQuery.of(context).size.height *0.32,
+                          height: MediaQuery.of(context).size.height *0.35,
+                          decoration: BoxDecoration(
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Theme.of(context).splashColor,
+                                    blurRadius: 15.0,
+                                    offset: Offset(0.0, 0.8)
+                                ),
+                              ]
+                          ),
                           child: Row(
                             children: [
                               Flexible(child: Container(
@@ -285,7 +287,8 @@ class _Notification_ScreenState extends State<Notification_Screen> {
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
                                               Text(
-                                                "Clean AC Service",
+                                          AppLocalizations.instance
+                                              .text("loc_resend_completed_serv"),
                                                 style: CustomWidget(context: context)
                                                     .CustomSizedTextStyle(
                                                     18.0,
@@ -311,7 +314,8 @@ class _Notification_ScreenState extends State<Notification_Screen> {
                                                       crossAxisAlignment: CrossAxisAlignment.start,
                                                       children: [
                                                         Text(
-                                                          "Pre-service checks",
+                                                    AppLocalizations.instance
+                                                        .text("loc_clean"),
                                                           style: CustomWidget(context: context)
                                                               .CustomSizedTextStyle(
                                                               14.0,
@@ -352,7 +356,7 @@ class _Notification_ScreenState extends State<Notification_Screen> {
                                           children: [
                                             Text(
                                               AppLocalizations.instance
-                                                  .text("loc_giv_rate"),
+                                                  .text("loc_you_got"),
                                               style: CustomWidget(context: context)
                                                   .CustomSizedTextStyle(
                                                   9.0,
@@ -559,8 +563,9 @@ class _Notification_ScreenState extends State<Notification_Screen> {
                         )
                       ],
                     ),
+
                     ListView.builder(
-                      itemCount: 4,
+                      itemCount: 3,
                       scrollDirection: Axis.vertical,
                       shrinkWrap: true,
                       controller: _scrollController,
@@ -575,7 +580,7 @@ class _Notification_ScreenState extends State<Notification_Screen> {
                             children: [
                               InkWell(
                                 onTap:(){
-                                  viewDetails();
+                                  // viewDetails();
                                 },
                                 child: Container(
                                   padding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
@@ -621,16 +626,45 @@ class _Notification_ScreenState extends State<Notification_Screen> {
                                                 children: [
                                                   Text(
                                                     AppLocalizations.instance
-                                                        .text("loc_deep_clean"),
+                                                        .text("loc_on_progrss"),
                                                     style: CustomWidget(context: context)
                                                         .CustomSizedTextStyle(
-                                                        14.0,
+                                                        18.0,
                                                         Theme.of(context)
                                                             .primaryColor,
                                                         FontWeight.w600,
                                                         'FontRegular'),
-                                                    textAlign: TextAlign.center,
+                                                    textAlign: TextAlign.start,
                                                   ),
+                                                  const SizedBox(
+                                                    height: 10.0,
+                                                  ),
+                                                  Row(
+                                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                    children: [
+                                                      Text(
+                                                        AppLocalizations.instance
+                                                            .text("loc_deep_clean"),
+                                                        style: CustomWidget(context: context)
+                                                            .CustomSizedTextStyle(
+                                                            14.0,
+                                                            Theme.of(context)
+                                                                .primaryColor,
+                                                            FontWeight.w600,
+                                                            'FontRegular'),
+                                                        textAlign: TextAlign.start,
+                                                      ),
+
+                                                      Icon(
+                                                        Icons.arrow_forward_ios_rounded,
+                                                        size: 15.0,
+                                                        color:
+                                                        Theme.of(context).primaryColor,
+                                                      ),
+                                                    ],
+                                                  ),
+
                                                   const SizedBox(
                                                     height: 5.0,
                                                   ),
@@ -667,15 +701,6 @@ class _Notification_ScreenState extends State<Notification_Screen> {
                                                   const SizedBox(
                                                     height: 10.0,
                                                   ),
-                                                  Align(
-                                                    alignment: Alignment.bottomRight,
-                                                    child: Icon(
-                                                      Icons.arrow_forward_ios_rounded,
-                                                      size: 15.0,
-                                                      color:
-                                                      Theme.of(context).primaryColor,
-                                                    ),
-                                                  )
                                                 ],
                                               ),
                                               flex: 3,
@@ -699,70 +724,18 @@ class _Notification_ScreenState extends State<Notification_Screen> {
                         );
                       },
                     ),
+
                   ],
                 ),
               ),
-            )
+            ),
+
+
+
+
           ],
         ),
       ),
     );
-  }
-
-  viewDetails() {
-    showModalBottomSheet(
-        shape: RoundedRectangleBorder(
-        ),
-        backgroundColor: Colors.transparent,
-        enableDrag: true,
-        context: context,
-        builder: (BuildContext con) {
-          return StatefulBuilder(
-              builder: (BuildContext context, StateSetter ssetState) {
-                return Container(
-                  margin: EdgeInsets.only(top: 5.0),
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height * 0.5,
-                  padding: EdgeInsets.only(right: 15.0, left: 0.0,),
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(30.0),
-                        topLeft: Radius.circular(30.0),
-                      )
-                  ),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          height: 30.0,
-                        ),
-                        Align(
-                          alignment: Alignment.center,
-                          child: Container(
-                            width: MediaQuery.of(context).size.width,
-                            height: MediaQuery.of(context).size.height *0.4,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: AssetImage("assets/images/map.png"),
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 10.0,
-                        ),
-
-
-
-                      ],
-                    ),
-                  ),
-                );
-              });
-        });
   }
 }

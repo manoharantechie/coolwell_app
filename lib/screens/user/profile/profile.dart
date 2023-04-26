@@ -211,8 +211,10 @@ class _Profile_ScreenState extends State<Profile_Screen> {
                           Flexible(child: SvgPicture.asset("assets/profile/booking.svg", height: 20.0, color: Theme.of(context).primaryColor,),flex: 1,),
                           const SizedBox(width: 15.0,),
                           Flexible(child: Text(
-                            AppLocalizations.instance
-                                .text("loc_booking"),
+                            // AppLocalizations.instance
+                            //     .text("loc_booking"),
+                              AppLocalizations.instance
+                                  .text("loc_side_service"),
                             style: CustomWidget(context: context)
                                 .CustomSizedTextStyle(
                                 16.0,
@@ -376,11 +378,11 @@ class _Profile_ScreenState extends State<Profile_Screen> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           // Flexible(child:
-                          // SvgPicture.asset("assets/profile/history.svg", height: 18.0, color: Theme.of(context).primaryColor,),flex: 1,),
+                          // SvgPicture.asset("assets/tech/notify.svg", height: 18.0, color: Theme.of(context).primaryColor,),flex: 1,),
                           // const SizedBox(width: 15.0,),
                           // Flexible(child: Text(
                           //   AppLocalizations.instance
-                          //       .text("loc_serv_his"),
+                          //       .text("loc_notification"),
                           //   style: CustomWidget(context: context)
                           //       .CustomSizedTextStyle(
                           //       16.0,

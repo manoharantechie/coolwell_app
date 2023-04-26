@@ -85,6 +85,7 @@ flutter:
     - assets/images/
     - assets/menu/
     - assets/profile/
+    - assets/tech/
 
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

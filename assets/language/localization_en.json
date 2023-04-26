@@ -93,6 +93,7 @@
   "loc_recent_book": "Recently Booked services",
   "loc_side_cool": "Cool well",
   "loc_side_service": "Service",
+  "loc_side_order": "Orders",
   "loc_side_history": "History",
   "loc_side_account": "Account",
   "loc_delivery_ins": "Delivery instruction",
@@ -148,6 +149,15 @@
   "loc_know_more": "Know more",
   "loc_booked_serv": "Booked Services",
   "loc_deep_clean": "Deep clean AC Service",
-  "loc_ok": "Okay"
+  "loc_ok": "Okay",
+  "loc_let_serv": "Let’s serve",
+  "loc_dash_tech_txt1": "I Have a work \nfor you",
+  "loc_assign_order": "Assigned Orders ",
+  "loc_clean": "Cleaning",
+  "loc_resend_completed_serv":"Recent completed service",
+  "loc_you_got": "You Got",
+  "loc_on_progrss": "On progress",
+  "loc_track_location": "Track location",
+  "loc_proceed_to_process": "Proceed to Process"
 
 }

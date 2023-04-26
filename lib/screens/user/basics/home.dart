@@ -9,6 +9,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 
+import '../../technician/tech_dashboard.dart';
+import '../../technician/tech_orders.dart';
 import 'dashboard.dart';
 
 class Home_Screen extends StatefulWidget {
@@ -25,13 +27,15 @@ class _Home_ScreenState extends State<Home_Screen> {
   int currentIndex=0;
   int selectIndex=0;
   List<Widget>  bottomPage = [
-    DashBoard_Screen(),
-    Service_Screen(),
+    // DashBoard_Screen(),
+    Tech_DashBoard_Screen(),
+    // Service_Screen(),
+    Tech_Orders_Screen(),
     Service_history(),
     Profile_Screen()
   ];
 
-  Widget screen = DashBoard_Screen();
+  Widget screen = Tech_DashBoard_Screen();
 
   void onSelectItem(int index) async {
     setState(() {

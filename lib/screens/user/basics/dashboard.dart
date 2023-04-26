@@ -39,7 +39,6 @@ class _DashBoard_ScreenState extends State<DashBoard_Screen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         child:Stack(
@@ -53,7 +52,7 @@ class _DashBoard_ScreenState extends State<DashBoard_Screen> {
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage("assets/images/dashboard_back.png"),
-                      fit: BoxFit.cover,
+                      fit: BoxFit.fill,
                     ),
                   ),
                   child: Column(

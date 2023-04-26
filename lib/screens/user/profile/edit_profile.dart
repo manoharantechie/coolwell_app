@@ -23,6 +23,8 @@ class _Edit_Profile_ScreenState extends State<Edit_Profile_Screen> {
   FocusNode addressFocus = FocusNode();
   FocusNode addressLineFocus = FocusNode();
   FocusNode pinCodeFocus = FocusNode();
+  FocusNode documentFocus = FocusNode();
+  TextEditingController documentController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController nameController = TextEditingController();
   TextEditingController addressController = TextEditingController();
@@ -423,6 +425,43 @@ class _Edit_Profile_ScreenState extends State<Edit_Profile_Screen> {
                             textInputType: TextInputType.number,
                             controller: pinCodeController,
                           ),
+                          // const SizedBox(height: 15.0,),
+                          // TextFormFieldCustom(
+                          //   onEditComplete: () {
+                          //     documentFocus.unfocus();
+                          //     // FocusScope.of(context).requestFocus(phoneNumFocus);
+                          //   },
+                          //   radius: 6.0,
+                          //   error: "Enter Update document",
+                          //   textColor: Theme.of(context).primaryColor,
+                          //   borderColor: Theme.of(context).dividerColor,
+                          //   fillColor: Theme.of(context).focusColor,
+                          //   hintStyle: CustomWidget(context: context).CustomSizedTextStyle(
+                          //       14.0, Theme.of(context).primaryColor.withOpacity(0.3), FontWeight.w500, 'FontRegular'),
+                          //   textStyle: CustomWidget(context: context).CustomSizedTextStyle(
+                          //       14.0, Theme.of(context).primaryColor, FontWeight.w500, 'FontRegular'),
+                          //   textInputAction: TextInputAction.next,
+                          //   focusNode: documentFocus,
+                          //   maxlines: 1,
+                          //   text: '',
+                          //   hintText: "Update document",
+                          //   obscureText: false,
+                          //   textChanged: (value) {},
+                          //   onChanged: () {},
+                          //   suffix: Container(
+                          //     child: Icon(
+                          //       Icons.file_upload_outlined,
+                          //       size: 18.0,
+                          //       color: Theme.of(context).primaryColor,
+                          //     ),
+                          //   ),
+                          //   validator: (value) {
+                          //
+                          //   },
+                          //   enabled: true,
+                          //   textInputType: TextInputType.text,
+                          //   controller: documentController,
+                          // ),
                         ],
                       ),
                     ),
