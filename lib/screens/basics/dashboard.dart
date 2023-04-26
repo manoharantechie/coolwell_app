@@ -1,5 +1,6 @@
 
 import 'package:coolwell_app/screens/service/service.dart';
+import 'package:coolwell_app/screens/service/service_details.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -314,7 +315,7 @@ class _DashBoard_ScreenState extends State<DashBoard_Screen> {
                                         });
                                         Navigator.of(context).push(MaterialPageRoute(
                                             builder: (context) =>
-                                                Service_Screen()));
+                                                Service_Details_Screen()));
                                       },
                                       child: Container(
                                         padding: EdgeInsets.all(5.0),
