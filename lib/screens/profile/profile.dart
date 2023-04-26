@@ -35,7 +35,6 @@ class _Profile_ScreenState extends State<Profile_Screen> {
             colors: [
               const Color(0xFF1636FF).withOpacity(0.3),
               const Color(0xFF0FABFF).withOpacity(0.3),
-
             ],
           ),
         ),
@@ -50,6 +49,7 @@ class _Profile_ScreenState extends State<Profile_Screen> {
                 children: [
                   Container(
                     width: MediaQuery.of(context).size.width * 0.7,
+                    padding: EdgeInsets.fromLTRB(15.0, 5.0, 15.0, 5.0),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(30.0),
                       gradient: LinearGradient(
@@ -62,40 +62,16 @@ class _Profile_ScreenState extends State<Profile_Screen> {
                         ],
                       ),
                     ),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        InkWell(
-                          onTap:(){
-                            // Navigator.pop(context);
-                          },
-                          child: Container(
-                            padding: EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Theme.of(context).cardColor,
-                            ),
-                            child: Center(
-                              child: Icon(
-                                Icons.arrow_back,
-                                size: 25.0,
-                              ),
-                            ),
-                          ),
-                        ),
-                        SizedBox(width: 20.0,),
-                        Text(
-                          AppLocalizations.instance
-                              .text("loc_profile"),
-                          style: CustomWidget(context: context)
-                              .CustomSizedTextStyle(
-                              18.0,
-                              Theme.of(context).primaryColor,
-                              FontWeight.w400,
-                              'FontRegular'),
-                          textAlign: TextAlign.center,
-                        ),
-                      ],
+                    child:  Text(
+                      AppLocalizations.instance
+                          .text("loc_profile"),
+                      style: CustomWidget(context: context)
+                          .CustomSizedTextStyle(
+                          18.0,
+                          Theme.of(context).primaryColor,
+                          FontWeight.w400,
+                          'FontRegular'),
+                      textAlign: TextAlign.start,
                     ),
                   ),
                   const SizedBox(height: 20.0,),
@@ -529,31 +505,7 @@ class _Profile_ScreenState extends State<Profile_Screen> {
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10.0),
-                gradient: LinearGradient(
-                  begin: Alignment.centerLeft,
-                  end: Alignment.centerRight,
-                  colors: [
-                    // const Color(0xFF0FABFF).withOpacity(0.5),
-                    // const Color(0xFF1636FF).withOpacity(0.5),
-
-                    const Color(0xFF0DD8FF).withOpacity(0.4),
-                    const Color(0xFF0FABFF).withOpacity(0.4),
-                    const Color(0xFF1457FF).withOpacity(0.4),
-                    const Color(0xFF1636FF).withOpacity(0.4),
-
-                  ],
-                ),
-                // gradient: LinearGradient(
-                //     colors: [
-                //       Theme.of(context).primaryColor,
-                //       Theme.of(context).primaryColor,
-                //     ],
-                //     begin: Alignment.topRight,
-                //     //const FractionalOffset(0.0, 0.5),
-                //     end: Alignment.bottomLeft,
-                //     //const FractionalOffset(1.0, 0.6),
-                //     stops: [0.0, 1.0],
-                //     tileMode: TileMode.clamp),
+               color: Theme.of(context).focusColor,
               ),
               height: MediaQuery.of(context).size.height * 0.30,
               child: Padding(
@@ -574,7 +526,18 @@ class _Profile_ScreenState extends State<Profile_Screen> {
                     Container(
                       margin: EdgeInsets.only(top: 7.0, bottom: 10.0),
                       height: 2.0,
-                      color: Theme.of(context).focusColor,
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.bottomLeft,
+                          end: Alignment.topRight,
+                          colors: [
+                            const Color(0xFF0DD8FF).withOpacity(0.3),
+                            const Color(0xFF0FABFF).withOpacity(0.3),
+                            const Color(0xFF1457FF).withOpacity(0.3),
+                            const Color(0xFF1636FF).withOpacity(0.3),
+                          ],
+                        ),
+                      ),
                     ),
                     Text(
                       message,
@@ -591,58 +554,75 @@ class _Profile_ScreenState extends State<Profile_Screen> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        SizedBox(
-                          width: 100,
-                          height: 45,
-                          child: ButtonCustom(
-                              text: AppLocalizations.instance
-                                  .text("loc_ok")
-                                  .toUpperCase(),
-                              iconEnable: false,
-                              radius: 5.0,
-                              icon: "",
-                              textStyle: CustomWidget(context: context)
+                        InkWell(
+                          onTap: () async {
+                            SharedPreferences prefs = await SharedPreferences.getInstance();
+                            prefs.clear();
+                            Navigator.of(context).pop(true);
+                            Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
+                                SignUp_Screen()), (Route<dynamic> route) => false);
+                            loading = true;
+                          },
+                          child: Container(
+                            padding: EdgeInsets.only(left: 25.0, right: 25.0, top: 10.0, bottom: 10.0),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(6.0),
+                              gradient: LinearGradient(
+                                begin: Alignment.bottomLeft,
+                                end: Alignment.topRight,
+                                colors: [
+                                  const Color(0xFF0DD8FF),
+                                  const Color(0xFF0FABFF),
+                                  const Color(0xFF1457FF),
+                                  const Color(0xFF1636FF),
+                                ],
+                              ),
+                            ),
+                            child: Text(
+                              AppLocalizations.instance
+                                  .text("loc_logout"),
+                              style: CustomWidget(context: context)
                                   .CustomSizedTextStyle(
-                                  14.0,
+                                  16.0,
                                   Theme.of(context).focusColor,
-                                  FontWeight.w500,
+                                  FontWeight.w700,
                                   'FontRegular'),
-                              iconColor: Theme.of(context).primaryColor,
-                              buttonColor: Theme.of(context).primaryColor,
-                              splashColor: Theme.of(context).primaryColor,
-                              onPressed: () async {
-                                SharedPreferences prefs = await SharedPreferences.getInstance();
-                                prefs.clear();
-                                Navigator.of(context).pop(true);
-                                Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
-                                    SignUp_Screen()), (Route<dynamic> route) => false);
-                                loading = true;
-                              },
-                              paddng: 1.0),
+                              textAlign: TextAlign.start,
+                            ),
+                          ),
                         ),
-                        SizedBox(
-                          width: 100,
-                          height: 45,
-                          child: ButtonCustom(
-                              text: AppLocalizations.instance
-                                  .text("loc_cancel")
-                                  .toUpperCase(),
-                              iconEnable: false,
-                              radius: 5.0,
-                              icon: "",
-                              textStyle: CustomWidget(context: context)
+
+                        InkWell(
+                          onTap: () {
+                            Navigator.of(context).pop(true);
+                          },
+                          child: Container(
+                            padding: EdgeInsets.only(left: 25.0, right: 25.0, top: 10.0, bottom: 10.0),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(6.0),
+                              gradient: LinearGradient(
+                                begin: Alignment.bottomLeft,
+                                end: Alignment.topRight,
+                                colors: [
+                                  const Color(0xFF0DD8FF),
+                                  const Color(0xFF0FABFF),
+                                  const Color(0xFF1457FF),
+                                  const Color(0xFF1636FF),
+                                ],
+                              ),
+                            ),
+                            child: Text(
+                              AppLocalizations.instance
+                                  .text("loc_cancel"),
+                              style: CustomWidget(context: context)
                                   .CustomSizedTextStyle(
-                                  14.0,
+                                  16.0,
                                   Theme.of(context).focusColor,
-                                  FontWeight.w500,
+                                  FontWeight.w700,
                                   'FontRegular'),
-                              iconColor: Theme.of(context).primaryColor,
-                              buttonColor:Theme.of(context).primaryColor,
-                              splashColor: Theme.of(context).primaryColor,
-                              onPressed: () {
-                                Navigator.of(context).pop(true);
-                              },
-                              paddng: 1.0),
+                              textAlign: TextAlign.start,
+                            ),
+                          ),
                         ),
                       ],
                     ),
