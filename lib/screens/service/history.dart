@@ -142,6 +142,7 @@ class _Service_historyState extends State<Service_history> {
                             Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) =>
                                     Service_History_Details()));
+
                           },
                           child: Container(
                             padding: EdgeInsets.only(
