@@ -23,12 +23,11 @@ class _OTP_ScreenState extends State<OTP_Screen> {
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       body: Container(
-        margin: EdgeInsets.only(top: 20.0),
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         child: Stack(
           children: [
-            Image.asset("assets/images/back.png", fit: BoxFit.cover,width: MediaQuery.of(context).size.width,),
+            Image.asset("assets/images/back.png", fit: BoxFit.fill,width: MediaQuery.of(context).size.width,),
 
             contentUI(),
 
