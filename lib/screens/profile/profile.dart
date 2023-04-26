@@ -8,7 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../common/custom_button.dart';
 import '../../common/custom_widget.dart';
 import '../../common/localization/localizations.dart';
-import '../basics/slot_screen.dart';
+import 'slot_screen.dart';
 import 'edit_profile.dart';
 
 class Profile_Screen extends StatefulWidget {

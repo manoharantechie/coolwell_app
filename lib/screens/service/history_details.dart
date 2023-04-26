@@ -604,7 +604,7 @@ class _Service_History_DetailsState extends State<Service_History_Details> {
                                         ),
                                         child: Center(
                                             child: Icon(
-                                              Icons.camera_alt_rounded,
+                                             index==0? Icons.camera_alt_rounded:Icons.image,
                                               size: 22.0,
                                               color: Theme.of(context).accentColor.withOpacity(0.5),
                                             )
@@ -951,8 +951,8 @@ class _Service_History_DetailsState extends State<Service_History_Details> {
 
                               },
                               child: Container(
-                                width: MediaQuery.of(context).size.width * 0.5,
-                                padding: EdgeInsets.fromLTRB(0.0, 15.0, 0.0, 15.0),
+
+                                padding: EdgeInsets.fromLTRB(30.0, 10.0, 30.0, 10.0),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(30.0),
                                   color: Theme.of(context).buttonColor,

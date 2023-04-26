@@ -49,8 +49,16 @@ class DayItem extends StatelessWidget {
       child: Container(
         decoration: isSelected
             ? BoxDecoration(
-                color: activeDayBackgroundColor ??
-                    Theme.of(context).colorScheme.secondary,
+            gradient: LinearGradient(
+              begin: Alignment.bottomLeft,
+              end: Alignment.topRight,
+              colors: [
+                const Color(0xFF0DD8FF).withOpacity(0.3),
+                const Color(0xFF0FABFF).withOpacity(0.3),
+                const Color(0xFF1457FF).withOpacity(0.3),
+                const Color(0xFF1636FF).withOpacity(0.3),
+              ],
+            ),
                 borderRadius: BorderRadius.circular(12),
             boxShadow: [
               BoxShadow(

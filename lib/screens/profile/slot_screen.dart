@@ -38,15 +38,6 @@ class _Slot_ScreenState extends State<Slot_Screen> {
         height: MediaQuery.of(context).size.height,
         decoration: BoxDecoration(
           color: Theme.of(context).cardColor,
-          // gradient: LinearGradient(
-          //   begin: Alignment.centerRight,
-          //   end: Alignment.centerLeft,
-          //   colors: [
-          //     const Color(0xFF1636FF).withOpacity(0.3),
-          //     const Color(0xFF0FABFF).withOpacity(0.3),
-          //
-          //   ],
-          // ),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -84,7 +75,7 @@ class _Slot_ScreenState extends State<Slot_Screen> {
                       children: [
                         InkWell(
                           onTap:(){
-                            // Navigator.pop(context);
+                          Navigator.of(context).pop();
                           },
                           child: Container(
                             padding: EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),
