@@ -70,7 +70,6 @@ class _Tech_DashBoard_ScreenState extends State<Tech_DashBoard_Screen> {
                           )
                         ],
                       ),
-
                       SizedBox(
                         height: 50.0,
                       ),
