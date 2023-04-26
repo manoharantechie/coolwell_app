@@ -2,7 +2,8 @@ import 'dart:io';
 import 'package:coolwell_app/common/localization/localizations.dart';
 import 'package:coolwell_app/common/theme/custom_theme.dart';
 import 'package:coolwell_app/common/theme/themes.dart';
-import 'package:coolwell_app/screens/basics/splash.dart';
+
+import 'package:coolwell_app/screens/user/basics/splash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 

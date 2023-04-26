@@ -1,18 +1,20 @@
-import 'package:coolwell_app/screens/basics/dashboard.dart';
-import 'package:coolwell_app/screens/basics/forgot_pass.dart';
-import 'package:coolwell_app/screens/service/service.dart';
+import 'package:coolwell_app/common/country.dart';
+import 'package:coolwell_app/common/model/api_utils.dart';
+import 'package:coolwell_app/common/model/login.dart';
+import 'package:coolwell_app/common/text_field_custom_prefix.dart';
+import 'package:coolwell_app/common/theme/custom_theme.dart';
+import 'package:coolwell_app/screens/user/service/service.dart';
+import 'package:coolwell_app/screens/user/basics/dashboard.dart';
+import 'package:coolwell_app/screens/user/basics/forgot_pass.dart';
 import 'package:country_calling_code_picker/country.dart';
 import 'package:country_calling_code_picker/functions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../common/country.dart';
-import '../../common/custom_widget.dart';
-import '../../common/localization/localizations.dart';
-import '../../common/model/api_utils.dart';
-import '../../common/model/login.dart';
-import '../../common/text_field_custom_prefix.dart';
-import '../../common/theme/custom_theme.dart';
+
+import 'package:coolwell_app/common/custom_widget.dart';
+import 'package:coolwell_app/common/localization/localizations.dart';
+
 import 'home.dart';
 
 class SignUp_Screen extends StatefulWidget {

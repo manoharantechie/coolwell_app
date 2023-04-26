@@ -1,13 +1,14 @@
-import 'package:coolwell_app/screens/basics/signUp.dart';
-import 'package:coolwell_app/screens/payment/payment_summary.dart';
+
+import 'package:coolwell_app/screens/user/basics/signUp.dart';
+import 'package:coolwell_app/screens/user/payment/payment_summary.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../common/custom_button.dart';
-import '../../common/custom_widget.dart';
-import '../../common/localization/localizations.dart';
+import 'package:coolwell_app/common/custom_button.dart';
+import 'package:coolwell_app/common/custom_widget.dart';
+import 'package:coolwell_app/common/localization/localizations.dart';
 import 'slot_screen.dart';
 import 'edit_profile.dart';
 

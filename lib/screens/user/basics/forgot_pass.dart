@@ -1,12 +1,14 @@
-import 'package:coolwell_app/screens/basics/email.dart';
-import 'package:coolwell_app/screens/basics/location.dart';
-import 'package:coolwell_app/screens/basics/otp_code.dart';
+import 'package:coolwell_app/common/custom_widget.dart';
+import 'package:coolwell_app/common/localization/localizations.dart';
+import 'package:coolwell_app/screens/user/basics/email.dart';
+import 'package:coolwell_app/screens/user/basics/location.dart';
+import 'package:coolwell_app/screens/user/basics/otp_code.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../common/custom_widget.dart';
-import '../../common/localization/localizations.dart';
+
 
 class Forgot_Password extends StatefulWidget  {
   const Forgot_Password({Key? key}) : super(key: key);

@@ -1,16 +1,17 @@
-import 'package:coolwell_app/screens/basics/dashboard.dart';
-import 'package:coolwell_app/screens/payment/payment_summary.dart';
-import 'package:coolwell_app/screens/service/service_details.dart';
+
+
+import 'package:coolwell_app/screens/user/payment/payment_summary.dart';
+import 'package:coolwell_app/screens/user/service/service_details.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../common/custom_widget.dart';
-import '../../common/dotted_line_widget.dart';
-import '../../common/localization/localizations.dart';
-import '../../common/model/api_utils.dart';
-import '../../common/model/get_services_details.dart';
-import '../../common/textformfield_custom.dart';
+import 'package:coolwell_app/common/custom_widget.dart';
+import 'package:coolwell_app/common/dotted_line_widget.dart';
+import 'package:coolwell_app/common/localization/localizations.dart';
+import 'package:coolwell_app/common/model/api_utils.dart';
+import 'package:coolwell_app/common/model/get_services_details.dart';
+import 'package:coolwell_app/common/textformfield_custom.dart';
 
 class Service_Screen extends StatefulWidget {
   const Service_Screen({Key? key}) : super(key: key);

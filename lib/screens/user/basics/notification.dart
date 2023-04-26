@@ -1,9 +1,10 @@
 import 'package:coolwell_app/common/custom_widget.dart';
+import 'package:coolwell_app/common/localization/localizations.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../common/localization/localizations.dart';
+
 
 class Notification_Screen extends StatefulWidget {
   const Notification_Screen({Key? key}) : super(key: key);

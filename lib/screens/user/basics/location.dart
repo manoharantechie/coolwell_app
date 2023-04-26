@@ -1,11 +1,12 @@
-import 'package:coolwell_app/screens/basics/location_success.dart';
-import 'package:coolwell_app/screens/service/service.dart';
+
+import 'package:coolwell_app/screens/user/service/service.dart';
+import 'package:coolwell_app/screens/user/basics/location_success.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../common/custom_widget.dart';
-import '../../common/localization/localizations.dart';
+import 'package:coolwell_app/common/custom_widget.dart';
+import 'package:coolwell_app/common/localization/localizations.dart';
 
 class LocationLoginScreen extends StatefulWidget {
   const LocationLoginScreen({Key? key}) : super(key: key);

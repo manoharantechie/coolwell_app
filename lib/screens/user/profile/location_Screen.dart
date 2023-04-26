@@ -8,10 +8,10 @@ import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-import '../../common/custom_switch.dart';
-import '../../common/custom_widget.dart';
-import '../../common/localization/localizations.dart';
-import '../../common/textformfield_custom.dart';
+import 'package:coolwell_app/common/custom_switch.dart';
+import 'package:coolwell_app/common/custom_widget.dart';
+import 'package:coolwell_app/common/localization/localizations.dart';
+import 'package:coolwell_app/common/textformfield_custom.dart';
 
 class Location_Screen extends StatefulWidget {
   const Location_Screen({Key? key}) : super(key: key);

@@ -1,12 +1,12 @@
 import 'package:coolwell_app/common/dotted_line_widget.dart';
 import 'package:coolwell_app/common/theme/custom_theme.dart';
 import 'package:coolwell_app/common/ticket_design.dart';
-import 'package:coolwell_app/screens/service/history_details.dart';
+import 'package:coolwell_app/screens/user/service/history_details.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../../common/custom_widget.dart';
-import '../../common/localization/localizations.dart';
+import 'package:coolwell_app/common/custom_widget.dart';
+import 'package:coolwell_app/common/localization/localizations.dart';
 
 class Service_history extends StatefulWidget {
   const Service_history({Key? key}) : super(key: key);

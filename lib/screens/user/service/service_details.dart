@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../common/custom_widget.dart';
-import '../../common/dotted_line_widget.dart';
-import '../../common/localization/localizations.dart';
+import 'package:coolwell_app/common/custom_widget.dart';
+import 'package:coolwell_app/common/dotted_line_widget.dart';
+import 'package:coolwell_app/common/localization/localizations.dart';
 
 class Service_Details_Screen extends StatefulWidget {
   const Service_Details_Screen({Key? key}) : super(key: key);

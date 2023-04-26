@@ -1,13 +1,14 @@
 import 'dart:io';
 
-import 'package:coolwell_app/screens/service/service.dart';
+import 'package:coolwell_app/common/bottom_nav.dart';
+import 'package:coolwell_app/common/custom_widget.dart';
+import 'package:coolwell_app/screens/user/profile/profile.dart';
+import 'package:coolwell_app/screens/user/service/history.dart';
+import 'package:coolwell_app/screens/user/service/service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../common/bottom_nav.dart';
-import '../../common/custom_widget.dart';
-import '../profile/profile.dart';
-import '../service/history.dart';
+
 import 'dashboard.dart';
 
 class Home_Screen extends StatefulWidget {

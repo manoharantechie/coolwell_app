@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../common/custom_widget.dart';
-import '../../common/dotted_line_widget.dart';
-import '../../common/localization/localizations.dart';
+import 'package:coolwell_app/common/custom_widget.dart';
+import 'package:coolwell_app/common/dotted_line_widget.dart';
+import 'package:coolwell_app/common/localization/localizations.dart';
 
 class Payment_Summary_Screen extends StatefulWidget {
   const Payment_Summary_Screen({Key? key}) : super(key: key);

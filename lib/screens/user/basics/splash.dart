@@ -1,4 +1,5 @@
-import 'package:coolwell_app/screens/basics/splash_home.dart';
+
+import 'package:coolwell_app/screens/user/basics/splash_home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';

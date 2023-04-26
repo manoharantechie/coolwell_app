@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../common/custom_widget.dart';
-import '../../common/localization/localizations.dart';
-import '../../common/textformfield_custom.dart';
+import 'package:coolwell_app/common/custom_widget.dart';
+import 'package:coolwell_app/common/localization/localizations.dart';
+import 'package:coolwell_app/common/textformfield_custom.dart';
 
 class Edit_Profile_Screen extends StatefulWidget {
   const Edit_Profile_Screen({Key? key}) : super(key: key);

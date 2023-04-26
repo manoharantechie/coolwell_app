@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../common/calendar/calendar_timeline.dart';
-import '../../common/custom_widget.dart';
-import '../../common/localization/localizations.dart';
+import 'package:coolwell_app/common/calendar/calendar_timeline.dart';
+import 'package:coolwell_app/common/custom_widget.dart';
+import 'package:coolwell_app/common/localization/localizations.dart';
 import 'location_Screen.dart';
 
 class Slot_Screen extends StatefulWidget {
