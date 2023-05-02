@@ -27,15 +27,15 @@ class _Home_ScreenState extends State<Home_Screen> {
   int currentIndex=0;
   int selectIndex=0;
   List<Widget>  bottomPage = [
-    // DashBoard_Screen(),
-    Tech_DashBoard_Screen(),
-    // Service_Screen(),
-    Tech_Orders_Screen(),
+    DashBoard_Screen(),
+    // Tech_DashBoard_Screen(),
+    Service_Screen(),
+    // Tech_Orders_Screen(),
     Service_history(),
     Profile_Screen()
   ];
 
-  Widget screen = Tech_DashBoard_Screen();
+  Widget screen = DashBoard_Screen();
 
   void onSelectItem(int index) async {
     setState(() {

@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 
 import 'package:coolwell_app/common/custom_widget.dart';
 import 'package:coolwell_app/common/localization/localizations.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'home.dart';
 
@@ -196,11 +197,12 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
                     validator: (value) {
                       if(passController.text.isEmpty) {
                         return "Please Enter Password ";
-                      } else if( passController.text.length< 8 ) {
-                        return "Please enter must not be less than 8 character";
-                      } else if(passController.text.length> 14){
-                        return "Please enter must not be greater than 14 character";
                       }
+                      // else if( passController.text.length< 8 ) {
+                      //   return "Please enter must not be less than 8 character";
+                      // } else if(passController.text.length> 14){
+                      //   return "Please enter must not be greater than 14 character";
+                      // }
                     },
                     enabled: true,
                     textInputType: TextInputType.text,
@@ -237,15 +239,15 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
                           SizedBox(height: 30.0,),
                           InkWell(
                             onTap: (){
-                              // if (emailformKey.currentState!.validate()) {
-                              //   setState(() {
-                              //     loading = true;
-                              //     verifyMail();
-                              //   });
-                              // }
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) =>
-                                      Home_Screen()));
+                              if (emailformKey.currentState!.validate()) {
+                                setState(() {
+                                  loading = true;
+                                  verifyMail();
+                                });
+                              }
+                              // Navigator.of(context).push(MaterialPageRoute(
+                              //     builder: (context) =>
+                              //         Home_Screen()));
                             },
                             child: Container(
                               width: MediaQuery.of(context).size.width * 0.6,
@@ -710,16 +712,22 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
       passController.text.toString(),)
         .then((Login loginData) {
       setState(() {
-
         if (loginData.success!) {
           setState(() {
             loading = false;
           });
           CustomWidget(context: context).
           custombar("Login", loginData.message.toString(), true);
-          Navigator.of(context).push(MaterialPageRoute(
+          Navigator.of(context).pushReplacement(MaterialPageRoute(
               builder: (context) =>
-                  DashBoard_Screen()));
+                  Home_Screen()));
+          storeData(
+              loginData.result!.token.toString(),
+              loginData.result!.user!.id.toString(),
+              loginData.result!.user!.email.toString(),
+              loginData.result!.user!.role.toString(),
+              loginData.result!.user!.name.toString());
+
           nameController.clear();
           passController.clear();
 
@@ -752,6 +760,15 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
         _selectedCountry = country;
       });
     }
+  }
+
+  storeData(String token, String userId, String email,String role, String name) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.setString("token", token);
+    preferences.setString("userId", userId);
+    preferences.setString("email", email);
+    preferences.setString("roleType", role);
+    preferences.setString("name", name);
   }
 
 }

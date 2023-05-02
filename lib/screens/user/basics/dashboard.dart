@@ -20,6 +20,7 @@ class DashBoard_Screen extends StatefulWidget {
 
 class _DashBoard_ScreenState extends State<DashBoard_Screen> {
 
+
   List<String> titleText=["loc_side_cool","loc_side_service","loc_side_history","loc_side_account"];
 
   List<String> texts = ["Cleaning", "Repair", "Install","Deep clean AC Service"];
@@ -33,8 +34,16 @@ class _DashBoard_ScreenState extends State<DashBoard_Screen> {
   bool  service = true;
   bool  installing = false;
   bool  help = false;
+  bool  loading = false;
 
-  
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    // loading = true;
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

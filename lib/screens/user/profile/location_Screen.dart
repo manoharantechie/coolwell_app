@@ -30,6 +30,8 @@ class _Location_ScreenState extends State<Location_Screen> {
   var position;
   var lastPosition;
   bool status = false;
+  bool home = true;
+  bool other = false;
   List<Marker> markers = [];
   List<Marker> allMarkers = [];
   ScrollController controller = ScrollController();
@@ -732,70 +734,112 @@ class _Location_ScreenState extends State<Location_Screen> {
                                     Container(
                                       child: Row(
                                         children: [
-                                          Container(
-                                            padding: EdgeInsets.fromLTRB(
-                                                10.0, 5.0, 10.0, 5.0),
-                                            decoration: BoxDecoration(
-                                              borderRadius:
+                                          InkWell(
+                                            onTap: (){
+                                              setState(() {
+                                                home =true;
+                                                other =false;
+                                              });
+                                              },
+                                            child: Container(
+                                              padding: EdgeInsets.fromLTRB(
+                                                  10.0, 5.0, 10.0, 5.0),
+                                              decoration: home ? BoxDecoration(
+                                                borderRadius:
+                                                BorderRadius.circular(15.0),
+                                                gradient: LinearGradient(
+                                                  begin: Alignment.topLeft,
+                                                  end: Alignment.bottomRight,
+                                                  colors: [
+                                                    const Color(0xFF0DD8FF),
+                                                    const Color(0xFF0FABFF),
+                                                    const Color(0xFF1457FF),
+                                                    const Color(0xFF1636FF),
+                                                    const Color(0xFF0E69C7),
+                                                  ],
+                                                ),
+                                              ) : BoxDecoration(
+                                                  borderRadius:
                                                   BorderRadius.circular(15.0),
-                                              gradient: LinearGradient(
-                                                begin: Alignment.topLeft,
-                                                end: Alignment.bottomRight,
-                                                colors: [
-                                                  const Color(0xFF0DD8FF),
-                                                  const Color(0xFF0FABFF),
-                                                  const Color(0xFF1457FF),
-                                                  const Color(0xFF1636FF),
-                                                  const Color(0xFF0E69C7),
-                                                ],
-                                              ),
-                                            ),
-                                            child: Center(
-                                              child: Text(
-                                                AppLocalizations.instance
-                                                    .text("loc_home"),
-                                                style: CustomWidget(
-                                                        context: context)
-                                                    .CustomSizedTextStyle(
-                                                        14.0,
-                                                        Theme.of(context)
-                                                            .focusColor,
-                                                        FontWeight.w500,
-                                                        'FontRegular'),
-                                                textAlign: TextAlign.center,
+                                                  color: Theme.of(context)
+                                                      .focusColor,
+                                                  border: Border.all(
+                                                    width: 1.0,
+                                                    color: Theme.of(context)
+                                                        .dividerColor,
+                                                  )),
+                                              child: Center(
+                                                child: Text(
+                                                  AppLocalizations.instance
+                                                      .text("loc_home"),
+                                                  style: CustomWidget(
+                                                      context: context)
+                                                      .CustomSizedTextStyle(
+                                                      14.0,
+                                                      home ? Theme.of(context)
+                                                          .focusColor :Theme.of(context)
+                                                          .accentColor
+                                                          .withOpacity(0.5),
+                                                      FontWeight.w500,
+                                                      'FontRegular'),
+                                                  textAlign: TextAlign.center,
+                                                ),
                                               ),
                                             ),
                                           ),
                                           const SizedBox(
                                             width: 10.0,
                                           ),
-                                          Container(
-                                            padding: EdgeInsets.fromLTRB(
-                                                10.0, 5.0, 10.0, 5.0),
-                                            decoration: BoxDecoration(
+                                          InkWell(
+                                            onTap: (){
+                                              setState(() {
+                                                home =false;
+                                                other =true;
+                                              });
+                                            },
+                                            child: Container(
+                                              padding: EdgeInsets.fromLTRB(
+                                                  10.0, 5.0, 10.0, 5.0),
+                                              decoration: other ?BoxDecoration(
                                                 borderRadius:
-                                                    BorderRadius.circular(15.0),
-                                                color: Theme.of(context)
-                                                    .focusColor,
-                                                border: Border.all(
-                                                  width: 1.0,
+                                                BorderRadius.circular(15.0),
+                                                gradient: LinearGradient(
+                                                  begin: Alignment.topLeft,
+                                                  end: Alignment.bottomRight,
+                                                  colors: [
+                                                    const Color(0xFF0DD8FF),
+                                                    const Color(0xFF0FABFF),
+                                                    const Color(0xFF1457FF),
+                                                    const Color(0xFF1636FF),
+                                                    const Color(0xFF0E69C7),
+                                                  ],
+                                                ),
+                                              ) : BoxDecoration(
+                                                  borderRadius:
+                                                  BorderRadius.circular(15.0),
                                                   color: Theme.of(context)
-                                                      .dividerColor,
-                                                )),
-                                            child: Center(
-                                              child: Text(
-                                                AppLocalizations.instance
-                                                    .text("loc_other"),
-                                                style: CustomWidget(
-                                                        context: context)
-                                                    .CustomSizedTextStyle(
-                                                        14.0,
-                                                        Theme.of(context)
-                                                            .accentColor
-                                                            .withOpacity(0.5),
-                                                        FontWeight.w500,
-                                                        'FontRegular'),
-                                                textAlign: TextAlign.center,
+                                                      .focusColor,
+                                                  border: Border.all(
+                                                    width: 1.0,
+                                                    color: Theme.of(context)
+                                                        .dividerColor,
+                                                  )),
+                                              child: Center(
+                                                child: Text(
+                                                  AppLocalizations.instance
+                                                      .text("loc_other"),
+                                                  style: CustomWidget(
+                                                      context: context)
+                                                      .CustomSizedTextStyle(
+                                                      14.0,
+                                                      other ? Theme.of(context)
+                                                          .focusColor : Theme.of(context)
+                                                          .accentColor
+                                                          .withOpacity(0.5),
+                                                      FontWeight.w500,
+                                                      'FontRegular'),
+                                                  textAlign: TextAlign.center,
+                                                ),
                                               ),
                                             ),
                                           )

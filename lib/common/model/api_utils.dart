@@ -17,6 +17,7 @@ class APIUtils {
   static const String logInURL = '/login';
   static const String forgotEmailURL = '/forgot';
   static const String getServicesURL = '/admin/ServiceList';
+  static const String createComplaintURL = '/users/createcomplaint';
 
 
   Future<Register> doRegisterEmail(
@@ -46,13 +47,15 @@ class APIUtils {
 
   Future<GetServiceDetails> getServicesDetails() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    var auth = preferences.getString("token");
+    var auth = "Bearer "+preferences.getString("token").toString();
     Map<String, String> requestHeaders = {
       'authorization': auth.toString(),
     };
     final response =
     await http.get(Uri.parse(baseURL + getServicesURL), headers: requestHeaders);
+    // print(response.body);
     return GetServiceDetails.fromJson(json.decode(response.body));
+
   }
 
 }
