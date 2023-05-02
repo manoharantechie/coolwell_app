@@ -1,6 +1,7 @@
 import 'package:coolwell_app/common/localization/localizations.dart';
-import 'package:coolwell_app/screens/user/basics/signIn.dart';
-import 'package:coolwell_app/screens/user/basics/signUp.dart';
+import 'package:coolwell_app/screens/user/basics/onboard/login.dart';
+import 'package:coolwell_app/screens/user/basics/onboard/register.dart';
+
 
 
 import 'package:flutter/cupertino.dart';

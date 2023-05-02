@@ -18,9 +18,10 @@ class APIUtils {
   static const String forgotEmailURL = '/forgot';
   static const String getServicesURL = '/admin/ServiceList';
   static const String createComplaintURL = '/users/createcomplaint';
+  static const String activateURL = '/verifyOtp';
 
 
-  Future<Register> doRegisterEmail(
+  Future<CommonModel> doRegisterEmail(
       String name, String phone, String email, String pass) async {
     var emailbodyData = {
       'name': name,
@@ -30,7 +31,7 @@ class APIUtils {
     };
     final response = await http.post(Uri.parse(baseURL + registerURL),
         body: emailbodyData);
-    return Register.fromJson(json.decode(response.body));
+    return CommonModel.fromJson(json.decode(response.body));
   }
 
   Future<Login> doLoginEmail(String email, String password,) async {
@@ -56,6 +57,19 @@ class APIUtils {
     // print(response.body);
     return GetServiceDetails.fromJson(json.decode(response.body));
 
+  }
+  Future<CommonModel> verifyOTP(
+       String email, String otp) async {
+    var emailbodyData = {
+      'gmail': email,
+      'otp': otp,
+
+      'phone': "null",
+    };
+    final response = await http.post(Uri.parse(baseURL + activateURL),
+        body: emailbodyData);
+    print(response.body);
+    return CommonModel.fromJson(json.decode(response.body));
   }
 
 }

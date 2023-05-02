@@ -1,4 +1,7 @@
+import 'package:coolwell_app/common/model/api_utils.dart';
+import 'package:coolwell_app/common/model/register.dart';
 import 'package:coolwell_app/common/textformfield_custom.dart';
+import 'package:coolwell_app/screens/user/basics/onboard/login.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -8,7 +11,8 @@ import 'package:coolwell_app/common/localization/localizations.dart';
 
 
 class OTP_Screen extends StatefulWidget {
-  const OTP_Screen({Key? key}) : super(key: key);
+
+  const OTP_Screen({Key? key, }) : super(key: key);
 
   @override
   State<OTP_Screen> createState() => _OTP_ScreenState();
@@ -16,8 +20,20 @@ class OTP_Screen extends StatefulWidget {
 
 class _OTP_ScreenState extends State<OTP_Screen> {
 
+
+  String type="";
+
   FocusNode codeFocus = FocusNode();
   TextEditingController codeController = TextEditingController();
+  APIUtils apiUtils=APIUtils();
+  bool loading=false;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -119,7 +135,7 @@ class _OTP_ScreenState extends State<OTP_Screen> {
                   focusNode: codeFocus,
                   maxlines: 1,
                   text: '',
-                  hintText: "987456",
+                  hintText: "code",
                   obscureText: false,
                   textChanged: (value) {},
                   onChanged: () {},
@@ -251,4 +267,34 @@ class _OTP_ScreenState extends State<OTP_Screen> {
     );
   }
 
+  doVerify() {
+    apiUtils
+        .verifyOTP(
+        "widget.mail",codeController.text.toString()
+      )
+        .then((CommonModel loginData) {
+      if (loginData.success!) {
+        setState(() {
+          loading = false;
+        });
+      CustomWidget(context: context).  custombar("Verify Account", loginData.message.toString(), true);
+        Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+                builder: (context) =>
+                    SignUp_Screen()));
+
+
+      } else {
+        setState(() {
+          loading = false;
+          CustomWidget(context: context).  custombar("Verify Account", loginData.message.toString(), false);
+        });
+      }
+    }).catchError((Object error) {
+      print(error);
+      setState(() {
+        loading = false;
+      });
+    });
+  }
 }

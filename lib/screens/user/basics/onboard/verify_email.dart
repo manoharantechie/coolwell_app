@@ -1,4 +1,7 @@
+import 'package:coolwell_app/common/model/api_utils.dart';
+import 'package:coolwell_app/common/model/register.dart';
 import 'package:coolwell_app/common/textformfield_custom.dart';
+import 'package:coolwell_app/screens/user/basics/onboard/login.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -8,7 +11,9 @@ import 'package:coolwell_app/common/localization/localizations.dart';
 
 
 class EmailViaScreen extends StatefulWidget {
-  const EmailViaScreen({Key? key}) : super(key: key);
+  final String mail;
+  final String type;
+  const EmailViaScreen({Key? key, required this.mail, required this.type}) : super(key: key);
 
   @override
   State<EmailViaScreen> createState() => _EmailViaScreenState();
@@ -16,8 +21,13 @@ class EmailViaScreen extends StatefulWidget {
 
 class _EmailViaScreenState extends State<EmailViaScreen> {
 
+  String type="";
+
   FocusNode codeFocus = FocusNode();
   TextEditingController codeController = TextEditingController();
+  APIUtils apiUtils=APIUtils();
+  bool loading=false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,6 +40,11 @@ class _EmailViaScreenState extends State<EmailViaScreen> {
             Image.asset("assets/images/back.png", fit: BoxFit.fill,width: MediaQuery.of(context).size.width,),
 
             contentUI(),
+            loading
+                ? CustomWidget(context: context).loadingIndicator(
+              Theme.of(context).primaryColor,
+            )
+                : Container()
 
           ],
         ),
@@ -71,7 +86,7 @@ class _EmailViaScreenState extends State<EmailViaScreen> {
           ),
           SizedBox(height: 5.0,),
           Text(
-            "Jos***@sample.com",
+            widget.mail.toString(),
             style: CustomWidget(context: context)
                 .CustomSizedTextStyle(
                 16.0,
@@ -117,7 +132,7 @@ class _EmailViaScreenState extends State<EmailViaScreen> {
                   focusNode: codeFocus,
                   maxlines: 1,
                   text: '',
-                  hintText: "6FLPQP",
+                  hintText: "otp",
                   obscureText: false,
                   textChanged: (value) {},
                   onChanged: () {},
@@ -189,7 +204,20 @@ class _EmailViaScreenState extends State<EmailViaScreen> {
               children: [
                 InkWell(
                   onTap: (){
-                    Navigator.pop(context);
+                    setState(() {
+                      print(codeController.text);
+
+                      if(codeController.text.toString().isNotEmpty)
+                        {
+                          loading=true;
+                          doVerify();
+
+                        }
+                      else{
+                        CustomWidget(context: context).  custombar("Verify Account", "Please Enter OTP to Verify", false);
+                      }
+
+                    });
                   },
                   child: Container(
                     width: MediaQuery.of(context).size.width * 0.6,
@@ -248,5 +276,37 @@ class _EmailViaScreenState extends State<EmailViaScreen> {
         ],
       ),
     );
+  }
+  doVerify() {
+    print(widget.mail);
+    apiUtils
+        .verifyOTP(
+        widget.mail.toString(),codeController.text.toString()
+    )
+        .then((CommonModel loginData) {
+      if (loginData.success!) {
+        setState(() {
+          loading = false;
+        });
+        CustomWidget(context: context).  custombar("Verify Account", loginData.message.toString(), true);
+        Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+                builder: (context) =>
+                    SignUp_Screen()));
+
+
+      } else {
+        setState(() {
+          loading = false;
+          CustomWidget(context: context).  custombar("Verify Account", loginData.message.toString(), false);
+        });
+      }
+    }).catchError((Object error) {
+      print("he;");
+      print(error);
+      setState(() {
+        loading = false;
+      });
+    });
   }
 }

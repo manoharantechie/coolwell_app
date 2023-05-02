@@ -1,6 +1,6 @@
 
 import 'package:coolwell_app/screens/user/service/service.dart';
-import 'package:coolwell_app/screens/user/basics/location_success.dart';
+import 'package:coolwell_app/screens/user/basics/onboard/location_success.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';

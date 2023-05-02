@@ -1,8 +1,9 @@
 import 'package:coolwell_app/common/custom_widget.dart';
 import 'package:coolwell_app/common/localization/localizations.dart';
-import 'package:coolwell_app/screens/user/basics/email.dart';
-import 'package:coolwell_app/screens/user/basics/location.dart';
-import 'package:coolwell_app/screens/user/basics/otp_code.dart';
+import 'package:coolwell_app/screens/user/basics/onboard/verify_email.dart';
+import 'package:coolwell_app/screens/user/basics/onboard/location.dart';
+import 'package:coolwell_app/screens/user/basics/onboard/verify_mobile.dart';
+
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -117,7 +118,7 @@ class _Forgot_PasswordState extends State<Forgot_Password> {
                     Navigator.of(context).push(
                         MaterialPageRoute(
                             builder: (context) =>
-                                EmailViaScreen()));
+                                EmailViaScreen(type: "forgot",mail: "",)));
                   },
                   child: Container(
                     padding: EdgeInsets.all(3.0),

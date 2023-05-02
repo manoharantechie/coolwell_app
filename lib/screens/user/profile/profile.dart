@@ -1,5 +1,5 @@
 
-import 'package:coolwell_app/screens/user/basics/signUp.dart';
+import 'package:coolwell_app/screens/user/basics/onboard/login.dart';
 import 'package:coolwell_app/screens/user/payment/payment_summary.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +22,17 @@ class Profile_Screen extends StatefulWidget {
 class _Profile_ScreenState extends State<Profile_Screen> {
 
   bool loading = false;
+  String role="";
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+  getDetails()async{
+    SharedPreferences preferences=await SharedPreferences.getInstance();
+    role=preferences.getString("roleType").toString();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -238,17 +249,7 @@ class _Profile_ScreenState extends State<Profile_Screen> {
                     child: Container(
                       padding: EdgeInsets.only(top: 10.0, bottom: 10.0, left: 20.0, right: 20.0),
                       decoration: BoxDecoration(
-                        // gradient: LinearGradient(
-                        //   begin: Alignment.centerRight,
-                        //   end: Alignment.centerLeft,
-                        //   colors: [
-                        //     const Color(0xFFFFFFFF),
-                        //     const Color(0xFFFFFFFF).withOpacity(0.2),
-                        //     const Color(0xFF1636FF).withOpacity(0.3),
-                        //     const Color(0xFF0FABFF).withOpacity(0.3),
-                        //
-                        //   ],
-                        // ),
+
                       ),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -281,17 +282,7 @@ class _Profile_ScreenState extends State<Profile_Screen> {
                     child: Container(
                       padding: EdgeInsets.only(top: 10.0, bottom: 10.0, left: 20.0, right: 20.0),
                       decoration: BoxDecoration(
-                        // gradient: LinearGradient(
-                        //   begin: Alignment.centerRight,
-                        //   end: Alignment.centerLeft,
-                        //   colors: [
-                        //     const Color(0xFFFFFFFF),
-                        //     const Color(0xFFFFFFFF).withOpacity(0.2),
-                        //     const Color(0xFF1636FF).withOpacity(0.3),
-                        //     const Color(0xFF0FABFF).withOpacity(0.3),
-                        //
-                        //   ],
-                        // ),
+
                       ),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -324,17 +315,7 @@ class _Profile_ScreenState extends State<Profile_Screen> {
                     child: Container(
                       padding: EdgeInsets.only(top: 10.0, bottom: 10.0, left: 20.0, right: 20.0),
                       decoration: BoxDecoration(
-                        // gradient: LinearGradient(
-                        //   begin: Alignment.centerRight,
-                        //   end: Alignment.centerLeft,
-                        //   colors: [
-                        //     const Color(0xFFFFFFFF),
-                        //     const Color(0xFFFFFFFF).withOpacity(0.2),
-                        //     const Color(0xFF1636FF).withOpacity(0.3),
-                        //     const Color(0xFF0FABFF).withOpacity(0.3),
-                        //
-                        //   ],
-                        // ),
+
                       ),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -358,7 +339,7 @@ class _Profile_ScreenState extends State<Profile_Screen> {
                     ),
                   ),
                   const SizedBox(height: 10.0,),
-                  InkWell(
+              role=="user"?Container():    InkWell(
                     child: Container(
                       padding: EdgeInsets.only(top: 10.0, bottom: 10.0, left: 20.0, right: 20.0),
                       decoration: BoxDecoration(
@@ -377,26 +358,26 @@ class _Profile_ScreenState extends State<Profile_Screen> {
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          // Flexible(child:
-                          // SvgPicture.asset("assets/tech/notify.svg", height: 18.0, color: Theme.of(context).primaryColor,),flex: 1,),
-                          // const SizedBox(width: 15.0,),
-                          // Flexible(child: Text(
-                          //   AppLocalizations.instance
-                          //       .text("loc_notification"),
-                          //   style: CustomWidget(context: context)
-                          //       .CustomSizedTextStyle(
-                          //       16.0,
-                          //       Theme.of(context).primaryColor,
-                          //       FontWeight.w500,
-                          //       'FontRegular'),
-                          //   textAlign: TextAlign.center,
-                          // ), flex: 4,),
+                          Flexible(child:
+                          SvgPicture.asset("assets/tech/notify.svg", height: 18.0, color: Theme.of(context).primaryColor,),flex: 1,),
+                          const SizedBox(width: 15.0,),
+                          Flexible(child: Text(
+                            AppLocalizations.instance
+                                .text("loc_notification"),
+                            style: CustomWidget(context: context)
+                                .CustomSizedTextStyle(
+                                16.0,
+                                Theme.of(context).primaryColor,
+                                FontWeight.w500,
+                                'FontRegular'),
+                            textAlign: TextAlign.center,
+                          ), flex: 4,),
 
                         ],
                       ),
                     ),
                   ),
-                  const SizedBox(height: 10.0,),
+                  role=="user"?Container(): const SizedBox(height: 10.0,),
                   Container(
                     margin: EdgeInsets.only(left: 20.0, right: 20.0),
                     height: 1.0,color: Theme.of(context).accentColor.withOpacity(0.5),
