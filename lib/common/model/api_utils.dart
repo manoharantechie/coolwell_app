@@ -1,9 +1,11 @@
 import 'dart:convert';
 
+import 'package:coolwell_app/common/model/profile_model.dart';
 import 'package:coolwell_app/common/model/register.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'complaint_history.dart';
 import 'get_services_details.dart';
 import 'login.dart';
 
@@ -19,6 +21,8 @@ class APIUtils {
   static const String getServicesURL = '/admin/ServiceList';
   static const String createComplaintURL = '/users/createcomplaint';
   static const String activateURL = '/verifyOtp';
+  static const String profileUpdateURL = '/profile';
+  static const String complaintHistoryURL = '/users/getComplaintHistory';
 
 
   Future<CommonModel> doRegisterEmail(
@@ -70,6 +74,29 @@ class APIUtils {
         body: emailbodyData);
     print(response.body);
     return CommonModel.fromJson(json.decode(response.body));
+  }
+
+  Future<ProfileDetailsModel> updateProfileDetails(String address, String pincode,) async {
+    var emailbodyData = {
+      'address': address,
+      'pincode': pincode
+    };
+
+    final response =
+    await http.post(Uri.parse(baseURL + profileUpdateURL), body: emailbodyData);
+
+    return ProfileDetailsModel.fromJson(json.decode(response.body));
+  }
+
+  Future<ComplaintHistoryModel> getComplaintDetails() async {
+    var emailbodyData = {
+      'type': "recent",
+    };
+
+    final response =
+    await http.post(Uri.parse(baseURL + complaintHistoryURL), body: emailbodyData);
+
+    return ComplaintHistoryModel.fromJson(json.decode(response.body));
   }
 
 }
