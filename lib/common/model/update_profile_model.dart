@@ -1,23 +1,23 @@
 import 'dart:convert';
 
-ProfileDetailsModel profileDetailsModelFromJson(String str) => ProfileDetailsModel.fromJson(json.decode(str));
+UpdateProfileDetailsModel updateProfileDetailsModelFromJson(String str) => UpdateProfileDetailsModel.fromJson(json.decode(str));
 
-String profileDetailsModelToJson(ProfileDetailsModel data) => json.encode(data.toJson());
+String updateProfileDetailsModelToJson(UpdateProfileDetailsModel data) => json.encode(data.toJson());
 
-class ProfileDetailsModel {
+class UpdateProfileDetailsModel {
   bool? success;
-  ProfileDetailsResult? result;
+  UpdateProfileResult? result;
   String? message;
 
-  ProfileDetailsModel({
+  UpdateProfileDetailsModel({
     this.success,
     this.result,
     this.message,
   });
 
-  factory ProfileDetailsModel.fromJson(Map<String, dynamic> json) => ProfileDetailsModel(
+  factory UpdateProfileDetailsModel.fromJson(Map<String, dynamic> json) => UpdateProfileDetailsModel(
     success: json["success"],
-    result: ProfileDetailsResult.fromJson(json["result"]),
+    result: UpdateProfileResult.fromJson(json["result"]),
     message: json["message"],
   );
 
@@ -28,7 +28,7 @@ class ProfileDetailsModel {
   };
 }
 
-class ProfileDetailsResult {
+class UpdateProfileResult {
   dynamic techId;
   dynamic twofa;
   bool? verified;
@@ -39,19 +39,14 @@ class ProfileDetailsResult {
   bool? phoneVerified;
   String? name;
   String? email;
-  String? verification;
-  String? city;
-  String? country;
-  String? phone;
-  String? urlTwitter;
-  String? urlGitHub;
-  String? address;
-  String? pincode;
-  List<dynamic>? addressDefault;
+  AddressDefault? addressDefault;
   List<dynamic>? addressHome;
   List<dynamic>? addressOther;
+  String? gmailOtp;
+  String? address;
+  String? pincode;
 
-  ProfileDetailsResult({
+  UpdateProfileResult({
     this.techId,
     this.twofa,
     this.verified,
@@ -62,20 +57,15 @@ class ProfileDetailsResult {
     this.phoneVerified,
     this.name,
     this.email,
-    this.verification,
-    this.city,
-    this.country,
-    this.phone,
-    this.urlTwitter,
-    this.urlGitHub,
-    this.address,
-    this.pincode,
     this.addressDefault,
     this.addressHome,
     this.addressOther,
+    this.gmailOtp,
+    this.address,
+    this.pincode,
   });
 
-  factory ProfileDetailsResult.fromJson(Map<String, dynamic> json) => ProfileDetailsResult(
+  factory UpdateProfileResult.fromJson(Map<String, dynamic> json) => UpdateProfileResult(
     techId: json["Tech_id"],
     twofa: json["twofa"],
     verified: json["verified"],
@@ -86,17 +76,12 @@ class ProfileDetailsResult {
     phoneVerified: json["phone_verified"],
     name: json["name"],
     email: json["email"],
-    verification: json["verification"],
-    city: json["city"],
-    country: json["country"],
-    phone: json["phone"],
-    urlTwitter: json["urlTwitter"],
-    urlGitHub: json["urlGitHub"],
-    address: json["address"],
-    pincode: json["pincode"],
-    addressDefault: List<dynamic>.from(json["addressDefault"].map((x) => x)),
+    addressDefault: AddressDefault.fromJson(json["addressDefault"]),
     addressHome: List<dynamic>.from(json["addressHome"].map((x) => x)),
     addressOther: List<dynamic>.from(json["addressOther"].map((x) => x)),
+    gmailOtp: json["gmail_otp"],
+    address: json["address"],
+    pincode: json["pincode"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -110,16 +95,35 @@ class ProfileDetailsResult {
     "phone_verified": phoneVerified,
     "name": name,
     "email": email,
-    "verification": verification,
-    "city": city,
-    "country": country,
-    "phone": phone,
-    "urlTwitter": urlTwitter,
-    "urlGitHub": urlGitHub,
-    "address": address,
-    "pincode": pincode,
-    "addressDefault": List<dynamic>.from(addressDefault!.map((x) => x)),
+    "addressDefault": addressDefault!.toJson(),
     "addressHome": List<dynamic>.from(addressHome!.map((x) => x)),
     "addressOther": List<dynamic>.from(addressOther!.map((x) => x)),
+    "gmail_otp": gmailOtp,
+    "address": address,
+    "pincode": pincode,
+  };
+}
+
+class AddressDefault {
+  String? address;
+  String? latitude;
+  String? longitude;
+
+  AddressDefault({
+    this.address,
+    this.latitude,
+    this.longitude,
+  });
+
+  factory AddressDefault.fromJson(Map<String, dynamic> json) => AddressDefault(
+    address: json["address"],
+    latitude: json["latitude"],
+    longitude: json["longitude"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "address": address,
+    "latitude": latitude,
+    "longitude": longitude,
   };
 }
