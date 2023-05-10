@@ -6,10 +6,12 @@ import 'package:coolwell_app/common/model/user_location_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'complaint_history.dart';
-import 'create_complaint.dart';
+import 'complaint_history_model.dart';
+import 'create_complaint_model.dart';
+import 'get_profile_details_model.dart';
 import 'get_services_details.dart';
 import 'login.dart';
+import 'upload_image_model.dart';
 
 class APIUtils {
   final appName = 'Coolwell';
@@ -116,7 +118,7 @@ class APIUtils {
     return CommonModel.fromJson(json.decode(response.body));
   }
 
-  Future<UpdateProfileDetailsModel> updateProfileDetails(String name, String address, String pincode,) async {
+  Future<CommonModel> updateProfileDetails(String name, String address, String pincode,String profileImage) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     var auth = "Bearer "+preferences.getString("token").toString();
     Map<String, String> requestHeaders = {
@@ -125,13 +127,42 @@ class APIUtils {
     var emailbodyData = {
       "name": name,
       'address': address,
-      'pincode': pincode
+      'pincode': pincode,
+      'profile_pic': profileImage
     };
 
     final response =
     await http.patch(Uri.parse(baseURL + profileUpdateURL), headers: requestHeaders, body: emailbodyData);
 
-    return UpdateProfileDetailsModel.fromJson(json.decode(response.body));
+    return CommonModel.fromJson(json.decode(response.body));
+  }
+
+  Future<UploadImageModel> doUpload(String front) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var request =
+    http.MultipartRequest("POST", Uri.parse(baseURL + uploadImageURL));
+    request.headers['authorization'] =
+        "Bearer "+preferences.getString("token").toString();
+    request.headers['Accept'] = 'application/json';
+
+    var pic = await http.MultipartFile.fromPath("image", front);
+    request.files.add(pic);
+    http.Response response =
+    await http.Response.fromStream(await request.send());
+    return UploadImageModel.fromJson(json.decode(response.body.toString()));
+  }
+
+  Future<GetProfileDetailsModel> getProfileDetails() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var auth = "Bearer "+preferences.getString("token").toString();
+    Map<String, String> requestHeaders = {
+      'authorization': auth.toString(),
+    };
+
+    final response =
+    await http.get(Uri.parse(baseURL + profileUpdateURL),headers: requestHeaders);
+    // print(response.body);
+    return GetProfileDetailsModel.fromJson(json.decode(response.body));
   }
 
   Future<CreateComplaintDetails> createComplaintDetails(String serviceid, String date, String name, String address, String city, String zip, String lat, String lon, String amount,) async {

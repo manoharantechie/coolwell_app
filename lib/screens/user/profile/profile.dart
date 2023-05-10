@@ -9,6 +9,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:coolwell_app/common/custom_button.dart';
 import 'package:coolwell_app/common/custom_widget.dart';
 import 'package:coolwell_app/common/localization/localizations.dart';
+import '../../../common/model/api_utils.dart';
+import '../../../common/model/get_profile_details_model.dart';
 import 'slot_screen.dart';
 import 'edit_profile.dart';
 
@@ -23,11 +25,18 @@ class _Profile_ScreenState extends State<Profile_Screen> {
 
   bool loading = false;
   String role="";
+  APIUtils apiUtils = APIUtils();
+  var snackBar;
+  String userName ="";
+  String gender ="";
+  GetProfileResult? details;
+
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    profile();
   }
   getDetails()async{
     SharedPreferences preferences=await SharedPreferences.getInstance();
@@ -133,7 +142,7 @@ class _Profile_ScreenState extends State<Profile_Screen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "Mr,",
+                                gender+",",
                                 style: CustomWidget(context: context)
                                     .CustomSizedTextStyle(
                                     14.0,
@@ -144,7 +153,7 @@ class _Profile_ScreenState extends State<Profile_Screen> {
                               ),
                               const SizedBox(height: 5.0,),
                               Text(
-                                "Username",
+                                userName,
                                 style: CustomWidget(context: context)
                                     .CustomSizedTextStyle(
                                     18.0,
@@ -155,7 +164,7 @@ class _Profile_ScreenState extends State<Profile_Screen> {
                               ),
                               const SizedBox(height: 5.0,),
                               Text(
-                                "example@gmail.com",
+                                details!.email.toString(),
                                 style: CustomWidget(context: context)
                                     .CustomSizedTextStyle(
                                     14.0,
@@ -617,5 +626,41 @@ class _Profile_ScreenState extends State<Profile_Screen> {
           );
         });
     // show the dialog
+  }
+
+  profile() {
+    apiUtils
+        .getProfileDetails()
+        .then((GetProfileDetailsModel loginData) {
+      setState(() {
+        if (loginData.success!) {
+          setState(() {
+            loading = false;
+            details = loginData.result!;
+            var str = loginData.result!.name!.split(".");
+            userName =str[1].trim().toString();
+            gender=str[0].trim().toString();
+
+          });
+          // CustomWidget(context: context).
+          // custombar("Profile", loginData.message.toString(), true);
+
+        }
+        else {
+          loading = false;
+          CustomWidget(context: context)
+              .custombar("Profile", loginData.message.toString(), false);
+
+        }
+      });
+
+    }).catchError((Object error) {
+
+
+      print(error);
+      setState(() {
+        loading = false;
+      });
+    });
   }
 }
