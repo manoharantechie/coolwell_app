@@ -13,6 +13,8 @@ import 'package:coolwell_app/common/custom_widget.dart';
 import 'package:coolwell_app/common/localization/localizations.dart';
 import 'package:coolwell_app/common/textformfield_custom.dart';
 
+import '../basics/home.dart';
+
 class Location_Screen extends StatefulWidget {
   const Location_Screen({Key? key}) : super(key: key);
 
@@ -850,10 +852,14 @@ class _Location_ScreenState extends State<Location_Screen> {
                                       height: 20.0,
                                     ),
                                     InkWell(
-                                      onTap: () {},
+                                      onTap: () {
+                                        setState(() {
+                                          Navigator.of(context).pushReplacement(MaterialPageRoute(
+                                              builder: (context) =>
+                                                  Home_Screen()));
+                                        });
+                                      },
                                       child: Container(
-
-
                                         padding:
                                         EdgeInsets.fromLTRB(30.0, 10.0, 30.0, 10.0),
                                         decoration: BoxDecoration(

@@ -225,12 +225,13 @@ class _Service_ScreenState extends State<Service_Screen> {
             Container(
               color: Theme.of(context).backgroundColor,
               margin: EdgeInsets.only(
-                  top: MediaQuery.of(context).size.height * 0.37),
+                  top: MediaQuery.of(context).size.height * 0.39),
               child: Padding(
                   padding: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
                   child: Container(
                       child: SingleChildScrollView(
                         child: ListView.builder(
+                          padding: EdgeInsets.zero,
                           itemCount: totalDetails.length,
                           shrinkWrap: true,
                           physics: ScrollPhysics(),

@@ -72,7 +72,7 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
             contentUI(),
             loading
                 ? CustomWidget(context: context).loadingIndicator(
-              Theme.of(context).primaryColor,
+              Theme.of(context).cardColor,
             )
                 : Container()
 

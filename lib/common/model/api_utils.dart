@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:coolwell_app/common/model/register.dart';
 import 'package:coolwell_app/common/model/update_profile_model.dart';
 import 'package:coolwell_app/common/model/user_location_model.dart';
+import 'package:coolwell_app/common/model/user_service_history_details_model.dart';
+import 'package:coolwell_app/common/model/user_service_history_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -32,6 +34,8 @@ class APIUtils {
   static const String googleRegisterURL = '/googleregister';
   static const String sendMobileURL = '/sendMobileOtp';
   static const String uploadImageURL = '/uploadimage';
+  static const String usersHistoryURL = '/users/getHistory';
+  static const String usersHistoryDetailsURL = '/users/getComplaintHistory';
 
 
 
@@ -253,6 +257,34 @@ class APIUtils {
     return CommonModel.fromJson(json.decode(response.body));
   }
 
+  Future<UsersHistoryModel> getServiceDetails() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var auth = "Bearer "+preferences.getString("token").toString();
+    Map<String, String> requestHeaders = {
+      'authorization': auth.toString(),
+    };
+
+    final response =
+    await http.post(Uri.parse(baseURL + usersHistoryURL), headers: requestHeaders);
+
+    return UsersHistoryModel.fromJson(json.decode(response.body));
+  }
+
+  Future<UsersHistoryDetailsModel> getServiceFullDetails(String hisId) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var auth = "Bearer "+preferences.getString("token").toString();
+    Map<String, String> requestHeaders = {
+      'authorization': auth.toString(),
+    };
+    var bodyData = {
+      'job_id': hisId,
+    };
+
+    final response =
+    await http.post(Uri.parse(baseURL + usersHistoryDetailsURL),headers: requestHeaders, body: bodyData);
+    // print(response.body);
+    return UsersHistoryDetailsModel.fromJson(json.decode(response.body));
+  }
 
 
 }
