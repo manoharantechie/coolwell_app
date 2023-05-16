@@ -28,11 +28,9 @@ class _Service_History_DetailsState extends State<Service_History_Details> {
   bool loading = false;
   APIUtils apiUtils = APIUtils();
   UsersHistoryResult? OrderFullList;
-  String Servicename ="";
-  String Serviceamount ="";
-  String Servicetime ="";
-  String CustomerNum ="";
-  String Customername ="";
+  String servicename ="";
+  String technicianNum ="";
+  String technicianName ="";
 
   @override
   void initState() {
@@ -63,8 +61,6 @@ class _Service_History_DetailsState extends State<Service_History_Details> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                      Container(
-
-
                        padding: EdgeInsets.only(right: 50.0),
                        decoration: BoxDecoration(
                          borderRadius: BorderRadius.circular(30.0),
@@ -171,7 +167,8 @@ class _Service_History_DetailsState extends State<Service_History_Details> {
                                   offset: Offset(0.0, 0.5)),
                             ]),
                         child: Text(
-                          "Deep clean AC Service",
+                          // "Deep clean AC Service",
+                          servicename.toString(),
                           style: CustomWidget(context: context)
                               .CustomSizedTextStyle(
                                   18.0,
@@ -233,8 +230,7 @@ class _Service_History_DetailsState extends State<Service_History_Details> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    AppLocalizations.instance
-                                        .text("loc_tech_name"),
+                                    technicianName.toString(),
                                     style: CustomWidget(context: context)
                                         .CustomSizedTextStyle(
                                             18.0,
@@ -271,7 +267,7 @@ class _Service_History_DetailsState extends State<Service_History_Details> {
                                         width: 5.0,
                                       ),
                                       Text(
-                                        "+91 9876543210",
+                                        "+91 "+ technicianNum.toString(),
                                         style: CustomWidget(context: context)
                                             .CustomSizedTextStyle(
                                                 12.0,
@@ -1387,12 +1383,11 @@ class _Service_History_DetailsState extends State<Service_History_Details> {
         if (loginData.success!) {
           setState(() {
             loading = false;
+
             OrderFullList = loginData.result!;
-            // Servicename =OrderFullList!.serviceId!.;
-            // Serviceamount =OrderFullList!.services!.amount.toString();
-            // Servicetime =OrderFullList!.services!.time.toString();
-            // CustomerNum =OrderFullList!.item!.userId!.phone.toString();
-            // Customername =OrderFullList!.item!.userId!.name.toString();
+            servicename =OrderFullList!.service!.serviceName.toString();
+            technicianName = OrderFullList!.technician!.name.toString();
+            technicianNum = OrderFullList!.technician!.phone.toString();
 
           });
           // CustomWidget(context: context).
@@ -1413,6 +1408,7 @@ class _Service_History_DetailsState extends State<Service_History_Details> {
       print(error);
       setState(() {
         loading = false;
+        print("jeeva");
       });
     });
   }

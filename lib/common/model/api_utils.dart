@@ -271,13 +271,14 @@ class APIUtils {
   }
 
   Future<UsersHistoryDetailsModel> getServiceFullDetails(String hisId) async {
+    print(hisId);
     SharedPreferences preferences = await SharedPreferences.getInstance();
     var auth = "Bearer "+preferences.getString("token").toString();
     Map<String, String> requestHeaders = {
       'authorization': auth.toString(),
     };
     var bodyData = {
-      'job_id': hisId,
+      '_id': hisId,
     };
 
     final response =
