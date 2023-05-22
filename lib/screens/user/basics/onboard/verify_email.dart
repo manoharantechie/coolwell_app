@@ -42,7 +42,7 @@ class _EmailViaScreenState extends State<EmailViaScreen> {
             contentUI(),
             loading
                 ? CustomWidget(context: context).loadingIndicator(
-              Theme.of(context).primaryColor,
+              Theme.of(context).cardColor,
             )
                 : Container()
 

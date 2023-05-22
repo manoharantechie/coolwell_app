@@ -65,7 +65,7 @@ class _SignIn_ScreenState extends State<SignIn_Screen> {
             contentUI(),
             loading
                 ? CustomWidget(context: context).loadingIndicator(
-              Theme.of(context).primaryColor,
+              Theme.of(context).cardColor,
             )
                 : Container()
 
@@ -387,7 +387,7 @@ class _SignIn_ScreenState extends State<SignIn_Screen> {
                                     child: Center(
                                       child: Text(
                                         AppLocalizations.instance
-                                            .text("loc_signin"),
+                                            .text("loc_signup"),
                                         style: CustomWidget(context: context)
                                             .CustomSizedTextStyle(
                                             17.0,

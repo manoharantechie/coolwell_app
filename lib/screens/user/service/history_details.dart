@@ -6,8 +6,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:coolwell_app/common/textformfield_custom.dart';
 
+import '../../../common/model/api_utils.dart';
+import '../../../common/model/user_service_history_details_model.dart';
+
 class Service_History_Details extends StatefulWidget {
-  const Service_History_Details({Key? key}) : super(key: key);
+  final String h_id;
+  const Service_History_Details({Key? key,  required this.h_id}) : super(key: key);
 
   @override
   State<Service_History_Details> createState() =>
@@ -20,6 +24,22 @@ class _Service_History_DetailsState extends State<Service_History_Details> {
   bool video = false;
   FocusNode reviewFocus = FocusNode();
   TextEditingController reviewController = TextEditingController();
+
+  bool loading = false;
+  APIUtils apiUtils = APIUtils();
+  UsersHistoryResult? OrderFullList;
+  String servicename ="";
+  String technicianNum ="";
+  String technicianName ="";
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    loading = true;
+    servicesDetails();
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,8 +61,6 @@ class _Service_History_DetailsState extends State<Service_History_Details> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                      Container(
-
-
                        padding: EdgeInsets.only(right: 50.0),
                        decoration: BoxDecoration(
                          borderRadius: BorderRadius.circular(30.0),
@@ -149,7 +167,8 @@ class _Service_History_DetailsState extends State<Service_History_Details> {
                                   offset: Offset(0.0, 0.5)),
                             ]),
                         child: Text(
-                          "Deep clean AC Service",
+                          // "Deep clean AC Service",
+                          servicename.toString(),
                           style: CustomWidget(context: context)
                               .CustomSizedTextStyle(
                                   18.0,
@@ -211,8 +230,7 @@ class _Service_History_DetailsState extends State<Service_History_Details> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    AppLocalizations.instance
-                                        .text("loc_tech_name"),
+                                    technicianName.toString(),
                                     style: CustomWidget(context: context)
                                         .CustomSizedTextStyle(
                                             18.0,
@@ -249,7 +267,7 @@ class _Service_History_DetailsState extends State<Service_History_Details> {
                                         width: 5.0,
                                       ),
                                       Text(
-                                        "+91 9876543210",
+                                        "+91 "+ technicianNum.toString(),
                                         style: CustomWidget(context: context)
                                             .CustomSizedTextStyle(
                                                 12.0,
@@ -1346,9 +1364,52 @@ class _Service_History_DetailsState extends State<Service_History_Details> {
                     ],
                   ),
                 )),
+            loading
+                ? CustomWidget(context: context).loadingIndicator(
+              Theme.of(context).cardColor,
+            )
+                : Container(),
           ],
         ),
       ),
     );
+  }
+
+  servicesDetails() {
+    apiUtils
+        .getServiceFullDetails(widget.h_id)
+        .then((UsersHistoryDetailsModel loginData) {
+      setState(() {
+        if (loginData.success!) {
+          setState(() {
+            loading = false;
+
+            OrderFullList = loginData.result!;
+            servicename =OrderFullList!.service!.serviceName.toString();
+            technicianName = OrderFullList!.technician!.name.toString();
+            technicianNum = OrderFullList!.technician!.phone.toString();
+
+          });
+          // CustomWidget(context: context).
+          // custombar("Service", loginData.message.toString(), true);
+
+        }
+        else {
+          loading = false;
+          CustomWidget(context: context)
+              .custombar("Service", loginData.message.toString(), false);
+
+        }
+      });
+
+    }).catchError((Object error) {
+
+
+      print(error);
+      setState(() {
+        loading = false;
+        print("jeeva");
+      });
+    });
   }
 }

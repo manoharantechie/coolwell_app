@@ -8,15 +8,43 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:coolwell_app/common/custom_widget.dart';
 import 'package:coolwell_app/common/localization/localizations.dart';
 
+import '../../../common/model/api_utils.dart';
+import '../../../common/model/register.dart';
+import '../../../common/model/user_service_history_model.dart';
+
 class Service_history extends StatefulWidget {
-  const Service_history({Key? key}) : super(key: key);
+
+  const Service_history({Key? key, }) : super(key: key);
 
   @override
   State<Service_history> createState() => _Service_historyState();
 }
 
 class _Service_historyState extends State<Service_history> {
+
+  APIUtils apiUtils = APIUtils();
+  var snackBar;
   ScrollController _scrollController = ScrollController();
+  bool loading = false;
+  String ServiceName = "";
+  String Amount = "";
+  String Time = "";
+  List<String> texts = [
+    "Deep clean AC Service",
+    "Cleaning",
+    "Repair",
+    "Install"
+  ];
+
+  List<Result> OrderList = [];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    serviceDetails();
+    loading = true;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -102,333 +130,382 @@ class _Service_historyState extends State<Service_history> {
             const SizedBox(
               height: 5.0,
             ),
-            Container(
-              margin: EdgeInsets.only(
-                  top: MediaQuery.of(context).size.height * 0.1),
-              child: ListView.builder(
-                itemCount: 3,
-                scrollDirection: Axis.vertical,
-                shrinkWrap: true,
-                controller: _scrollController,
-                itemBuilder: (BuildContext context, int index) {
-                  return Column(
-                    children: [
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        height: 20.0,
-                        decoration: BoxDecoration(
-                          gradient: new LinearGradient(
-                              colors: [
-                                CustomTheme.of(context)
-                                    .cardColor
-                                    .withOpacity(0.1),
-                                CustomTheme.of(context)
-                                    .buttonColor
-                                    .withOpacity(0.1)
-                              ],
-                              begin: Alignment.topRight,
-                              //const FractionalOffset(0.0, 0.5),
-                              end: Alignment.bottomLeft,
-                              //const FractionalOffset(1.0, 0.6),
-                              stops: [0.0, 1.0],
-                              tileMode: TileMode.clamp),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 15.0,
-                      ),
-                      InkWell(
-                          onTap: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) =>
-                                    Service_History_Details()));
-
-                          },
-                          child: Container(
-                            padding: EdgeInsets.only(
-                                left: 20.0,
-                                right: 20.0,
-                                top: 0.0,
-                                bottom: 20.0),
-                            child: TicketWidget(
-                              child: Container(
-                                width: MediaQuery.of(context).size.width,
-                                height:
-                                    MediaQuery.of(context).size.height * 0.25,
-                                padding:
-                                    EdgeInsets.fromLTRB(10.0, 15.0, 5.0, 5.0),
-                                decoration: BoxDecoration(
-                                    color: Color(0xFF1F598E),
-                                    image: DecorationImage(
-                                      colorFilter: ColorFilter.mode(
-                                          Color(0xFF1F598E).withOpacity(0.6),
-                                          BlendMode.dstATop),
-                                      image: AssetImage(
-                                          "assets/images/serv_back_2.png"),
-                                      fit: BoxFit.cover,
-                                    ),
-                                    borderRadius: BorderRadius.circular(15.0)),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsets.only(
-                                        right: 10.0,
-                                      ),
-                                      child: SvgPicture.asset(
-                                        "assets/menu/cool.svg",
-                                        height: 25.0,
-                                        color: Theme.of(context).cardColor,
-                                      ),
-                                    ),
-                                    DottedLine(
-                                      direction: Axis.vertical,
-                                      dashColor: Theme.of(context).dividerColor,
-                                    ),
-                                    Flexible(
-                                        child: Container(
-                                      padding: EdgeInsets.only(
-                                        left: 10.0,
-                                        right: 10.0,
-                                      ),
-                                      child: Column(
+            OrderList.length > 0
+                ? Container(
+                    margin: EdgeInsets.only(
+                        top: MediaQuery.of(context).size.height * 0.1),
+                    child: ListView.builder(
+                      padding: EdgeInsets.zero,
+                      itemCount: OrderList.length,
+                      scrollDirection: Axis.vertical,
+                      shrinkWrap: true,
+                      controller: _scrollController,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Column(
+                          children: [
+                            Container(
+                              width: MediaQuery.of(context).size.width,
+                              height: 20.0,
+                              decoration: BoxDecoration(
+                                gradient: new LinearGradient(
+                                    colors: [
+                                      CustomTheme.of(context)
+                                          .cardColor
+                                          .withOpacity(0.1),
+                                      CustomTheme.of(context)
+                                          .buttonColor
+                                          .withOpacity(0.1)
+                                    ],
+                                    begin: Alignment.topRight,
+                                    //const FractionalOffset(0.0, 0.5),
+                                    end: Alignment.bottomLeft,
+                                    //const FractionalOffset(1.0, 0.6),
+                                    stops: [0.0, 1.0],
+                                    tileMode: TileMode.clamp),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 15.0,
+                            ),
+                            InkWell(
+                                onTap: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) =>
+                                          Service_History_Details(h_id: OrderList[index].id!.toString(),)));
+                                },
+                                child: Container(
+                                  padding: EdgeInsets.only(
+                                      left: 20.0,
+                                      right: 20.0,
+                                      top: 0.0,
+                                      bottom: 20.0),
+                                  child: TicketWidget(
+                                    child: Container(
+                                      width: MediaQuery.of(context).size.width,
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.25,
+                                      padding: EdgeInsets.fromLTRB(
+                                          10.0, 15.0, 5.0, 5.0),
+                                      decoration: BoxDecoration(
+                                          color: Color(0xFF1F598E),
+                                          image: DecorationImage(
+                                            colorFilter: ColorFilter.mode(
+                                                Color(0xFF1F598E)
+                                                    .withOpacity(0.6),
+                                                BlendMode.dstATop),
+                                            image: AssetImage(
+                                                "assets/images/serv_back_2.png"),
+                                            fit: BoxFit.cover,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(15.0)),
+                                      child: Row(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         mainAxisAlignment:
-                                            MainAxisAlignment.end,
+                                            MainAxisAlignment.start,
                                         children: [
-                                          Container(
-                                            child: Row(
+                                          Padding(
+                                            padding: EdgeInsets.only(
+                                              right: 10.0,
+                                            ),
+                                            child: SvgPicture.asset(
+                                              "assets/menu/cool.svg",
+                                              height: 25.0,
+                                              color:
+                                                  Theme.of(context).cardColor,
+                                            ),
+                                          ),
+                                          DottedLine(
+                                            direction: Axis.vertical,
+                                            dashColor:
+                                                Theme.of(context).dividerColor,
+                                          ),
+                                          Flexible(
+                                              child: Container(
+                                            padding: EdgeInsets.only(
+                                              left: 10.0,
+                                              right: 10.0,
+                                            ),
+                                            child: Column(
                                               crossAxisAlignment:
-                                                  CrossAxisAlignment.center,
+                                                  CrossAxisAlignment.start,
                                               mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
+                                                  MainAxisAlignment.end,
                                               children: [
-                                                Flexible(
-                                                  child: Container(
-                                                    // width: MediaQuery.of(context).size.width * 0.2,
-                                                    child: Column(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        Container(
-                                                          child: Text(
-                                                            // AppLocalizations.instance
-                                                            //     .text("loc_cleaning"),
-                                                            "Deep clean AC Service ",
-                                                            style: CustomWidget(
-                                                                    context:
-                                                                        context)
-                                                                .CustomSizedTextStyle(
-                                                                    18.0,
-                                                                    Theme.of(
-                                                                            context)
-                                                                        .focusColor,
-                                                                    FontWeight
-                                                                        .w600,
-                                                                    'FontRegular'),
-                                                            textAlign:
-                                                                TextAlign.start,
-                                                            overflow:
-                                                                TextOverflow
-                                                                    .ellipsis,
-                                                          ),
-                                                        ),
-                                                        SizedBox(
-                                                          height: 5.0,
-                                                        ),
-                                                        Row(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .center,
-                                                          children: [
-                                                            Icon(
-                                                              Icons.star,
-                                                              size: 15.0,
-                                                              color: Theme.of(
-                                                                      context)
-                                                                  .cardColor,
-                                                            ),
-                                                            SizedBox(
-                                                              width: 5.0,
-                                                            ),
-                                                            Text(
-                                                              "4.81 (1.2M)",
-                                                              style: CustomWidget(
-                                                                      context:
-                                                                          context)
-                                                                  .CustomSizedTextStyle(
-                                                                      10.0,
+                                                Container(
+                                                  child: Row(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .center,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      Flexible(
+                                                        child: Container(
+                                                          // width: MediaQuery.of(context).size.width * 0.2,
+                                                          child: Column(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              Container(
+                                                                child: Text(
+                                                                  // AppLocalizations.instance
+                                                                  //     .text("loc_cleaning"),
+                                                                  OrderList[index].serviceId!.serviceName.toString(),
+                                                                  style: CustomWidget(context: context).CustomSizedTextStyle(
+                                                                      18.0,
                                                                       Theme.of(
                                                                               context)
                                                                           .focusColor,
-                                                                      FontWeight
-                                                                          .w400,
-                                                                      'FontRegular'),
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center,
-                                                            ),
-                                                          ],
-                                                        ),
-                                                        SizedBox(
-                                                          height: 5.0,
-                                                        ),
-                                                        Row(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .center,
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            Text(
-                                                              "₹499",
-                                                              style: CustomWidget(
-                                                                      context:
-                                                                          context)
-                                                                  .CustomSizedTextStyle(
-                                                                      13.0,
-                                                                      Theme.of(
-                                                                              context)
-                                                                          .focusColor,
-                                                                      FontWeight
-                                                                          .w800,
-                                                                      'FontRegular'),
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center,
-                                                            ),
-                                                            SizedBox(
-                                                              width: 10.0,
-                                                            ),
-                                                            Container(
-                                                              width: 1.0,
-                                                              height: 13.0,
-                                                              color: Theme.of(
-                                                                      context)
-                                                                  .dividerColor,
-                                                            ),
-                                                            SizedBox(
-                                                              width: 10.0,
-                                                            ),
-                                                            Text(
-                                                              "₹649",
-                                                              style: TextStyle(
-                                                                  fontSize:
-                                                                      10.0,
-                                                                  decoration:
-                                                                      TextDecoration
-                                                                          .lineThrough,
-                                                                  fontWeight:
                                                                       FontWeight
                                                                           .w600,
-                                                                  color: Theme.of(
-                                                                          context)
-                                                                      .accentColor,
-                                                                  fontStyle:
-                                                                      FontStyle
-                                                                          .normal),
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center,
-                                                            ),
-                                                            SizedBox(
-                                                              width: 20.0,
-                                                            ),
-                                                            Row(
-                                                              crossAxisAlignment:
-                                                                  CrossAxisAlignment
-                                                                      .center,
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .start,
-                                                              children: [
-                                                                Container(
-                                                                  decoration:
-                                                                      BoxDecoration(
-                                                                    shape: BoxShape
-                                                                        .circle,
-                                                                    color: Theme.of(
-                                                                            context)
-                                                                        .focusColor,
-                                                                  ),
-                                                                  width: 2.0,
-                                                                  height: 2.0,
-                                                                ),
-                                                                SizedBox(
-                                                                  width: 5.0,
-                                                                ),
-                                                                Text(
-                                                                  "45 mins",
-                                                                  style: CustomWidget(context: context).CustomSizedTextStyle(
-                                                                      10.0,
-                                                                      Theme.of(
-                                                                              context)
-                                                                          .focusColor,
-                                                                      FontWeight
-                                                                          .w400,
                                                                       'FontRegular'),
                                                                   textAlign:
                                                                       TextAlign
-                                                                          .center,
+                                                                          .start,
+                                                                  overflow:
+                                                                      TextOverflow
+                                                                          .ellipsis,
                                                                 ),
-                                                              ],
-                                                            )
-                                                          ],
+                                                              ),
+                                                              SizedBox(
+                                                                height: 5.0,
+                                                              ),
+                                                              Row(
+                                                                crossAxisAlignment:
+                                                                    CrossAxisAlignment
+                                                                        .center,
+                                                                children: [
+                                                                  Icon(
+                                                                    Icons.star,
+                                                                    size: 15.0,
+                                                                    color: Theme.of(
+                                                                            context)
+                                                                        .cardColor,
+                                                                  ),
+                                                                  SizedBox(
+                                                                    width: 5.0,
+                                                                  ),
+                                                                  Text(
+                                                                    "4.81 (1.2M)",
+                                                                    style: CustomWidget(context: context).CustomSizedTextStyle(
+                                                                        10.0,
+                                                                        Theme.of(context)
+                                                                            .focusColor,
+                                                                        FontWeight
+                                                                            .w400,
+                                                                        'FontRegular'),
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .center,
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                              SizedBox(
+                                                                height: 5.0,
+                                                              ),
+                                                              Row(
+                                                                crossAxisAlignment:
+                                                                    CrossAxisAlignment
+                                                                        .center,
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .start,
+                                                                children: [
+                                                                  Text(
+                                                                    "₹ "+ OrderList[index].serviceId!.amount.toString(),
+                                                                    style: CustomWidget(context: context).CustomSizedTextStyle(
+                                                                        13.0,
+                                                                        Theme.of(context)
+                                                                            .focusColor,
+                                                                        FontWeight
+                                                                            .w800,
+                                                                        'FontRegular'),
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .center,
+                                                                  ),
+                                                                  SizedBox(
+                                                                    width: 10.0,
+                                                                  ),
+                                                                  Container(
+                                                                    width: 1.0,
+                                                                    height:
+                                                                        13.0,
+                                                                    color: Theme.of(
+                                                                            context)
+                                                                        .dividerColor,
+                                                                  ),
+                                                                  SizedBox(
+                                                                    width: 10.0,
+                                                                  ),
+                                                                  Text(
+                                                                    "₹649",
+                                                                    style: TextStyle(
+                                                                        fontSize:
+                                                                            10.0,
+                                                                        decoration:
+                                                                            TextDecoration
+                                                                                .lineThrough,
+                                                                        fontWeight:
+                                                                            FontWeight
+                                                                                .w600,
+                                                                        color: Theme.of(context)
+                                                                            .accentColor,
+                                                                        fontStyle:
+                                                                            FontStyle.normal),
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .center,
+                                                                  ),
+                                                                  SizedBox(
+                                                                    width: 20.0,
+                                                                  ),
+                                                                  Row(
+                                                                    crossAxisAlignment:
+                                                                        CrossAxisAlignment
+                                                                            .center,
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .start,
+                                                                    children: [
+                                                                      Container(
+                                                                        decoration:
+                                                                            BoxDecoration(
+                                                                          shape:
+                                                                              BoxShape.circle,
+                                                                          color:
+                                                                              Theme.of(context).focusColor,
+                                                                        ),
+                                                                        width:
+                                                                            2.0,
+                                                                        height:
+                                                                            2.0,
+                                                                      ),
+                                                                      SizedBox(
+                                                                        width:
+                                                                            5.0,
+                                                                      ),
+                                                                      Text(
+                                                                        // "45 mins",
+                                                                        OrderList[index].serviceId!.time.toString(),
+                                                                        style: CustomWidget(context: context).CustomSizedTextStyle(
+                                                                            10.0,
+                                                                            Theme.of(context).focusColor,
+                                                                            FontWeight.w400,
+                                                                            'FontRegular'),
+                                                                        textAlign:
+                                                                            TextAlign.center,
+                                                                      ),
+                                                                    ],
+                                                                  )
+                                                                ],
+                                                              ),
+                                                              SizedBox(
+                                                                height: 10.0,
+                                                              ),
+                                                            ],
+                                                          ),
                                                         ),
-                                                        SizedBox(
-                                                          height: 10.0,
+                                                        flex: 1,
+                                                      ),
+                                                      Flexible(
+                                                        child: Container(
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        10.0),
+                                                            image:
+                                                                DecorationImage(
+                                                              image: AssetImage(
+                                                                "assets/images/cleaning.png",
+                                                              ),
+                                                              fit: BoxFit.cover,
+                                                            ),
+                                                          ),
+                                                          width: 85.0,
+                                                          height: 80,
                                                         ),
-                                                      ],
-                                                    ),
+                                                        flex: 1,
+                                                      )
+                                                    ],
                                                   ),
-                                                  flex: 1,
-                                                ),
-                                                Flexible(
-                                                  child: Container(
-
-                                                    decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(
-                                                                    10.0),
-                                                      image: DecorationImage(
-
-                                                        image: AssetImage(
-                                                          "assets/images/cleaning.png",),
-                                                        fit: BoxFit.cover,
-                                                      ),),
-                                                    width: 85.0,
-                                                    height: 80,
-                                                  ),
-                                                  flex: 1,
                                                 )
                                               ],
                                             ),
-                                          )
+                                          ))
                                         ],
                                       ),
-                                    ))
-                                  ],
-                                ),
-                              ),
-                              height: MediaQuery.of(context).size.height * 0.26,
-                              width: MediaQuery.of(context).size.width,
-                              isCornerRounded: true,
-                            ),
-                          )),
-                    ],
-                  );
-                },
-              ),
-            ),
+                                    ),
+                                    height: MediaQuery.of(context).size.height *
+                                        0.26,
+                                    width: MediaQuery.of(context).size.width,
+                                    isCornerRounded: true,
+                                  ),
+                                )),
+                          ],
+                        );
+                      },
+                    ),
+                  )
+                : Center(
+                    child: Text(
+                      AppLocalizations.instance.text('loc_no_records'),
+                      style: CustomWidget(context: context)
+                          .CustomSizedTextStyle(
+                              16.0,
+                              Theme.of(context).primaryColor,
+                              FontWeight.w700,
+                              'FontRegular'),
+                    ),
+                  ),
+            loading
+                ? CustomWidget(context: context).loadingIndicator(
+                    Theme.of(context).cardColor,
+                  )
+                : Container(),
           ],
         ),
       ),
     );
+  }
+
+  serviceDetails() {
+    apiUtils
+        .getServiceDetails()
+        .then((UsersHistoryModel loginData) {
+      setState(() {
+        if (loginData.success!) {
+          setState(() {
+            loading = false;
+            OrderList = loginData.result!;
+
+          });
+          // CustomWidget(context: context).
+          // custombar("Service", loginData.message.toString(), true);
+
+        }
+        else {
+          loading = false;
+          CustomWidget(context: context)
+              .custombar("Service", loginData.message.toString(), false);
+
+        }
+      });
+
+    }).catchError((Object error) {
+
+
+      print(error);
+      setState(() {
+        loading = false;
+      });
+    });
   }
 }

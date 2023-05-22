@@ -28,9 +28,7 @@ class _Home_ScreenState extends State<Home_Screen> {
   int selectIndex=0;
   List<Widget>  bottomPage = [
     DashBoard_Screen(),
-    // Tech_DashBoard_Screen(),
     Service_Screen(),
-    // Tech_Orders_Screen(),
     Service_history(),
     Profile_Screen()
   ];
