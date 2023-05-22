@@ -273,7 +273,7 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
                                 child: Center(
                                   child: Text(
                                     AppLocalizations.instance
-                                        .text("loc_signup"),
+                                        .text("loc_signin"),
                                     style: CustomWidget(context: context)
                                         .CustomSizedTextStyle(
                                         17.0,
