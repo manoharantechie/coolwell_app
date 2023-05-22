@@ -67,7 +67,6 @@ class APIUtils {
     var emailbodyData = {
       'gmail': email,
       'otp': otp,
-
       'phone': "null",
     };
     final response = await http.post(Uri.parse(baseURL + activateURL),

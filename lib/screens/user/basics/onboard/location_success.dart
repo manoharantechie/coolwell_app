@@ -24,7 +24,6 @@ class _Location_Success_ScreenState extends State<Location_Success_Screen> {
         child: Stack(
           children: [
             Image.asset("assets/images/back.png", fit: BoxFit.fill,width: MediaQuery.of(context).size.width,),
-
             contentUI(),
 
           ],
