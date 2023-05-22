@@ -1,4 +1,3 @@
-import 'package:coolwell_app/common/model/api_utils.dart';
 import 'package:coolwell_app/common/textformfield_custom.dart';
 import 'package:coolwell_app/screens/user/basics/onboard/login.dart';
 import 'package:flutter/cupertino.dart';
