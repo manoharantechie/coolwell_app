@@ -364,12 +364,21 @@ class _SignIn_ScreenState extends State<SignIn_Screen> {
                                 InkWell(
                                   onTap: (){
 
-                                    if (emailformKey.currentState!.validate()) {
-                                      setState(() {
-                                        loading = true;
-                                        RegisterEmail();
-                                      });
-                                    }
+                                    if(checkHide)
+                                      {
+                                        if (emailformKey.currentState!.validate()) {
+                                          setState(() {
+                                            loading = true;
+                                            RegisterEmail();
+                                          });
+                                        }
+
+                                      }
+                                    else
+                                      {
+                                        custombar("Coolwell", "Accept terms and Conditions", false);
+                                      }
+
                                     //
 
                                   },

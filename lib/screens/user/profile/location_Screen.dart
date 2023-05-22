@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -23,8 +24,6 @@ class Location_Screen extends StatefulWidget {
 }
 
 class _Location_ScreenState extends State<Location_Screen> {
-  double doubleInRange(Random source, num start, num end) =>
-      source.nextDouble() * (end - start) + start;
 
   late final MapController _mapController;
   double lat = 0.00;
@@ -33,9 +32,9 @@ class _Location_ScreenState extends State<Location_Screen> {
   var lastPosition;
   bool status = false;
   bool home = true;
+  bool defaultAddd = false;
   bool other = false;
   List<Marker> markers = [];
-  List<Marker> allMarkers = [];
   ScrollController controller = ScrollController();
   FocusNode nameFocus = FocusNode();
   FocusNode addressFocus = FocusNode();
@@ -48,32 +47,18 @@ class _Location_ScreenState extends State<Location_Screen> {
   TextEditingController cityController = TextEditingController();
   TextEditingController zipController = TextEditingController();
 
+
+  int interActiveFlags = InteractiveFlag.all;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    _getCurrentLocation();
+
     getPermission();
-    _getLocation();
+
     _mapController = MapController();
-    Future.microtask(() {
-      final r = Random();
-      for (var x = 0; x < 20; x++) {
-        allMarkers.add(
-          Marker(
-              point: LatLng(
-                // 9.939093,78.121719,
-                doubleInRange(r, 10, 35),
-                doubleInRange(r, 71, 90),
-              ),
-              builder: (context) => SvgPicture.asset(
-                    'assets/images/map_pin.svg',
-                    height: 30.0,
-                  )),
-        );
-      }
-      setState(() {});
-    });
+
   }
 
   getPermission() async {
@@ -96,33 +81,57 @@ class _Location_ScreenState extends State<Location_Screen> {
         lat = position.latitude;
         long = position.longitude;
         addPin(LatLng(position.latitude, position.longitude));
+        _getAddress(position.latitude, position.longitude);
       });
-    }).catchError((e) {});
+    }).catchError((e) {
+
+    });
   }
 
-  _getLocation() async {
-    position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.high);
-    lastPosition = await Geolocator.getLastKnownPosition();
-    setState(() {});
-  }
 
   addPin(LatLng latlng) {
     setState(() {
+      _mapController.move(
+          LatLng(lat,
+              long),
+          _mapController.zoom);
       markers.add(Marker(
         width: 30.0,
         height: 30.0,
         point: latlng,
         builder: (ctx) => Container(
-          child: SvgPicture.asset(
-            'assets/images/map_pin.svg',
+          child: Image.asset(
+            'assets/images/map_pin.png',
             height: 50.0,
           ),
         ),
       ));
     });
+
   }
 
+
+  _getAddress(double lat, double lang) async {
+
+    try {
+      List<Placemark> p = await placemarkFromCoordinates(lat, lang);
+
+      Placemark place = p[0];
+
+      setState(() {
+
+        nameController.text=place.name.toString();
+
+        addressController.text =   place.thoroughfare.toString();
+        addressLineController.text =   place.locality.toString();
+        cityController.text =   place.administrativeArea.toString();
+        zipController.text =   place.postalCode.toString();
+
+
+
+      });
+    } catch (e) {}
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -164,24 +173,7 @@ class _Location_ScreenState extends State<Location_Screen> {
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        InkWell(
-                          onTap: () {
-                            Navigator.of(context).pop();
-                          },
-                          child: Container(
-                            padding: EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Theme.of(context).cardColor,
-                            ),
-                            child: Center(
-                              child: Icon(
-                                Icons.arrow_back,
-                                size: 25.0,
-                              ),
-                            ),
-                          ),
-                        ),
+
                         const SizedBox(
                           width: 20.0,
                         ),
@@ -214,8 +206,8 @@ class _Location_ScreenState extends State<Location_Screen> {
               child: FlutterMap(
                 mapController: _mapController,
                 options: MapOptions(
-                  center: LatLng(25, 80),
-                  zoom: 6,
+                  center: LatLng(lat, long),
+                  zoom:15,
                   interactiveFlags:
                       InteractiveFlag.all - InteractiveFlag.rotate,
                 ),
@@ -229,14 +221,29 @@ class _Location_ScreenState extends State<Location_Screen> {
                           'sk.eyJ1Ijoic2FkaGFtNzg2NiIsImEiOiJjbGRvZzEwM2owMDhmM3VscHNjeHBqZmVnIn0.neun916O4dDcO1Jjcg1y_Q',
                     },
                   ),
-                  // TileLayer(
-                  //   urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-                  //   userAgentPackageName: 'dev.fleaflet.flutter_map.example',
-                  // ),
+
                   MarkerLayer(
                       markers: markers.sublist(0, min(markers.length, 1))),
                 ],
               ),
+
+              // child: FlutterMap(
+              //   mapController: _mapController,
+              //   options: MapOptions(
+              //     center:
+              //     LatLng(37.4219983, -122.084),
+              //     zoom: 5,
+              //     interactiveFlags: interActiveFlags,
+              //   ),
+              //   children: [
+              //     TileLayer(
+              //       urlTemplate:
+              //       'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+              //       userAgentPackageName: 'dev.fleaflet.flutter_map.example',
+              //     ),
+              //     MarkerLayer(markers: markers),
+              //   ],
+              // ),
             ),
             Align(
               alignment: Alignment.bottomCenter,
@@ -702,7 +709,13 @@ class _Location_ScreenState extends State<Location_Screen> {
                                         children: [
                                           Flexible(
                                             child: CustomSwitch(
-                                              value: false,
+                                              onChanged: (val){
+
+                                                ssetState(() {
+                                                  defaultAddd=val;
+                                                });
+                                              },
+                                              value: defaultAddd,
                                               activeColor:
                                                   Theme.of(context).cardColor,
                                               circleColor:
@@ -738,7 +751,7 @@ class _Location_ScreenState extends State<Location_Screen> {
                                         children: [
                                           InkWell(
                                             onTap: (){
-                                              setState(() {
+                                              ssetState(() {
                                                 home =true;
                                                 other =false;
                                               });
@@ -794,7 +807,7 @@ class _Location_ScreenState extends State<Location_Screen> {
                                           ),
                                           InkWell(
                                             onTap: (){
-                                              setState(() {
+                                              ssetState(() {
                                                 home =false;
                                                 other =true;
                                               });

@@ -53,9 +53,19 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
     setState(() {
       _selectedCountry = country;
       countryB = true;
+
+
     });
   }
 
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    nameController=TextEditingController(text: "akash@mailinator.com");
+    passController=TextEditingController(text: "Pass@123");
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -631,21 +641,15 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
               loginData.result!.user!.role.toString(),
               loginData.result!.user!.name.toString());
 
-          if(loginData.result!.user!.role.toString().toLowerCase()=="user")
-            {
+
               Navigator.of(context).pushReplacement(MaterialPageRoute(
                   builder: (context) =>
                       Location_Screen()));
-            }
-        else  if(loginData.result!.user!.role.toString().toLowerCase()=="technician")
-          {
-            Navigator.of(context).pushReplacement(MaterialPageRoute(
-                builder: (context) =>
-                    TechHome()));
-          }
 
-          nameController.clear();
-          passController.clear();
+
+
+          // nameController.clear();
+          // passController.clear();
 
         } else {
 

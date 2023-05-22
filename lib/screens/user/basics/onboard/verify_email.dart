@@ -147,24 +147,24 @@ class _EmailViaScreenState extends State<EmailViaScreen> {
                   controller: codeController,
                 ),
                 SizedBox(height: 5.0,),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SvgPicture.asset("assets/images/verified.svg", height: 14.0,),
-                    SizedBox(width: 5.0,),
-                    Text(
-                      AppLocalizations.instance
-                          .text("loc_success"),
-                      style: CustomWidget(context: context)
-                          .CustomSizedTextStyle(
-                          14.0,
-                          Theme.of(context).indicatorColor,
-                          FontWeight.w600,
-                          'FontRegular'),
-                      textAlign: TextAlign.center,
-                    ),
-                  ],
-                ),
+                // Row(
+                //   crossAxisAlignment: CrossAxisAlignment.center,
+                //   children: [
+                //     SvgPicture.asset("assets/images/verified.svg", height: 14.0,),
+                //     SizedBox(width: 5.0,),
+                //     Text(
+                //       AppLocalizations.instance
+                //           .text("loc_success"),
+                //       style: CustomWidget(context: context)
+                //           .CustomSizedTextStyle(
+                //           14.0,
+                //           Theme.of(context).indicatorColor,
+                //           FontWeight.w600,
+                //           'FontRegular'),
+                //       textAlign: TextAlign.center,
+                //     ),
+                //   ],
+                // ),
                 SizedBox(height: 20.0,),
                 Row(
                   children: [
@@ -278,7 +278,6 @@ class _EmailViaScreenState extends State<EmailViaScreen> {
     );
   }
   doVerify() {
-    print(widget.mail);
     apiUtils
         .verifyOTP(
         widget.mail.toString(),codeController.text.toString()
@@ -302,8 +301,6 @@ class _EmailViaScreenState extends State<EmailViaScreen> {
         });
       }
     }).catchError((Object error) {
-      print("he;");
-      print(error);
       setState(() {
         loading = false;
       });
