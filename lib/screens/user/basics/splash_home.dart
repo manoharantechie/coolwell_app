@@ -94,7 +94,7 @@ class _SplashHomeScreenState extends State<SplashHomeScreen> {
                       child: Center(
                         child: Text(
                           AppLocalizations.instance
-                              .text("loc_signin"),
+                              .text("loc_signup"),
                           style: CustomWidget(context: context)
                               .CustomSizedTextStyle(
                               17.0,
@@ -123,7 +123,7 @@ class _SplashHomeScreenState extends State<SplashHomeScreen> {
                       child: Center(
                         child: Text(
                           AppLocalizations.instance
-                              .text("loc_signup"),
+                              .text("loc_signin"),
                           style: CustomWidget(context: context)
                               .CustomSizedTextStyle(
                               17.0,
