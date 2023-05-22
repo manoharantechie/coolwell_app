@@ -1,8 +1,5 @@
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
-import 'package:coolwell_app/common/model/api_utils.dart';
-import 'package:coolwell_app/common/model/register.dart';
 import 'package:coolwell_app/common/text_field_custom_prefix.dart';
-import 'package:coolwell_app/screens/user/basics/onboard/login.dart';
 import 'package:coolwell_app/screens/user/basics/onboard/verify_email.dart';
 
 import 'package:flutter/cupertino.dart';
@@ -11,6 +8,9 @@ import 'package:flutter/material.dart';
 
 import 'package:coolwell_app/common/custom_widget.dart';
 import 'package:coolwell_app/common/localization/localizations.dart';
+
+import '../../../../data/api_utils.dart';
+import '../../../../data/model/register.dart';
 
 class SignIn_Screen extends StatefulWidget {
   const SignIn_Screen({Key? key}) : super(key: key);

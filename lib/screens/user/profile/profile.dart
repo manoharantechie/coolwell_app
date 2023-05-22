@@ -6,11 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'package:coolwell_app/common/custom_button.dart';
 import 'package:coolwell_app/common/custom_widget.dart';
 import 'package:coolwell_app/common/localization/localizations.dart';
-import '../../../common/model/api_utils.dart';
-import '../../../common/model/get_profile_details_model.dart';
+import '../../../data/api_utils.dart';
+import '../../../data/model/get_profile_details_model.dart';
 import 'slot_screen.dart';
 import 'edit_profile.dart';
 

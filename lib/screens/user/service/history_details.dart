@@ -5,9 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:coolwell_app/common/textformfield_custom.dart';
-
-import '../../../common/model/api_utils.dart';
-import '../../../common/model/user_service_history_details_model.dart';
+import '../../../data/api_utils.dart';
+import '../../../data/model/user_service_history_details_model.dart';
 
 class Service_History_Details extends StatefulWidget {
   final String h_id;

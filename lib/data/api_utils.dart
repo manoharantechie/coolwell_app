@@ -1,10 +1,5 @@
 import 'dart:convert';
 
-import 'package:coolwell_app/common/model/register.dart';
-import 'package:coolwell_app/common/model/update_profile_model.dart';
-import 'package:coolwell_app/common/model/user_location_model.dart';
-import 'package:coolwell_app/common/model/user_service_history_details_model.dart';
-import 'package:coolwell_app/common/model/user_service_history_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -13,7 +8,11 @@ import 'model/create_complaint_model.dart';
 import 'model/get_profile_details_model.dart';
 import 'model/get_services_details.dart';
 import 'model/login.dart';
+import 'model/register.dart';
 import 'model/upload_image_model.dart';
+import 'model/user_location_model.dart';
+import 'model/user_service_history_details_model.dart';
+import 'model/user_service_history_model.dart';
 
 class APIUtils {
   final appName = 'Coolwell';

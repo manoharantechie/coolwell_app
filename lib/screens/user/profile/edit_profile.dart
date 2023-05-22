@@ -11,9 +11,9 @@ import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import '../../../common/custom_button.dart';
-import '../../../common/model/api_utils.dart';
-import '../../../common/model/register.dart';
-import '../../../common/model/upload_image_model.dart';
+import '../../../data/api_utils.dart';
+import '../../../data/model/register.dart';
+import '../../../data/model/upload_image_model.dart';
 
 class Edit_Profile_Screen extends StatefulWidget {
   const Edit_Profile_Screen({Key? key}) : super(key: key);

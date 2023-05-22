@@ -1,5 +1,4 @@
 import 'package:coolwell_app/common/model/api_utils.dart';
-import 'package:coolwell_app/common/model/register.dart';
 import 'package:coolwell_app/common/textformfield_custom.dart';
 import 'package:coolwell_app/screens/user/basics/onboard/login.dart';
 import 'package:flutter/cupertino.dart';
@@ -8,6 +7,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:coolwell_app/common/custom_widget.dart';
 import 'package:coolwell_app/common/localization/localizations.dart';
+
+import '../../../../data/api_utils.dart';
+import '../../../../data/model/register.dart';
 
 
 class EmailViaScreen extends StatefulWidget {
