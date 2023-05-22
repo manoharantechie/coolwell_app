@@ -163,7 +163,6 @@ class APIUtils {
 
     final response =
     await http.get(Uri.parse(baseURL + profileUpdateURL),headers: requestHeaders);
-    // print(response.body);
     return GetProfileDetailsModel.fromJson(json.decode(response.body));
   }
 
@@ -233,9 +232,7 @@ class APIUtils {
       'type': type,
     };
 
-    final response =
-    await http.post(Uri.parse(baseURL + googleRegisterURL), body: bodyData);
-
+    final response = await http.post(Uri.parse(baseURL + googleRegisterURL), body: bodyData);
     return CommonModel.fromJson(json.decode(response.body));
   }
 
@@ -249,9 +246,7 @@ class APIUtils {
       'phone_no': number
     };
 
-    final response =
-    await http.post(Uri.parse(baseURL + sendMobileURL), headers: requestHeaders, body: bodyData);
-
+    final response = await http.post(Uri.parse(baseURL + sendMobileURL), headers: requestHeaders, body: bodyData);
     return CommonModel.fromJson(json.decode(response.body));
   }
 
@@ -269,7 +264,6 @@ class APIUtils {
   }
 
   Future<UsersHistoryDetailsModel> getServiceFullDetails(String hisId) async {
-    print(hisId);
     SharedPreferences preferences = await SharedPreferences.getInstance();
     var auth = "Bearer "+preferences.getString("token").toString();
     Map<String, String> requestHeaders = {
@@ -281,7 +275,6 @@ class APIUtils {
 
     final response =
     await http.post(Uri.parse(baseURL + usersHistoryDetailsURL),headers: requestHeaders, body: bodyData);
-    // print(response.body);
     return UsersHistoryDetailsModel.fromJson(json.decode(response.body));
   }
 
