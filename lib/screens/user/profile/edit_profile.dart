@@ -521,24 +521,6 @@ class _Edit_Profile_ScreenState extends State<Edit_Profile_Screen> {
                             ),
                           ],
                         ),
-                        const SizedBox(height: 10.0,),
-                        Row(
-                          children: [
-                            SvgPicture.asset("assets/profile/delete.svg", height: 15.0,),
-                            const SizedBox(width: 5.0,),
-                            Text(
-                              AppLocalizations.instance
-                                  .text("loc_dele_acc"),
-                              style: CustomWidget(context: context)
-                                  .CustomSizedTextStyle(
-                                  14.0,
-                                  Theme.of(context).disabledColor,
-                                  FontWeight.w400,
-                                  'FontRegular'),
-                              textAlign: TextAlign.center,
-                            ),
-                          ],
-                        ),
                         const SizedBox(height: 50.0,),
                         Align(
                           alignment: Alignment.center,
