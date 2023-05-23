@@ -150,7 +150,7 @@ class _Profile_ScreenState extends State<Profile_Screen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    gender+",",
+                                    gender,
                                     style: CustomWidget(context: context)
                                         .CustomSizedTextStyle(
                                         14.0,
