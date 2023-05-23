@@ -161,7 +161,7 @@ class _Profile_ScreenState extends State<Profile_Screen> {
                                   ),
                                   const SizedBox(height: 5.0,),
                                   Text(
-                                    userName,
+                                    userName.toUpperCase(),
                                     style: CustomWidget(context: context)
                                         .CustomSizedTextStyle(
                                         18.0,
@@ -653,9 +653,11 @@ class _Profile_ScreenState extends State<Profile_Screen> {
           setState(() {
             loading = false;
             details = loginData.result!;
+
             var str = loginData.result!.name!.split(".");
-            userName =str[1].trim().toString();
-            gender=str[0].trim().toString();
+            print(str);
+            userName =loginData.result!.name!.contains(".")?str[1].trim().toString():loginData.result!.name!;
+            gender=loginData.result!.name!.contains(".")?str[0].trim().toString():"";
             email=details!.email.toString();
             mobileNo=details!.phone.toString();
             profileImage=details!.profile_pic.toString();

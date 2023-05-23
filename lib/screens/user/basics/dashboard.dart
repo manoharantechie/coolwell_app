@@ -7,6 +7,7 @@ import 'package:coolwell_app/screens/user/service/service_details.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 import 'notification.dart';
@@ -35,12 +36,24 @@ class _DashBoard_ScreenState extends State<DashBoard_Screen> {
   bool  installing = false;
   bool  help = false;
   bool  loading = false;
+  String address="";
+  String lat="";
+  String long="";
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    // loading = true;
+    getData();
+
+  }
+  getData()async{
+    SharedPreferences preferences=await SharedPreferences.getInstance();
+    setState(() {
+      address=preferences.getString("address").toString();
+      lat=preferences.getString("lat").toString();
+      long=preferences.getString("long").toString();
+    });
   }
 
 
@@ -97,25 +110,16 @@ class _DashBoard_ScreenState extends State<DashBoard_Screen> {
                         textAlign: TextAlign.end,
                       ),
                       Text(
-                        "Baskar Complex",
+                        address,
                         style: CustomWidget(context: context)
                             .CustomSizedTextStyle(
                             18.0,
                             Theme.of(context).focusColor,
                             FontWeight.w600,
                             'FontRegular'),
-                        textAlign: TextAlign.end,
+                        textAlign: TextAlign.start,
                       ),
-                      Text(
-                        "Baskar Complex, 600600.",
-                        style: CustomWidget(context: context)
-                            .CustomSizedTextStyle(
-                            14.0,
-                            Theme.of(context).focusColor,
-                            FontWeight.w800,
-                            'FontRegular'),
-                        textAlign: TextAlign.end,
-                      ),
+
                     ],
                   ),
                 ),

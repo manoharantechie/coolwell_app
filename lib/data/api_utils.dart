@@ -206,7 +206,7 @@ class APIUtils {
     return ComplaintHistoryModel.fromJson(json.decode(response.body));
   }
 
-  Future<UserLocationModel> locationDetails(String address, String latitude, String longitude ) async {
+  Future<CommonModel> locationDetails(String address, String latitude, String longitude ) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     var auth = "Bearer "+preferences.getString("token").toString();
     Map<String, String> requestHeaders = {
@@ -221,7 +221,7 @@ class APIUtils {
     final response =
     await http.post(Uri.parse(baseURL + userLocationURL),headers: requestHeaders, body: bodyData);
 
-    return UserLocationModel.fromJson(json.decode(response.body));
+    return CommonModel.fromJson(json.decode(response.body));
   }
 
   Future<CommonModel> googleRegistration(String name, String email, String type ) async {
