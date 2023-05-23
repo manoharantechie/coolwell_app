@@ -127,8 +127,6 @@ class _Location_ScreenState extends State<Location_Screen> {
         cityController.text =   place.administrativeArea.toString();
         zipController.text =   place.postalCode.toString();
 
-
-
       });
     } catch (e) {}
   }
@@ -145,7 +143,7 @@ class _Location_ScreenState extends State<Location_Screen> {
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height * 0.45,
               padding: EdgeInsets.only(
-                  left: 20.0, right: 20.0, top: 50.0, bottom: 10.0),
+                  left: 20.0, right: 20.0, top: 40.0, bottom: 10.0),
               decoration: BoxDecoration(
                 color: Colors.transparent,
                 image: DecorationImage(
@@ -156,40 +154,67 @@ class _Location_ScreenState extends State<Location_Screen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.7,
+                  Padding(padding: EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 15.0),child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    padding: EdgeInsets.fromLTRB(10.0, 12.0, 10.0, 12.0),
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30.0),
-                      gradient: LinearGradient(
-                        begin: Alignment.centerLeft,
-                        end: Alignment.centerRight,
-                        colors: [
-                          const Color(0xFFF4F4F4).withOpacity(0.5),
-                          const Color(0xFFF4F4F4).withOpacity(0.3),
-                          const Color(0xFFF4F4F4).withOpacity(0.1),
-                        ],
-                      ),
+                        borderRadius: BorderRadius.circular(10.0),
+                        border: Border.all(width: 1.0,color: Theme.of(context).accentColor,)
                     ),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-
-                        const SizedBox(
-                          width: 20.0,
-                        ),
+                        SvgPicture.asset("assets/images/search.svg", height: 20.0, color: Theme.of(context).accentColor,),
+                        SizedBox(width: 10.0,),
                         Text(
-                          AppLocalizations.instance.text("loc_summary"),
+                          AppLocalizations.instance
+                              .text("loc_search"),
                           style: CustomWidget(context: context)
                               .CustomSizedTextStyle(
-                                  18.0,
-                                  Theme.of(context).primaryColor,
-                                  FontWeight.w400,
-                                  'FontRegular'),
-                          textAlign: TextAlign.start,
+                              14.0,
+                              Theme.of(context).primaryColor,
+                              FontWeight.w400,
+                              'FontRegular'),
+                          textAlign: TextAlign.end,
                         ),
                       ],
                     ),
-                  ),
+                  ),),
+                  // Container(
+                  //   width: MediaQuery.of(context).size.width * 0.7,
+                  //   decoration: BoxDecoration(
+                  //     borderRadius: BorderRadius.circular(30.0),
+                  //     gradient: LinearGradient(
+                  //       begin: Alignment.centerLeft,
+                  //       end: Alignment.centerRight,
+                  //       colors: [
+                  //         const Color(0xFFF4F4F4).withOpacity(0.5),
+                  //         const Color(0xFFF4F4F4).withOpacity(0.3),
+                  //         const Color(0xFFF4F4F4).withOpacity(0.1),
+                  //       ],
+                  //     ),
+                  //   ),
+                  //   child: Row(
+                  //     crossAxisAlignment: CrossAxisAlignment.center,
+                  //     children: [
+                  //
+                  //       const SizedBox(
+                  //         width: 20.0,
+                  //       ),
+                  //       Text(
+                  //         AppLocalizations.instance.text("loc_summary"),
+                  //         style: CustomWidget(context: context)
+                  //             .CustomSizedTextStyle(
+                  //                 18.0,
+                  //                 Theme.of(context).primaryColor,
+                  //                 FontWeight.w400,
+                  //                 'FontRegular'),
+                  //         textAlign: TextAlign.start,
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
                 ],
               ),
             ),
@@ -227,24 +252,8 @@ class _Location_ScreenState extends State<Location_Screen> {
                 ],
               ),
 
-              // child: FlutterMap(
-              //   mapController: _mapController,
-              //   options: MapOptions(
-              //     center:
-              //     LatLng(37.4219983, -122.084),
-              //     zoom: 5,
-              //     interactiveFlags: interActiveFlags,
-              //   ),
-              //   children: [
-              //     TileLayer(
-              //       urlTemplate:
-              //       'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-              //       userAgentPackageName: 'dev.fleaflet.flutter_map.example',
-              //     ),
-              //     MarkerLayer(markers: markers),
-              //   ],
-              // ),
             ),
+
             Align(
               alignment: Alignment.bottomCenter,
               child: InkWell(
