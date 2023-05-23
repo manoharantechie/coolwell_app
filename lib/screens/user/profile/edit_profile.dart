@@ -393,6 +393,7 @@ class _Edit_Profile_ScreenState extends State<Edit_Profile_Screen> {
                                 controller: emailController,
                               ),
                               const SizedBox(height: 15.0,),
+
                               TextFormFieldCustom(
                                 onEditComplete: () {
                                   addressFocus.unfocus();
