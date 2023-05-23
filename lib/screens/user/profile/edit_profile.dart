@@ -12,6 +12,7 @@ import 'package:permission_handler/permission_handler.dart';
 
 import '../../../common/custom_button.dart';
 import '../../../data/api_utils.dart';
+import '../../../data/model/get_profile_details_model.dart';
 import '../../../data/model/register.dart';
 import '../../../data/model/upload_image_model.dart';
 
@@ -47,12 +48,18 @@ class _Edit_Profile_ScreenState extends State<Edit_Profile_Screen> {
   File? imageFile;
   final ImagePicker picker = ImagePicker();
   final profileformKey = GlobalKey<FormState>();
+  GetProfileResult? details;
+  String email ="";
+  String userName ="";
+  String mobileNo ="";
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     selectedValue = coinlist.first;
+    loading =true;
+    profile();
   }
 
   @override
@@ -262,7 +269,7 @@ class _Edit_Profile_ScreenState extends State<Edit_Profile_Screen> {
                                       decoration: InputDecoration(
                                         contentPadding: const EdgeInsets.only(
                                             left: 12, right: 0, top: 2, bottom: 2),
-                                        hintText: "Name",
+                                        hintText: userName.toString(),
                                         hintStyle: CustomWidget(context: context).CustomSizedTextStyle(
                                             14.0,
                                             Theme.of(context).primaryColor.withOpacity(0.3),
@@ -321,39 +328,71 @@ class _Edit_Profile_ScreenState extends State<Edit_Profile_Screen> {
                                 ),
                               ),
                               const SizedBox(height: 15.0,),
-                              // TextFormFieldCustom(
-                              //   onEditComplete: () {
-                              //     emailFocus.unfocus();
-                              //     FocusScope.of(context).requestFocus(addressFocus);
-                              //   },
-                              //   radius: 6.0,
-                              //   error: "Enter E-Mail Id",
-                              //   textColor: Theme.of(context).primaryColor,
-                              //   borderColor: Theme.of(context).dividerColor,
-                              //   fillColor: Theme.of(context).focusColor,
-                              //   hintStyle: CustomWidget(context: context).CustomSizedTextStyle(
-                              //       14.0, Theme.of(context).primaryColor.withOpacity(0.3), FontWeight.w500, 'FontRegular'),
-                              //   textStyle: CustomWidget(context: context).CustomSizedTextStyle(
-                              //       14.0, Theme.of(context).primaryColor, FontWeight.w500, 'FontRegular'),
-                              //   textInputAction: TextInputAction.next,
-                              //   focusNode: emailFocus,
-                              //   maxlines: 1,
-                              //   text: '',
-                              //   hintText: "Mail ID",
-                              //   obscureText: false,
-                              //   textChanged: (value) {},
-                              //   onChanged: () {},
-                              //   suffix: Container(
-                              //     width: 0.0,
-                              //   ),
-                              //   validator: (value) {
-                              //
-                              //   },
-                              //   enabled: true,
-                              //   textInputType: TextInputType.emailAddress,
-                              //   controller: emailController,
-                              // ),
-                              // const SizedBox(height: 15.0,),
+                              TextFormFieldCustom(
+                                onEditComplete: () {
+                                  emailFocus.unfocus();
+                                  FocusScope.of(context).requestFocus(addressFocus);
+                                },
+                                radius: 6.0,
+                                error: "Enter E-Mail Id",
+                                textColor: Theme.of(context).primaryColor,
+                                borderColor: Theme.of(context).dividerColor,
+                                fillColor: Theme.of(context).focusColor,
+                                hintStyle: CustomWidget(context: context).CustomSizedTextStyle(
+                                    14.0, Theme.of(context).primaryColor, FontWeight.w500, 'FontRegular'),
+                                textStyle: CustomWidget(context: context).CustomSizedTextStyle(
+                                    14.0, Theme.of(context).primaryColor, FontWeight.w500, 'FontRegular'),
+                                textInputAction: TextInputAction.next,
+                                focusNode: emailFocus,
+                                maxlines: 1,
+                                text: '',
+                                hintText: email.toString(),
+                                obscureText: false,
+                                textChanged: (value) {},
+                                onChanged: () {},
+                                suffix: Container(
+                                  width: 0.0,
+                                ),
+                                validator: (value) {
+
+                                },
+                                enabled: false,
+                                textInputType: TextInputType.emailAddress,
+                                controller: emailController,
+                              ),
+                              const SizedBox(height: 15.0,),
+                              TextFormFieldCustom(
+                                onEditComplete: () {
+
+                                },
+                                radius: 6.0,
+                                error: "Enter Mobile",
+                                textColor: Theme.of(context).primaryColor,
+                                borderColor: Theme.of(context).dividerColor,
+                                fillColor: Theme.of(context).focusColor,
+                                hintStyle: CustomWidget(context: context).CustomSizedTextStyle(
+                                    14.0, Theme.of(context).primaryColor, FontWeight.w500, 'FontRegular'),
+                                textStyle: CustomWidget(context: context).CustomSizedTextStyle(
+                                    14.0, Theme.of(context).primaryColor, FontWeight.w500, 'FontRegular'),
+                                textInputAction: TextInputAction.next,
+                                focusNode: emailFocus,
+                                maxlines: 1,
+                                text: '',
+                                hintText: mobileNo.toString(),
+                                obscureText: false,
+                                textChanged: (value) {},
+                                onChanged: () {},
+                                suffix: Container(
+                                  width: 0.0,
+                                ),
+                                validator: (value) {
+
+                                },
+                                enabled: false,
+                                textInputType: TextInputType.phone,
+                                controller: emailController,
+                              ),
+                              const SizedBox(height: 15.0,),
                               TextFormFieldCustom(
                                 onEditComplete: () {
                                   addressFocus.unfocus();
@@ -579,6 +618,47 @@ class _Edit_Profile_ScreenState extends State<Edit_Profile_Screen> {
         ],
       ),
     );
+  }
+
+  profile() {
+    apiUtils
+        .getProfileDetails()
+        .then((GetProfileDetailsModel loginData) {
+      setState(() {
+        if (loginData.success!) {
+          setState(() {
+            loading = false;
+            details = loginData.result!;
+
+            var str = loginData.result!.name!.split(".");
+            print(str);
+            userName =loginData.result!.name!.contains(".")?str[1].trim().toString():loginData.result!.name!;
+            // gender=loginData.result!.name!.contains(".")?str[0].trim().toString():"";
+            email=details!.email.toString();
+            mobileNo=details!.phone.toString();
+            profileImage=details!.profile_pic.toString();
+
+          });
+          // CustomWidget(context: context).
+          // custombar("Profile", loginData.message.toString(), true);
+
+        }
+        else {
+          loading = false;
+          CustomWidget(context: context)
+              .custombar("Profile", loginData.message.toString(), false);
+
+        }
+      });
+
+    }).catchError((Object error) {
+
+
+      print(error);
+      setState(() {
+        loading = false;
+      });
+    });
   }
 
   updateProfile() {
