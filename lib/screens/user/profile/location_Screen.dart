@@ -1,7 +1,5 @@
 import 'dart:math';
 
-import 'package:coolwell_app/data/api_utils.dart';
-import 'package:coolwell_app/data/model/register.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
@@ -15,7 +13,6 @@ import 'package:coolwell_app/common/custom_switch.dart';
 import 'package:coolwell_app/common/custom_widget.dart';
 import 'package:coolwell_app/common/localization/localizations.dart';
 import 'package:coolwell_app/common/textformfield_custom.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../basics/home.dart';
 
@@ -37,7 +34,6 @@ class _Location_ScreenState extends State<Location_Screen> {
   bool home = true;
   bool defaultAddd = false;
   bool other = false;
-  bool loading=false;
   List<Marker> markers = [];
   ScrollController controller = ScrollController();
   FocusNode nameFocus = FocusNode();
@@ -50,9 +46,7 @@ class _Location_ScreenState extends State<Location_Screen> {
   TextEditingController addressLineController = TextEditingController();
   TextEditingController cityController = TextEditingController();
   TextEditingController zipController = TextEditingController();
-  String address="";
 
-  APIUtils apiUtils=APIUtils();
 
   int interActiveFlags = InteractiveFlag.all;
 
@@ -133,16 +127,12 @@ class _Location_ScreenState extends State<Location_Screen> {
         cityController.text =   place.administrativeArea.toString();
         zipController.text =   place.postalCode.toString();
 
-        
-        address=place.name.toString()+" "+ place.thoroughfare.toString()+" "+place.administrativeArea.toString()+" "+ place.postalCode.toString();
-
-
       });
     } catch (e) {}
   }
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(child: Scaffold(
+    return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       body: Container(
         width: MediaQuery.of(context).size.width,
@@ -153,7 +143,7 @@ class _Location_ScreenState extends State<Location_Screen> {
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height * 0.45,
               padding: EdgeInsets.only(
-                  left: 20.0, right: 20.0, top: 50.0, bottom: 10.0),
+                  left: 20.0, right: 20.0, top: 40.0, bottom: 10.0),
               decoration: BoxDecoration(
                 color: Colors.transparent,
                 image: DecorationImage(
@@ -164,40 +154,67 @@ class _Location_ScreenState extends State<Location_Screen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.7,
+                  Padding(padding: EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 15.0),child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    padding: EdgeInsets.fromLTRB(10.0, 12.0, 10.0, 12.0),
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30.0),
-                      gradient: LinearGradient(
-                        begin: Alignment.centerLeft,
-                        end: Alignment.centerRight,
-                        colors: [
-                          const Color(0xFFF4F4F4).withOpacity(0.5),
-                          const Color(0xFFF4F4F4).withOpacity(0.3),
-                          const Color(0xFFF4F4F4).withOpacity(0.1),
-                        ],
-                      ),
+                        borderRadius: BorderRadius.circular(10.0),
+                        border: Border.all(width: 1.0,color: Theme.of(context).accentColor,)
                     ),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-
-                        const SizedBox(
-                          width: 20.0,
-                        ),
+                        SvgPicture.asset("assets/images/search.svg", height: 20.0, color: Theme.of(context).accentColor,),
+                        SizedBox(width: 10.0,),
                         Text(
-                          AppLocalizations.instance.text("loc_summary"),
+                          AppLocalizations.instance
+                              .text("loc_search"),
                           style: CustomWidget(context: context)
                               .CustomSizedTextStyle(
-                              18.0,
+                              14.0,
                               Theme.of(context).primaryColor,
                               FontWeight.w400,
                               'FontRegular'),
-                          textAlign: TextAlign.start,
+                          textAlign: TextAlign.end,
                         ),
                       ],
                     ),
-                  ),
+                  ),),
+                  // Container(
+                  //   width: MediaQuery.of(context).size.width * 0.7,
+                  //   decoration: BoxDecoration(
+                  //     borderRadius: BorderRadius.circular(30.0),
+                  //     gradient: LinearGradient(
+                  //       begin: Alignment.centerLeft,
+                  //       end: Alignment.centerRight,
+                  //       colors: [
+                  //         const Color(0xFFF4F4F4).withOpacity(0.5),
+                  //         const Color(0xFFF4F4F4).withOpacity(0.3),
+                  //         const Color(0xFFF4F4F4).withOpacity(0.1),
+                  //       ],
+                  //     ),
+                  //   ),
+                  //   child: Row(
+                  //     crossAxisAlignment: CrossAxisAlignment.center,
+                  //     children: [
+                  //
+                  //       const SizedBox(
+                  //         width: 20.0,
+                  //       ),
+                  //       Text(
+                  //         AppLocalizations.instance.text("loc_summary"),
+                  //         style: CustomWidget(context: context)
+                  //             .CustomSizedTextStyle(
+                  //                 18.0,
+                  //                 Theme.of(context).primaryColor,
+                  //                 FontWeight.w400,
+                  //                 'FontRegular'),
+                  //         textAlign: TextAlign.start,
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
                 ],
               ),
             ),
@@ -217,16 +234,16 @@ class _Location_ScreenState extends State<Location_Screen> {
                   center: LatLng(lat, long),
                   zoom:15,
                   interactiveFlags:
-                  InteractiveFlag.all - InteractiveFlag.rotate,
+                      InteractiveFlag.all - InteractiveFlag.rotate,
                 ),
                 children: [
                   TileLayer(
                     urlTemplate:
-                    "https://api.mapbox.com/styles/v1/sadham7866/cldpzdl3l008z01t9hh8rmiai/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1Ijoic2FkaGFtNzg2NiIsImEiOiJjbGRvZWlqOWEwMG93M29xd2JmOHN0ZGdzIn0.CkrgphN30vtdI3uln9xBpA",
+                        "https://api.mapbox.com/styles/v1/sadham7866/cldpzdl3l008z01t9hh8rmiai/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1Ijoic2FkaGFtNzg2NiIsImEiOiJjbGRvZWlqOWEwMG93M29xd2JmOHN0ZGdzIn0.CkrgphN30vtdI3uln9xBpA",
                     additionalOptions: {
                       'mapStyleId': 'cldofwgi5000d01ruov0d377n',
                       'accessToken':
-                      'sk.eyJ1Ijoic2FkaGFtNzg2NiIsImEiOiJjbGRvZzEwM2owMDhmM3VscHNjeHBqZmVnIn0.neun916O4dDcO1Jjcg1y_Q',
+                          'sk.eyJ1Ijoic2FkaGFtNzg2NiIsImEiOiJjbGRvZzEwM2owMDhmM3VscHNjeHBqZmVnIn0.neun916O4dDcO1Jjcg1y_Q',
                     },
                   ),
 
@@ -235,8 +252,8 @@ class _Location_ScreenState extends State<Location_Screen> {
                 ],
               ),
 
-
             ),
+
             Align(
               alignment: Alignment.bottomCenter,
               child: InkWell(
@@ -261,18 +278,11 @@ class _Location_ScreenState extends State<Location_Screen> {
                   ),
                 ),
               ),
-            ),
-            loading
-                ? CustomWidget(context: context).loadingIndicator(
-              Theme.of(context).cardColor,
             )
-                : Container()
           ],
         ),
       ),
-    ), onWillPop: () async {
-      return false;
-    },);
+    );
   }
 
   viewDetails() {
@@ -866,9 +876,9 @@ class _Location_ScreenState extends State<Location_Screen> {
                                     InkWell(
                                       onTap: () {
                                         setState(() {
-                                          Navigator.pop(context);
-                                          storeLocation();
-
+                                          Navigator.of(context).pushReplacement(MaterialPageRoute(
+                                              builder: (context) =>
+                                                  Home_Screen()));
                                         });
                                       },
                                       child: Container(
@@ -910,65 +920,6 @@ class _Location_ScreenState extends State<Location_Screen> {
             );
           });
         });
-  }
-
-
-  storeLocation() {
-    setState(() {
-      loading=true;
-    });
-    apiUtils
-        .locationDetails(
-      address,lat.toString(),long.toString()
-      )
-        .then((CommonModel loginData) {
-      setState(() {
-        if (loginData.success!) {
-          setState(() {
-            loading = false;
-          });
-          CustomWidget(context: context).
-          custombar("Coolwell", loginData.message.toString(), true);
-
-          StoreData();
-
-
-          Navigator.of(context).pushReplacement(MaterialPageRoute(
-              builder: (context) =>
-                  Home_Screen(
-
-                  )));
-
-
-
-          // nameController.clear();
-          // passController.clear();
-
-        } else {
-
-          loading = false;
-          CustomWidget(context: context)
-              .custombar("Login", loginData.message.toString(), false);
-
-        }
-      });
-
-    }).catchError((Object error) {
-
-
-      print(error);
-      setState(() {
-        loading = false;
-      });
-    });
-  }
-
-  StoreData()async{
-    SharedPreferences  preferences=await SharedPreferences.getInstance();
-    preferences.setString("lat", lat.toString());
-    preferences.setString("long", long.toString());
-    preferences.setString("address", address.toString());
-
   }
 }
 
