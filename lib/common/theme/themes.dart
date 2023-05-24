@@ -27,9 +27,7 @@ class MyThemes {
       hoverColor: Color(0xFFFBBC05),
       indicatorColor: Color(0xFF90D272),
       selectedRowColor: Color(0xFF34A853),
-      scaffoldBackgroundColor: Color(0xFFF1F1F1)
-  );
-
+      scaffoldBackgroundColor: Color(0xFFF1F1F1));
 
   static final ThemeData darkTheme = ThemeData(
       brightness: Brightness.dark,
@@ -43,8 +41,7 @@ class MyThemes {
       cardColor: Color(0xFF0FABFF),
       dividerColor: Color(0xFFEBEBEB),
       // cursorColor: Color(0xFF0e1839),
-      shadowColor: Color(0xFF1639FF),      
-      
+      shadowColor: Color(0xFF1639FF),
       secondaryHeaderColor: Color(0xFFB2B3B4),
       splashColor: Color(0xFFE8E8E8),
       highlightColor: Color(0xFFF7F7F7),
@@ -53,8 +50,7 @@ class MyThemes {
       hoverColor: Color(0xFFFBBC05),
       indicatorColor: Color(0xFF90D272),
       selectedRowColor: Color(0xFF34A853),
-      scaffoldBackgroundColor: Color(0xFFF1F1F1)
-  );
+      scaffoldBackgroundColor: Color(0xFFF1F1F1));
 
   static ThemeData getThemeFromKey(MyThemeKeys themeKey) {
     switch (themeKey) {

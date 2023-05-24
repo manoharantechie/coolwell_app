@@ -19,7 +19,7 @@ class _Payment_Summary_ScreenState extends State<Payment_Summary_Screen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
+        body: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(

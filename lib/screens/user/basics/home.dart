@@ -9,8 +9,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 
-import '../../technician/tech_dashboard.dart';
-import '../../technician/tech_orders.dart';
 import 'dashboard.dart';
 
 class Home_Screen extends StatefulWidget {
