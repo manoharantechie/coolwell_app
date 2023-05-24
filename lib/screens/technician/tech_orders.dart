@@ -126,7 +126,7 @@ class _Tech_Orders_ScreenState extends State<Tech_Orders_Screen> {
                                     .cardColor
                                     .withOpacity(0.1),
                                 CustomTheme.of(context)
-                                    .buttonColor
+                                    .shadowColor
                                     .withOpacity(0.1)
                               ],
                               begin: Alignment.topRight,
@@ -331,7 +331,7 @@ class _Tech_Orders_ScreenState extends State<Tech_Orders_Screen> {
                                                                           .w600,
                                                                       color: Theme.of(
                                                                           context)
-                                                                          .accentColor,
+                                                                          .dialogBackgroundColor,
                                                                       fontStyle:
                                                                       FontStyle
                                                                           .normal),

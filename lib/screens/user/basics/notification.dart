@@ -133,7 +133,7 @@ class _Notification_ScreenState extends State<Notification_Screen> {
                   const SizedBox(height: 5.0,),
                   Container(
                     height: 1.0,
-                    color: Theme.of(context).accentColor,
+                    color: Theme.of(context).dialogBackgroundColor,
                   ),
                   const SizedBox(height: 10.0,),
                   Container(
@@ -241,7 +241,7 @@ class _Notification_ScreenState extends State<Notification_Screen> {
                   const SizedBox(height: 10.0,),
                   Container(
                     height: 1.0,
-                    color: Theme.of(context).accentColor,
+                    color: Theme.of(context).dialogBackgroundColor,
                   ),
                   const SizedBox(height: 10.0,),
                 ],
@@ -274,7 +274,7 @@ class _Notification_ScreenState extends State<Notification_Screen> {
                                       children: [
                                         Flexible(child: Container(
                                           decoration: BoxDecoration(
-                                              color: Theme.of(context).accentColor.withOpacity(0.5),
+                                              color: Theme.of(context).dialogBackgroundColor.withOpacity(0.5),
                                               shape: BoxShape.circle
                                           ),
                                           child: SvgPicture.asset("assets/images/tools.svg", height: 35.0, color: Theme.of(context).cardColor,),
@@ -300,7 +300,7 @@ class _Notification_ScreenState extends State<Notification_Screen> {
                                                 children: [
                                                   Flexible(child: Container(
                                                     decoration: BoxDecoration(
-                                                      // color: Theme.of(context).accentColor.withOpacity(0.5),
+                                                      // color: Theme.of(context).dialogBackgroundColor.withOpacity(0.5),
                                                         borderRadius: BorderRadius.circular(10.0)
                                                     ),
                                                     child: Image.asset("assets/images/notify_serv.png", height: 35.0,),
@@ -372,7 +372,7 @@ class _Notification_ScreenState extends State<Notification_Screen> {
                                                       padding: EdgeInsets.all(5.0),
                                                       decoration: BoxDecoration(
                                                           shape: BoxShape.circle,
-                                                          border: Border.all(width: 1.0, color: Theme.of(context).accentColor.withOpacity(0.5),)
+                                                          border: Border.all(width: 1.0, color: Theme.of(context).dialogBackgroundColor.withOpacity(0.5),)
                                                       ),
                                                       child: SvgPicture.asset("assets/images/star.svg", height: 15.0,),
                                                     ),
@@ -396,7 +396,7 @@ class _Notification_ScreenState extends State<Notification_Screen> {
                                                       padding: EdgeInsets.all(5.0),
                                                       decoration: BoxDecoration(
                                                           shape: BoxShape.circle,
-                                                          border: Border.all(width: 1.0, color: Theme.of(context).accentColor.withOpacity(0.5),)
+                                                          border: Border.all(width: 1.0, color: Theme.of(context).dialogBackgroundColor.withOpacity(0.5),)
                                                       ),
                                                       child: SvgPicture.asset("assets/images/star.svg", height: 15.0,),
                                                     ),
@@ -419,7 +419,7 @@ class _Notification_ScreenState extends State<Notification_Screen> {
                                                       padding: EdgeInsets.all(5.0),
                                                       decoration: BoxDecoration(
                                                           shape: BoxShape.circle,
-                                                          border: Border.all(width: 1.0, color: Theme.of(context).accentColor.withOpacity(0.5),)
+                                                          border: Border.all(width: 1.0, color: Theme.of(context).dialogBackgroundColor.withOpacity(0.5),)
                                                       ),
                                                       child: SvgPicture.asset("assets/images/star.svg", height: 15.0,),
                                                     ),
@@ -466,7 +466,7 @@ class _Notification_ScreenState extends State<Notification_Screen> {
                                                       padding: EdgeInsets.all(5.0),
                                                       decoration: BoxDecoration(
                                                           shape: BoxShape.circle,
-                                                          border: Border.all(width: 1.0, color: Theme.of(context).accentColor.withOpacity(0.5),)
+                                                          border: Border.all(width: 1.0, color: Theme.of(context).dialogBackgroundColor.withOpacity(0.5),)
                                                       ),
                                                       child: SvgPicture.asset("assets/images/star.svg", height: 15.0,),
                                                     ),
@@ -498,14 +498,14 @@ class _Notification_ScreenState extends State<Notification_Screen> {
                                                 decoration: BoxDecoration(
                                                     borderRadius: BorderRadius.circular(30.0),
                                                     color: Colors.transparent,
-                                                    border: Border.all(width: 1.0, color: Theme.of(context).accentColor.withOpacity(0.2),)
+                                                    border: Border.all(width: 1.0, color: Theme.of(context).dialogBackgroundColor.withOpacity(0.2),)
                                                 ),
                                                 child: Text(
                                                   AppLocalizations.instance.text("loc_share_feedback"),
                                                   style: CustomWidget(context: context)
                                                       .CustomSizedTextStyle(
                                                       9.0,
-                                                      Theme.of(context).accentColor,
+                                                      Theme.of(context).dialogBackgroundColor,
                                                       FontWeight.w600,
                                                       'FontRegular'),
                                                   textAlign: TextAlign.start,
@@ -518,7 +518,7 @@ class _Notification_ScreenState extends State<Notification_Screen> {
                                                 style: CustomWidget(context: context)
                                                     .CustomSizedTextStyle(
                                                     9.0,
-                                                    Theme.of(context).buttonColor,
+                                                    Theme.of(context).shadowColor,
                                                     FontWeight.w600,
                                                     'FontRegular'),
                                                 textAlign: TextAlign.start,
@@ -692,7 +692,7 @@ class _Notification_ScreenState extends State<Notification_Screen> {
                               ),
                               Container(
                                 height: 1.0,
-                                color: Theme.of(context).accentColor,
+                                color: Theme.of(context).dialogBackgroundColor,
                               ),
                             ],
                           ),

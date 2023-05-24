@@ -326,7 +326,7 @@ class _Profile_ScreenState extends State<Profile_Screen> {
                       const SizedBox(height: 5.0,),
                       Container(
                         margin: EdgeInsets.only(left: 20.0, right: 20.0),
-                        height: 1.0,color: Theme.of(context).accentColor.withOpacity(0.5),
+                        height: 1.0,color: Theme.of(context).dialogBackgroundColor.withOpacity(0.5),
                       ),
                       const SizedBox(height: 10.0,),
                       InkWell(
@@ -398,7 +398,7 @@ class _Profile_ScreenState extends State<Profile_Screen> {
                       role=="user"?Container(): const SizedBox(height: 10.0,),
                       Container(
                         margin: EdgeInsets.only(left: 20.0, right: 20.0),
-                        height: 1.0,color: Theme.of(context).accentColor.withOpacity(0.5),
+                        height: 1.0,color: Theme.of(context).dialogBackgroundColor.withOpacity(0.5),
                       ),
                       InkWell(
                         child: Container(

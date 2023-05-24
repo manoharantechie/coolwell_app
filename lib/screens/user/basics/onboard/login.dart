@@ -275,7 +275,7 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
                                   //   color: Theme.of(context).cardColor,
                                   // ),
                                   borderRadius: BorderRadius.circular(20.0),
-                                  color: Theme.of(context).buttonColor,
+                                  color: Theme.of(context).shadowColor,
                                 ),
                                 child: Center(
                                   child: Text(
@@ -493,7 +493,7 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
                             // Icon(
                             //   Icons.keyboard_arrow_down_outlined,
                             //   size: 15.0,
-                            //   color: Theme.of(context).accentColor,
+                            //   color: Theme.of(context).dialogBackgroundColor,
                             // )
                           ],
                         ),
@@ -593,7 +593,7 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
                   //   color: Theme.of(context).cardColor,
                   // ),
                   borderRadius: BorderRadius.circular(20.0),
-                  color: Theme.of(context).buttonColor,
+                  color: Theme.of(context).shadowColor,
                 ),
                 child: Center(
                   child: Text(

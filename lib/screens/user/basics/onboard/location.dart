@@ -81,7 +81,7 @@ class _LocationLoginScreenState extends State<LocationLoginScreen> {
               padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 10.0),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(6.0),
-                color: Theme.of(context).buttonColor,
+                color: Theme.of(context).shadowColor,
               ),
               width: MediaQuery.of(context).size.width,
               child: Row(

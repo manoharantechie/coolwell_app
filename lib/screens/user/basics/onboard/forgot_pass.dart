@@ -202,7 +202,7 @@ class _Forgot_PasswordState extends State<Forgot_Password> {
                      //   color: Theme.of(context).cardColor,
                      // ),
                      borderRadius: BorderRadius.circular(20.0),
-                     color: Theme.of(context).buttonColor,
+                     color: Theme.of(context).shadowColor,
                    ),
                    child: Center(
                      child: Text(

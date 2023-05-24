@@ -248,7 +248,7 @@ class _Location_ScreenState extends State<Location_Screen> {
                   padding: EdgeInsets.fromLTRB(30.0, 10.0, 30.0, 10.0),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(30.0),
-                    color: Theme.of(context).buttonColor,
+                    color: Theme.of(context).shadowColor,
                   ),
                   child: Text(
                     AppLocalizations.instance.text("loc_Proceed_checkout"),
@@ -317,7 +317,7 @@ class _Location_ScreenState extends State<Location_Screen> {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15.0),
                             color:
-                                Theme.of(context).accentColor.withOpacity(0.5),
+                                Theme.of(context).dialogBackgroundColor.withOpacity(0.5),
                           ),
                           alignment: Alignment.center,
                           width: 40.0,
@@ -720,7 +720,7 @@ class _Location_ScreenState extends State<Location_Screen> {
                                               circleColor:
                                                   Theme.of(context).focusColor,
                                               inactiveColor: Theme.of(context)
-                                                  .accentColor
+                                                  .dialogBackgroundColor
                                                   .withOpacity(0.5),
                                             ),
                                           ),
@@ -792,7 +792,7 @@ class _Location_ScreenState extends State<Location_Screen> {
                                                       14.0,
                                                       home ? Theme.of(context)
                                                           .focusColor :Theme.of(context)
-                                                          .accentColor
+                                                          .dialogBackgroundColor
                                                           .withOpacity(0.5),
                                                       FontWeight.w500,
                                                       'FontRegular'),
@@ -848,7 +848,7 @@ class _Location_ScreenState extends State<Location_Screen> {
                                                       14.0,
                                                       other ? Theme.of(context)
                                                           .focusColor : Theme.of(context)
-                                                          .accentColor
+                                                          .dialogBackgroundColor
                                                           .withOpacity(0.5),
                                                       FontWeight.w500,
                                                       'FontRegular'),
@@ -876,7 +876,7 @@ class _Location_ScreenState extends State<Location_Screen> {
                                         EdgeInsets.fromLTRB(30.0, 10.0, 30.0, 10.0),
                                         decoration: BoxDecoration(
                                           borderRadius: BorderRadius.circular(30.0),
-                                          color: Theme.of(context).buttonColor,
+                                          color: Theme.of(context).shadowColor,
                                         ),
                                         child: Text(
                                           AppLocalizations.instance

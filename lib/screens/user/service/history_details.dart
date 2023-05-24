@@ -149,7 +149,7 @@ class _Service_History_DetailsState extends State<Service_History_Details> {
                     children: [
                       Container(
                         height: 1.0,
-                        color: Theme.of(context).accentColor.withOpacity(0.5),
+                        color: Theme.of(context).dialogBackgroundColor.withOpacity(0.5),
                       ),
                       Container(
                         width: MediaQuery.of(context).size.width,
@@ -315,7 +315,7 @@ class _Service_History_DetailsState extends State<Service_History_Details> {
                                                 border: Border.all(
                                                   width: 1.0,
                                                   color: Theme.of(context)
-                                                      .accentColor
+                                                      .dialogBackgroundColor
                                                       .withOpacity(0.5),
                                                 )),
                                             child: SvgPicture.asset(
@@ -350,7 +350,7 @@ class _Service_History_DetailsState extends State<Service_History_Details> {
                                                 border: Border.all(
                                                   width: 1.0,
                                                   color: Theme.of(context)
-                                                      .accentColor
+                                                      .dialogBackgroundColor
                                                       .withOpacity(0.5),
                                                 )),
                                             child: SvgPicture.asset(
@@ -385,7 +385,7 @@ class _Service_History_DetailsState extends State<Service_History_Details> {
                                                 border: Border.all(
                                                   width: 1.0,
                                                   color: Theme.of(context)
-                                                      .accentColor
+                                                      .dialogBackgroundColor
                                                       .withOpacity(0.5),
                                                 )),
                                             child: SvgPicture.asset(
@@ -458,7 +458,7 @@ class _Service_History_DetailsState extends State<Service_History_Details> {
                                                 border: Border.all(
                                                   width: 1.0,
                                                   color: Theme.of(context)
-                                                      .accentColor
+                                                      .dialogBackgroundColor
                                                       .withOpacity(0.5),
                                                 )),
                                             child: SvgPicture.asset(
@@ -793,7 +793,7 @@ class _Service_History_DetailsState extends State<Service_History_Details> {
                                             border: Border.all(
                                               width: 1.0,
                                               color: Theme.of(context)
-                                                  .accentColor
+                                                  .dialogBackgroundColor
                                                   .withOpacity(0.5),
                                             ),
                                             borderRadius:
@@ -809,7 +809,7 @@ class _Service_History_DetailsState extends State<Service_History_Details> {
                                                 : Icons.image,
                                             size: 22.0,
                                             color: Theme.of(context)
-                                                .accentColor
+                                                .dialogBackgroundColor
                                                 .withOpacity(0.5),
                                           )),
                                         ),
@@ -1075,7 +1075,7 @@ class _Service_History_DetailsState extends State<Service_History_Details> {
                                                 border: Border.all(
                                                   width: 1.0,
                                                   color: Theme.of(context)
-                                                      .accentColor
+                                                      .dialogBackgroundColor
                                                       .withOpacity(0.5),
                                                 )),
                                             child: SvgPicture.asset(
@@ -1110,7 +1110,7 @@ class _Service_History_DetailsState extends State<Service_History_Details> {
                                                 border: Border.all(
                                                   width: 1.0,
                                                   color: Theme.of(context)
-                                                      .accentColor
+                                                      .dialogBackgroundColor
                                                       .withOpacity(0.5),
                                                 )),
                                             child: SvgPicture.asset(
@@ -1145,7 +1145,7 @@ class _Service_History_DetailsState extends State<Service_History_Details> {
                                                 border: Border.all(
                                                   width: 1.0,
                                                   color: Theme.of(context)
-                                                      .accentColor
+                                                      .dialogBackgroundColor
                                                       .withOpacity(0.5),
                                                 )),
                                             child: SvgPicture.asset(
@@ -1218,7 +1218,7 @@ class _Service_History_DetailsState extends State<Service_History_Details> {
                                                 border: Border.all(
                                                   width: 1.0,
                                                   color: Theme.of(context)
-                                                      .accentColor
+                                                      .dialogBackgroundColor
                                                       .withOpacity(0.5),
                                                 )),
                                             child: SvgPicture.asset(
@@ -1259,7 +1259,7 @@ class _Service_History_DetailsState extends State<Service_History_Details> {
                                       30.0, 10.0, 30.0, 10.0),
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(30.0),
-                                    color: Theme.of(context).buttonColor,
+                                    color: Theme.of(context).shadowColor,
                                   ),
                                   child: Text(
                                     AppLocalizations.instance

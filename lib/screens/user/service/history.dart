@@ -151,7 +151,7 @@ class _Service_historyState extends State<Service_history> {
                                           .cardColor
                                           .withOpacity(0.1),
                                       CustomTheme.of(context)
-                                          .buttonColor
+                                          .shadowColor
                                           .withOpacity(0.1)
                                     ],
                                     begin: Alignment.topRight,
@@ -353,7 +353,7 @@ class _Service_historyState extends State<Service_history> {
                                                                             FontWeight
                                                                                 .w600,
                                                                         color: Theme.of(context)
-                                                                            .accentColor,
+                                                                            .dialogBackgroundColor,
                                                                         fontStyle:
                                                                             FontStyle.normal),
                                                                     textAlign:

@@ -118,7 +118,7 @@ class _SplashHomeScreenState extends State<SplashHomeScreen> {
                       padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 10.0),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20.0),
-                        color: Theme.of(context).buttonColor,
+                        color: Theme.of(context).shadowColor,
                       ),
                       child: Center(
                         child: Text(

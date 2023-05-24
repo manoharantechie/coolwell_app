@@ -211,7 +211,7 @@ class _Tech_Order_Details_ScreenState extends State<Tech_Order_Details_Screen> {
                             const SizedBox(height: 10.0,),
                             DottedLine(
                               direction: Axis.horizontal,
-                              dashColor: Theme.of(context).accentColor,
+                              dashColor: Theme.of(context).dialogBackgroundColor,
                             ),
                             const SizedBox(height: 20.0,),
                             Text(
@@ -583,7 +583,7 @@ class _Tech_Order_Details_ScreenState extends State<Tech_Order_Details_Screen> {
                   EdgeInsets.fromLTRB(30.0, 10.0, 30.0, 10.0),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(30.0),
-                    color: Theme.of(context).buttonColor,
+                    color: Theme.of(context).shadowColor,
                   ),
                   child: Text(
                     AppLocalizations.instance

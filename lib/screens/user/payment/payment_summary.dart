@@ -124,7 +124,7 @@ class _Payment_Summary_ScreenState extends State<Payment_Summary_Screen> {
                   const SizedBox(height: 10.0,),
                   Container(
                     height: 1.0,
-                    color: Theme.of(context).accentColor,
+                    color: Theme.of(context).dialogBackgroundColor,
                   ),
                   const SizedBox(height: 10.0,),
                   Padding(padding: EdgeInsets.only(left: 20.0, right: 20.0),
@@ -223,7 +223,7 @@ class _Payment_Summary_ScreenState extends State<Payment_Summary_Screen> {
                                       fontSize: 10.0,
                                       decoration: TextDecoration.lineThrough,
                                       fontWeight: FontWeight.w600,
-                                      color: Theme.of(context).accentColor,
+                                      color: Theme.of(context).dialogBackgroundColor,
                                       fontStyle: FontStyle.normal
                                   ),
                                   textAlign: TextAlign.center,
@@ -386,13 +386,13 @@ class _Payment_Summary_ScreenState extends State<Payment_Summary_Screen> {
                                 style: CustomWidget(context: context)
                                     .CustomSizedTextStyle(
                                     10.0,
-                                    Theme.of(context).buttonColor,
+                                    Theme.of(context).shadowColor,
                                     FontWeight.w400,
                                     'FontRegular'),
                                 textAlign: TextAlign.start,
                               ),
                               const SizedBox(width: 10.0,),
-                              Icon(Icons.arrow_forward_ios_rounded, size: 10.0, color: Theme.of(context).buttonColor,)
+                              Icon(Icons.arrow_forward_ios_rounded, size: 10.0, color: Theme.of(context).shadowColor,)
                             ],
                           )
                           // Flexible(child: ,flex: 1,)
@@ -620,7 +620,7 @@ class _Payment_Summary_ScreenState extends State<Payment_Summary_Screen> {
                           padding: EdgeInsets.fromLTRB(0.0, 15.0, 0.0, 15.0),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(30.0),
-                            color: Theme.of(context).buttonColor,
+                            color: Theme.of(context).shadowColor,
                           ),
                           child: Center(
                             child: Text(

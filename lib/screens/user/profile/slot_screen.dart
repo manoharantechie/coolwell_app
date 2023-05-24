@@ -200,7 +200,7 @@ class _Slot_ScreenState extends State<Slot_Screen> {
                           margin: EdgeInsets.only(left: 20.0),
                           padding: EdgeInsets.only(top: 10.0, bottom: 10.0, left: 10.0),
                           decoration: BoxDecoration(
-                            color:  Theme.of(context).accentColor. withOpacity(0.3),
+                            color:  Theme.of(context).dialogBackgroundColor. withOpacity(0.3),
                           ),
                           child:Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -208,7 +208,7 @@ class _Slot_ScreenState extends State<Slot_Screen> {
                               Padding(padding: EdgeInsets.only(top: 2.0),child: Icon(
                                 Icons.calendar_month_outlined,
                                 size: 18.0,
-                                color:  Theme.of(context).accentColor,
+                                color:  Theme.of(context).dialogBackgroundColor,
                               ),),
                               SizedBox(width: 12.0,),
                               Flexible(
@@ -311,7 +311,7 @@ class _Slot_ScreenState extends State<Slot_Screen> {
                         width: MediaQuery.of(context).size.width * 0.7,
                         padding: EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 10.0),
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30.0),color: Theme.of(context).buttonColor,
+                          borderRadius: BorderRadius.circular(30.0),color: Theme.of(context).shadowColor,
                         ),
                         child: Text(
                           AppLocalizations.instance

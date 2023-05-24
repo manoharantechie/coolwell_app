@@ -296,7 +296,7 @@ class _Service_Details_ScreenState extends State<Service_Details_Screen> {
                                                       Container(
                                                         height: 12.0,
                                                         width: 1.0,
-                                                        color: Theme.of(context).accentColor,
+                                                        color: Theme.of(context).dialogBackgroundColor,
                                                       ),
                                                       SizedBox(width: 10.0,),
                                                       Text(
@@ -305,7 +305,7 @@ class _Service_Details_ScreenState extends State<Service_Details_Screen> {
                                                             fontSize: 10.0,
                                                             decoration: TextDecoration.lineThrough,
                                                             fontWeight: FontWeight.w600,
-                                                            color: Theme.of(context).accentColor,
+                                                            color: Theme.of(context).dialogBackgroundColor,
                                                             fontStyle: FontStyle.normal
                                                         ),
                                                         textAlign: TextAlign.center,
@@ -342,7 +342,7 @@ class _Service_Details_ScreenState extends State<Service_Details_Screen> {
                                               SizedBox(height: 10.0,),
                                               Container(
                                                 height: 1.0,
-                                                color: Theme.of(context).accentColor,
+                                                color: Theme.of(context).dialogBackgroundColor,
                                               ),
                                               SizedBox(height: 10.0,),
                                               Row(
@@ -364,7 +364,7 @@ class _Service_Details_ScreenState extends State<Service_Details_Screen> {
                                               ),
                                               SizedBox(height: 10.0,),
                                               DottedLine(
-                                                dashColor: Theme.of(context).accentColor,
+                                                dashColor: Theme.of(context).dialogBackgroundColor,
                                               ),
                                               SizedBox(height: 10.0,),
 
@@ -412,7 +412,7 @@ class _Service_Details_ScreenState extends State<Service_Details_Screen> {
                                                 style: CustomWidget(context: context)
                                                     .CustomSizedTextStyle(
                                                     8.0,
-                                                    Theme.of(context).buttonColor,
+                                                    Theme.of(context).shadowColor,
                                                     FontWeight.w400,
                                                     'FontRegular'),
                                                 textAlign: TextAlign.center,
@@ -444,7 +444,7 @@ class _Service_Details_ScreenState extends State<Service_Details_Screen> {
                                                   padding: EdgeInsets.fromLTRB(5, 5.0, 5.0, 5.0),
                                                   decoration: BoxDecoration(
                                                     borderRadius: BorderRadius.circular(6.0),
-                                                    color: Theme.of(context).buttonColor,
+                                                    color: Theme.of(context).shadowColor,
                                                   ),
                                                   child: Text(
                                                     "61% OFF",
@@ -671,7 +671,7 @@ class _Service_Details_ScreenState extends State<Service_Details_Screen> {
                               padding: EdgeInsets.fromLTRB(25.0, 10.0, 25.0, 10.0),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(30.0),
-                                color: Theme.of(context).buttonColor,
+                                color: Theme.of(context).shadowColor,
                               ),
                               child: Text(
                                 AppLocalizations.instance
