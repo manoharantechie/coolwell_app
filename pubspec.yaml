@@ -50,6 +50,7 @@ dependencies:
   location:
   latlong2:
   geocoding: ^2.1.0
+  mapbox_search:
 
 dev_dependencies:
   flutter_test:
