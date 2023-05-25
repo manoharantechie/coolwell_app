@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:coolwell_app/common/calendar/calendar_timeline.dart';
@@ -63,7 +62,7 @@ class Slot_ScreenState extends State<Slot_Screen> {
               children: [
                 Flexible(child: Container(
                   width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.only(left: 20.0, right: 20.0, top: 50.0, bottom: 10.0),
+                  padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 50.0, bottom: 10.0),
                   decoration: BoxDecoration(
                     color: Theme.of(context).cardColor,
                     image: DecorationImage(
@@ -97,7 +96,7 @@ class Slot_ScreenState extends State<Slot_Screen> {
                                 Navigator.of(context).pop();
                               },
                               child: Container(
-                                padding: EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),
+                                padding: const EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                   color: Theme.of(context).cardColor,
@@ -110,7 +109,7 @@ class Slot_ScreenState extends State<Slot_Screen> {
                                 ),
                               ),
                             ),
-                            SizedBox(width: 20.0,),
+                            const SizedBox(width: 20.0,),
                             Text(
                               AppLocalizations.instance
                                   .text("loc_schedule_slot"),
@@ -128,7 +127,7 @@ class Slot_ScreenState extends State<Slot_Screen> {
                       // const SizedBox(height: 20.0,),
 
                       Container(
-                        padding: EdgeInsets.only(left: 5.0),
+                        padding: const EdgeInsets.only(left: 5.0),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
@@ -137,7 +136,7 @@ class Slot_ScreenState extends State<Slot_Screen> {
                               size: 18.0,
                               color:  Theme.of(context).primaryColor,
                             ),
-                            SizedBox(width: 8.0,),
+                            const SizedBox(width: 8.0,),
                             Container(
                               width: MediaQuery.of(context).size.width * 0.5,
                               child: Text(
@@ -158,12 +157,12 @@ class Slot_ScreenState extends State<Slot_Screen> {
                     ],
                   ),
                 ),flex: 2,),
-                Flexible(child: Container(
+                Flexible( child: Container(
                   width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.fromLTRB(0.0, 15.0, 0.0, 10.0),
+                  padding: const EdgeInsets.fromLTRB(0.0, 15.0, 0.0, 10.0),
                   decoration: BoxDecoration(
                     color: Theme.of(context).focusColor,
-                    borderRadius: BorderRadius.only(
+                    borderRadius: const BorderRadius.only(
                         topLeft: Radius.circular(30.0),
                         topRight: Radius.circular(30.0)
                     ),
@@ -175,7 +174,7 @@ class Slot_ScreenState extends State<Slot_Screen> {
                         children: [
                           const SizedBox(height: 15.0,),
                           Container(
-                            padding: EdgeInsets.only(left: 20.0, right: 20.0),
+                            padding: const EdgeInsets.only(left: 20.0, right: 20.0),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -210,30 +209,30 @@ class Slot_ScreenState extends State<Slot_Screen> {
                               decoration: BoxDecoration(
                                 color: Theme.of(context).focusColor,
                               ),
-                              padding: EdgeInsets.only(left: 20.0),
+                              padding: const EdgeInsets.only(left: 20.0),
                               child: calen()),
 
                           const SizedBox(height: 15.0,),
 
                           Container(
-                              margin: EdgeInsets.only(left: 20.0),
-                              padding: EdgeInsets.only(top: 10.0, bottom: 10.0, left: 10.0),
+                              margin: const EdgeInsets.only(left: 20.0),
+                              padding: const EdgeInsets.only(top: 10.0, bottom: 10.0, left: 10.0),
                               decoration: BoxDecoration(
                                   color:  Theme.of(context).dialogBackgroundColor. withOpacity(0.3),
-                                  borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(5.0),
-                                    bottomLeft: Radius.circular(5.0),
+                                  borderRadius: const BorderRadius.only(
+                                    topLeft:  Radius.circular(5.0),
+                                    bottomLeft:  Radius.circular(5.0),
                                   )
                               ),
                               child:Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Padding(padding: EdgeInsets.only(top: 2.0),child: Icon(
+                                  Padding(padding: const EdgeInsets.only(top: 2.0),child: Icon(
                                     Icons.calendar_month_outlined,
                                     size: 18.0,
                                     color:  Theme.of(context).dialogBackgroundColor,
                                   ),),
-                                  SizedBox(width: 12.0,),
+                                  const SizedBox(width: 12.0,),
                                   Flexible(
                                     child: Text(
                                       AppLocalizations.instance
@@ -252,7 +251,7 @@ class Slot_ScreenState extends State<Slot_Screen> {
                           ),
                           const SizedBox(height: 20.0,),
                           Container(
-                            margin: EdgeInsets.only(left: 20.0),
+                            margin: const EdgeInsets.only(left: 20.0),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -289,7 +288,7 @@ class Slot_ScreenState extends State<Slot_Screen> {
                                             },
                                             child: Container(
                                               width: MediaQuery.of(context).size.width * 0.22,
-                                              padding: EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),
+                                              padding: const EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),
                                               decoration: index==0 ? BoxDecoration(
                                                 borderRadius: BorderRadius.circular(6.0),
                                                 gradient: LinearGradient(
@@ -309,7 +308,7 @@ class Slot_ScreenState extends State<Slot_Screen> {
                                                     BoxShadow(
                                                         color: Theme.of(context).dividerColor.withOpacity(0.3),
                                                         blurRadius: 10.0,
-                                                        offset: Offset(0.0, 0.5)
+                                                        offset: const Offset(0.0, 0.5)
                                                     ),
                                                   ]
                                               ),
@@ -333,7 +332,7 @@ class Slot_ScreenState extends State<Slot_Screen> {
                                             },
                                             child: Container(
                                               width: MediaQuery.of(context).size.width * 0.22,
-                                              padding: EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),
+                                              padding: const EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),
                                               decoration: BoxDecoration(
                                                   borderRadius: BorderRadius.circular(6.0),
                                                   border: Border.all(width: 1.0,color: Theme.of(context).dividerColor,),
@@ -341,7 +340,7 @@ class Slot_ScreenState extends State<Slot_Screen> {
                                                     BoxShadow(
                                                         color: Theme.of(context).dividerColor.withOpacity(0.3),
                                                         blurRadius: 10.0,
-                                                        offset: Offset(0.0, 0.5)
+                                                        offset: const Offset(0.0, 0.5)
                                                     ),
                                                   ]
                                               ),
@@ -360,7 +359,7 @@ class Slot_ScreenState extends State<Slot_Screen> {
                                               ),
                                             ),
                                           ),
-                                          SizedBox(width: 15.0,)
+                                          const SizedBox(width: 15.0,)
                                         ],
                                       );
                                     },
@@ -380,12 +379,12 @@ class Slot_ScreenState extends State<Slot_Screen> {
                             Navigator.of(context).push(
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        Location_Screen()));
+                                        const Location_Screen()));
                           },
                           child: Container(
-                            margin: EdgeInsets.only(bottom: 20.0),
+                            margin: const EdgeInsets.only(bottom: 20.0),
                             width: MediaQuery.of(context).size.width * 0.7,
-                            padding: EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 10.0),
+                            padding: const EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 10.0),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(30.0),color: Theme.of(context).shadowColor,
                             ),
