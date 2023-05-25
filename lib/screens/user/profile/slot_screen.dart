@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -20,14 +22,25 @@ class _Slot_ScreenState extends State<Slot_Screen> {
   bool time = false;
   bool loading = false;
   ScrollController _scrollController = ScrollController();
+  late String _timeString;
+  late String _updateTime;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     _selectedDate = DateTime.now().add(const Duration(days: 0));
+    _timeString = "${DateTime.now().hour} : ${DateTime.now().minute}  ${DateTime.now().hour>= 12 ? "PM" : "AM"}";
+    _updateTime = "${DateTime.now().hour+ 1} : ${DateTime.now().minute}  ${DateTime.now().hour>= 12 ? "PM" : "AM"}";
+    Timer.periodic(Duration(seconds:1), (Timer t)=>_getCurrentTime());
     bool loading = true;
+
+    // for(_timeString= "${DateTime.now().hour} : ${DateTime.now().minute}  ${DateTime.now().hour>= 12 ? "PM" : "AM"}"; _timeString < _updateTime; _timeString++1){
+    //
+    // }
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -201,6 +214,10 @@ class _Slot_ScreenState extends State<Slot_Screen> {
                           padding: EdgeInsets.only(top: 10.0, bottom: 10.0, left: 10.0),
                           decoration: BoxDecoration(
                             color:  Theme.of(context).dialogBackgroundColor. withOpacity(0.3),
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(5.0),
+                              bottomLeft: Radius.circular(5.0),
+                            )
                           ),
                           child:Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -256,31 +273,84 @@ class _Slot_ScreenState extends State<Slot_Screen> {
                                 itemBuilder: (BuildContext context, int index) {
                                   return Row(
                                     children: [
-                                      Container(
-                                        width: MediaQuery.of(context).size.width * 0.2,
-                                        padding: EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(6.0),
-                                          gradient: LinearGradient(
-                                            begin: Alignment.bottomLeft,
-                                            end: Alignment.topRight,
-                                            colors: [
-                                              const Color(0xFF0DD8FF).withOpacity(0.3),
-                                              const Color(0xFF0FABFF).withOpacity(0.3),
-                                              const Color(0xFF1457FF).withOpacity(0.3),
-                                              const Color(0xFF1636FF).withOpacity(0.3),
-                                            ],
+                                      index==0 ? InkWell(
+                                        onTap:(){
+                                          if(index==0){
+                                            setState(() {
+
+                                            });
+                                          }
+                                        },
+                                        child: Container(
+                                          width: MediaQuery.of(context).size.width * 0.22,
+                                          padding: EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),
+                                          decoration: index==0 ? BoxDecoration(
+                                            borderRadius: BorderRadius.circular(6.0),
+                                            gradient: LinearGradient(
+                                              begin: Alignment.bottomLeft,
+                                              end: Alignment.topRight,
+                                              colors: [
+                                                const Color(0xFF0DD8FF).withOpacity(0.3),
+                                                const Color(0xFF0FABFF).withOpacity(0.3),
+                                                const Color(0xFF1457FF).withOpacity(0.3),
+                                                const Color(0xFF1636FF).withOpacity(0.3),
+                                              ],
+                                            ),
+                                          ): BoxDecoration(
+                                              borderRadius: BorderRadius.circular(6.0),
+                                            border: Border.all(width: 1.0,color: Theme.of(context).dividerColor,),
+                                              boxShadow: [
+                                                BoxShadow(
+                                                    color: Theme.of(context).dividerColor.withOpacity(0.3),
+                                                    blurRadius: 10.0,
+                                                    offset: Offset(0.0, 0.5)
+                                                ),
+                                              ]
+                                  ),
+                                          child: Center(
+                                            child: Text(
+                                              // "10:30 AM",
+                                              // TimeOfDay.now().toString(),
+                                              _timeString,
+                                              style: CustomWidget(context: context)
+                                                  .CustomSizedTextStyle(
+                                                  12.0,
+                                                  Theme.of(context).primaryColor,
+                                                  FontWeight.w500,
+                                                  'FontRegular'),
+                                            ),
                                           ),
                                         ),
-                                        child: Center(
-                                          child: Text(
-                                            "10:30 AM",
-                                            style: CustomWidget(context: context)
-                                                .CustomSizedTextStyle(
-                                                14.0,
-                                                Theme.of(context).primaryColor,
-                                                FontWeight.w500,
-                                                'FontRegular'),
+                                      ) : InkWell(
+                                        onTap:(){
+
+                                        },
+                                        child: Container(
+                                          width: MediaQuery.of(context).size.width * 0.22,
+                                          padding: EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),
+                                          decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(6.0),
+                                              border: Border.all(width: 1.0,color: Theme.of(context).dividerColor,),
+                                              boxShadow: [
+                                                BoxShadow(
+                                                    color: Theme.of(context).dividerColor.withOpacity(0.3),
+                                                    blurRadius: 10.0,
+                                                    offset: Offset(0.0, 0.5)
+                                                ),
+                                              ]
+                                          ),
+                                          child: Center(
+                                            child: Text(
+                                              // "10:30 AM",
+                                              // TimeOfDay.now().toString(),
+                                              _updateTime,
+                                              style: CustomWidget(context: context)
+                                                  .CustomSizedTextStyle(
+                                                  12.0,
+                                                  Theme.of(context).primaryColor,
+                                                  FontWeight.w500,
+                                                  'FontRegular'),
+                                            ),
                                           ),
                                         ),
                                       ),
@@ -368,5 +438,11 @@ class _Slot_ScreenState extends State<Slot_Screen> {
         ),
       ],
     );
+  }
+
+  void _getCurrentTime()  {
+    setState(() {
+      _timeString = "${DateTime.now().hour} : ${DateTime.now().minute}  ${DateTime.now().hour>= 12 ? "PM" : "AM"} ";
+    });
   }
 }

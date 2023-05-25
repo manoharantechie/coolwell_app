@@ -10,6 +10,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
+import '../../../data/api_utils.dart';
+import '../../../data/model/get_user_service_categroy_model.dart';
 import 'notification.dart';
 
 class DashBoard_Screen extends StatefulWidget {
@@ -22,8 +24,11 @@ class DashBoard_Screen extends StatefulWidget {
 class _DashBoard_ScreenState extends State<DashBoard_Screen> {
 
 
-  List<String> titleText=["loc_side_cool","loc_side_service","loc_side_history","loc_side_account"];
 
+  APIUtils apiUtils = APIUtils();
+  bool loading = false;
+  List<String> titleText=["loc_side_cool","loc_side_service","loc_side_history","loc_side_account"];
+  List<GetUserServiceResult> totalService = [];
   List<String> texts = ["Cleaning", "Repair", "Install","Deep clean AC Service"];
   List<String> img_texts = ["assets/images/book_service1.png", "assets/images/book_service2.png", "assets/images/book_service1.png", "assets/images/book_service2.png"];
   ScrollController _scrollController = ScrollController();
@@ -35,7 +40,6 @@ class _DashBoard_ScreenState extends State<DashBoard_Screen> {
   bool  service = true;
   bool  installing = false;
   bool  help = false;
-  bool  loading = false;
   String address="";
   String lat="";
   String long="";
@@ -45,6 +49,8 @@ class _DashBoard_ScreenState extends State<DashBoard_Screen> {
     // TODO: implement initState
     super.initState();
     getData();
+    getServicesDetaile();
+    loading = true;
 
   }
   getData()async{
@@ -302,38 +308,40 @@ class _DashBoard_ScreenState extends State<DashBoard_Screen> {
                             textAlign: TextAlign.end,
                           ),
                           SizedBox(height: 20.0,),
-                          Container(
-                            decoration: BoxDecoration(
-                                boxShadow: [
-                                  BoxShadow(
-                                      color: Theme.of(context).splashColor,
-                                      blurRadius: 10.0,
-                                      offset: Offset(0.0, 0.5)
-                                  ),
-                                ]
-                            ),
-                            child: Column(
-                              children: [
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+                          GridView.builder(
+                            padding: EdgeInsets.zero,
+                              itemCount: totalService.length,
+                              shrinkWrap: true,
+                              controller: _scrollController,
+                              gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                crossAxisSpacing: 5.0,
+                                mainAxisSpacing: 1.0,
+                                childAspectRatio: 1.3,
+                              ),
+                              itemBuilder: (BuildContext context, int index) {
+                              String Offer= totalService[index].offer.toString();
+                                return Column(
+                                  crossAxisAlignment:
+                                  CrossAxisAlignment.center,
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Flexible(child: InkWell(
+                                    InkWell(
                                       onTap: (){
                                         setState(() {
-                                          repair = false;
-                                          service = true;
-                                          installing = false;
-                                          help = false;
+                                          Navigator.of(context).push(MaterialPageRoute(
+                                              builder: (context) =>
+                                                  Service_Screen()));
                                         });
-                                        Navigator.of(context).push(MaterialPageRoute(
-                                            builder: (context) =>
-                                                Service_Details_Screen()));
+
                                       },
                                       child: Container(
                                         padding: EdgeInsets.all(5.0),
-                                        decoration: service? BoxDecoration(
-                                            border: Border.all(width: 1.0,color: Theme.of(context).cardColor,),
+                                        decoration: BoxDecoration(
+                                            // border: Border.all(width: 1.0,color: Theme.of(context).cardColor,),
                                             borderRadius: BorderRadius.circular(10.0),
                                             boxShadow: [
                                               BoxShadow(
@@ -342,13 +350,14 @@ class _DashBoard_ScreenState extends State<DashBoard_Screen> {
                                                   offset: Offset(0.0, 0.5)
                                               ),
                                             ]
-                                        ) : BoxDecoration(),
+                                        ),
                                         child: Container(
                                           height: MediaQuery.of(context).size.height *0.15,
                                           width: MediaQuery.of(context).size.width,
                                           decoration: BoxDecoration(
                                             image: DecorationImage(
-                                              image: AssetImage("assets/images/services.png",),
+                                              image: NetworkImage(totalService[index].image.toString()),
+                                              // image: AssetImage("assets/images/services.png",),
                                               fit: BoxFit.cover,
                                             ),
                                             borderRadius: BorderRadius.circular(10.0),
@@ -360,7 +369,7 @@ class _DashBoard_ScreenState extends State<DashBoard_Screen> {
                                               crossAxisAlignment: CrossAxisAlignment.start,
                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
-                                                Container(
+                                                 Container(
                                                   padding: EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),
                                                   decoration: BoxDecoration(
                                                     color:  Theme.of(context).shadowColor,
@@ -369,7 +378,8 @@ class _DashBoard_ScreenState extends State<DashBoard_Screen> {
                                                         bottomRight: Radius.circular(6.0)),
                                                   ),
                                                   child: Text(
-                                                    "15% OFF",
+                                                    // "15% OFF",
+                                                    Offer + " Off".toUpperCase(),
                                                     style: CustomWidget(context: context)
                                                         .CustomSizedTextStyle(
                                                         14.0,
@@ -380,7 +390,8 @@ class _DashBoard_ScreenState extends State<DashBoard_Screen> {
                                                   ),
                                                 ),
                                                 Text(
-                                                  "Services",
+                                                  // "Services",
+                                                  totalService[index].name.toString(),
                                                   style: CustomWidget(context: context)
                                                       .CustomSizedTextStyle(
                                                       14.0,
@@ -395,246 +406,349 @@ class _DashBoard_ScreenState extends State<DashBoard_Screen> {
                                           ),
                                         ),
                                       ),
-                                    ), flex: 1,),
-                                    SizedBox(width: 15.0,),
-                                    Flexible(child: InkWell(
-                                      onTap: (){
-                                        setState(() {
-                                          repair = true;
-                                          service = false;
-                                          installing = false;
-                                          help = false;
-                                        });
-                                      },
-                                      child: Container(
-                                        padding: EdgeInsets.all(5.0),
-                                        decoration: repair ? BoxDecoration(
-                                            border: Border.all(width: 1.0,color: Theme.of(context).cardColor,),
-                                            borderRadius: BorderRadius.circular(10.0),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                  color: Theme.of(context).dialogBackgroundColor.withOpacity(0.5),
-                                                  blurRadius: 15.0,
-                                                  offset: Offset(0.0, 0.5)
-                                              ),
-                                            ]
-                                        ) : BoxDecoration(),
-                                        child: Container(
-                                          height: MediaQuery.of(context).size.height *0.15,
-                                          width: MediaQuery.of(context).size.width,
-                                          decoration: BoxDecoration(
-                                            image: DecorationImage(
-                                              image: AssetImage("assets/images/repair_1.png",),
-                                              fit: BoxFit.cover,
-                                            ),
-                                            borderRadius: BorderRadius.circular(10.0),
-
-                                          ),
-                                          child: Padding(
-                                            padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 10.0),
-                                            child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                              children: [
-                                                Container(
-                                                  padding: EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),
-                                                  decoration: BoxDecoration(
-                                                    color:  Theme.of(context).shadowColor,
-                                                    borderRadius: BorderRadius.only(
-                                                        bottomLeft: Radius.circular(6.0),
-                                                        bottomRight: Radius.circular(6.0)),
-                                                  ),
-                                                  child: Text(
-                                                    "47% OFF",
-                                                    style: CustomWidget(context: context)
-                                                        .CustomSizedTextStyle(
-                                                        14.0,
-                                                        Theme.of(context).focusColor,
-                                                        FontWeight.w800,
-                                                        'FontRegular'),
-                                                    textAlign: TextAlign.end,
-                                                  ),
-                                                ),
-                                                Text(
-                                                  "Repair",
-                                                  style: CustomWidget(context: context)
-                                                      .CustomSizedTextStyle(
-                                                      14.0,
-                                                      Theme.of(context).focusColor,
-                                                      FontWeight.w600,
-                                                      'FontRegular'),
-                                                  textAlign: TextAlign.end,
-                                                ),
-
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ), flex: 1,)
+                                    ),
                                   ],
-                                ),
-                                SizedBox(height: 10.0,),
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Flexible(child: InkWell(
-                                      onTap: (){
-                                        setState(() {
-                                          repair = false;
-                                          service = false;
-                                          installing = true;
-                                          help = false;
-                                        });
-                                      },
-                                      child: Container(
-                                        padding: EdgeInsets.all(5.0),
-                                        decoration: installing ?BoxDecoration(
-                                            border: Border.all(width: 1.0,color: Theme.of(context).cardColor,),
-                                            borderRadius: BorderRadius.circular(10.0),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                  color: Theme.of(context).dialogBackgroundColor.withOpacity(0.5),
-                                                  blurRadius: 15.0,
-                                                  offset: Offset(0.0, 0.5)
-                                              ),
-                                            ]
-                                        ) : BoxDecoration(),
-                                        child: Container(
-                                          height: MediaQuery.of(context).size.height *0.15,
-                                          width: MediaQuery.of(context).size.width,
-                                          decoration: BoxDecoration(
-                                            image: DecorationImage(
-                                              image: AssetImage("assets/images/install_1.png",),
-                                              fit: BoxFit.cover,
-                                            ),
-                                            borderRadius: BorderRadius.circular(10.0),
-
-                                          ),
-                                          child: Padding(
-                                            padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 10.0),
-                                            child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                              children: [
-                                                Container(
-                                                  padding: EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),
-                                                  decoration: BoxDecoration(
-                                                    color:  Theme.of(context).shadowColor,
-                                                    borderRadius: BorderRadius.only(
-                                                        bottomLeft: Radius.circular(6.0),
-                                                        bottomRight: Radius.circular(6.0)),
-                                                  ),
-                                                  child: Text(
-                                                    "15% OFF",
-                                                    style: CustomWidget(context: context)
-                                                        .CustomSizedTextStyle(
-                                                        14.0,
-                                                        Theme.of(context).focusColor,
-                                                        FontWeight.w800,
-                                                        'FontRegular'),
-                                                    textAlign: TextAlign.end,
-                                                  ),
-                                                ),
-                                                Text(
-                                                  "Installation",
-                                                  style: CustomWidget(context: context)
-                                                      .CustomSizedTextStyle(
-                                                      14.0,
-                                                      Theme.of(context).focusColor,
-                                                      FontWeight.w600,
-                                                      'FontRegular'),
-                                                  textAlign: TextAlign.end,
-                                                ),
-
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ), flex: 1,),
-                                    SizedBox(width: 15.0,),
-                                    Flexible(child: InkWell(
-                                      onTap: (){
-                                        setState(() {
-                                          repair = false;
-                                          service = false;
-                                          installing = false;
-                                          help = true;
-                                        });
-                                      },
-                                      child: Container(
-                                        padding: EdgeInsets.all(5.0),
-                                        decoration: help ?BoxDecoration(
-                                            border: Border.all(width: 1.0,color: Theme.of(context).cardColor,),
-                                            borderRadius: BorderRadius.circular(10.0),
-                                            boxShadow: [
-                                              BoxShadow(
-                                                  color: Theme.of(context).dialogBackgroundColor.withOpacity(0.5),
-                                                  blurRadius: 15.0,
-                                                  offset: Offset(0.0, 0.5)
-                                              ),
-                                            ]
-                                        ) : BoxDecoration(),
-                                        child: Container(
-                                          height: MediaQuery.of(context).size.height *0.15,
-                                          width: MediaQuery.of(context).size.width,
-                                          decoration: BoxDecoration(
-                                            image: DecorationImage(
-                                              image: AssetImage("assets/images/help_1.png",),
-                                              fit: BoxFit.cover,
-                                            ),
-                                            borderRadius: BorderRadius.circular(10.0),
-
-                                          ),
-                                          child: Padding(
-                                            padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 10.0),
-                                            child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                              children: [
-                                                Container(
-                                                  padding: EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),
-                                                  // decoration: BoxDecoration(
-                                                  //   color:  Theme.of(context).shadowColor,
-                                                  //   borderRadius: BorderRadius.only(
-                                                  //       bottomLeft: Radius.circular(6.0),
-                                                  //       bottomRight: Radius.circular(6.0)),
-                                                  // ),
-                                                  child: Text(
-                                                    "",
-                                                    style: CustomWidget(context: context)
-                                                        .CustomSizedTextStyle(
-                                                        14.0,
-                                                        Theme.of(context).focusColor,
-                                                        FontWeight.w800,
-                                                        'FontRegular'),
-                                                    textAlign: TextAlign.end,
-                                                  ),
-                                                ),
-                                                Text(
-                                                  "Help Desk ",
-                                                  style: CustomWidget(context: context)
-                                                      .CustomSizedTextStyle(
-                                                      14.0,
-                                                      Theme.of(context).focusColor,
-                                                      FontWeight.w600,
-                                                      'FontRegular'),
-                                                  textAlign: TextAlign.end,
-                                                ),
-
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ), flex: 1,)
-                                  ],
-                                )
-                              ],
-                            ),
-                          )
+                                );
+                              }),
+                          // Container(
+                          //   decoration: BoxDecoration(
+                          //       boxShadow: [
+                          //         BoxShadow(
+                          //             color: Theme.of(context).splashColor,
+                          //             blurRadius: 10.0,
+                          //             offset: Offset(0.0, 0.5)
+                          //         ),
+                          //       ]
+                          //   ),
+                          //   child: Column(
+                          //     children: [
+                          //       Row(
+                          //         crossAxisAlignment: CrossAxisAlignment.center,
+                          //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          //         children: [
+                          //           Flexible(child: InkWell(
+                          //             onTap: (){
+                          //               setState(() {
+                          //                 repair = false;
+                          //                 service = true;
+                          //                 installing = false;
+                          //                 help = false;
+                          //               });
+                          //               // Navigator.of(context).push(MaterialPageRoute(
+                          //               //     builder: (context) =>
+                          //               //         Service_Details_Screen()));
+                          //             },
+                          //             child: Container(
+                          //               padding: EdgeInsets.all(5.0),
+                          //               decoration: service? BoxDecoration(
+                          //                   border: Border.all(width: 1.0,color: Theme.of(context).cardColor,),
+                          //                   borderRadius: BorderRadius.circular(10.0),
+                          //                   boxShadow: [
+                          //                     BoxShadow(
+                          //                         color: Theme.of(context).dialogBackgroundColor.withOpacity(0.5),
+                          //                         blurRadius: 15.0,
+                          //                         offset: Offset(0.0, 0.5)
+                          //                     ),
+                          //                   ]
+                          //               ) : BoxDecoration(),
+                          //               child: Container(
+                          //                 height: MediaQuery.of(context).size.height *0.15,
+                          //                 width: MediaQuery.of(context).size.width,
+                          //                 decoration: BoxDecoration(
+                          //                   image: DecorationImage(
+                          //                     image: AssetImage("assets/images/services.png",),
+                          //                     fit: BoxFit.cover,
+                          //                   ),
+                          //                   borderRadius: BorderRadius.circular(10.0),
+                          //
+                          //                 ),
+                          //                 child: Padding(
+                          //                   padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 10.0),
+                          //                   child: Column(
+                          //                     crossAxisAlignment: CrossAxisAlignment.start,
+                          //                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          //                     children: [
+                          //                       Container(
+                          //                         padding: EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),
+                          //                         decoration: BoxDecoration(
+                          //                           color:  Theme.of(context).shadowColor,
+                          //                           borderRadius: BorderRadius.only(
+                          //                               bottomLeft: Radius.circular(6.0),
+                          //                               bottomRight: Radius.circular(6.0)),
+                          //                         ),
+                          //                         child: Text(
+                          //                           // "15% OFF",
+                          //                           totalService[0].offer.toString()+ " Off".toUpperCase(),
+                          //                           style: CustomWidget(context: context)
+                          //                               .CustomSizedTextStyle(
+                          //                               14.0,
+                          //                               Theme.of(context).focusColor,
+                          //                               FontWeight.w800,
+                          //                               'FontRegular'),
+                          //                           textAlign: TextAlign.end,
+                          //                         ),
+                          //                       ),
+                          //                       Text(
+                          //                         // "Services",
+                          //                         totalService[0].name.toString(),
+                          //                         style: CustomWidget(context: context)
+                          //                             .CustomSizedTextStyle(
+                          //                             14.0,
+                          //                             Theme.of(context).focusColor,
+                          //                             FontWeight.w600,
+                          //                             'FontRegular'),
+                          //                         textAlign: TextAlign.end,
+                          //                       ),
+                          //
+                          //                     ],
+                          //                   ),
+                          //                 ),
+                          //               ),
+                          //             ),
+                          //           ), flex: 1,),
+                          //           SizedBox(width: 15.0,),
+                          //           Flexible(child: InkWell(
+                          //             onTap: (){
+                          //               setState(() {
+                          //                 repair = true;
+                          //                 service = false;
+                          //                 installing = false;
+                          //                 help = false;
+                          //               });
+                          //             },
+                          //             child: Container(
+                          //               padding: EdgeInsets.all(5.0),
+                          //               decoration: repair ? BoxDecoration(
+                          //                   border: Border.all(width: 1.0,color: Theme.of(context).cardColor,),
+                          //                   borderRadius: BorderRadius.circular(10.0),
+                          //                   boxShadow: [
+                          //                     BoxShadow(
+                          //                         color: Theme.of(context).dialogBackgroundColor.withOpacity(0.5),
+                          //                         blurRadius: 15.0,
+                          //                         offset: Offset(0.0, 0.5)
+                          //                     ),
+                          //                   ]
+                          //               ) : BoxDecoration(),
+                          //               child: Container(
+                          //                 height: MediaQuery.of(context).size.height *0.15,
+                          //                 width: MediaQuery.of(context).size.width,
+                          //                 decoration: BoxDecoration(
+                          //                   image: DecorationImage(
+                          //                     image: AssetImage("assets/images/repair_1.png",),
+                          //                     fit: BoxFit.cover,
+                          //                   ),
+                          //                   borderRadius: BorderRadius.circular(10.0),
+                          //
+                          //                 ),
+                          //                 child: Padding(
+                          //                   padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 10.0),
+                          //                   child: Column(
+                          //                     crossAxisAlignment: CrossAxisAlignment.start,
+                          //                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          //                     children: [
+                          //                       Container(
+                          //                         padding: EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),
+                          //                         decoration: BoxDecoration(
+                          //                           color:  Theme.of(context).shadowColor,
+                          //                           borderRadius: BorderRadius.only(
+                          //                               bottomLeft: Radius.circular(6.0),
+                          //                               bottomRight: Radius.circular(6.0)),
+                          //                         ),
+                          //                         child: Text(
+                          //                           // "47% OFF",
+                          //                           totalService[1].offer.toString()+ " Off".toUpperCase(),
+                          //                           style: CustomWidget(context: context)
+                          //                               .CustomSizedTextStyle(
+                          //                               14.0,
+                          //                               Theme.of(context).focusColor,
+                          //                               FontWeight.w800,
+                          //                               'FontRegular'),
+                          //                           textAlign: TextAlign.end,
+                          //                         ),
+                          //                       ),
+                          //                       Text(
+                          //                         // "Repair",
+                          //                         totalService[1].name.toString(),
+                          //                         style: CustomWidget(context: context)
+                          //                             .CustomSizedTextStyle(
+                          //                             14.0,
+                          //                             Theme.of(context).focusColor,
+                          //                             FontWeight.w600,
+                          //                             'FontRegular'),
+                          //                         textAlign: TextAlign.end,
+                          //                       ),
+                          //
+                          //                     ],
+                          //                   ),
+                          //                 ),
+                          //               ),
+                          //             ),
+                          //           ), flex: 1,)
+                          //         ],
+                          //       ),
+                          //       SizedBox(height: 10.0,),
+                          //       Row(
+                          //         crossAxisAlignment: CrossAxisAlignment.center,
+                          //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          //         children: [
+                          //           Flexible(flex: 1,child: InkWell(
+                          //             onTap: (){
+                          //               setState(() {
+                          //                 repair = false;
+                          //                 service = false;
+                          //                 installing = true;
+                          //                 help = false;
+                          //               });
+                          //             },
+                          //             child: Container(
+                          //               padding: EdgeInsets.all(5.0),
+                          //               decoration: installing ?BoxDecoration(
+                          //                   border: Border.all(width: 1.0,color: Theme.of(context).cardColor,),
+                          //                   borderRadius: BorderRadius.circular(10.0),
+                          //                   boxShadow: [
+                          //                     BoxShadow(
+                          //                         color: Theme.of(context).dialogBackgroundColor.withOpacity(0.5),
+                          //                         blurRadius: 15.0,
+                          //                         offset: Offset(0.0, 0.5)
+                          //                     ),
+                          //                   ]
+                          //               ) : BoxDecoration(),
+                          //               child: Container(
+                          //                 height: MediaQuery.of(context).size.height *0.15,
+                          //                 width: MediaQuery.of(context).size.width,
+                          //                 decoration: BoxDecoration(
+                          //                   image: DecorationImage(
+                          //                     image: AssetImage("assets/images/install_1.png",),
+                          //                     fit: BoxFit.cover,
+                          //                   ),
+                          //                   borderRadius: BorderRadius.circular(10.0),
+                          //
+                          //                 ),
+                          //                 child: Padding(
+                          //                   padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 10.0),
+                          //                   child: Column(
+                          //                     crossAxisAlignment: CrossAxisAlignment.start,
+                          //                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          //                     children: [
+                          //                       Container(
+                          //                         padding: EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),
+                          //                         decoration: BoxDecoration(
+                          //                           color:  Theme.of(context).shadowColor,
+                          //                           borderRadius: BorderRadius.only(
+                          //                               bottomLeft: Radius.circular(6.0),
+                          //                               bottomRight: Radius.circular(6.0)),
+                          //                         ),
+                          //                         child: Text(
+                          //                           // "15% OFF",
+                          //                           totalService[2].offer.toString()+ " Off".toUpperCase(),
+                          //                           style: CustomWidget(context: context)
+                          //                               .CustomSizedTextStyle(
+                          //                               14.0,
+                          //                               Theme.of(context).focusColor,
+                          //                               FontWeight.w800,
+                          //                               'FontRegular'),
+                          //                           textAlign: TextAlign.end,
+                          //                         ),
+                          //                       ),
+                          //                       Text(
+                          //                         // "Installation",
+                          //                         totalService[2].name.toString(),
+                          //                         style: CustomWidget(context: context)
+                          //                             .CustomSizedTextStyle(
+                          //                             14.0,
+                          //                             Theme.of(context).focusColor,
+                          //                             FontWeight.w600,
+                          //                             'FontRegular'),
+                          //                         textAlign: TextAlign.end,
+                          //                       ),
+                          //
+                          //                     ],
+                          //                   ),
+                          //                 ),
+                          //               ),
+                          //             ),
+                          //           ),),
+                          //           SizedBox(width: 15.0,),
+                          //           Flexible(child: InkWell(
+                          //             onTap: (){
+                          //               setState(() {
+                          //                 repair = false;
+                          //                 service = false;
+                          //                 installing = false;
+                          //                 help = true;
+                          //               });
+                          //             },
+                          //             child: Container(
+                          //               padding: EdgeInsets.all(5.0),
+                          //               decoration: help ?BoxDecoration(
+                          //                   border: Border.all(width: 1.0,color: Theme.of(context).cardColor,),
+                          //                   borderRadius: BorderRadius.circular(10.0),
+                          //                   boxShadow: [
+                          //                     BoxShadow(
+                          //                         color: Theme.of(context).dialogBackgroundColor.withOpacity(0.5),
+                          //                         blurRadius: 15.0,
+                          //                         offset: Offset(0.0, 0.5)
+                          //                     ),
+                          //                   ]
+                          //               ) : BoxDecoration(),
+                          //               child: Container(
+                          //                 height: MediaQuery.of(context).size.height *0.15,
+                          //                 width: MediaQuery.of(context).size.width,
+                          //                 decoration: BoxDecoration(
+                          //                   image: DecorationImage(
+                          //                     image: AssetImage("assets/images/help_1.png",),
+                          //                     fit: BoxFit.cover,
+                          //                   ),
+                          //                   borderRadius: BorderRadius.circular(10.0),
+                          //
+                          //                 ),
+                          //                 child: Padding(
+                          //                   padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 10.0),
+                          //                   child: Column(
+                          //                     crossAxisAlignment: CrossAxisAlignment.start,
+                          //                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          //                     children: [
+                          //                       Container(
+                          //                         padding: EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),
+                          //                         // decoration: BoxDecoration(
+                          //                         //   color:  Theme.of(context).shadowColor,
+                          //                         //   borderRadius: BorderRadius.only(
+                          //                         //       bottomLeft: Radius.circular(6.0),
+                          //                         //       bottomRight: Radius.circular(6.0)),
+                          //                         // ),
+                          //                         child: Text(
+                          //                           "",
+                          //                           style: CustomWidget(context: context)
+                          //                               .CustomSizedTextStyle(
+                          //                               14.0,
+                          //                               Theme.of(context).focusColor,
+                          //                               FontWeight.w800,
+                          //                               'FontRegular'),
+                          //                           textAlign: TextAlign.end,
+                          //                         ),
+                          //                       ),
+                          //                       Text(
+                          //                         "Help Desk ",
+                          //                         style: CustomWidget(context: context)
+                          //                             .CustomSizedTextStyle(
+                          //                             14.0,
+                          //                             Theme.of(context).focusColor,
+                          //                             FontWeight.w600,
+                          //                             'FontRegular'),
+                          //                         textAlign: TextAlign.end,
+                          //                       ),
+                          //
+                          //                     ],
+                          //                   ),
+                          //                 ),
+                          //               ),
+                          //             ),
+                          //           ), flex: 1,)
+                          //         ],
+                          //       )
+                          //     ],
+                          //   ),
+                          // )
                         ],
                       ),
                     ),
@@ -840,11 +954,38 @@ class _DashBoard_ScreenState extends State<DashBoard_Screen> {
                   ],
                 ),
               ),
-            )
+            ),
+            loading
+                  ? CustomWidget(context: context).loadingIndicator(
+                Theme.of(context).cardColor,
+              )
+                  : Container(),
           ],
         )
       ),
     );
+  }
+
+  getServicesDetaile() {
+    apiUtils.getUserService().then((GetUserServiceCategoryModel Details) {
+      if (Details.success!) {
+        setState(() {
+          totalService = Details.result!;
+          loading = false;
+        });
+
+      } else {
+        setState(() {
+          loading = false;
+          CustomWidget(context: context)
+              .custombar("Service", Details.message.toString(), false);
+        });
+      }
+    }).catchError((Object error) {
+      setState(() {
+        loading = false;
+      });
+    });
   }
 
 }

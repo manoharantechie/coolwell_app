@@ -7,6 +7,7 @@ import 'model/complaint_history_model.dart';
 import 'model/create_complaint_model.dart';
 import 'model/get_profile_details_model.dart';
 import 'model/get_services_details.dart';
+import 'model/get_user_service_categroy_model.dart';
 import 'model/login.dart';
 import 'model/register.dart';
 import 'model/upload_image_model.dart';
@@ -35,6 +36,7 @@ class APIUtils {
   static const String uploadImageURL = '/uploadimage';
   static const String usersHistoryURL = '/users/getHistory';
   static const String usersHistoryDetailsURL = '/users/getComplaintHistory';
+  static const String serviceCategoryURL = '/admin/GetCategory';
 
 
 
@@ -95,14 +97,17 @@ class APIUtils {
     return CommonModel.fromJson(json.decode(response.body));
   }
 
-  Future<GetServiceDetails> getServicesDetails() async {
+  Future<GetServiceDetails> getServicesDetails(String id) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     var auth = "Bearer "+preferences.getString("token").toString();
     Map<String, String> requestHeaders = {
       'authorization': auth.toString(),
     };
+    var emailbodyData = {
+      'id': id,
+    };
     final response =
-    await http.get(Uri.parse(baseURL + getServicesURL), headers: requestHeaders);
+    await http.post(Uri.parse(baseURL + getServicesURL), headers: requestHeaders, body: emailbodyData);
     // print(response.body);
     return GetServiceDetails.fromJson(json.decode(response.body));
 
@@ -276,6 +281,19 @@ class APIUtils {
     final response =
     await http.post(Uri.parse(baseURL + usersHistoryDetailsURL),headers: requestHeaders, body: bodyData);
     return UsersHistoryDetailsModel.fromJson(json.decode(response.body));
+  }
+
+  Future<GetUserServiceCategoryModel> getUserService() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var auth = "Bearer "+preferences.getString("token").toString();
+    Map<String, String> requestHeaders = {
+      'authorization': auth.toString(),
+    };
+
+    final response =
+    await http.get(Uri.parse(baseURL + serviceCategoryURL), headers: requestHeaders);
+
+    return GetUserServiceCategoryModel.fromJson(json.decode(response.body));
   }
 
 
