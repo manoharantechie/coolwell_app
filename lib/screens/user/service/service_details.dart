@@ -35,6 +35,9 @@ class _Service_Details_ScreenState extends State<Service_Details_Screen> {
   FocusNode issuesFocus = FocusNode();
   TextEditingController issuesController = TextEditingController();
 
+  List<String> selectedService=[];
+  String amount="0";
+
   @override
   void initState() {
     // TODO: implement initState
@@ -743,99 +746,38 @@ class _Service_Details_ScreenState extends State<Service_Details_Screen> {
                                                         ),
                                                       ),
                                                     ),
-                                                    add ? InkWell(
+
+                                                    InkWell(
                                                       onTap: () {
+
+                                                        print(totalDetails[index].id.toString());
                                                         setState(() {
-                                                          remove = true;
-                                                          add = false;
-                                                        });
-                                                      },
-                                                      child: Container(
-                                                        margin: EdgeInsets.only(
-                                                            bottom: 10.0),
-                                                        width: MediaQuery.of(
-                                                                    context)
-                                                                .size
-                                                                .width *
-                                                            0.18,
-                                                        padding:
-                                                            EdgeInsets.fromLTRB(
-                                                                5.0,
-                                                                5.0,
-                                                                5.0,
-                                                                5.0),
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      15.0),
-                                                          gradient:
-                                                              LinearGradient(
-                                                            begin: Alignment
-                                                                .topLeft,
-                                                            end: Alignment
-                                                                .bottomRight,
-                                                            colors: [
-                                                              const Color(
-                                                                  0xFF0DD8FF),
-                                                              const Color(
-                                                                  0xFF0FABFF),
-                                                              const Color(
-                                                                  0xFF1457FF),
-                                                              const Color(
-                                                                  0xFF1636FF),
-                                                              const Color(
-                                                                  0xFF0E69C7),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                        child: Row(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .center,
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .center,
-                                                          children: [
-                                                            SvgPicture.asset(
-                                                              "assets/images/tools.svg",
-                                                              color: Theme.of(
-                                                                      context)
-                                                                  .focusColor,
-                                                              height: 15.0,
-                                                            ),
-                                                            SizedBox(
-                                                              width: 5.0,
-                                                            ),
-                                                            Text(
-                                                                AppLocalizations
-                                                                  .instance
-                                                                  .text(
-                                                                      "loc_remove") ,
-                                                              style: CustomWidget(
-                                                                      context:
-                                                                          context)
-                                                                  .CustomSizedTextStyle(
-                                                                      10.0,
-                                                                      Theme.of(
-                                                                              context)
-                                                                          .focusColor,
-                                                                      FontWeight
-                                                                          .w600,
-                                                                      'FontRegular'),
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center,
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ): InkWell(
-                                                      onTap: () {
-                                                        setState(() {
-                                                          remove = false;
-                                                          add = true;
+                                                          if(selectedService.length>0)
+                                                            {
+
+
+
+
+
+
+                                                                if(selectedService.contains(totalDetails[index].id.toString()))
+                                                                {
+                                                                  selectedService.remove(totalDetails[index].id.toString());
+                                                                  amount=(double.parse(amount)-double.parse(totalDetails[index].amount.toString())).toString();
+
+
+                                                                }
+                                                                else{
+                                                                  selectedService.add(totalDetails[index].id.toString());
+                                                                  amount=(double.parse(amount)+double.parse(totalDetails[index].amount.toString())).toString();
+                                                                }
+
+                                                            }
+                                                          else
+                                                            {
+                                                              selectedService.add(totalDetails[index].id.toString());
+                                                              amount=(double.parse(amount)+double.parse(totalDetails[index].amount.toString())).toString();
+                                                            }
 
                                                         });
                                                       },
@@ -898,10 +840,13 @@ class _Service_Details_ScreenState extends State<Service_Details_Screen> {
                                                               width: 5.0,
                                                             ),
                                                             Text(
-                                                              AppLocalizations
+                                                                selectedService.contains(totalDetails[index].id.toString())?       AppLocalizations
                                                                   .instance
                                                                   .text(
-                                                                  "loc_add") ,
+                                                                  "loc_remove"):AppLocalizations
+                                                                    .instance
+                                                                    .text(
+                                                                    "loc_add") ,
                                                               style: CustomWidget(
                                                                   context:
                                                                   context)
@@ -961,7 +906,7 @@ class _Service_Details_ScreenState extends State<Service_Details_Screen> {
                             ),
                     ),
 
-              add ? Align(
+              selectedService.length>0 ? Align(
                       alignment: Alignment.bottomCenter,
                       child: Container(
                         margin: EdgeInsets.only(
@@ -1035,7 +980,7 @@ class _Service_Details_ScreenState extends State<Service_Details_Screen> {
                                       ),
                                     ),
                                     Text(
-                                      "₹" + "499",
+                                      "₹" + amount,
                                       style: CustomWidget(context: context)
                                           .CustomSizedTextStyle(
                                               14.0,

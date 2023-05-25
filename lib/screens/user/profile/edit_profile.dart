@@ -667,8 +667,7 @@ class _Edit_Profile_ScreenState extends State<Edit_Profile_Screen> {
         .updateProfileDetails(
         selectedValue.toString()+"."+
             nameController.text.toString(),
-        addressController.text.toString(),
-        pinCodeController.text.toString(), profileImage)
+      profileImage)
         .then((CommonModel loginData) {
       setState(() {
         if (loginData.success!) {
