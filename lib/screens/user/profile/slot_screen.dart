@@ -458,6 +458,8 @@ class Slot_ScreenState extends State<Slot_Screen> {
   //   });
   // }
 
+
+
   getServicesTimeDetails() {
     apiUtils.getServiceTime().then((GetServiceTimeModel details) {
       if (details.success!) {
