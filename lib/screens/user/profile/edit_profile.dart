@@ -821,7 +821,6 @@ class _Edit_Profile_ScreenState extends State<Edit_Profile_Screen> {
                               flex: 4,
                             ),
                           ],
-
                         ),
                       ],
                     ),
