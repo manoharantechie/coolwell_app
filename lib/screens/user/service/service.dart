@@ -226,6 +226,7 @@ class _Service_ScreenState extends State<Service_Screen> {
               child: Padding(
                   padding: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
                   child: Container(
+                      color: Theme.of(context).backgroundColor,
                       child: SingleChildScrollView(
                         child: ListView.builder(
                           padding: EdgeInsets.zero,
