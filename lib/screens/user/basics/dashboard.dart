@@ -75,7 +75,7 @@ class _DashBoard_ScreenState extends State<DashBoard_Screen> {
               children: [
                 Container(
                   width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height * 0.24,
+                  height: MediaQuery.of(context).size.height * 0.25,
                   padding: EdgeInsets.only(left: 40.0,right: 30.0, bottom: 20.0),
                   decoration: BoxDecoration(
                     image: DecorationImage(

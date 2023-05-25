@@ -125,7 +125,7 @@ class APIUtils {
     return CommonModel.fromJson(json.decode(response.body));
   }
 
-  Future<CommonModel> updateProfileDetails(String name, String address, String pincode,String profileImage) async {
+  Future<CommonModel> updateProfileDetails(String name, String profileImage) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     var auth = "Bearer "+preferences.getString("token").toString();
     Map<String, String> requestHeaders = {
@@ -133,8 +133,8 @@ class APIUtils {
     };
     var emailbodyData = {
       "name": name,
-      'address': address,
-      'pincode': pincode,
+      // 'address': address,
+      // 'pincode': pincode,
       'profile_pic': profileImage
     };
 

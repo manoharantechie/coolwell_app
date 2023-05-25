@@ -568,13 +568,15 @@ class _Edit_Profile_ScreenState extends State<Edit_Profile_Screen> {
                               if(nameController.text.isEmpty){
                                 CustomWidget(context: context)
                                     .custombar("Profile", "Please Enter Name", false);
-                              } else if(addressController.text.isEmpty){
-                                CustomWidget(context: context)
-                                    .custombar("Profile", "Please Enter Address details", false);
-                              } else if(pinCodeController.text.isEmpty){
-                                CustomWidget(context: context)
-                                    .custombar("Profile", "Please Enter Pincode ", false);
-                              } else{
+                              }
+                              // else if(addressController.text.isEmpty){
+                              //   CustomWidget(context: context)
+                              //       .custombar("Profile", "Please Enter Address details", false);
+                              // } else if(pinCodeController.text.isEmpty){
+                              //   CustomWidget(context: context)
+                              //       .custombar("Profile", "Please Enter Pincode ", false);
+                              // }
+                              else{
                                 setState(() {
                                   loading = true;
                                   updateProfile();
@@ -666,8 +668,9 @@ class _Edit_Profile_ScreenState extends State<Edit_Profile_Screen> {
         .updateProfileDetails(
         selectedValue.toString()+"."+
             nameController.text.toString(),
-        addressController.text.toString(),
-        pinCodeController.text.toString(), profileImage)
+        // addressController.text.toString(),
+        // pinCodeController.text.toString(),
+        profileImage)
         .then((CommonModel loginData) {
       setState(() {
         if (loginData.success!) {
@@ -678,8 +681,8 @@ class _Edit_Profile_ScreenState extends State<Edit_Profile_Screen> {
           custombar("Profile", loginData.message.toString(), true);
 
           nameController.clear();
-          addressController.clear();
-          pinCodeController.clear();
+          // addressController.clear();
+          // pinCodeController.clear();
           Navigator.pop(context);
 
         }

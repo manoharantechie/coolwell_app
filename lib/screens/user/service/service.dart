@@ -59,6 +59,7 @@ class _Service_ScreenState extends State<Service_Screen> {
                  children: [
                    Container(
                      width: MediaQuery.of(context).size.width,
+                     height: MediaQuery.of(context).size.height * 0.26,
                      padding: EdgeInsets.only(top: 20.0),
                      decoration: BoxDecoration(
                        image: DecorationImage(
@@ -222,7 +223,7 @@ class _Service_ScreenState extends State<Service_Screen> {
             Container(
               color: Theme.of(context).backgroundColor,
               margin: EdgeInsets.only(
-                  top: MediaQuery.of(context).size.height * 0.39),
+                  top: MediaQuery.of(context).size.height * 0.41),
               child: Padding(
                   padding: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
                   child: Container(
@@ -251,7 +252,7 @@ class _Service_ScreenState extends State<Service_Screen> {
                                         borderRadius: BorderRadius.circular(10.0),
                                     ),
                                     child: Container(
-                                      height: MediaQuery.of(context).size.height *0.24,
+                                      height: MediaQuery.of(context).size.height *0.22,
                                       width: MediaQuery.of(context).size.width,
                                       decoration: BoxDecoration(
                                         image: DecorationImage(

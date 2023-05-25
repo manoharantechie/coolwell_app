@@ -29,6 +29,7 @@ class _Service_Details_ScreenState extends State<Service_Details_Screen> {
   APIUtils apiUtils = APIUtils();
   bool loading = false;
   bool add = false;
+  bool remove = false;
   List<GetServiceResult> totalDetails = [];
   List<String> text_drop =["Experienced\nprofessionals", "Background\nverified", "Background\nverified"];
   FocusNode issuesFocus = FocusNode();
@@ -56,6 +57,7 @@ class _Service_Details_ScreenState extends State<Service_Details_Screen> {
                   children: [
                     Container(
                       width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height* 0.28,
                       decoration: BoxDecoration(
                         image: DecorationImage(
                           image: AssetImage("assets/images/service.png"),
@@ -260,11 +262,12 @@ class _Service_Details_ScreenState extends State<Service_Details_Screen> {
                   ],
                 ),
               ),
+
               totalDetails.length > 0
                   ? Container(
                       color: Theme.of(context).focusColor,
                       margin: EdgeInsets.only(
-                          top: MediaQuery.of(context).size.height * 0.38),
+                          top: MediaQuery.of(context).size.height * 0.44),
                       child: Padding(
                           padding: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 20.0),
                           child: Container(
@@ -740,20 +743,12 @@ class _Service_Details_ScreenState extends State<Service_Details_Screen> {
                                                         ),
                                                       ),
                                                     ),
-                                                    InkWell(
+                                                    add ? InkWell(
                                                       onTap: () {
                                                         setState(() {
                                                           add = true;
+                                                          remove = false;
                                                         });
-                                                        // if (index==0){
-                                                        //   Navigator.of(context).push(MaterialPageRoute(
-                                                        //       builder: (context) =>
-                                                        //           Payment_Summary_Screen()));
-                                                        // } else if (index==1){
-                                                        //   // Navigator.of(context).push(MaterialPageRoute(
-                                                        //   //     builder: (context) =>
-                                                        //   //         DashBoard_Screen()));
-                                                        // }
                                                       },
                                                       child: Container(
                                                         margin: EdgeInsets.only(
@@ -762,12 +757,12 @@ class _Service_Details_ScreenState extends State<Service_Details_Screen> {
                                                                     context)
                                                                 .size
                                                                 .width *
-                                                            0.15,
+                                                            0.18,
                                                         padding:
                                                             EdgeInsets.fromLTRB(
-                                                                0.0,
                                                                 5.0,
-                                                                0.0,
+                                                                5.0,
+                                                                5.0,
                                                                 5.0),
                                                         decoration:
                                                             BoxDecoration(
@@ -814,10 +809,10 @@ class _Service_Details_ScreenState extends State<Service_Details_Screen> {
                                                               width: 5.0,
                                                             ),
                                                             Text(
-                                                              AppLocalizations
+                                                                AppLocalizations
                                                                   .instance
                                                                   .text(
-                                                                      "loc_add"),
+                                                                      "loc_add") ,
                                                               style: CustomWidget(
                                                                       context:
                                                                           context)
@@ -832,6 +827,98 @@ class _Service_Details_ScreenState extends State<Service_Details_Screen> {
                                                               textAlign:
                                                                   TextAlign
                                                                       .center,
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ): InkWell(
+                                                      onTap: () {
+                                                        setState(() {
+                                                          remove = true;
+                                                          add = false;
+                                                          // Navigator.pop(context);
+                                                        });
+                                                      },
+                                                      child: Container(
+                                                        margin: EdgeInsets.only(
+                                                            bottom: 10.0),
+                                                        width: MediaQuery.of(
+                                                            context)
+                                                            .size
+                                                            .width *
+                                                            0.18,
+                                                        padding:
+                                                        EdgeInsets.fromLTRB(
+                                                            5.0,
+                                                            5.0,
+                                                            5.0,
+                                                            5.0),
+                                                        decoration:
+                                                        BoxDecoration(
+                                                          borderRadius:
+                                                          BorderRadius
+                                                              .circular(
+                                                              15.0),
+                                                          gradient:
+                                                          LinearGradient(
+                                                            begin: Alignment
+                                                                .topLeft,
+                                                            end: Alignment
+                                                                .bottomRight,
+                                                            colors: [
+                                                              const Color(
+                                                                  0xFF0DD8FF),
+                                                              const Color(
+                                                                  0xFF0FABFF),
+                                                              const Color(
+                                                                  0xFF1457FF),
+                                                              const Color(
+                                                                  0xFF1636FF),
+                                                              const Color(
+                                                                  0xFF0E69C7),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        child: Row(
+                                                          crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .center,
+                                                          mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                          children: [
+                                                            SvgPicture.asset(
+                                                              "assets/images/tools.svg",
+                                                              color: Theme.of(
+                                                                  context)
+                                                                  .focusColor,
+                                                              height: 15.0,
+                                                            ),
+                                                            SizedBox(
+                                                              width: 5.0,
+                                                            ),
+                                                            Text(
+                                                              remove ? AppLocalizations
+                                                                  .instance
+                                                                  .text(
+                                                                  "loc_remove") :AppLocalizations
+                                                                  .instance
+                                                                  .text(
+                                                                  "loc_add") ,
+                                                              style: CustomWidget(
+                                                                  context:
+                                                                  context)
+                                                                  .CustomSizedTextStyle(
+                                                                  10.0,
+                                                                  Theme.of(
+                                                                      context)
+                                                                      .focusColor,
+                                                                  FontWeight
+                                                                      .w600,
+                                                                  'FontRegular'),
+                                                              textAlign:
+                                                              TextAlign
+                                                                  .center,
                                                             ),
                                                           ],
                                                         ),
@@ -876,6 +963,7 @@ class _Service_Details_ScreenState extends State<Service_Details_Screen> {
                               ),
                             ),
                     ),
+
               add
                   ? Align(
                       alignment: Alignment.bottomCenter,
@@ -998,6 +1086,7 @@ class _Service_Details_ScreenState extends State<Service_Details_Screen> {
                       ),
                     )
                   : Container(),
+
               loading
                   ? CustomWidget(context: context).loadingIndicator(
                       Theme.of(context).cardColor,
