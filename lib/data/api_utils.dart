@@ -6,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'model/complaint_history_model.dart';
 import 'model/create_complaint_model.dart';
 import 'model/get_profile_details_model.dart';
+import 'model/get_service_time_model.dart';
 import 'model/get_services_details.dart';
 import 'model/get_user_service_categroy_model.dart';
 import 'model/login.dart';
@@ -37,6 +38,7 @@ class APIUtils {
   static const String usersHistoryURL = '/users/getHistory';
   static const String usersHistoryDetailsURL = '/users/getComplaintHistory';
   static const String serviceCategoryURL = '/admin/GetCategory';
+  static const String serviceGetTimeURL = '/admin/GetServiceTime';
 
 
 
@@ -294,6 +296,19 @@ class APIUtils {
     await http.get(Uri.parse(baseURL + serviceCategoryURL), headers: requestHeaders);
 
     return GetUserServiceCategoryModel.fromJson(json.decode(response.body));
+  }
+
+  Future<GetServiceTimeModel> getServiceTime() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var auth = "Bearer "+preferences.getString("token").toString();
+    Map<String, String> requestHeaders = {
+      'authorization': auth.toString(),
+    };
+
+    final response =
+    await http.get(Uri.parse(baseURL + serviceGetTimeURL), headers: requestHeaders);
+
+    return GetServiceTimeModel.fromJson(json.decode(response.body));
   }
 
 

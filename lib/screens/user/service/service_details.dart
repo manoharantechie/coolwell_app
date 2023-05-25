@@ -746,8 +746,8 @@ class _Service_Details_ScreenState extends State<Service_Details_Screen> {
                                                     add ? InkWell(
                                                       onTap: () {
                                                         setState(() {
-                                                          add = true;
-                                                          remove = false;
+                                                          remove = true;
+                                                          add = false;
                                                         });
                                                       },
                                                       child: Container(
@@ -812,7 +812,7 @@ class _Service_Details_ScreenState extends State<Service_Details_Screen> {
                                                                 AppLocalizations
                                                                   .instance
                                                                   .text(
-                                                                      "loc_add") ,
+                                                                      "loc_remove") ,
                                                               style: CustomWidget(
                                                                       context:
                                                                           context)
@@ -834,9 +834,9 @@ class _Service_Details_ScreenState extends State<Service_Details_Screen> {
                                                     ): InkWell(
                                                       onTap: () {
                                                         setState(() {
-                                                          remove = true;
-                                                          add = false;
-                                                          // Navigator.pop(context);
+                                                          remove = false;
+                                                          add = true;
+
                                                         });
                                                       },
                                                       child: Container(
@@ -898,10 +898,7 @@ class _Service_Details_ScreenState extends State<Service_Details_Screen> {
                                                               width: 5.0,
                                                             ),
                                                             Text(
-                                                              remove ? AppLocalizations
-                                                                  .instance
-                                                                  .text(
-                                                                  "loc_remove") :AppLocalizations
+                                                              AppLocalizations
                                                                   .instance
                                                                   .text(
                                                                   "loc_add") ,
@@ -964,8 +961,7 @@ class _Service_Details_ScreenState extends State<Service_Details_Screen> {
                             ),
                     ),
 
-              add
-                  ? Align(
+              add ? Align(
                       alignment: Alignment.bottomCenter,
                       child: Container(
                         margin: EdgeInsets.only(
