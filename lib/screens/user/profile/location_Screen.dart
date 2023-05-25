@@ -139,6 +139,7 @@ class _Location_ScreenState extends State<Location_Screen> {
         height: MediaQuery.of(context).size.height,
         child: Stack(
           children: [
+
             Container(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height * 0.45,
