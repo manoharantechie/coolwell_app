@@ -159,13 +159,13 @@ class _Location_ScreenState extends State<Location_Screen> {
                     padding: EdgeInsets.fromLTRB(10.0, 12.0, 10.0, 12.0),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10.0),
-                        border: Border.all(width: 1.0,color: Theme.of(context).accentColor,)
+                        border: Border.all(width: 1.0,color: Theme.of(context).dialogBackgroundColor,)
                     ),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        SvgPicture.asset("assets/images/search.svg", height: 20.0, color: Theme.of(context).accentColor,),
+                        SvgPicture.asset("assets/images/search.svg", height: 20.0, color: Theme.of(context).dialogBackgroundColor,),
                         SizedBox(width: 10.0,),
                         Text(
                           AppLocalizations.instance
