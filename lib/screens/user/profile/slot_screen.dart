@@ -26,7 +26,9 @@ class Slot_ScreenState extends State<Slot_Screen> {
   String startTime= "";
   String endTime= "";
   GetServiceTimeResult? serviceTimes;
+  List<String> timeList=[];
 
+  int selIndex=-1;
   @override
   void initState() {
     // TODO: implement initState
@@ -271,25 +273,23 @@ class Slot_ScreenState extends State<Slot_Screen> {
                                   color: Theme.of(context).focusColor,
                                   height: 30.0,
                                   child:  ListView.builder(
-                                    itemCount: 5,
+                                    itemCount: timeList.length,
                                     scrollDirection: Axis.horizontal,
                                     shrinkWrap: true,
                                     controller: _scrollController,
                                     itemBuilder: (BuildContext context, int index) {
                                       return Row(
                                         children: [
-                                          index==0 ? InkWell(
+                                    InkWell(
                                             onTap:(){
-                                              if(index==0){
-                                                setState(() {
-
-                                                });
-                                              }
+                                              setState(() {
+                                                selIndex=index;
+                                              });
                                             },
                                             child: Container(
                                               width: MediaQuery.of(context).size.width * 0.22,
                                               padding: const EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),
-                                              decoration: index==0 ? BoxDecoration(
+                                              decoration: index==selIndex ? BoxDecoration(
                                                 borderRadius: BorderRadius.circular(6.0),
                                                 gradient: LinearGradient(
                                                   begin: Alignment.bottomLeft,
@@ -314,9 +314,7 @@ class Slot_ScreenState extends State<Slot_Screen> {
                                               ),
                                               child: Center(
                                                 child: Text(
-                                                  // "10:30 AM",
-                                                  // TimeOfDay.now().toString(),
-                                                  startTime.toString(),
+                                                 timeList[index],
                                                   style: CustomWidget(context: context)
                                                       .CustomSizedTextStyle(
                                                       12.0,
@@ -326,39 +324,8 @@ class Slot_ScreenState extends State<Slot_Screen> {
                                                 ),
                                               ),
                                             ),
-                                          ) : InkWell(
-                                            onTap:(){
+                                          ) ,
 
-                                            },
-                                            child: Container(
-                                              width: MediaQuery.of(context).size.width * 0.22,
-                                              padding: const EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),
-                                              decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius.circular(6.0),
-                                                  border: Border.all(width: 1.0,color: Theme.of(context).dividerColor,),
-                                                  boxShadow: [
-                                                    BoxShadow(
-                                                        color: Theme.of(context).dividerColor.withOpacity(0.3),
-                                                        blurRadius: 10.0,
-                                                        offset: const Offset(0.0, 0.5)
-                                                    ),
-                                                  ]
-                                              ),
-                                              child: Center(
-                                                child: Text(
-                                                  // "10:30 AM",
-                                                  // TimeOfDay.now().toString(),
-                                                  endTime.toString(),
-                                                  style: CustomWidget(context: context)
-                                                      .CustomSizedTextStyle(
-                                                      12.0,
-                                                      Theme.of(context).primaryColor,
-                                                      FontWeight.w500,
-                                                      'FontRegular'),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
                                           const SizedBox(width: 15.0,)
                                         ],
                                       );
@@ -433,8 +400,45 @@ class Slot_ScreenState extends State<Slot_Screen> {
           lastDate: DateTime.now().add(const Duration(days: 365)),
           onDateSelected: (date) {
             setState(() {
+              timeList=[];
+              selIndex=-1;
               _selectedDate = date;
-              loading = true;
+              DateTime current=DateTime.now();
+
+
+              if(current.compareTo(_selectedDate) < 0){
+                String tt=DateTime.now().hour.toString();
+
+                int start=int.parse(serviceTimes!.startTime.toString().split(":")[0]);
+                String startpoint=start.toString();
+
+
+                for(int m= int.parse(startpoint);m<=int.parse(endTime);m++)
+                {
+                  timeList.add(m.toString()+".00");
+                }
+              }
+              else{
+                String tt=DateTime.now().hour.toString();
+
+                int start=int.parse(serviceTimes!.startTime.toString().split(":")[0]);
+                String startpoint="";
+                if(int.parse(tt)>start)
+                {
+                  startpoint=tt;
+                }
+                else
+                {
+                  startpoint=start.toString();
+                }
+
+                for(int m= int.parse(startpoint);m<=int.parse(endTime);m++)
+                {
+                  timeList.add(m.toString()+".00");
+                }
+              }
+
+
 
             });
           },
@@ -466,7 +470,28 @@ class Slot_ScreenState extends State<Slot_Screen> {
         setState(() {
           serviceTimes = details.result!;
           startTime = serviceTimes!.startTime.toString();
-          endTime = serviceTimes!.endTime.toString();
+          print(serviceTimes!.endTime.toString());
+
+          endTime = (12+int.parse(serviceTimes!.endTime.toString().split(":")[0])).toString();
+          String tt=DateTime.now().hour.toString();
+
+          int start=int.parse(serviceTimes!.startTime.toString().split(":")[0]);
+          String startpoint="";
+          if(int.parse(tt)>start)
+            {
+              startpoint=tt;
+            }
+          else
+            {
+              startpoint=start.toString();
+            }
+          print(endTime);
+
+          for(int m= int.parse(startpoint);m<=int.parse(endTime);m++)
+            {
+              timeList.add(m.toString()+".00");
+            }
+
           loading = false;
         });
 
