@@ -666,9 +666,7 @@ class _Edit_Profile_ScreenState extends State<Edit_Profile_Screen> {
     apiUtils
         .updateProfileDetails(
         selectedValue.toString()+"."+
-            nameController.text.toString(),
-        addressController.text.toString(),
-        pinCodeController.text.toString(), profileImage)
+            nameController.text.toString(), profileImage)
         .then((CommonModel loginData) {
       setState(() {
         if (loginData.success!) {
@@ -781,7 +779,7 @@ class _Edit_Profile_ScreenState extends State<Edit_Profile_Screen> {
                                       FontWeight.w500,
                                       'FontRegular'),
                                   iconColor: Theme.of(context).focusColor,
-                                  buttonColor: Theme.of(context).cardColor,
+                                  shadowColor: Theme.of(context).cardColor,
                                   splashColor: Theme.of(context).focusColor,
                                   onPressed: () {
                                     setState(() {
@@ -808,11 +806,10 @@ class _Edit_Profile_ScreenState extends State<Edit_Profile_Screen> {
                                       FontWeight.w500,
                                       'FontRegular'),
                                   iconColor: Theme.of(context).focusColor,
-                                  buttonColor: Theme.of(context).cardColor,
+                                  shadowColor: Theme.of(context).cardColor,
                                   splashColor: Theme.of(context).focusColor,
                                   onPressed: () {
                                     setState(() {
-
                                       Navigator.pop(context);
                                       getImage(ImageSource.camera);
                                     });
