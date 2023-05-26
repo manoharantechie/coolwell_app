@@ -36,7 +36,6 @@ class APIUtils {
   static const String sendMobileURL = '/sendMobileOtp';
   static const String uploadImageURL = '/uploadimage';
   static const String usersHistoryURL = '/users/getHistory';
-  static const String usersHistoryDetailsURL = '/users/getComplaintHistory';
   static const String serviceCategoryURL = '/admin/GetCategory';
   static const String serviceGetTimeURL = '/admin/GetServiceTime';
 
@@ -281,7 +280,7 @@ class APIUtils {
     };
 
     final response =
-    await http.post(Uri.parse(baseURL + usersHistoryDetailsURL),headers: requestHeaders, body: bodyData);
+    await http.post(Uri.parse(baseURL + complaintHistoryURL),headers: requestHeaders, body: bodyData);
     return UsersHistoryDetailsModel.fromJson(json.decode(response.body));
   }
 
