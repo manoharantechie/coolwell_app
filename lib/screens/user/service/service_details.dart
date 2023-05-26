@@ -1812,7 +1812,7 @@ class _Service_Details_ScreenState extends State<Service_Details_Screen> {
                                             Navigator.of(context).push(
                                                 MaterialPageRoute(
                                                     builder: (context) =>
-                                                        Slot_Screen()));
+                                                        Slot_Screen(serv_Id: details.id.toString(),serv_Name: details.serviceName.toString(),serv_amt: details.amount.toString(),)));
                                           },
                                           child: Container(
                                             margin: EdgeInsets.only(top: 170.0),

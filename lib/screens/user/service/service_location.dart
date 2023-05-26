@@ -19,7 +19,12 @@ import '../basics/home.dart';
 import '../payment/payment_summary.dart';
 
 class Add_Service_Location_Screen extends StatefulWidget {
-  const Add_Service_Location_Screen({Key? key}) : super(key: key);
+  final serv_Id;
+  final serv_Name;
+  final serv_amt;
+  final serv_Date;
+  final serv_Time;
+  const Add_Service_Location_Screen({Key? key, required this.serv_Id, required this.serv_Name, required this.serv_amt, required this.serv_Date, required this.serv_Time,}) : super(key: key);
 
   @override
   State<Add_Service_Location_Screen> createState() => _Add_Service_Location_ScreenState();
@@ -130,19 +135,20 @@ class _Add_Service_Location_ScreenState extends State<Add_Service_Location_Scree
         cityController.text =   place.administrativeArea.toString();
         zipController.text =   place.postalCode.toString();
         address=place.name.toString()+" ,"+place.thoroughfare.toString()+" ,"+place.locality.toString()+" ,"+ place.postalCode.toString();
-        storeData(address);
+        // storeData(address);
 
 
       });
     } catch (e) {}
   }
 
-  storeData(String address)async{
-    SharedPreferences preferences= await SharedPreferences.getInstance();
-    preferences.setString("address", address);
-    preferences.setString("lat", lat.toString());
-    preferences.setString("long", long.toString());
-  }
+  // storeData(String address)async{
+  //   SharedPreferences preferences= await SharedPreferences.getInstance();
+  //   preferences.setString("address", address);
+  //   preferences.setString("lat", lat.toString());
+  //   preferences.setString("long", long.toString());
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -906,7 +912,7 @@ class _Add_Service_Location_ScreenState extends State<Add_Service_Location_Scree
                                             setState(() {
                                               Navigator.of(context).push(MaterialPageRoute(
                                                   builder: (context) =>
-                                                      Payment_Summary_Screen()));
+                                                      Payment_Summary_Screen( serv_Id: widget.serv_Id, serv_Name: widget.serv_Name, serv_amt: widget.serv_amt, serv_Date: widget.serv_Date, serv_Time: widget.serv_Time,serv_Add: addressController.text.toString(),serv_City: cityController.text.toString(),serv_Zip: zipController.text.toString() )));
                                             });
                                           },
                                           child: Container(

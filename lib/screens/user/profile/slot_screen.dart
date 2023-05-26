@@ -8,7 +8,11 @@ import '../../../data/model/get_service_time_model.dart';
 import '../service/service_location.dart';
 
 class Slot_Screen extends StatefulWidget {
-  const Slot_Screen({Key? key}) : super(key: key);
+  final serv_Id;
+  final serv_Name;
+  final serv_amt;
+
+  const Slot_Screen({Key? key,  required this.serv_Id, required this.serv_Name, required this.serv_amt,}) : super(key: key);
 
   @override
   State<Slot_Screen> createState() => Slot_ScreenState();
@@ -346,7 +350,7 @@ class Slot_ScreenState extends State<Slot_Screen> {
                             Navigator.of(context).push(
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        const Add_Service_Location_Screen()));
+                                        Add_Service_Location_Screen( serv_Id: widget.serv_Id, serv_Name: widget.serv_Name, serv_amt: widget.serv_amt, serv_Date: DateTime, serv_Time: timeList[selIndex].toString(),)));
                           },
                           child: Container(
                             margin: const EdgeInsets.only(bottom: 20.0),

@@ -7,7 +7,15 @@ import 'package:coolwell_app/common/dotted_line_widget.dart';
 import 'package:coolwell_app/common/localization/localizations.dart';
 
 class Payment_Summary_Screen extends StatefulWidget {
-  const Payment_Summary_Screen({Key? key}) : super(key: key);
+  final serv_Id;
+  final serv_Name;
+  final serv_amt;
+  final serv_Date;
+  final serv_Time;
+  final serv_Add;
+  final serv_City;
+  final serv_Zip;
+  const Payment_Summary_Screen({Key? key,  required this.serv_Id, required this.serv_Name, required this.serv_amt, required this.serv_Date, required this.serv_Time, required this.serv_Add, required this.serv_City, required this.serv_Zip,}) : super(key: key);
 
   @override
   State<Payment_Summary_Screen> createState() => _Payment_Summary_ScreenState();
