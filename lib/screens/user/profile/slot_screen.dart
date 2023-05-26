@@ -5,7 +5,7 @@ import 'package:coolwell_app/common/custom_widget.dart';
 import 'package:coolwell_app/common/localization/localizations.dart';
 import '../../../data/api_utils.dart';
 import '../../../data/model/get_service_time_model.dart';
-import 'location_Screen.dart';
+import '../service/service_location.dart';
 
 class Slot_Screen extends StatefulWidget {
   const Slot_Screen({Key? key}) : super(key: key);
@@ -379,7 +379,7 @@ class Slot_ScreenState extends State<Slot_Screen> {
                             Navigator.of(context).push(
                                 MaterialPageRoute(
                                     builder: (context) =>
-                                        const Location_Screen()));
+                                        const Add_Service_Location_Screen()));
                           },
                           child: Container(
                             margin: const EdgeInsets.only(bottom: 20.0),
