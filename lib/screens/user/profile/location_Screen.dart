@@ -13,6 +13,7 @@ import 'package:coolwell_app/common/custom_switch.dart';
 import 'package:coolwell_app/common/custom_widget.dart';
 import 'package:coolwell_app/common/localization/localizations.dart';
 import 'package:coolwell_app/common/textformfield_custom.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../basics/home.dart';
 
@@ -50,6 +51,7 @@ class _Location_ScreenState extends State<Location_Screen> {
 
   int interActiveFlags = InteractiveFlag.all;
 
+  String address="";
   @override
   void initState() {
     // TODO: implement initState
@@ -126,9 +128,19 @@ class _Location_ScreenState extends State<Location_Screen> {
         addressLineController.text =   place.locality.toString();
         cityController.text =   place.administrativeArea.toString();
         zipController.text =   place.postalCode.toString();
+        address=place.name.toString()+" ,"+place.thoroughfare.toString()+" ,"+place.locality.toString()+" ,"+ place.postalCode.toString();
+        storeData(address);
+
 
       });
     } catch (e) {}
+  }
+
+  storeData(String address)async{
+    SharedPreferences preferences= await SharedPreferences.getInstance();
+    preferences.setString("address", address);
+    preferences.setString("lat", lat.toString());
+    preferences.setString("long", long.toString());
   }
   @override
   Widget build(BuildContext context) {
