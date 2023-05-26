@@ -394,39 +394,39 @@ class _Edit_Profile_ScreenState extends State<Edit_Profile_Screen> {
                               ),
                               const SizedBox(height: 15.0,),
 
-                              TextFormFieldCustom(
-                                onEditComplete: () {
-                                  addressFocus.unfocus();
-                                  FocusScope.of(context).requestFocus(pinCodeFocus);
-                                },
-                                radius: 6.0,
-                                error: "Enter Address",
-                                textColor: Theme.of(context).primaryColor,
-                                borderColor: Theme.of(context).dividerColor,
-                                fillColor: Theme.of(context).focusColor,
-                                hintStyle: CustomWidget(context: context).CustomSizedTextStyle(
-                                    14.0, Theme.of(context).primaryColor.withOpacity(0.3), FontWeight.w500, 'FontRegular'),
-                                textStyle: CustomWidget(context: context).CustomSizedTextStyle(
-                                    14.0, Theme.of(context).primaryColor, FontWeight.w500, 'FontRegular'),
-                                textInputAction: TextInputAction.next,
-                                focusNode: addressFocus,
-                                maxlines: 1,
-                                text: '',
-                                hintText: "Address",
-                                obscureText: false,
-                                textChanged: (value) {},
-                                onChanged: () {},
-                                suffix: Container(
-                                  width: 0.0,
-                                ),
-                                validator: (value) {
-
-                                },
-                                enabled: true,
-                                textInputType: TextInputType.streetAddress,
-                                controller: addressController,
-                              ),
-                              const SizedBox(height: 15.0,),
+                              // TextFormFieldCustom(
+                              //   onEditComplete: () {
+                              //     addressFocus.unfocus();
+                              //     FocusScope.of(context).requestFocus(pinCodeFocus);
+                              //   },
+                              //   radius: 6.0,
+                              //   error: "Enter Address",
+                              //   textColor: Theme.of(context).primaryColor,
+                              //   borderColor: Theme.of(context).dividerColor,
+                              //   fillColor: Theme.of(context).focusColor,
+                              //   hintStyle: CustomWidget(context: context).CustomSizedTextStyle(
+                              //       14.0, Theme.of(context).primaryColor.withOpacity(0.3), FontWeight.w500, 'FontRegular'),
+                              //   textStyle: CustomWidget(context: context).CustomSizedTextStyle(
+                              //       14.0, Theme.of(context).primaryColor, FontWeight.w500, 'FontRegular'),
+                              //   textInputAction: TextInputAction.next,
+                              //   focusNode: addressFocus,
+                              //   maxlines: 1,
+                              //   text: '',
+                              //   hintText: "Address",
+                              //   obscureText: false,
+                              //   textChanged: (value) {},
+                              //   onChanged: () {},
+                              //   suffix: Container(
+                              //     width: 0.0,
+                              //   ),
+                              //   validator: (value) {
+                              //
+                              //   },
+                              //   enabled: true,
+                              //   textInputType: TextInputType.streetAddress,
+                              //   controller: addressController,
+                              // ),
+                              // const SizedBox(height: 15.0,),
                               // TextFormFieldCustom(
                               //   onEditComplete: () {
                               //     addressLineFocus.unfocus();
@@ -460,38 +460,38 @@ class _Edit_Profile_ScreenState extends State<Edit_Profile_Screen> {
                               //   controller: addressLineController,
                               // ),
                               // const SizedBox(height: 15.0,),
-                              TextFormFieldCustom(
-                                onEditComplete: () {
-                                  pinCodeFocus.unfocus();
-                                  // FocusScope.of(context).requestFocus(phoneNumFocus);
-                                },
-                                radius: 6.0,
-                                error: "Enter Pin code",
-                                textColor: Theme.of(context).primaryColor,
-                                borderColor: Theme.of(context).dividerColor,
-                                fillColor: Theme.of(context).focusColor,
-                                hintStyle: CustomWidget(context: context).CustomSizedTextStyle(
-                                    14.0, Theme.of(context).primaryColor.withOpacity(0.3), FontWeight.w500, 'FontRegular'),
-                                textStyle: CustomWidget(context: context).CustomSizedTextStyle(
-                                    14.0, Theme.of(context).primaryColor, FontWeight.w500, 'FontRegular'),
-                                textInputAction: TextInputAction.next,
-                                focusNode: pinCodeFocus,
-                                maxlines: 1,
-                                text: '',
-                                hintText: "Pin code",
-                                obscureText: false,
-                                textChanged: (value) {},
-                                onChanged: () {},
-                                suffix: Container(
-                                  width: 0.0,
-                                ),
-                                validator: (value) {
-
-                                },
-                                enabled: true,
-                                textInputType: TextInputType.number,
-                                controller: pinCodeController,
-                              ),
+                              // TextFormFieldCustom(
+                              //   onEditComplete: () {
+                              //     pinCodeFocus.unfocus();
+                              //     // FocusScope.of(context).requestFocus(phoneNumFocus);
+                              //   },
+                              //   radius: 6.0,
+                              //   error: "Enter Pin code",
+                              //   textColor: Theme.of(context).primaryColor,
+                              //   borderColor: Theme.of(context).dividerColor,
+                              //   fillColor: Theme.of(context).focusColor,
+                              //   hintStyle: CustomWidget(context: context).CustomSizedTextStyle(
+                              //       14.0, Theme.of(context).primaryColor.withOpacity(0.3), FontWeight.w500, 'FontRegular'),
+                              //   textStyle: CustomWidget(context: context).CustomSizedTextStyle(
+                              //       14.0, Theme.of(context).primaryColor, FontWeight.w500, 'FontRegular'),
+                              //   textInputAction: TextInputAction.next,
+                              //   focusNode: pinCodeFocus,
+                              //   maxlines: 1,
+                              //   text: '',
+                              //   hintText: "Pin code",
+                              //   obscureText: false,
+                              //   textChanged: (value) {},
+                              //   onChanged: () {},
+                              //   suffix: Container(
+                              //     width: 0.0,
+                              //   ),
+                              //   validator: (value) {
+                              //
+                              //   },
+                              //   enabled: true,
+                              //   textInputType: TextInputType.number,
+                              //   controller: pinCodeController,
+                              // ),
                               // const SizedBox(height: 15.0,),
                               // TextFormFieldCustom(
                               //   onEditComplete: () {
@@ -569,13 +569,15 @@ class _Edit_Profile_ScreenState extends State<Edit_Profile_Screen> {
                               if(nameController.text.isEmpty){
                                 CustomWidget(context: context)
                                     .custombar("Profile", "Please Enter Name", false);
-                              } else if(addressController.text.isEmpty){
-                                CustomWidget(context: context)
-                                    .custombar("Profile", "Please Enter Address details", false);
-                              } else if(pinCodeController.text.isEmpty){
-                                CustomWidget(context: context)
-                                    .custombar("Profile", "Please Enter Pincode ", false);
-                              } else{
+                              }
+                              // else if(addressController.text.isEmpty){
+                              //   CustomWidget(context: context)
+                              //       .custombar("Profile", "Please Enter Address details", false);
+                              // } else if(pinCodeController.text.isEmpty){
+                              //   CustomWidget(context: context)
+                              //       .custombar("Profile", "Please Enter Pincode ", false);
+                              // }
+                              else{
                                 setState(() {
                                   loading = true;
                                   updateProfile();
