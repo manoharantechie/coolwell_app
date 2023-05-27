@@ -639,7 +639,7 @@ class _Edit_Profile_ScreenState extends State<Edit_Profile_Screen> {
             // gender=loginData.result!.name!.contains(".")?str[0].trim().toString():"";
             email=details!.email.toString();
             mobileNo=details!.phone.toString();
-            profileImage=details!.profile_pic.toString();
+            profileImage=details!.profilePic.toString();
 
           });
           // CustomWidget(context: context).

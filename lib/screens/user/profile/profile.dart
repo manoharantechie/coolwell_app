@@ -10,6 +10,7 @@ import 'package:coolwell_app/common/custom_widget.dart';
 import 'package:coolwell_app/common/localization/localizations.dart';
 import '../../../data/api_utils.dart';
 import '../../../data/model/get_profile_details_model.dart';
+import '../side menu/address.dart';
 import 'slot_screen.dart';
 import 'edit_profile.dart';
 
@@ -260,9 +261,9 @@ class _Profile_ScreenState extends State<Profile_Screen> {
                       const SizedBox(height: 5.0,),
                       InkWell(
                         onTap: (){
-                          // Navigator.of(context).push(MaterialPageRoute(
-                          //     builder: (context) =>
-                          //         Slot_Screen()));
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) =>
+                                  Address_Details_Screen()));
                         },
                         child: Container(
                           padding: EdgeInsets.only(top: 10.0, bottom: 10.0, left: 20.0, right: 20.0),
@@ -660,7 +661,7 @@ class _Profile_ScreenState extends State<Profile_Screen> {
             gender=loginData.result!.name!.contains(".")?str[0].trim().toString():"";
             email=details!.email.toString();
             mobileNo=details!.phone.toString();
-            profileImage=details!.profile_pic.toString();
+            profileImage=details!.profilePic.toString();
 
           });
           // CustomWidget(context: context).

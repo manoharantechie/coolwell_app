@@ -967,7 +967,7 @@ class _Add_Service_Location_ScreenState extends State<Add_Service_Location_Scree
       if (detailsModel.success!) {
         setState(() {
           // totalDetails = detailsModel.result!;
-          print("success");
+          // print("success");
           loading = false;
           CustomWidget(context: context)
               .custombar("Service", detailsModel.message.toString(), true);
@@ -977,7 +977,6 @@ class _Add_Service_Location_ScreenState extends State<Add_Service_Location_Scree
         });
       } else {
         setState(() {
-          print("fail");
           loading = false;
           CustomWidget(context: context)
               .custombar("Service", detailsModel.message.toString(), false);
