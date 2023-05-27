@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:coolwell_app/common/calendar/calendar_timeline.dart';
 import 'package:coolwell_app/common/custom_widget.dart';
 import 'package:coolwell_app/common/localization/localizations.dart';
+import 'package:intl/intl.dart';
 import '../../../data/api_utils.dart';
 import '../../../data/model/get_service_time_model.dart';
 import '../service/service_location.dart';
@@ -28,6 +29,7 @@ class Slot_ScreenState extends State<Slot_Screen> {
   // late String _timeString;
   // late String _updateTime;
   String startTime= "";
+  String selectedDate= "";
   String endTime= "";
   GetServiceTimeResult? serviceTimes;
   List<String> timeList=[];
@@ -39,6 +41,9 @@ class Slot_ScreenState extends State<Slot_Screen> {
     super.initState();
     getServicesTimeDetails();
     _selectedDate = DateTime.now().add(const Duration(days: 0));
+    DateFormat formatter=DateFormat("MM/dd/yyyy");
+    selectedDate=formatter.format(DateTime.now());
+
     // Timer.periodic(Duration(seconds:1), (Timer t)=>_getCurrentTime());
     // _timeString = "${DateTime.now().hour} : ${DateTime.now().minute}  ${DateTime.now().hour>= 12 ? "PM" : "AM"}";
     // _updateTime = "${DateTime.now().hour+ 1} : ${DateTime.now().minute}  ${DateTime.now().hour>= 12 ? "PM" : "AM"}";
@@ -353,9 +358,8 @@ class Slot_ScreenState extends State<Slot_Screen> {
                                       builder: (context) =>
                                           Add_Service_Location_Screen(
                                             serv_Id: widget.serv_Id,
-                                            serv_Name: widget.serv_Name,
                                             serv_amt: widget.serv_amt,
-                                            serv_Date: DateTime,
+                                            serv_Date: selectedDate,
                                             serv_Time: timeList[selIndex]
                                                 .toString(),)));
                             } else{
@@ -419,6 +423,8 @@ class Slot_ScreenState extends State<Slot_Screen> {
             setState(() {
               timeList=[];
               selIndex=-1;
+              DateFormat formatter=DateFormat("MM/dd/yyyy");
+              selectedDate=formatter.format(date);
               _selectedDate = date;
               DateTime current=DateTime.now();
 
@@ -432,7 +438,7 @@ class Slot_ScreenState extends State<Slot_Screen> {
 
                 for(int m= int.parse(startpoint);m<=int.parse(endTime);m++)
                 {
-                  timeList.add(m.toString()+".00");
+                  timeList.add(m.toString()+":00");
                 }
               }
               else{
@@ -451,7 +457,7 @@ class Slot_ScreenState extends State<Slot_Screen> {
 
                 for(int m= int.parse(startpoint);m<=int.parse(endTime);m++)
                 {
-                  timeList.add(m.toString()+".00");
+                  timeList.add(m.toString()+":00");
                 }
               }
 
@@ -506,7 +512,7 @@ class Slot_ScreenState extends State<Slot_Screen> {
 
           for(int m= int.parse(startpoint);m<=int.parse(endTime);m++)
             {
-              timeList.add(m.toString()+".00");
+              timeList.add(m.toString()+":00");
             }
 
           loading = false;

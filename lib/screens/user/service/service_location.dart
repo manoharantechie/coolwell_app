@@ -15,16 +15,17 @@ import 'package:coolwell_app/common/localization/localizations.dart';
 import 'package:coolwell_app/common/textformfield_custom.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../data/api_utils.dart';
+import '../../../data/model/create_complaint_model.dart';
 import '../basics/home.dart';
 import '../payment/payment_summary.dart';
 
 class Add_Service_Location_Screen extends StatefulWidget {
   final serv_Id;
-  final serv_Name;
   final serv_amt;
   final serv_Date;
   final serv_Time;
-  const Add_Service_Location_Screen({Key? key, required this.serv_Id, required this.serv_Name, required this.serv_amt, required this.serv_Date, required this.serv_Time,}) : super(key: key);
+  const Add_Service_Location_Screen({Key? key, required this.serv_Id, required this.serv_amt, required this.serv_Date, required this.serv_Time,}) : super(key: key);
 
   @override
   State<Add_Service_Location_Screen> createState() => _Add_Service_Location_ScreenState();
@@ -32,6 +33,8 @@ class Add_Service_Location_Screen extends StatefulWidget {
 
 class _Add_Service_Location_ScreenState extends State<Add_Service_Location_Screen> {
 
+  APIUtils apiUtils = APIUtils();
+  bool loading = false;
   late final MapController _mapController;
   double lat = 0.00;
   double long = 0.00;
@@ -39,6 +42,7 @@ class _Add_Service_Location_ScreenState extends State<Add_Service_Location_Scree
   var lastPosition;
   bool status = false;
   bool home = true;
+  String type= "";
   bool defaultAddd = false;
   bool other = false;
   List<Marker> markers = [];
@@ -62,7 +66,7 @@ class _Add_Service_Location_ScreenState extends State<Add_Service_Location_Scree
   void initState() {
     // TODO: implement initState
     super.initState();
-
+   type="home";
     getPermission();
 
     _mapController = MapController();
@@ -797,6 +801,7 @@ class _Add_Service_Location_ScreenState extends State<Add_Service_Location_Scree
                                                   ssetState(() {
                                                     home =true;
                                                     other =false;
+                                                    type = "home";
                                                   });
                                                 },
                                                 child: Container(
@@ -853,6 +858,7 @@ class _Add_Service_Location_ScreenState extends State<Add_Service_Location_Scree
                                                   ssetState(() {
                                                     home =false;
                                                     other =true;
+                                                    type = "other";
                                                   });
                                                 },
                                                 child: Container(
@@ -910,9 +916,7 @@ class _Add_Service_Location_ScreenState extends State<Add_Service_Location_Scree
                                         InkWell(
                                           onTap: () {
                                             setState(() {
-                                              Navigator.of(context).push(MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      Payment_Summary_Screen( serv_Id: widget.serv_Id, serv_Name: widget.serv_Name, serv_amt: widget.serv_amt, serv_Date: widget.serv_Date, serv_Time: widget.serv_Time,serv_Add: addressController.text.toString(),serv_City: cityController.text.toString(),serv_Zip: zipController.text.toString() )));
+                                              createComplaint();
                                             });
                                           },
                                           child: Container(
@@ -955,6 +959,37 @@ class _Add_Service_Location_ScreenState extends State<Add_Service_Location_Scree
               });
         });
   }
+
+  createComplaint() {
+    apiUtils
+        .createComplaintDetails(widget.serv_Id.toString(), (widget.serv_Date.toString()+" "+widget.serv_Time.toString()), (nameController.text.toString()+","+addressController.text.toString()+","+addressLineController.text.toString()),cityController.text.toString(), zipController.text.toString(), lat.toString(), long.toString(), widget.serv_amt.toString(), type.toString())
+        .then((CreateComplaintDetailsModel detailsModel) {
+      if (detailsModel.success!) {
+        setState(() {
+          // totalDetails = detailsModel.result!;
+          print("success");
+          loading = false;
+          CustomWidget(context: context)
+              .custombar("Service", detailsModel.message.toString(), true);
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) =>
+                  Payment_Summary_Screen()));
+        });
+      } else {
+        setState(() {
+          print("fail");
+          loading = false;
+          CustomWidget(context: context)
+              .custombar("Service", detailsModel.message.toString(), false);
+        });
+      }
+    }).catchError((Object error) {
+      setState(() {
+        loading = false;
+      });
+    });
+  }
+
 }
 
 class MapMarker {

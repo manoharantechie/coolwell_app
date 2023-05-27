@@ -172,7 +172,7 @@ class APIUtils {
     return GetProfileDetailsModel.fromJson(json.decode(response.body));
   }
 
-  Future<CreateComplaintDetails> createComplaintDetails(String serviceid, String date, String name, String address, String city, String zip, String lat, String lon, String amount,) async {
+  Future<CreateComplaintDetailsModel> createComplaintDetails(String serviceid, String date, String address, String city, String zip, String lat, String lon, String amount, String type) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     var auth = "Bearer "+preferences.getString("token").toString();
     Map<String, String> requestHeaders = {
@@ -181,19 +181,19 @@ class APIUtils {
     var emailbodyData = {
       "Service_id": serviceid,
       'Date': date,
-      'Name': name,
       'Address': address,
       'city': city,
       'zip': zip,
       'latitude': lat,
       'longitude': lon,
-      'Amount': amount
+      'Amount': amount,
+      'type': type,
     };
 
     final response =
-    await http.patch(Uri.parse(baseURL + createComplaintURL), headers: requestHeaders, body: emailbodyData);
-
-    return CreateComplaintDetails.fromJson(json.decode(response.body));
+    await http.post(Uri.parse(baseURL + createComplaintURL), headers: requestHeaders, body: emailbodyData);
+    // print(response.body);
+    return CreateComplaintDetailsModel.fromJson(json.decode(response.body));
   }
 
   Future<ComplaintHistoryModel> getComplaintDetails() async {

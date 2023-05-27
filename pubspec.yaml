@@ -47,6 +47,7 @@ dependencies:
   scrollable_positioned_list:
   flutter_map:
   geolocator:
+  intl:
   location:
   latlong2:
   geocoding: ^2.1.0
