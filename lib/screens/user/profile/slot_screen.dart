@@ -347,11 +347,24 @@ class Slot_ScreenState extends State<Slot_Screen> {
                         alignment: Alignment.bottomCenter,
                         child: InkWell(
                           onTap: (){
-                            Navigator.of(context).push(
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        Add_Service_Location_Screen( serv_Id: widget.serv_Id, serv_Name: widget.serv_Name, serv_amt: widget.serv_amt, serv_Date: DateTime, serv_Time: timeList[selIndex].toString(),)));
-                          },
+                            if(selIndex>=0) {
+                              Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          Add_Service_Location_Screen(
+                                            serv_Id: widget.serv_Id,
+                                            serv_Name: widget.serv_Name,
+                                            serv_amt: widget.serv_amt,
+                                            serv_Date: DateTime,
+                                            serv_Time: timeList[selIndex]
+                                                .toString(),)));
+                            } else{
+                              loading = false;
+                              CustomWidget(context: context)
+                                  .custombar("Schedule slot", "Please select service time", false);
+                            }
+                            },
+
                           child: Container(
                             margin: const EdgeInsets.only(bottom: 20.0),
                             width: MediaQuery.of(context).size.width * 0.7,
