@@ -220,7 +220,7 @@ class _Service_ScreenState extends State<Service_Screen> {
                  ],
                ),
              ),
-            Container(
+        totalService.length >0 ? Container(
               color: Theme.of(context).backgroundColor,
               margin: EdgeInsets.only(
                   top: MediaQuery.of(context).size.height * 0.41),
@@ -896,16 +896,27 @@ class _Service_ScreenState extends State<Service_Screen> {
                               ],
                             );
                           },
-                        ),
+                        )
                       ))),
-            ),
+            ):
+        loading
+            ? CustomWidget(context: context).loadingIndicator(
+          Theme.of(context).cardColor,
+        ) : Container(
+
+            child:
             Center(
-              child: loading
-                  ? CustomWidget(context: context).loadingIndicator(
-                Theme.of(context).cardColor,
-              )
-                  : Container(),
+              child: Text(
+                AppLocalizations.instance.text('loc_no_records'),
+                style: CustomWidget(context: context)
+                    .CustomSizedTextStyle(
+                    16.0,
+                    Theme.of(context).primaryColor,
+                    FontWeight.w700,
+                    'FontRegular'),
               ),
+            )
+        )
             // add ?Align(
             //   alignment: Alignment.bottomCenter,
             //   child: Container(

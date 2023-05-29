@@ -2,6 +2,7 @@ import 'package:coolwell_app/screens/user/basics/home.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../common/custom_widget.dart';
 import '../../../common/dotted_line_widget.dart';
@@ -9,13 +10,35 @@ import '../../../common/localization/localizations.dart';
 import '../../../common/ticket_design.dart';
 
 class PaymentSuccessScreen extends StatefulWidget {
-  const PaymentSuccessScreen({Key? key}) : super(key: key);
+  final String s_Name;
+  final String s_Date;
+  final String s_add;
+  final String s_Time;
+  const PaymentSuccessScreen({Key? key,  required this.s_Name,required this.s_Date,required this.s_add,required this.s_Time,}) : super(key: key);
 
   @override
   State<PaymentSuccessScreen> createState() => _PaymentSuccessScreenState();
 }
 
 class _PaymentSuccessScreenState extends State<PaymentSuccessScreen> {
+
+  String name="";
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getData();
+
+  }
+
+  getData()async{
+    SharedPreferences preferences=await SharedPreferences.getInstance();
+    setState(() {
+      name =preferences.getString("name").toString();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -135,8 +158,7 @@ class _PaymentSuccessScreenState extends State<PaymentSuccessScreen> {
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              AppLocalizations.instance
-                                                  .text("loc_cleaning"),
+                                              "Name",
                                               style: CustomWidget(context: context).CustomSizedTextStyle(
                                                   18.0,
                                                   Theme.of(
@@ -156,8 +178,7 @@ class _PaymentSuccessScreenState extends State<PaymentSuccessScreen> {
                                               height: 5.0,
                                             ),
                                             Text(
-                                              AppLocalizations.instance
-                                                  .text("loc_cleaning"),
+                                              widget.s_Name.toString(),
                                               style: CustomWidget(context: context).CustomSizedTextStyle(
                                                   12.0,
                                                   Theme.of(
@@ -193,7 +214,7 @@ class _PaymentSuccessScreenState extends State<PaymentSuccessScreen> {
                                     children: [
                                       Flexible(
                                         child: Container(
-                                          // width: MediaQuery.of(context).size.width * 0.2,
+                                          width: MediaQuery.of(context).size.width *0.5,
                                           child: Column(
                                             crossAxisAlignment:
                                             CrossAxisAlignment
@@ -214,19 +235,22 @@ class _PaymentSuccessScreenState extends State<PaymentSuccessScreen> {
                                                   const SizedBox(
                                                     width: 5.0,
                                                   ),
-                                                  Text(
-                                                    "Location",
-                                                    style: CustomWidget(context: context).CustomSizedTextStyle(
-                                                        8.0,
-                                                        Theme.of(context)
-                                                            .focusColor,
-                                                        FontWeight
-                                                            .w600,
-                                                        'FontRegular'),
-                                                    textAlign:
-                                                    TextAlign
-                                                        .center,
-                                                  ),
+                                                 Flexible(
+                                                   child:  Text(
+                                                     widget.s_add,
+                                                     style: CustomWidget(context: context).CustomSizedTextStyle(
+                                                         8.0,
+                                                         Theme.of(context)
+                                                             .focusColor,
+                                                         FontWeight
+                                                             .w600,
+                                                         'FontRegular'),
+                                                     textAlign:
+                                                     TextAlign
+                                                         .start,
+                                                     overflow: TextOverflow.ellipsis,
+                                                   ),
+                                                 )
                                                 ],
                                               ),
                                               const SizedBox(
@@ -248,7 +272,7 @@ class _PaymentSuccessScreenState extends State<PaymentSuccessScreen> {
                                                     width: 5.0,
                                                   ),
                                                   Text(
-                                                    "19:30 BST - 23:00 BST",
+                                                    widget.s_Time,
                                                     style: CustomWidget(context: context).CustomSizedTextStyle(
                                                         8.0,
                                                         Theme.of(context)
@@ -299,7 +323,7 @@ class _PaymentSuccessScreenState extends State<PaymentSuccessScreen> {
                                                 width: 5.0,
                                               ),
                                               Text(
-                                                "March 2023",
+                                                widget.s_Date,
                                                 style: CustomWidget(context: context).CustomSizedTextStyle(
                                                     10.0,
                                                     Theme.of(context)

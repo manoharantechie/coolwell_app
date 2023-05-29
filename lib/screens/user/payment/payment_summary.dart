@@ -1,6 +1,7 @@
 import 'package:coolwell_app/data/api_utils.dart';
 import 'package:coolwell_app/data/model/create_complaint_model.dart';
 import 'package:coolwell_app/data/model/get_services_details.dart';
+import 'package:coolwell_app/screens/user/payment/payment_success.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -590,6 +591,10 @@ class _Payment_Summary_ScreenState extends State<Payment_Summary_Screen> {
                             loading=true;
                             createComplaint();
                           });
+
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) =>
+                                  PaymentSuccessScreen(s_Name: widget.addedServiceDetails.serviceName.toString(),s_Date: (widget.serv_Date.toString()), s_Time: widget.serv_Time.toString(),s_add: widget.address, )));
 
                         },
                         child: Container(

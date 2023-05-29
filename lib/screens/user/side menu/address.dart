@@ -458,7 +458,20 @@ class _Address_Details_ScreenState extends State<Address_Details_Screen> {
                 ? CustomWidget(context: context).loadingIndicator(
               Theme.of(context).cardColor,
             )
-                : Container(),
+                : Container(
+              child:
+                Center(
+                  child: Text(
+                    AppLocalizations.instance.text('loc_no_records'),
+                    style: CustomWidget(context: context)
+                        .CustomSizedTextStyle(
+                        16.0,
+                        Theme.of(context).primaryColor,
+                        FontWeight.w700,
+                        'FontRegular'),
+                  ),
+                )
+            ),
             ),)
           ],
         ),
