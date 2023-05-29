@@ -27,6 +27,7 @@ class _Address_Details_ScreenState extends State<Address_Details_Screen> {
   String mobileNo ="";
   String city ="";
   String address ="";
+  String userName ="";
   String zip ="";
   List<Address> otherAddressList = [];
 
@@ -34,6 +35,7 @@ class _Address_Details_ScreenState extends State<Address_Details_Screen> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    loading =true;
     addressDetails();
   }
 
@@ -136,6 +138,26 @@ class _Address_Details_ScreenState extends State<Address_Details_Screen> {
                       children: [
                         const SizedBox(
                           height: 15.0,
+                        ),
+                        Text(
+                          userName.toString(),
+                          style: CustomWidget(context: context).CustomSizedTextStyle(
+                              14.0,
+                              Theme.of(
+                                  context)
+                                  .focusColor,
+                              FontWeight
+                                  .w600,
+                              'FontRegular'),
+                          textAlign:
+                          TextAlign
+                              .start,
+                          overflow:
+                          TextOverflow
+                              .ellipsis,
+                        ),
+                        const SizedBox(
+                          height: 5.0,
                         ),
                         Text(
                           AppLocalizations.instance
@@ -259,10 +281,10 @@ class _Address_Details_ScreenState extends State<Address_Details_Screen> {
             Padding(padding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
             child: Container(
               margin: EdgeInsets.only(
-                  top: MediaQuery.of(context).size.height * 0.35),
-              child: ListView.builder(
+                  top: MediaQuery.of(context).size.height * 0.37),
+              child: otherAddressList.length >0 ? ListView.builder(
                 padding: EdgeInsets.zero,
-                itemCount: 2,
+                itemCount: otherAddressList.length,
                 scrollDirection: Axis.vertical,
                 shrinkWrap: true,
                 controller: _scrollController,
@@ -354,7 +376,7 @@ class _Address_Details_ScreenState extends State<Address_Details_Screen> {
                               children: [
                                 Container(
                                   child: Text(
-                                    address.toString(),
+                                    otherAddressList[index].address.toString(),
                                     style: CustomWidget(context: context).CustomSizedTextStyle(
                                         14.0,
                                         Theme.of(
@@ -375,7 +397,7 @@ class _Address_Details_ScreenState extends State<Address_Details_Screen> {
                                   height: 5.0,
                                 ),
                                 Text(
-                                  city.toString(),
+                                  otherAddressList[index].city.toString(),
                                   style: CustomWidget(context: context).CustomSizedTextStyle(
                                       14.0,
                                       Theme.of(
@@ -395,7 +417,7 @@ class _Address_Details_ScreenState extends State<Address_Details_Screen> {
                                   height: 5.0,
                                 ),
                                 Text(
-                                  zip.toString(),
+                                  otherAddressList[index].zip.toString(),
                                   style: CustomWidget(context: context).CustomSizedTextStyle(
                                       14.0,
                                       Theme.of(
@@ -413,23 +435,6 @@ class _Address_Details_ScreenState extends State<Address_Details_Screen> {
                                 ),
                                 const SizedBox(
                                   height: 5.0,
-                                ),
-                                Text(
-                                  mobileNo.toString(),
-                                  style: CustomWidget(context: context).CustomSizedTextStyle(
-                                      14.0,
-                                      Theme.of(
-                                          context)
-                                          .focusColor,
-                                      FontWeight
-                                          .w600,
-                                      'FontRegular'),
-                                  textAlign:
-                                  TextAlign
-                                      .start,
-                                  overflow:
-                                  TextOverflow
-                                      .ellipsis,
                                 ),
                               ],
                             ),
@@ -446,14 +451,14 @@ class _Address_Details_ScreenState extends State<Address_Details_Screen> {
                     ],
                   );
                 },
-              ),
+              )
+                :
+            loading
+                ? CustomWidget(context: context).loadingIndicator(
+              Theme.of(context).cardColor,
+            )
+                : Container(),
             ),)
-            //     :
-            // loading
-            //     ? CustomWidget(context: context).loadingIndicator(
-            //   Theme.of(context).cardColor,
-            // )
-            //     : Container(),
           ],
         ),
       ),
@@ -469,12 +474,13 @@ class _Address_Details_ScreenState extends State<Address_Details_Screen> {
           setState(() {
             loading = false;
             details = loginData.result!;
+            userName=details!.name.toString();
             mobileNo=details!.phone.toString();
             address=details!.addressHome!.address.toString();
             city=details!.addressHome!.city.toString();
             zip=details!.addressHome!.zip.toString();
             mobileNo=details!.phone.toString();
-            // otheraddress = details!.addressOther.toString();
+            otherAddressList = details!.addressOther!;
 
           });
           // CustomWidget(context: context).
