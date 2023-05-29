@@ -30,6 +30,17 @@ class _Payment_Summary_ScreenState extends State<Payment_Summary_Screen> {
   bool checkHide=false;
   APIUtils apiUtils = APIUtils();
   bool loading = false;
+  double total=0.00;
+  double amount=0.00;
+  double discount=0.00;
+  double tax=0.00;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    amount=double.parse(widget.addedServiceDetails.amount.toString());
+    total=amount+discount+tax;
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -146,104 +157,51 @@ class _Payment_Summary_ScreenState extends State<Payment_Summary_Screen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Flexible(child:  Text(
-                          "Deep clean AC service (window)",
-                          style: CustomWidget(context: context)
-                              .CustomSizedTextStyle(
-                              10.0,
-                              Theme.of(context).primaryColor,
-                              FontWeight.w400,
-                              'FontRegular'),
-                          textAlign: TextAlign.center,
-                        ),flex: 2,),
-                        Flexible(child: Row(
+                        Flexible(child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            InkWell(
-                              onTap:(){
-                              },
-                              child: Container(
-                                padding: EdgeInsets.fromLTRB(5.0, 2.0, 5.0, 2.0),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(15.0),
-                                  gradient: LinearGradient(
-                                    begin: Alignment.bottomLeft,
-                                    end: Alignment.topRight,
-                                    colors: [
-                                      const Color(0xFF0DD8FF),
-                                      const Color(0xFF0FABFF),
-                                      const Color(0xFF1457FF),
-                                      const Color(0xFF1636FF),
-                                      const Color(0xFF0E69C7),
-                                    ],
-                                  ),
-                                ),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Container(
-                                      child: Center(
-                                        child: Icon(
-                                          Icons.remove,
-                                          color: Theme.of(context).primaryColor,
-                                          size: 10.0,
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(width: 8.0,),
-                                    Text(
-                                      "1",
-                                      style: CustomWidget(context: context)
-                                          .CustomSizedTextStyle(
-                                          10.0,
-                                          Theme.of(context).focusColor,
-                                          FontWeight.w600,
-                                          'FontRegular'),
-                                      textAlign: TextAlign.center,
-                                    ),
-                                    const SizedBox(width: 8.0,),
-                                    Container(
-                                      child: Center(
-                                        child: Icon(
-                                          Icons.add,
-                                          color: Theme.of(context).primaryColor,
-                                          size: 10.0,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
+                            Text(
+                               widget.addedServiceDetails.category!.name.toString(),
+
+                              style: CustomWidget(context: context)
+                                  .CustomSizedTextStyle(
+                                  12.0,
+                                  Theme.of(context).primaryColor,
+                                  FontWeight.w600,
+                                  'FontRegular'),
+                              textAlign: TextAlign.center,
                             ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "₹4.99",
-                                  style: CustomWidget(context: context)
-                                      .CustomSizedTextStyle(
-                                      10.0,
-                                      Theme.of(context).primaryColor,
-                                      FontWeight.w800,
-                                      'FontRegular'),
-                                  textAlign: TextAlign.center,
-                                ),
-                                const SizedBox(height: 3.0,),
-                                Text(
-                                  "₹6.99",
-                                  style: TextStyle(
-                                      fontSize: 10.0,
-                                      decoration: TextDecoration.lineThrough,
-                                      fontWeight: FontWeight.w600,
-                                      color: Theme.of(context).dialogBackgroundColor,
-                                      fontStyle: FontStyle.normal
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ],
-                            )
+                            const SizedBox(height: 3.0,),
+                            Text(
+                              widget.addedServiceDetails.serviceName.toString(),
+
+                              style: CustomWidget(context: context)
+                                  .CustomSizedTextStyle(
+                                  10.0,
+                                  Theme.of(context).primaryColor,
+                                  FontWeight.w400,
+                                  'FontRegular'),
+                              textAlign: TextAlign.center,
+                            ),
+
+                          ],
+                        ),flex: 2,),
+
+                        Flexible(child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              "₹ "+widget.addedServiceDetails.amount.toString(),
+                              style: CustomWidget(context: context)
+                                  .CustomSizedTextStyle(
+                                  10.0,
+                                  Theme.of(context).primaryColor,
+                                  FontWeight.w800,
+                                  'FontRegular'),
+                              textAlign: TextAlign.center,
+                            ),
+                            const SizedBox(height: 3.0,),
+
                           ],
                         ),flex: 1,)
 
@@ -473,7 +431,7 @@ class _Payment_Summary_ScreenState extends State<Payment_Summary_Screen> {
                                       textAlign: TextAlign.start,
                                     ),
                                     Text(
-                                      "₹"+"699",
+                                      "₹ "+ amount.toString(),
                                       style: CustomWidget(context: context)
                                           .CustomSizedTextStyle(
                                           14.0,
@@ -502,7 +460,7 @@ class _Payment_Summary_ScreenState extends State<Payment_Summary_Screen> {
                                       textAlign: TextAlign.start,
                                     ),
                                     Text(
-                                      "₹"+"12",
+                                      "₹ "+ discount.toString(),
                                       style: CustomWidget(context: context)
                                           .CustomSizedTextStyle(
                                           14.0,
@@ -531,7 +489,7 @@ class _Payment_Summary_ScreenState extends State<Payment_Summary_Screen> {
                                       textAlign: TextAlign.start,
                                     ),
                                     Text(
-                                      "₹"+"199",
+                                      "₹ "+tax.toString(),
                                       style: CustomWidget(context: context)
                                           .CustomSizedTextStyle(
                                           14.0,
@@ -565,7 +523,7 @@ class _Payment_Summary_ScreenState extends State<Payment_Summary_Screen> {
                                       textAlign: TextAlign.start,
                                     ),
                                     Text(
-                                      "₹"+"545",
+                                      "₹ "+total.toString(),
                                       style: CustomWidget(context: context)
                                           .CustomSizedTextStyle(
                                           14.0,
@@ -628,6 +586,10 @@ class _Payment_Summary_ScreenState extends State<Payment_Summary_Screen> {
                       margin: EdgeInsets.only(left: 35.0, right: 35.0),
                       child: InkWell(
                         onTap:(){
+                          setState(() {
+                            loading=true;
+                            createComplaint();
+                          });
 
                         },
                         child: Container(
@@ -656,7 +618,13 @@ class _Payment_Summary_ScreenState extends State<Payment_Summary_Screen> {
                   ],
                 ),
               ),
+            ),
+
+            loading
+                ? CustomWidget(context: context).loadingIndicator(
+              Theme.of(context).cardColor,
             )
+                : Container(),
 
 
 

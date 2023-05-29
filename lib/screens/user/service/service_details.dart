@@ -42,7 +42,7 @@ class _Service_Details_ScreenState extends State<Service_Details_Screen> {
   TextEditingController issuesController = TextEditingController();
 
   List<String> selectedService = [];
-  List<String> selectedServiceList = [];
+
   String amount = "0";
 
   @override
@@ -771,6 +771,8 @@ class _Service_Details_ScreenState extends State<Service_Details_Screen> {
                                                       onTap: () {
 
                                                         setState(() {
+                                                          selectedService.clear();
+                                                          amount="0";
                                                           if (selectedService
                                                                   .length >
                                                               0) {
@@ -1049,7 +1051,7 @@ class _Service_Details_ScreenState extends State<Service_Details_Screen> {
                             InkWell(
                               onTap: () {
                                 setState(() {
-                                  viewDetails();
+                                  viewDetails(addedServiceDetails!);
                                 });
                               },
                               child: Container(
@@ -1087,7 +1089,7 @@ class _Service_Details_ScreenState extends State<Service_Details_Screen> {
     );
   }
 
-  viewDetails() {
+  viewDetails(GetServiceResult details) {
     showModalBottomSheet(
         shape: RoundedRectangleBorder(),
         backgroundColor: Colors.transparent,
@@ -1139,8 +1141,7 @@ class _Service_Details_ScreenState extends State<Service_Details_Screen> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    AppLocalizations.instance
-                                        .text("loc_ac_txt1"),
+                                    details.serviceName.toString(),
                                     style: CustomWidget(context: context)
                                         .CustomSizedTextStyle(
                                             18.0,
@@ -1204,7 +1205,7 @@ class _Service_Details_ScreenState extends State<Service_Details_Screen> {
                       child: InkWell(
                         onTap: () {
                           setState(() {
-                            // viewDetailsProcess();
+                            viewDetailsProcess(details);
                           });
                         },
                         child: Container(
@@ -1345,6 +1346,8 @@ class _Service_Details_ScreenState extends State<Service_Details_Screen> {
 
                                       setState(() {
 
+                                        selectedService.clear();
+                                        amount="0";
                                         if (selectedService
                                             .length >
                                             0) {
