@@ -32,6 +32,7 @@ class _Service_Details_ScreenState extends State<Service_Details_Screen> {
   bool remove = false;
   bool serviceAdd = false;
   List<GetServiceResult> totalDetails = [];
+  GetServiceResult? addedServiceDetails;
   List<String> text_drop = [
     "Experienced\nprofessionals",
     "Background\nverified",
@@ -291,6 +292,19 @@ class _Service_Details_ScreenState extends State<Service_Details_Screen> {
                                   children: [
                                     InkWell(
                                       onTap: () {
+                                    setState(() {
+                                      serviceAdd=false;
+
+                                      if (selectedService
+                                          .contains(totalDetails[
+                                      index]
+                                          .id
+                                          .toString())) {
+                                        serviceAdd=true;
+                                      } else {
+                                        serviceAdd=false;
+                                      }
+                                    });
                                         viewDetailsProcess(totalDetails[index]);
 
                                       },
@@ -407,7 +421,6 @@ class _Service_Details_ScreenState extends State<Service_Details_Screen> {
                                                                   .start,
                                                           children: [
                                                             Text(
-                                                              // "₹499",
                                                               "₹" +
                                                                   totalDetails[
                                                                           index]
@@ -756,10 +769,7 @@ class _Service_Details_ScreenState extends State<Service_Details_Screen> {
                                                     ),
                                                     InkWell(
                                                       onTap: () {
-                                                        print(
-                                                            totalDetails[index]
-                                                                .id
-                                                                .toString());
+
                                                         setState(() {
                                                           if (selectedService
                                                                   .length >
@@ -774,6 +784,7 @@ class _Service_Details_ScreenState extends State<Service_Details_Screen> {
                                                                           index]
                                                                       .id
                                                                       .toString());
+
                                                               amount = (double.parse(
                                                                           amount) -
                                                                       double.parse(totalDetails[
@@ -782,6 +793,7 @@ class _Service_Details_ScreenState extends State<Service_Details_Screen> {
                                                                           .toString()))
                                                                   .toString();
                                                             } else {
+                                                              addedServiceDetails=totalDetails[index];
                                                               selectedService.add(
                                                                   totalDetails[
                                                                           index]
@@ -796,6 +808,8 @@ class _Service_Details_ScreenState extends State<Service_Details_Screen> {
                                                                   .toString();
                                                             }
                                                           } else {
+                                                            addedServiceDetails=totalDetails[index];
+
                                                             selectedService.add(
                                                                 totalDetails[
                                                                         index]
@@ -1317,62 +1331,68 @@ class _Service_Details_ScreenState extends State<Service_Details_Screen> {
                                           'FontRegular'),
                                   textAlign: TextAlign.center,
                                 ),
-                                serviceAdd ? InkWell(
-                                  onTap: () {
-                                    ssetState(() {
-                                      serviceAdd = false;
-                                    });
-                                  },
-                                  child: Container(
-                                    padding: EdgeInsets.fromLTRB(
-                                        10.0, 5.0, 10.0, 5.0),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(15.0),
-                                      gradient: LinearGradient(
-                                        begin: Alignment.topLeft,
-                                        end: Alignment.bottomRight,
-                                        colors: [
-                                          const Color(0xFF0DD8FF),
-                                          const Color(0xFF0FABFF),
-                                          const Color(0xFF1457FF),
-                                          const Color(0xFF1636FF),
-                                          const Color(0xFF0E69C7),
-                                        ],
-                                      ),
-                                    ),
-                                    child: Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        SvgPicture.asset(
-                                          "assets/images/tools.svg",
-                                          color: Theme.of(context).focusColor,
-                                          height: 15.0,
-                                        ),
-                                        SizedBox(
-                                          width: 5.0,
-                                        ),
-                                        Text(
-                                          AppLocalizations.instance
-                                                .text("loc_remove"),
-                                          style: CustomWidget(context: context)
-                                              .CustomSizedTextStyle(
-                                                  10.0,
-                                                  Theme.of(context).focusColor,
-                                                  FontWeight.w600,
-                                                  'FontRegular'),
-                                          textAlign: TextAlign.center,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ):InkWell(
+                                InkWell(
                                   onTap: () {
                                     ssetState(() {
 
-                                      serviceAdd = true;
+                                      if(serviceAdd)
+                                      {
+                                        serviceAdd=false;
+                                      }
+                                      else{
+                                        serviceAdd = true;
+                                      }
+
+                                      setState(() {
+
+                                        if (selectedService
+                                            .length >
+                                            0) {
+                                          if (selectedService
+                                              .contains(details
+                                              .id
+                                              .toString())) {
+
+                                            selectedService.remove(
+                                                details
+                                                    .id
+                                                    .toString());
+                                            amount = (double.parse(
+                                                amount) -
+                                                double.parse(details
+                                                    .amount
+                                                    .toString()))
+                                                .toString();
+                                          } else {
+                                            selectedService.add(
+                                                details
+                                                    .id
+                                                    .toString());
+                                            addedServiceDetails=details;
+                                            amount = (double.parse(
+                                                amount) +
+                                                double.parse(details
+                                                    .amount
+                                                    .toString()))
+                                                .toString();
+                                          }
+                                        } else {
+                                          addedServiceDetails=details;
+                                          selectedService.add(
+                                              details
+                                                  .id
+                                                  .toString());
+                                          amount = (double.parse(
+                                              amount) +
+                                              double.parse(details
+                                                  .amount
+                                                  .toString()))
+                                              .toString();
+                                        }
+                                      });
+
+
+
                                     });
                                   },
                                   child: Container(
@@ -1407,7 +1427,8 @@ class _Service_Details_ScreenState extends State<Service_Details_Screen> {
                                           width: 5.0,
                                         ),
                                         Text(
-                                          AppLocalizations.instance
+                                          serviceAdd?  AppLocalizations.instance
+                                              .text("loc_remove"):      AppLocalizations.instance
                                               .text("loc_add") ,
                                           style: CustomWidget(context: context)
                                               .CustomSizedTextStyle(
@@ -1812,7 +1833,7 @@ class _Service_Details_ScreenState extends State<Service_Details_Screen> {
                                             Navigator.of(context).push(
                                                 MaterialPageRoute(
                                                     builder: (context) =>
-                                                        Slot_Screen(serv_Id: details.id.toString(),serv_Name: details.serviceName.toString(),serv_amt: details.amount.toString(),)));
+                                                        Slot_Screen(addedServiceDetails: addedServiceDetails!,)));
                                           },
                                           child: Container(
                                             margin: EdgeInsets.only(top: 170.0),

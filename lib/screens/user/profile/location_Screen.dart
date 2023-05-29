@@ -18,7 +18,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../basics/home.dart';
 
 class Location_Screen extends StatefulWidget {
-  const Location_Screen({Key? key}) : super(key: key);
+  final double lat;
+  final double long ;
+  const Location_Screen({Key? key, required this.lat, required this.long}) : super(key: key);
 
   @override
   State<Location_Screen> createState() => _Location_ScreenState();
@@ -49,6 +51,8 @@ class _Location_ScreenState extends State<Location_Screen> {
   TextEditingController zipController = TextEditingController();
 
 
+
+  CustomPoint<double> _textPos =  CustomPoint(10.0, 10.0);
   int interActiveFlags = InteractiveFlag.all;
 
   String address="";
@@ -59,6 +63,8 @@ class _Location_ScreenState extends State<Location_Screen> {
 
     getPermission();
 
+    lat=widget.lat;
+    long=widget.long;
     _mapController = MapController();
 
   }
@@ -110,6 +116,12 @@ class _Location_ScreenState extends State<Location_Screen> {
       ));
     });
 
+  }
+  void onMapEvent(MapEvent mapEvent) {
+    if (mapEvent is! MapEventMove && mapEvent is! MapEventRotate) {
+      // do not flood console with move and rotate events
+      debugPrint(mapEvent.toString());
+    }
   }
 
 
@@ -242,12 +254,45 @@ class _Location_ScreenState extends State<Location_Screen> {
               ),
               child: FlutterMap(
                 mapController: _mapController,
+
                 options: MapOptions(
-                  center: LatLng(lat, long),
-                  zoom:15,
-                  interactiveFlags:
-                      InteractiveFlag.all - InteractiveFlag.rotate,
+                  onMapEvent: onMapEvent,
+                  onTap: (tapPos, latLngs) {
+
+
+                    setState(() {
+                      markers.clear();
+                      lat = latLngs.latitude;
+                      long = latLngs.longitude;
+                      _mapController.move(
+                          LatLng(latLngs.latitude,
+                              latLngs.longitude),
+                          _mapController.zoom);
+                      markers.add(Marker(
+                        width: 30.0,
+                        height: 30.0,
+                        point: latLngs,
+                        builder: (ctx) => Container(
+                          child: Image.asset(
+                            'assets/images/map_pin.png',
+                            height: 50.0,
+                          ),
+                        ),
+                      ));
+
+                      _getAddress( latLngs.latitude, latLngs.longitude);
+                    });
+                  },
+                  center:  LatLng(lat, long),
+                  zoom: 11,
+                  rotation: 0,
                 ),
+                // options: MapOptions(
+                //   center: LatLng(lat, long),
+                //   zoom:15,
+                //   interactiveFlags:
+                //       InteractiveFlag.all - InteractiveFlag.rotate,
+                // ),
                 children: [
                   TileLayer(
                     urlTemplate:
@@ -406,12 +451,16 @@ class _Location_ScreenState extends State<Location_Screen> {
                                         ],
                                       ),
                                     ),
-                                    Container(
+                                  InkWell(
+                                    onTap: (){
+                                      Navigator.pop(context);
+                                    },
+                                    child:   Container(
                                       padding: EdgeInsets.fromLTRB(
                                           10.0, 5.0, 10.0, 5.0),
                                       decoration: BoxDecoration(
                                         borderRadius:
-                                            BorderRadius.circular(15.0),
+                                        BorderRadius.circular(15.0),
                                         gradient: LinearGradient(
                                           begin: Alignment.topLeft,
                                           end: Alignment.bottomRight,
@@ -426,9 +475,9 @@ class _Location_ScreenState extends State<Location_Screen> {
                                       ),
                                       child: Row(
                                         crossAxisAlignment:
-                                            CrossAxisAlignment.center,
+                                        CrossAxisAlignment.center,
                                         mainAxisAlignment:
-                                            MainAxisAlignment.center,
+                                        MainAxisAlignment.center,
                                         children: [
                                           Icon(
                                             Icons.location_on_outlined,
@@ -442,18 +491,19 @@ class _Location_ScreenState extends State<Location_Screen> {
                                             AppLocalizations.instance
                                                 .text("loc_change"),
                                             style:
-                                                CustomWidget(context: context)
-                                                    .CustomSizedTextStyle(
-                                                        14.0,
-                                                        Theme.of(context)
-                                                            .focusColor,
-                                                        FontWeight.w500,
-                                                        'FontRegular'),
+                                            CustomWidget(context: context)
+                                                .CustomSizedTextStyle(
+                                                14.0,
+                                                Theme.of(context)
+                                                    .focusColor,
+                                                FontWeight.w500,
+                                                'FontRegular'),
                                             textAlign: TextAlign.center,
                                           ),
                                         ],
                                       ),
-                                    )
+                                    ),
+                                  )
                                   ],
                                 ),
                               ),
@@ -935,18 +985,3 @@ class _Location_ScreenState extends State<Location_Screen> {
   }
 }
 
-class MapMarker {
-  final String? image;
-  final String? title;
-  final String? address;
-  final LatLng? location;
-  final int? rating;
-
-  MapMarker({
-    required this.image,
-    required this.title,
-    required this.address,
-    required this.location,
-    required this.rating,
-  });
-}

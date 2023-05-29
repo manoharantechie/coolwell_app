@@ -11,6 +11,8 @@ import 'package:flutter/material.dart';
 
 import 'package:coolwell_app/common/custom_widget.dart';
 import 'package:coolwell_app/common/localization/localizations.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../data/api_utils.dart';
@@ -18,6 +20,7 @@ import '../../../../data/model/login.dart';
 import '../home.dart';
 
 class SignUp_Screen extends StatefulWidget {
+
   const SignUp_Screen({Key? key}) : super(key: key);
 
   @override
@@ -31,6 +34,8 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
   var snackBar;
   Country? _selectedCountry;
   bool mobileUIdesign = true;
+  double lat = 0.00;
+  double long = 0.00;
   FocusNode mobileFocus = FocusNode();
   bool mobileVerify = true;
   TextEditingController mobile = TextEditingController();
@@ -55,6 +60,31 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
     });
   }
 
+
+  getPermission() async {
+    if (await Permission.location.request().isGranted) {
+      _getCurrentLocation();
+    } else {
+      Map<Permission, PermissionStatus> statuses = await [
+        Permission.location,
+      ].request();
+      if (statuses[Permission.location] == PermissionStatus.granted) {
+        _getCurrentLocation();
+      }
+    }
+  }
+
+  _getCurrentLocation() async {
+    await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
+        .then((Position position) async {
+      setState(() {
+        lat = position.latitude;
+        long = position.longitude;
+      });
+    }).catchError((e) {
+
+    });
+  }
 
   @override
   void initState() {
@@ -641,7 +671,7 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
 
               Navigator.of(context).pushReplacement(MaterialPageRoute(
                   builder: (context) =>
-                      Location_Screen()));
+                      Location_Screen(lat: lat,long: long,)));
 
 
 

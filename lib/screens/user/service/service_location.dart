@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:coolwell_app/data/model/get_services_details.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
@@ -21,11 +22,10 @@ import '../basics/home.dart';
 import '../payment/payment_summary.dart';
 
 class Add_Service_Location_Screen extends StatefulWidget {
-  final serv_Id;
-  final serv_amt;
-  final serv_Date;
-  final serv_Time;
-  const Add_Service_Location_Screen({Key? key, required this.serv_Id, required this.serv_amt, required this.serv_Date, required this.serv_Time,}) : super(key: key);
+  final GetServiceResult addedServiceDetails;
+  final String serv_Date;
+  final String serv_Time;
+  const Add_Service_Location_Screen({Key? key, required this.addedServiceDetails, required this.serv_Date, required this.serv_Time, }) : super(key: key);
 
   @override
   State<Add_Service_Location_Screen> createState() => _Add_Service_Location_ScreenState();
@@ -62,6 +62,12 @@ class _Add_Service_Location_ScreenState extends State<Add_Service_Location_Scree
   int interActiveFlags = InteractiveFlag.all;
 
   String address="";
+  void onMapEvent(MapEvent mapEvent) {
+    if (mapEvent is! MapEventMove && mapEvent is! MapEventRotate) {
+      // do not flood console with move and rotate events
+      debugPrint(mapEvent.toString());
+    }
+  }
   @override
   void initState() {
     // TODO: implement initState
@@ -146,12 +152,7 @@ class _Add_Service_Location_ScreenState extends State<Add_Service_Location_Scree
     } catch (e) {}
   }
 
-  // storeData(String address)async{
-  //   SharedPreferences preferences= await SharedPreferences.getInstance();
-  //   preferences.setString("address", address);
-  //   preferences.setString("lat", lat.toString());
-  //   preferences.setString("long", long.toString());
-  // }
+
 
   @override
   Widget build(BuildContext context) {
@@ -268,12 +269,45 @@ class _Add_Service_Location_ScreenState extends State<Add_Service_Location_Scree
               ),
               child: FlutterMap(
                 mapController: _mapController,
+
                 options: MapOptions(
-                  center: LatLng(lat, long),
-                  zoom:15,
-                  interactiveFlags:
-                  InteractiveFlag.all - InteractiveFlag.rotate,
+                  onMapEvent: onMapEvent,
+                  onTap: (tapPos, latLngs) {
+
+
+                    setState(() {
+                      markers.clear();
+                      lat = latLngs.latitude;
+                      long = latLngs.longitude;
+                      _mapController.move(
+                          LatLng(latLngs.latitude,
+                              latLngs.longitude),
+                          _mapController.zoom);
+                      markers.add(Marker(
+                        width: 30.0,
+                        height: 30.0,
+                        point: latLngs,
+                        builder: (ctx) => Container(
+                          child: Image.asset(
+                            'assets/images/map_pin.png',
+                            height: 50.0,
+                          ),
+                        ),
+                      ));
+
+                      _getAddress( latLngs.latitude, latLngs.longitude);
+                    });
+                  },
+                  center:  LatLng(lat, long),
+                  zoom: 11,
+                  rotation: 0,
                 ),
+                // options: MapOptions(
+                //   center: LatLng(lat, long),
+                //   zoom:15,
+                //   interactiveFlags:
+                //       InteractiveFlag.all - InteractiveFlag.rotate,
+                // ),
                 children: [
                   TileLayer(
                     urlTemplate:
@@ -916,7 +950,9 @@ class _Add_Service_Location_ScreenState extends State<Add_Service_Location_Scree
                                         InkWell(
                                           onTap: () {
                                             setState(() {
-                                              createComplaint();
+                                              Navigator.of(context).push(MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      Payment_Summary_Screen(serv_Date: widget.serv_Date,serv_Time: widget.serv_Time,addedServiceDetails: widget.addedServiceDetails,address:(nameController.text.toString()+","+addressController.text.toString()+","+addressLineController.text.toString()),city: cityController.text.toString(),zip: zipController.text.toString(),type: type,lat: lat.toString(),long: long.toString(),)));
                                             });
                                           },
                                           child: Container(
@@ -960,34 +996,7 @@ class _Add_Service_Location_ScreenState extends State<Add_Service_Location_Scree
         });
   }
 
-  createComplaint() {
-    apiUtils
-        .createComplaintDetails(widget.serv_Id.toString(), (widget.serv_Date.toString()+" "+widget.serv_Time.toString()), (nameController.text.toString()+","+addressController.text.toString()+","+addressLineController.text.toString()),cityController.text.toString(), zipController.text.toString(), lat.toString(), long.toString(), widget.serv_amt.toString(), type.toString())
-        .then((CreateComplaintDetailsModel detailsModel) {
-      if (detailsModel.success!) {
-        setState(() {
-          // totalDetails = detailsModel.result!;
-          // print("success");
-          loading = false;
-          CustomWidget(context: context)
-              .custombar("Service", detailsModel.message.toString(), true);
-          Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) =>
-                  Payment_Summary_Screen()));
-        });
-      } else {
-        setState(() {
-          loading = false;
-          CustomWidget(context: context)
-              .custombar("Service", detailsModel.message.toString(), false);
-        });
-      }
-    }).catchError((Object error) {
-      setState(() {
-        loading = false;
-      });
-    });
-  }
+
 
 }
 

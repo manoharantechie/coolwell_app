@@ -1,3 +1,4 @@
+import 'package:coolwell_app/data/model/get_services_details.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:coolwell_app/common/calendar/calendar_timeline.dart';
@@ -9,11 +10,9 @@ import '../../../data/model/get_service_time_model.dart';
 import '../service/service_location.dart';
 
 class Slot_Screen extends StatefulWidget {
-  final serv_Id;
-  final serv_Name;
-  final serv_amt;
+ GetServiceResult addedServiceDetails;
 
-  const Slot_Screen({Key? key,  required this.serv_Id, required this.serv_Name, required this.serv_amt,}) : super(key: key);
+   Slot_Screen({Key? key,  required this.addedServiceDetails,}) : super(key: key);
 
   @override
   State<Slot_Screen> createState() => Slot_ScreenState();
@@ -357,11 +356,10 @@ class Slot_ScreenState extends State<Slot_Screen> {
                                   MaterialPageRoute(
                                       builder: (context) =>
                                           Add_Service_Location_Screen(
-                                            serv_Id: widget.serv_Id,
-                                            serv_amt: widget.serv_amt,
+                                          addedServiceDetails:widget.addedServiceDetails,
                                             serv_Date: selectedDate,
-                                            serv_Time: timeList[selIndex]
-                                                .toString(),)));
+                                            serv_Time:timeList[selIndex] ,
+                                          )));
                             } else{
                               loading = false;
                               CustomWidget(context: context)
@@ -427,8 +425,6 @@ class Slot_ScreenState extends State<Slot_Screen> {
               selectedDate=formatter.format(date);
               _selectedDate = date;
               DateTime current=DateTime.now();
-
-
               if(current.compareTo(_selectedDate) < 0){
                 String tt=DateTime.now().hour.toString();
 

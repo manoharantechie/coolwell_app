@@ -1,3 +1,6 @@
+import 'package:coolwell_app/data/api_utils.dart';
+import 'package:coolwell_app/data/model/create_complaint_model.dart';
+import 'package:coolwell_app/data/model/get_services_details.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -7,7 +10,16 @@ import 'package:coolwell_app/common/dotted_line_widget.dart';
 import 'package:coolwell_app/common/localization/localizations.dart';
 
 class Payment_Summary_Screen extends StatefulWidget {
-  const Payment_Summary_Screen({Key? key,}) : super(key: key);
+  final GetServiceResult addedServiceDetails;
+  final String serv_Date;
+  final String serv_Time;
+  final String type;
+  final String address;
+  final String city;
+  final String zip;
+  final String lat;
+  final String long;
+  const Payment_Summary_Screen({Key? key, required this.addedServiceDetails, required this.serv_Date, required this.serv_Time, required this.type, required this.address, required this.city, required this.zip, required this.lat, required this.long,}) : super(key: key);
 
   @override
   State<Payment_Summary_Screen> createState() => _Payment_Summary_ScreenState();
@@ -16,6 +28,8 @@ class Payment_Summary_Screen extends StatefulWidget {
 class _Payment_Summary_ScreenState extends State<Payment_Summary_Screen> {
 
   bool checkHide=false;
+  APIUtils apiUtils = APIUtils();
+  bool loading = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -650,5 +664,31 @@ class _Payment_Summary_ScreenState extends State<Payment_Summary_Screen> {
         )
       )
     );
+  }
+
+  createComplaint() {
+
+    apiUtils
+        .createComplaintDetails(widget.addedServiceDetails.id.toString(), (widget.serv_Date.toString()+" "+widget.serv_Time.toString()), widget.address,widget.city, widget.zip, widget.lat.toString(), widget.long.toString(), widget.addedServiceDetails.amount.toString(),widget.type.toString())
+        .then((CreateComplaintDetailsModel detailsModel) {
+      if (detailsModel.success!) {
+        setState(() {
+          loading = false;
+          CustomWidget(context: context)
+              .custombar("Service", detailsModel.message.toString(), true);
+
+        });
+      } else {
+        setState(() {
+          loading = false;
+          CustomWidget(context: context)
+              .custombar("Service", detailsModel.message.toString(), false);
+        });
+      }
+    }).catchError((Object error) {
+      setState(() {
+        loading = false;
+      });
+    });
   }
 }
