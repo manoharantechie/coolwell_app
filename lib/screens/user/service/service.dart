@@ -903,7 +903,6 @@ class _Service_ScreenState extends State<Service_Screen> {
             ? CustomWidget(context: context).loadingIndicator(
           Theme.of(context).cardColor,
         ) : Container(
-
             child:
             Center(
               child: Text(
