@@ -27,12 +27,15 @@ class _Address_Details_ScreenState extends State<Address_Details_Screen> {
   String mobileNo ="";
   String city ="";
   String address ="";
+  String userName ="";
   String zip ="";
+  List<Address> otherAddressList = [];
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    loading =true;
     addressDetails();
   }
 
@@ -104,18 +107,185 @@ class _Address_Details_ScreenState extends State<Address_Details_Screen> {
                     ),
                   ),
                 ),
+                const SizedBox(
+                  height: 5.0,
+                ),
+               // Padding(
+               //    padding: EdgeInsets.only(left: 20.0, right: 20.0, top: 30.0),
+               //    child: Container(
+               //      padding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+               //      width: MediaQuery.of(context).size.width,
+               //      decoration: BoxDecoration(
+               //        borderRadius: BorderRadius.circular(15.0),
+               //        gradient: new LinearGradient(
+               //            colors: [
+               //              CustomTheme.of(context)
+               //                  .cardColor
+               //                  .withOpacity(0.5),
+               //              CustomTheme.of(context)
+               //                  .shadowColor
+               //                  .withOpacity(0.5)
+               //            ],
+               //            begin: Alignment.center,
+               //            end: Alignment.topRight,
+               //            stops: [0.0, 1.0],
+               //            tileMode: TileMode.clamp),
+               //      ),
+               //      child: Column(
+               //        crossAxisAlignment:
+               //        CrossAxisAlignment
+               //            .start,
+               //        children: [
+               //          const SizedBox(
+               //            height: 15.0,
+               //          ),
+               //          Text(
+               //            userName.toString(),
+               //            style: CustomWidget(context: context).CustomSizedTextStyle(
+               //                14.0,
+               //                Theme.of(
+               //                    context)
+               //                    .focusColor,
+               //                FontWeight
+               //                    .w600,
+               //                'FontRegular'),
+               //            textAlign:
+               //            TextAlign
+               //                .start,
+               //            overflow:
+               //            TextOverflow
+               //                .ellipsis,
+               //          ),
+               //          const SizedBox(
+               //            height: 5.0,
+               //          ),
+               //          Text(
+               //            AppLocalizations.instance
+               //                .text("loc_address")+" :",
+               //            style: CustomWidget(context: context).CustomSizedTextStyle(
+               //                18.0,
+               //                Theme.of(
+               //                    context)
+               //                    .focusColor,
+               //                FontWeight
+               //                    .w600,
+               //                'FontRegular'),
+               //            textAlign:
+               //            TextAlign
+               //                .start,
+               //            overflow:
+               //            TextOverflow
+               //                .ellipsis,
+               //          ),
+               //          const SizedBox(
+               //            height: 5.0,
+               //          ),
+               //          Column(
+               //            crossAxisAlignment: CrossAxisAlignment.start,
+               //            children: [
+               //              Container(
+               //                child: Text(
+               //                  address.toString(),
+               //                  style: CustomWidget(context: context).CustomSizedTextStyle(
+               //                      14.0,
+               //                      Theme.of(
+               //                          context)
+               //                          .focusColor,
+               //                      FontWeight
+               //                          .w600,
+               //                      'FontRegular'),
+               //                  textAlign:
+               //                  TextAlign
+               //                      .start,
+               //                  overflow:
+               //                  TextOverflow
+               //                      .ellipsis,
+               //                ),
+               //              ),
+               //              const SizedBox(
+               //                height: 5.0,
+               //              ),
+               //              Text(
+               //                city.toString(),
+               //                style: CustomWidget(context: context).CustomSizedTextStyle(
+               //                    14.0,
+               //                    Theme.of(
+               //                        context)
+               //                        .focusColor,
+               //                    FontWeight
+               //                        .w600,
+               //                    'FontRegular'),
+               //                textAlign:
+               //                TextAlign
+               //                    .start,
+               //                overflow:
+               //                TextOverflow
+               //                    .ellipsis,
+               //              ),
+               //              const SizedBox(
+               //                height: 5.0,
+               //              ),
+               //              Text(
+               //                zip.toString(),
+               //                style: CustomWidget(context: context).CustomSizedTextStyle(
+               //                    14.0,
+               //                    Theme.of(
+               //                        context)
+               //                        .focusColor,
+               //                    FontWeight
+               //                        .w600,
+               //                    'FontRegular'),
+               //                textAlign:
+               //                TextAlign
+               //                    .start,
+               //                overflow:
+               //                TextOverflow
+               //                    .ellipsis,
+               //              ),
+               //              const SizedBox(
+               //                height: 5.0,
+               //              ),
+               //              Text(
+               //                mobileNo.toString(),
+               //                style: CustomWidget(context: context).CustomSizedTextStyle(
+               //                    14.0,
+               //                    Theme.of(
+               //                        context)
+               //                        .focusColor,
+               //                    FontWeight
+               //                        .w600,
+               //                    'FontRegular'),
+               //                textAlign:
+               //                TextAlign
+               //                    .start,
+               //                overflow:
+               //                TextOverflow
+               //                    .ellipsis,
+               //              ),
+               //            ],
+               //          ),
+               //          const SizedBox(
+               //            height: 15.0,
+               //          ),
+               //        ],
+               //      ),
+               //    ),
+               //  ),
+
               ],
             ),
             const SizedBox(
               height: 5.0,
             ),
+            // otherAddressList.length>0 ?
             Padding(padding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
             child: Container(
               margin: EdgeInsets.only(
                   top: MediaQuery.of(context).size.height * 0.1),
-              child: ListView.builder(
+              child: otherAddressList.length >0 ? ListView.builder(
                 padding: EdgeInsets.zero,
-                itemCount: 2,
+                reverse: true,
+                itemCount: otherAddressList.length,
                 scrollDirection: Axis.vertical,
                 shrinkWrap: true,
                 controller: _scrollController,
@@ -149,24 +319,56 @@ class _Address_Details_ScreenState extends State<Address_Details_Screen> {
                             const SizedBox(
                               height: 15.0,
                             ),
-                            Text(
-                              AppLocalizations.instance
-                                  .text("loc_address")+" :",
-                              style: CustomWidget(context: context).CustomSizedTextStyle(
-                                  18.0,
-                                  Theme.of(
-                                      context)
-                                      .focusColor,
-                                  FontWeight
-                                      .w600,
-                                  'FontRegular'),
-                              textAlign:
-                              TextAlign
-                                  .start,
-                              overflow:
-                              TextOverflow
-                                  .ellipsis,
-                            ),
+                           Row(
+                             crossAxisAlignment: CrossAxisAlignment.center,
+                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                             children: [
+                               Text(
+                                 AppLocalizations.instance
+                                     .text("loc_address")+" :",
+                                 style: CustomWidget(context: context).CustomSizedTextStyle(
+                                     18.0,
+                                     Theme.of(
+                                         context)
+                                         .focusColor,
+                                     FontWeight
+                                         .w600,
+                                     'FontRegular'),
+                                 textAlign:
+                                 TextAlign
+                                     .start,
+                                 overflow:
+                                 TextOverflow
+                                     .ellipsis,
+                               ),
+                               otherAddressList.length-1==index ? Container() :Container(
+                                 padding: EdgeInsets.all(5.0),
+                                 decoration: BoxDecoration(
+                                   borderRadius: BorderRadius.circular(5.0),
+                                   color: CustomTheme.of(context)
+                                       .cardColor
+                                       .withOpacity(0.5),
+                                 ),
+                                 child: Text(
+                                   "Others",
+                                   style: CustomWidget(context: context).CustomSizedTextStyle(
+                                       10.0,
+                                       Theme.of(
+                                           context)
+                                           .focusColor,
+                                       FontWeight
+                                           .w600,
+                                       'FontRegular'),
+                                   textAlign:
+                                   TextAlign
+                                       .start,
+                                   overflow:
+                                   TextOverflow
+                                       .ellipsis,
+                                 ),
+                               )
+                             ],
+                           ),
                             const SizedBox(
                               height: 5.0,
                             ),
@@ -175,7 +377,7 @@ class _Address_Details_ScreenState extends State<Address_Details_Screen> {
                               children: [
                                 Container(
                                   child: Text(
-                                    address.toString(),
+                                    otherAddressList[index].address.toString(),
                                     style: CustomWidget(context: context).CustomSizedTextStyle(
                                         14.0,
                                         Theme.of(
@@ -196,7 +398,7 @@ class _Address_Details_ScreenState extends State<Address_Details_Screen> {
                                   height: 5.0,
                                 ),
                                 Text(
-                                  city.toString(),
+                                  otherAddressList[index].city.toString(),
                                   style: CustomWidget(context: context).CustomSizedTextStyle(
                                       14.0,
                                       Theme.of(
@@ -216,7 +418,7 @@ class _Address_Details_ScreenState extends State<Address_Details_Screen> {
                                   height: 5.0,
                                 ),
                                 Text(
-                                  zip.toString(),
+                                  otherAddressList[index].zip.toString(),
                                   style: CustomWidget(context: context).CustomSizedTextStyle(
                                       14.0,
                                       Theme.of(
@@ -234,23 +436,6 @@ class _Address_Details_ScreenState extends State<Address_Details_Screen> {
                                 ),
                                 const SizedBox(
                                   height: 5.0,
-                                ),
-                                Text(
-                                  mobileNo.toString(),
-                                  style: CustomWidget(context: context).CustomSizedTextStyle(
-                                      14.0,
-                                      Theme.of(
-                                          context)
-                                          .focusColor,
-                                      FontWeight
-                                          .w600,
-                                      'FontRegular'),
-                                  textAlign:
-                                  TextAlign
-                                      .start,
-                                  overflow:
-                                  TextOverflow
-                                      .ellipsis,
                                 ),
                               ],
                             ),
@@ -260,27 +445,6 @@ class _Address_Details_ScreenState extends State<Address_Details_Screen> {
                           ],
                         ),
                       ),
-                      // Container(
-                      //   width: MediaQuery.of(context).size.width,
-                      //   height: 20.0,
-                      //   decoration: BoxDecoration(
-                      //     gradient: new LinearGradient(
-                      //         colors: [
-                      //           CustomTheme.of(context)
-                      //               .cardColor
-                      //               .withOpacity(0.1),
-                      //           CustomTheme.of(context)
-                      //               .shadowColor
-                      //               .withOpacity(0.1)
-                      //         ],
-                      //         begin: Alignment.topRight,
-                      //         //const FractionalOffset(0.0, 0.5),
-                      //         end: Alignment.bottomLeft,
-                      //         //const FractionalOffset(1.0, 0.6),
-                      //         stops: [0.0, 1.0],
-                      //         tileMode: TileMode.clamp),
-                      //   ),
-                      // ),
                       const SizedBox(
                         height: 15.0,
                       ),
@@ -288,24 +452,14 @@ class _Address_Details_ScreenState extends State<Address_Details_Screen> {
                     ],
                   );
                 },
-              ),
-            ),),
-            //     : Center(
-            //   child: Text(
-            //     AppLocalizations.instance.text('loc_no_records'),
-            //     style: CustomWidget(context: context)
-            //         .CustomSizedTextStyle(
-            //         16.0,
-            //         Theme.of(context).primaryColor,
-            //         FontWeight.w700,
-            //         'FontRegular'),
-            //   ),
-            // ),
+              )
+                :
             loading
                 ? CustomWidget(context: context).loadingIndicator(
               Theme.of(context).cardColor,
             )
                 : Container(),
+            ),)
           ],
         ),
       ),
@@ -321,11 +475,15 @@ class _Address_Details_ScreenState extends State<Address_Details_Screen> {
           setState(() {
             loading = false;
             details = loginData.result!;
+            userName=details!.name.toString();
             mobileNo=details!.phone.toString();
             address=details!.addressHome!.address.toString();
             city=details!.addressHome!.city.toString();
             zip=details!.addressHome!.zip.toString();
             mobileNo=details!.phone.toString();
+            otherAddressList = details!.addressOther!;
+            otherAddressList.add(loginData.result!.addressHome!);
+            print(otherAddressList.length);
 
           });
           // CustomWidget(context: context).

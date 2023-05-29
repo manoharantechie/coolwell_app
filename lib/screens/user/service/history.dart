@@ -421,14 +421,15 @@ class _Service_historyState extends State<Service_history> {
                                                                         10.0),
                                                             image:
                                                                 DecorationImage(
-                                                              image: AssetImage(
-                                                                "assets/images/cleaning.png",
-                                                              ),
+                                                              // image: AssetImage(
+                                                              //   "assets/images/cleaning.png",
+                                                              // ),
+                                                                  image: NetworkImage(OrderList[index].serviceId!.coverImage![index].toString()),
                                                               fit: BoxFit.cover,
                                                             ),
                                                           ),
                                                           width: 85.0,
-                                                          height: 80,
+                                                          height: 80.0,
                                                         ),
                                                         flex: 1,
                                                       )
