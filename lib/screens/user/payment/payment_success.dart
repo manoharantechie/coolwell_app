@@ -2,6 +2,7 @@ import 'package:coolwell_app/screens/user/basics/home.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../common/custom_widget.dart';
@@ -25,16 +26,24 @@ class _PaymentSuccessScreenState extends State<PaymentSuccessScreen> {
 
   String name="";
 
+  String dateName="";
+  String dateOnly="";
+  String day="";
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     getData();
-    print(widget.s_Date);
-    String s = widget.s_Date;
-    int idx = s.indexOf("/");
-    List parts = [s.substring(2,idx).trim(), s.substring(idx+1).trim()];
-    print(parts);
+
+    DateTime tempDate = new DateFormat("MM/dd/yyyy").parse(widget.s_Date);
+    String formattedDate = DateFormat.yMMMM().format(tempDate);
+    String formattedDate1 = DateFormat.d().format(tempDate);
+    String formattedDate2 = DateFormat.yMMMMEEEEd().format(tempDate);
+
+    day=formattedDate2.split(",")[0];
+
+    dateName=formattedDate.toString();
+    dateOnly=formattedDate1.toString();
   }
 
   getData()async{
@@ -312,9 +321,9 @@ class _PaymentSuccessScreenState extends State<PaymentSuccessScreen> {
                                             crossAxisAlignment: CrossAxisAlignment.center,
                                             children: [
                                               Text(
-                                                "16",
+                                                day,
                                                 style: CustomWidget(context: context).CustomSizedTextStyle(
-                                                    24.0,
+                                                    10.0,
                                                     Theme.of(context)
                                                         .focusColor,
                                                     FontWeight
@@ -328,7 +337,23 @@ class _PaymentSuccessScreenState extends State<PaymentSuccessScreen> {
                                                 width: 5.0,
                                               ),
                                               Text(
-                                                widget.s_Date,
+                                                dateOnly,
+                                                style: CustomWidget(context: context).CustomSizedTextStyle(
+                                                    20.0,
+                                                    Theme.of(context)
+                                                        .focusColor,
+                                                    FontWeight
+                                                        .w700,
+                                                    'FontRegular'),
+                                                textAlign:
+                                                TextAlign
+                                                    .center,
+                                              ),
+                                              const SizedBox(
+                                                width: 5.0,
+                                              ),
+                                              Text(
+                                                dateName,
                                                 style: CustomWidget(context: context).CustomSizedTextStyle(
                                                     10.0,
                                                     Theme.of(context)

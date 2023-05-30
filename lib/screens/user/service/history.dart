@@ -425,7 +425,7 @@ class _Service_historyState extends State<Service_history> {
                                                               // image: AssetImage(
                                                               //   "assets/images/cleaning.png",
                                                               // ),
-                                                                  image: NetworkImage(OrderList[index].serviceId!.coverImage![index].toString()),
+                                                                  image: NetworkImage(OrderList[index].serviceId!.coverImage![0].toString()),
                                                               fit: BoxFit.cover,
                                                             ),
                                                           ),
