@@ -90,8 +90,8 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    nameController=TextEditingController(text: "testing@mailinator.com");
-    passController=TextEditingController(text: "Test@123");
+    nameController=TextEditingController(text: "jeeva@mailinator.com");
+    passController=TextEditingController(text: "Jeeva@123");
   }
   @override
   Widget build(BuildContext context) {

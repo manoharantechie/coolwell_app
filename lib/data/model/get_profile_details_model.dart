@@ -54,8 +54,8 @@ class GetProfileResult {
     id: json["_id"],
     name: json["name"],
     email: json["email"],
-    addressDefault: Address.fromJson(json["addressDefault"]),
-    addressHome: Address.fromJson(json["addressHome"]),
+    addressDefault: Address.fromJson(json["addressDefault"]) == null ? null :Address.fromJson(json["addressDefault"]),
+    addressHome: Address.fromJson(json["addressHome"])  == null ? null : Address.fromJson(json["addressHome"]),
     profilePic: json["profile_pic"],
     phone: json["phone"],
   );
@@ -65,8 +65,8 @@ class GetProfileResult {
     "_id": id,
     "name": name,
     "email": email,
-    "addressDefault": addressDefault!.toJson(),
-    "addressHome": addressHome!.toJson(),
+    "addressDefault": addressDefault!.toJson() == null ? null : addressDefault!.toJson(),
+    "addressHome": addressHome!.toJson() == null ? null : addressHome!.toJson(),
     "profile_pic": profilePic,
     "phone": phone,
   };

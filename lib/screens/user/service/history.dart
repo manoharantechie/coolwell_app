@@ -289,7 +289,8 @@ class _Service_historyState extends State<Service_history> {
                                                                     width: 5.0,
                                                                   ),
                                                                   Text(
-                                                                    "4.81 (1.2M)",
+                                                                    // "4.81 (1.2M)",
+                                                                    OrderList[index].serviceId!.rattings.toString(),
                                                                     style: CustomWidget(context: context).CustomSizedTextStyle(
                                                                         10.0,
                                                                         Theme.of(context)

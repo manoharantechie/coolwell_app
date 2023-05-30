@@ -57,6 +57,7 @@ class ServiceId {
   String? amount;
   String? time;
   String? notes;
+  dynamic rattings;
   DateTime? createdAt;
   DateTime? updatedAt;
 
@@ -69,6 +70,7 @@ class ServiceId {
     this.amount,
     this.time,
     this.notes,
+    this.rattings,
     this.createdAt,
     this.updatedAt,
   });
@@ -82,6 +84,7 @@ class ServiceId {
     amount: json["Amount"],
     time: json["Time"],
     notes: json["Notes"],
+    rattings: json["Rattings"],
     createdAt: DateTime.parse(json["createdAt"]),
     updatedAt: DateTime.parse(json["updatedAt"]),
   );
@@ -95,6 +98,7 @@ class ServiceId {
     "Amount": amount,
     "Time": time,
     "Notes": notes,
+    "Rattings": rattings,
     "createdAt": createdAt!.toIso8601String(),
     "updatedAt": updatedAt!.toIso8601String(),
   };
