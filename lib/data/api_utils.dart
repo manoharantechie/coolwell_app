@@ -169,7 +169,9 @@ class APIUtils {
 
     final response =
     await http.get(Uri.parse(baseURL + profileUpdateURL),headers: requestHeaders);
+    print(response.body+" jeeva");
     return GetProfileDetailsModel.fromJson(json.decode(response.body));
+
   }
 
   Future<CreateComplaintDetailsModel> createComplaintDetails(String serviceid, String date, String address, String city, String zip, String lat, String lon, String amount, String type) async {

@@ -29,52 +29,52 @@ class GetProfileDetailsModel {
 }
 
 class GetProfileResult {
+  String? profilePic;
+  dynamic addressDefault;
+  Address? addressHome;
   List<Address>? addressOther;
   String? id;
   String? name;
   String? email;
-  Address? addressDefault;
-  Address? addressHome;
-  String? profilePic;
   String? phone;
 
   GetProfileResult({
+    this.profilePic,
+    this.addressDefault,
+    this.addressHome,
     this.addressOther,
     this.id,
     this.name,
     this.email,
-    this.addressDefault,
-    this.addressHome,
-    this.profilePic,
     this.phone,
   });
 
   factory GetProfileResult.fromJson(Map<String, dynamic> json) => GetProfileResult(
+    profilePic: json["profile_pic"],
+    addressDefault: json["addressDefault"],
+    addressHome: Address.fromJson(json["addressHome"]),
     addressOther: List<Address>.from(json["addressOther"].map((x) => Address.fromJson(x))),
     id: json["_id"],
     name: json["name"],
     email: json["email"],
-    addressDefault: Address.fromJson(json["addressDefault"]) == null ? null :Address.fromJson(json["addressDefault"]),
-    addressHome: Address.fromJson(json["addressHome"])  == null ? null : Address.fromJson(json["addressHome"]),
-    profilePic: json["profile_pic"],
     phone: json["phone"],
   );
 
   Map<String, dynamic> toJson() => {
+    "profile_pic": profilePic,
+    "addressDefault": addressDefault,
+    "addressHome": addressHome!.toJson(),
     "addressOther": List<dynamic>.from(addressOther!.map((x) => x.toJson())),
     "_id": id,
     "name": name,
     "email": email,
-    "addressDefault": addressDefault!.toJson() == null ? null : addressDefault!.toJson(),
-    "addressHome": addressHome!.toJson() == null ? null : addressHome!.toJson(),
-    "profile_pic": profilePic,
     "phone": phone,
   };
 }
 
 class Address {
-  String? address;
-  String? city;
+  AddressEnum? address;
+  City? city;
   String? zip;
   String? longitude;
   String? latitude;
@@ -88,18 +88,45 @@ class Address {
   });
 
   factory Address.fromJson(Map<String, dynamic> json) => Address(
-    address: json["Address"],
-    city: json["city"],
+    address: addressEnumValues.map[json["Address"]],
+    city: cityValues.map[json["city"]],
     zip: json["zip"],
     longitude: json["longitude"],
     latitude: json["latitude"],
   );
 
   Map<String, dynamic> toJson() => {
-    "Address": address,
-    "city": city,
+    "Address": addressEnumValues.reverse[address],
+    "city": cityValues.reverse[city],
     "zip": zip,
     "longitude": longitude,
     "latitude": latitude,
   };
+}
+
+enum AddressEnum { XX99_M29_POLLACHI_MAIN_ROAD_KURICHI, THE_7554_SUTTON_LANE_DUBLIN, THE_1135_GILBERT_COURT_FREMONT }
+
+final addressEnumValues = EnumValues({
+  "1135,Gilbert Court,Fremont": AddressEnum.THE_1135_GILBERT_COURT_FREMONT,
+  "7554,Sutton Lane,Dublin": AddressEnum.THE_7554_SUTTON_LANE_DUBLIN,
+  "XX99+M29,Pollachi Main Road,Kurichi": AddressEnum.XX99_M29_POLLACHI_MAIN_ROAD_KURICHI
+});
+
+enum City { TAMIL_NADU, CALIFORNIA }
+
+final cityValues = EnumValues({
+  "California": City.CALIFORNIA,
+  "Tamil Nadu": City.TAMIL_NADU
+});
+
+class EnumValues<T> {
+  Map<String, T> map;
+  late Map<T, String> reverseMap;
+
+  EnumValues(this.map);
+
+  Map<T, String> get reverse {
+    reverseMap = map.map((k, v) => MapEntry(v, k));
+    return reverseMap;
+  }
 }
