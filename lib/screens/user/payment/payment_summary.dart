@@ -594,7 +594,7 @@ class _Payment_Summary_ScreenState extends State<Payment_Summary_Screen> {
 
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) =>
-                                  PaymentSuccessScreen(s_Name: widget.addedServiceDetails.serviceName.toString(),s_Date: (widget.serv_Date.toString()), s_Time: widget.serv_Time.toString(),s_add: widget.address, )));
+                                  PaymentSuccessScreen(s_Name: widget.addedServiceDetails.serviceName.toString(),s_Date: (widget.serv_Date.toString()), s_Time: widget.serv_Time.toString(),s_add: widget.address,s_amt: total.toString() )));
 
                         },
                         child: Container(

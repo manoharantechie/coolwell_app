@@ -14,7 +14,8 @@ class PaymentSuccessScreen extends StatefulWidget {
   final String s_Date;
   final String s_add;
   final String s_Time;
-  const PaymentSuccessScreen({Key? key,  required this.s_Name,required this.s_Date,required this.s_add,required this.s_Time,}) : super(key: key);
+  final String s_amt;
+  const PaymentSuccessScreen({Key? key,  required this.s_Name,required this.s_Date,required this.s_add,required this.s_Time,required this.s_amt,}) : super(key: key);
 
   @override
   State<PaymentSuccessScreen> createState() => _PaymentSuccessScreenState();
@@ -29,13 +30,17 @@ class _PaymentSuccessScreenState extends State<PaymentSuccessScreen> {
     // TODO: implement initState
     super.initState();
     getData();
-
+    print(widget.s_Date);
+    String s = widget.s_Date;
+    int idx = s.indexOf("/");
+    List parts = [s.substring(2,idx).trim(), s.substring(idx+1).trim()];
+    print(parts);
   }
 
   getData()async{
     SharedPreferences preferences=await SharedPreferences.getInstance();
     setState(() {
-      name =preferences.getString("name").toString();
+      name = preferences.getString("name").toString();
     });
   }
 
@@ -76,7 +81,7 @@ class _PaymentSuccessScreenState extends State<PaymentSuccessScreen> {
             ),
             const SizedBox(height: 15.0,),
             Text(
-              "Payment of ₹4.59 successfuly",
+              "Payment of ₹"+widget.s_amt.toString()+" successfuly",
               style: CustomWidget(context: context)
                   .CustomSizedTextStyle(
                   18.0,
@@ -158,7 +163,7 @@ class _PaymentSuccessScreenState extends State<PaymentSuccessScreen> {
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
                                             Text(
-                                              "Name",
+                                              name.toString(),
                                               style: CustomWidget(context: context).CustomSizedTextStyle(
                                                   18.0,
                                                   Theme.of(
@@ -404,5 +409,10 @@ class _PaymentSuccessScreenState extends State<PaymentSuccessScreen> {
         ),
       ),
     );
+  }
+
+  storeData(String name) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.setString("name", name);
   }
 }
