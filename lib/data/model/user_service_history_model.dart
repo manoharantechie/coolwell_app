@@ -29,20 +29,24 @@ class UsersHistoryModel {
 }
 
 class Result {
+  dynamic serviceStatus;
   String? id;
   ServiceId? serviceId;
 
   Result({
+    this.serviceStatus,
     this.id,
     this.serviceId,
   });
 
   factory Result.fromJson(Map<String, dynamic> json) => Result(
+    serviceStatus: json["service_status"],
     id: json["_id"],
     serviceId: ServiceId.fromJson(json["Service_id"]),
   );
 
   Map<String, dynamic> toJson() => {
+    "service_status": serviceStatus,
     "_id": id,
     "Service_id": serviceId!.toJson(),
   };

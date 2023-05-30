@@ -167,9 +167,19 @@ class _Service_historyState extends State<Service_history> {
                             ),
                             InkWell(
                                 onTap: () {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) =>
-                                          Service_History_Details(h_id: OrderList[index].id!.toString(),)));
+                                  if(OrderList[index].serviceStatus==0){
+                                    CustomWidget(context: context)
+                                        .custombar("Service", "Waiting for job Assign", false);
+
+                                  } else if(OrderList[index].serviceStatus==1){
+                                    Navigator.of(context).push(MaterialPageRoute(
+                                        builder: (context) =>
+                                            Service_History_Details(h_id: OrderList[index].id!.toString(),)));
+                                  }else {
+                                    Navigator.of(context).push(MaterialPageRoute(
+                                        builder: (context) =>
+                                            Service_History_Details(h_id: OrderList[index].id!.toString(),)));
+                                  }
                                 },
                                 child: Container(
                                   padding: EdgeInsets.only(
@@ -228,10 +238,63 @@ class _Service_historyState extends State<Service_history> {
                                             ),
                                             child: Column(
                                               crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                                  CrossAxisAlignment.end,
                                               mainAxisAlignment:
-                                                  MainAxisAlignment.end,
+                                                  MainAxisAlignment.spaceBetween,
                                               children: [
+                                                Container(
+                                                  child: Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    mainAxisAlignment:
+                                                    MainAxisAlignment.end,
+                                                    children: [
+                                                      Container(
+                                                        padding:
+                                                        EdgeInsets.fromLTRB(
+                                                            10.0,
+                                                            3.0,
+                                                            10.0,
+                                                            5.0),
+                                                        decoration:
+                                                        BoxDecoration(
+                                                          borderRadius:
+                                                          BorderRadius
+                                                              .circular(
+                                                              20.0),
+                                                          color: OrderList[index].serviceStatus==0? Colors.deepOrangeAccent.withOpacity(0.8) : OrderList[index].serviceStatus==1? Theme.of(context).shadowColor
+                                                              .withOpacity(0.8) : Theme.of(
+                                                              context)
+                                                              .selectedRowColor
+                                                              .withOpacity(0.8),
+                                                        ),
+                                                        child: Text(
+                                                          OrderList[index]
+                                                              .serviceStatus ==
+                                                              0
+                                                              ? "Waiting"
+                                                              : OrderList[index]
+                                                              .serviceStatus ==
+                                                              1
+                                                              ? "Processing"
+                                                              : "Success",
+                                                          style: CustomWidget(
+                                                              context:
+                                                              context)
+                                                              .CustomSizedTextStyle(
+                                                              10.0,
+                                                              Theme.of(context).focusColor,
+                                                              FontWeight
+                                                                  .w600,
+                                                              'FontRegular'),
+                                                          textAlign:
+                                                          TextAlign.start,
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                        ),
+                                                      )
+                                                    ],
+                                                  ),
+                                                ),
                                                 Container(
                                                   child: Row(
                                                     crossAxisAlignment:
@@ -243,7 +306,6 @@ class _Service_historyState extends State<Service_history> {
                                                     children: [
                                                       Flexible(
                                                         child: Container(
-                                                          // width: MediaQuery.of(context).size.width * 0.2,
                                                           child: Column(
                                                             crossAxisAlignment:
                                                                 CrossAxisAlignment
@@ -251,8 +313,6 @@ class _Service_historyState extends State<Service_history> {
                                                             children: [
                                                               Container(
                                                                 child: Text(
-                                                                  // AppLocalizations.instance
-                                                                  //     .text("loc_cleaning"),
                                                                   OrderList[index].serviceId!.serviceName.toString(),
                                                                   style: CustomWidget(context: context).CustomSizedTextStyle(
                                                                       18.0,
