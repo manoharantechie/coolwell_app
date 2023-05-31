@@ -38,11 +38,19 @@ class _OTP_ScreenState extends State<OTP_Screen> {
   TextEditingController passController = TextEditingController();
   TextEditingController con_PassController = TextEditingController();
   final emailformKey = GlobalKey<FormState>();
+  bool forgotUI=false;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    if(widget.type=="forgot")
+      {
+        forgotUI=true;
+      }
+    else{
+      forgotUI=false;
+    }
 
   }
 
@@ -173,7 +181,7 @@ class _OTP_ScreenState extends State<OTP_Screen> {
                     ),
                     SizedBox(height: 10.0,),
 
-                    TextFormCustom(
+               forgotUI?      TextFormCustom(
                       onEditComplete: () {
                         passFocus.unfocus();
                         FocusScope.of(context).requestFocus(con_passFocus);
@@ -223,9 +231,9 @@ class _OTP_ScreenState extends State<OTP_Screen> {
                       enabled: true,
                       textInputType: TextInputType.text,
                       controller: passController,
-                    ),
-                    SizedBox(height: 10.0,),
-                    TextFormCustom(
+                    ):Container(),
+                    SizedBox(height: forgotUI?10.0:0.00,),
+                    forgotUI?TextFormCustom(
                       onEditComplete: () {
                         con_passFocus.unfocus();
 
@@ -275,8 +283,8 @@ class _OTP_ScreenState extends State<OTP_Screen> {
                       enabled: true,
                       textInputType: TextInputType.text,
                       controller: con_PassController,
-                    ),
-                    SizedBox(height: 5.0,),
+                    ):Container(),
+
 
                     SizedBox(height: 20.0,),
                     InkWell(
@@ -329,7 +337,14 @@ class _OTP_ScreenState extends State<OTP_Screen> {
                           if(passController.text.toString()==con_PassController.text.toString())
                           {
                             loading=true;
-                            doVerify();
+                            if(forgotUI)
+                              {
+                                doChangePass();
+
+                              }else{
+                              doVerify();
+                            }
+
                           }
                           else
                           {
@@ -402,8 +417,7 @@ class _OTP_ScreenState extends State<OTP_Screen> {
   doVerify() {
     apiUtils
         .verifyOTP(
-        "phone",codeController.text.toString(),
-      passController.text.toString()
+        widget.mobile,codeController.text.toString(),false
       )
         .then((CommonModel loginData) {
       if (loginData.success!) {
@@ -411,6 +425,36 @@ class _OTP_ScreenState extends State<OTP_Screen> {
           loading = false;
         });
       CustomWidget(context: context).  custombar("Verify Account", loginData.message.toString(), true);
+        Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+                builder: (context) =>
+                    SignUp_Screen()));
+
+
+      } else {
+        setState(() {
+          loading = false;
+          CustomWidget(context: context).  custombar("Verify Account", loginData.message.toString(), false);
+        });
+      }
+    }).catchError((Object error) {
+      print(error);
+      setState(() {
+        loading = false;
+      });
+    });
+  }
+  doChangePass() {
+    apiUtils
+        .doForgotEmailChangePass(
+       "", widget.mobile,codeController.text.toString(),passController.text.toString(),false
+    )
+        .then((CommonModel loginData) {
+      if (loginData.success!) {
+        setState(() {
+          loading = false;
+        });
+        CustomWidget(context: context).  custombar("Verify Account", loginData.message.toString(), true);
         Navigator.of(context).pushReplacement(
             MaterialPageRoute(
                 builder: (context) =>

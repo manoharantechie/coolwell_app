@@ -37,6 +37,21 @@ class _EmailViaScreenState extends State<EmailViaScreen> {
   TextEditingController passController = TextEditingController();
   TextEditingController con_PassController = TextEditingController();
   final emailformKey = GlobalKey<FormState>();
+  bool forgotUI=false;
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    if(widget.type=="forgot")
+    {
+      forgotUI=true;
+    }
+    else{
+      forgotUI=false;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -164,7 +179,7 @@ class _EmailViaScreenState extends State<EmailViaScreen> {
                     ),
                     SizedBox(height: 10.0,),
 
-                    TextFormCustom(
+                    forgotUI?      TextFormCustom(
                       onEditComplete: () {
                         passFocus.unfocus();
                         FocusScope.of(context).requestFocus(con_passFocus);
@@ -214,9 +229,9 @@ class _EmailViaScreenState extends State<EmailViaScreen> {
                       enabled: true,
                       textInputType: TextInputType.text,
                       controller: passController,
-                    ),
-                    SizedBox(height: 10.0,),
-                    TextFormCustom(
+                    ):Container(),
+                    SizedBox(height: forgotUI?10.0:0.00,),
+                    forgotUI?TextFormCustom(
                       onEditComplete: () {
                         con_passFocus.unfocus();
 
@@ -266,8 +281,7 @@ class _EmailViaScreenState extends State<EmailViaScreen> {
                       enabled: true,
                       textInputType: TextInputType.text,
                       controller: con_PassController,
-                    ),
-
+                    ):Container(),
                     SizedBox(height: 20.0,),
                     InkWell(
                       onTap: (){
@@ -320,7 +334,13 @@ class _EmailViaScreenState extends State<EmailViaScreen> {
                             if(passController.text.toString()==con_PassController.text.toString())
                               {
                                 loading=true;
-                                doVerify();
+                                if(forgotUI)
+                                {
+                                  doChangePass();
+
+                                }else{
+                                  doVerify();
+                                }
                               }
                             else
                               {
@@ -394,8 +414,8 @@ class _EmailViaScreenState extends State<EmailViaScreen> {
   doVerify() {
     apiUtils
         .verifyOTP(
-        "gmail",codeController.text.toString(),
-      passController.text.toString()
+        widget.mail,codeController.text.toString(),
+      true
     )
         .then((CommonModel loginData) {
       if (loginData.success!) {
@@ -445,6 +465,36 @@ class _EmailViaScreenState extends State<EmailViaScreen> {
         });
       }
     }).catchError((Object error) {
+      setState(() {
+        loading = false;
+      });
+    });
+  }
+  doChangePass() {
+    apiUtils
+        .doForgotEmailChangePass(
+        "", widget.mail,codeController.text.toString(),passController.text.toString(),true
+    )
+        .then((CommonModel loginData) {
+      if (loginData.success!) {
+        setState(() {
+          loading = false;
+        });
+        CustomWidget(context: context).  custombar("Verify Account", loginData.message.toString(), true);
+        Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+                builder: (context) =>
+                    SignUp_Screen()));
+
+
+      } else {
+        setState(() {
+          loading = false;
+          CustomWidget(context: context).  custombar("Verify Account", loginData.message.toString(), false);
+        });
+      }
+    }).catchError((Object error) {
+      print(error);
       setState(() {
         loading = false;
       });
