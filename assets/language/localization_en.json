@@ -161,6 +161,8 @@
   "loc_track_location": "Track location",
   "loc_proceed_to_process": "Proceed to Process",
   "loc_address_detail": "Address details",
-  "loc_address": "Address"
+  "loc_address": "Address",
+  "loc_register_mob": "Login with Mobile Number",
+  "loc_register_email": "Login with Email"
 
 }

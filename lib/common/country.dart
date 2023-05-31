@@ -52,7 +52,7 @@ Future<Country?> showCountryPickerSheets(BuildContext context,
   return showModalBottomSheet<Country?>(
       context: context,
       isScrollControlled: true,
-      backgroundColor:  Theme.of(context).backgroundColor,
+      backgroundColor:  Theme.of(context).cardColor.withOpacity(0.8),
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(cornerRadius),
@@ -82,7 +82,7 @@ Future<Country?> showCountryPickerSheets(BuildContext context,
                         Text(
                           'Choose Country',
                           textAlign: TextAlign.center,
-                          style:CustomWidget(context: context).CustomTextStyle( Theme.of(context).primaryColor,FontWeight.w500, 'FontRegular'),
+                          style:CustomWidget(context: context).CustomTextStyle( Theme.of(context).focusColor,FontWeight.w600, 'FontRegular'),
                         ),
                   ),
                 ],

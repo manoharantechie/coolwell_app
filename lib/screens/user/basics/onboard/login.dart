@@ -15,9 +15,13 @@ import 'package:geolocator/geolocator.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../../common/otp_fields/otp_field_custom.dart';
+import '../../../../common/otp_fields/style.dart';
+import '../../../../common/textformfield_custom.dart';
 import '../../../../data/api_utils.dart';
 import '../../../../data/model/login.dart';
 import '../home.dart';
+import 'login_mobile_otp.dart';
 
 class SignUp_Screen extends StatefulWidget {
 
@@ -33,7 +37,7 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
   bool loading = false;
   var snackBar;
   Country? _selectedCountry;
-  bool mobileUIdesign = true;
+  bool mobileUIdesign = false;
   double lat = 0.00;
   double long = 0.00;
   FocusNode mobileFocus = FocusNode();
@@ -44,6 +48,8 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
   bool checkHide=false;
   FocusNode nameFocus = FocusNode();
   FocusNode passFocus = FocusNode();
+  FocusNode otpFocus = FocusNode();
+  TextEditingController otpController = TextEditingController();
   TextEditingController nameController = TextEditingController();
   TextEditingController passController = TextEditingController();
   TextEditingController mobileController = TextEditingController();
@@ -128,7 +134,7 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Flexible(child: mobileUIdesign ? Container(
+            Flexible(child: mobileUIdesign ? mobileUI() : Container(
               child: Form(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -321,6 +327,28 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
                                 ),
                               ),
                             ),
+                            SizedBox(height: 30.0,),
+                            GestureDetector(
+                              onTap: (){
+                                setState(() {
+                                  mobileUIdesign= true;
+                                });
+                              },
+                              child: Text(
+                                  AppLocalizations.instance
+                                      .text("loc_register_mob"),
+                                  style: TextStyle(
+                                      decoration: TextDecoration.underline,
+                                      fontSize: 14.0,
+                                      color: Theme
+                                          .of(context)
+                                          .secondaryHeaderColor,
+                                      fontWeight: FontWeight.w600,
+                                      fontStyle: FontStyle.normal
+                                  ),
+                                  textAlign: TextAlign.start),
+                            ),
+
                             SizedBox(height: 25.0,),
                           ],
                         )
@@ -329,7 +357,7 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
                 ),
                 key: emailformKey,
               ),
-            ) : mobileUI(),flex: 3,),
+            ),flex: 3,),
             Flexible(child: Container(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -446,7 +474,7 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
     return Container(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Text(
             AppLocalizations.instance
@@ -477,7 +505,7 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
             children: [
               Container(
                   padding: const EdgeInsets.only(
-                      left: 10.0, right: 10.0, top: 13.0, bottom: 13.0),
+                      left: 10.0, right: 10.0, top: 12.5, bottom: 12.5),
                   decoration: BoxDecoration(
                     border: Border.all(
                         color: Theme.of(context).dividerColor,
@@ -492,13 +520,16 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
                   child: Row(
                     children: [
                       InkWell(
-                        onTap: _onPressedShowBottomSheet,
+                        onTap: (){
+                          setState(() {
+                            _onPressedShowBottomSheet();
+                          });
+                        },
                         child: Row(
                           children: [
                             countryB
                                 ? Image.asset(
-                              _selectedCountry!.flag
-                                  .toString(),
+                              _selectedCountry!.flag.toString(),
                               package:
                               "country_calling_code_picker",
                               height: 15.0,
@@ -513,7 +544,7 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
                                   : "+1",
                               style: CustomWidget(context: context)
                                   .CustomTextStyle(
-                                  Theme.of(context).disabledColor,
+                                  Theme.of(context).primaryColor,
                                   FontWeight.normal,
                                   'FontRegular'),
                             ),
@@ -549,14 +580,14 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
                   decoration: InputDecoration(
                     contentPadding: const EdgeInsets.only(
                         left: 12, right: 0, top: 2, bottom: 2),
-                    hintText: "9876543210",
+                    hintText: "Mobile number",
                     hintStyle: CustomWidget(context: context).CustomSizedTextStyle(
                         14.0,
                         Theme.of(context).primaryColor.withOpacity(0.5),
                         FontWeight.w500,
                         'FontRegular'),
                     filled: true,
-                    fillColor: Theme.of(context).errorColor.withOpacity(0.7),
+                    fillColor: Theme.of(context).focusColor,
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.only(
                         topRight: Radius.circular(5.0),
@@ -607,40 +638,64 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
           SizedBox(height: 30.0,),
           Align(
             alignment: Alignment.center,
-            child: InkWell(
-              onTap: (){
-                Navigator.of(context).push(
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            Forgot_Password()));
-              },
-              child: Container(
-                width: MediaQuery.of(context).size.width * 0.6,
-                padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 10.0),
-                decoration: BoxDecoration(
-                  // border: Border.all(
-                  //   width: 1.0,
-                  //   color: Theme.of(context).cardColor,
-                  // ),
-                  borderRadius: BorderRadius.circular(20.0),
-                  color: Theme.of(context).shadowColor,
-                ),
-                child: Center(
-                  child: Text(
-                    AppLocalizations.instance
-                        .text("loc_login_signin"),
-                    style: CustomWidget(context: context)
-                        .CustomSizedTextStyle(
-                        17.0,
-                        Theme.of(context).focusColor,
-                        FontWeight.w600,
-                        'FontRegular'),
+            child: Column(
+              children: [
+                InkWell(
+                  onTap: (){
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                        builder: (context) => Login_Mobile_Otp_Screen()));
+                  },
+                  child: Container(
+                    width: MediaQuery.of(context).size.width * 0.6,
+                    padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 10.0),
+                    decoration: BoxDecoration(
+                      // border: Border.all(
+                      //   width: 1.0,
+                      //   color: Theme.of(context).cardColor,
+                      // ),
+                      borderRadius: BorderRadius.circular(20.0),
+                      color: Theme.of(context).shadowColor,
+                    ),
+                    child: Center(
+                      child: Text(
+                        AppLocalizations.instance
+                            .text("loc_signin"),
+                        style: CustomWidget(context: context)
+                            .CustomSizedTextStyle(
+                            17.0,
+                            Theme.of(context).focusColor,
+                            FontWeight.w600,
+                            'FontRegular'),
+                      ),
+                    ),
                   ),
                 ),
-              ),
+                SizedBox(height: 25.0,),
+                GestureDetector(
+                  onTap: (){
+                    setState(() {
+                      mobileUIdesign= false;
+                    });
+                  },
+                  child: Text(
+                      AppLocalizations.instance
+                          .text("loc_register_email"),
+                      style: TextStyle(
+                          decoration: TextDecoration.underline,
+                          fontSize: 14.0,
+                          color: Theme
+                              .of(context)
+                              .secondaryHeaderColor,
+                          fontWeight: FontWeight.w600,
+                          fontStyle: FontStyle.normal
+                      ),
+                      textAlign: TextAlign.start),
+                ),
+                SizedBox(height: 30.0,),
+              ],
             ),
           ),
-          SizedBox(height: 25.0,),
+
         ],
       ),
     );

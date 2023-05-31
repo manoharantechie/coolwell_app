@@ -1,6 +1,8 @@
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:coolwell_app/common/text_field_custom_prefix.dart';
 import 'package:coolwell_app/screens/user/basics/onboard/verify_email.dart';
+import 'package:country_calling_code_picker/country.dart';
+import 'package:country_calling_code_picker/functions.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
@@ -9,6 +11,8 @@ import 'package:flutter/material.dart';
 import 'package:coolwell_app/common/custom_widget.dart';
 import 'package:coolwell_app/common/localization/localizations.dart';
 
+import '../../../../common/country.dart';
+import '../../../../common/theme/custom_theme.dart';
 import '../../../../data/api_utils.dart';
 import '../../../../data/model/register.dart';
 
@@ -20,6 +24,12 @@ class SignIn_Screen extends StatefulWidget {
 }
 
 class _SignIn_ScreenState extends State<SignIn_Screen> {
+
+  Country? _selectedCountry;
+  bool countryB = false;
+  FocusNode mobileFocus = FocusNode();
+  bool mobileVerify = true;
+  TextEditingController mobile = TextEditingController();
 
   APIUtils apiUtils = APIUtils();
   bool loading = false;
@@ -48,6 +58,16 @@ class _SignIn_ScreenState extends State<SignIn_Screen> {
       ),
     );
     return ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
+  void initCountry() async {
+    final country = await getDefaultCountry(context);
+    setState(() {
+      _selectedCountry = country;
+      countryB = true;
+
+
+    });
   }
 
   @override
@@ -158,55 +178,189 @@ class _SignIn_ScreenState extends State<SignIn_Screen> {
                           controller: nameController,
                         ),
                         SizedBox(height: 15.0,),
-                        TextFormCustom(
-                          onEditComplete: () {
-                            phoneNumFocus.unfocus();
-                            FocusScope.of(context).requestFocus(emailFocus);
-                          },
-                          radius: 6.0,
-                          error: "Enter Phone Number",
-                          textColor: Theme.of(context).primaryColor,
-                          borderColor: Theme.of(context).dividerColor,
-                          fillColor: Theme.of(context).focusColor,
-                          hintStyle: CustomWidget(context: context).CustomSizedTextStyle(
-                              14.0, Theme.of(context).primaryColor.withOpacity(0.3), FontWeight.w500, 'FontRegular'),
-                          textStyle: CustomWidget(context: context).CustomSizedTextStyle(
-                              14.0, Theme.of(context).primaryColor, FontWeight.w500, 'FontRegular'),
-                          textInputAction: TextInputAction.next,
-                          focusNode: phoneNumFocus,
-                          maxlines: 1,
-                          text: '',
-                          hintText: "Phone Number",
-                          obscureText: false,
-                          textChanged: (value) {},
-                          onChanged: () {},
-                          suffix: Container(
-                            width: 0.0,
-                          ),
-                          prefix: Container(
-                            child: Icon(
-                              Icons.phone,
-                              color: Theme.of(context).primaryColor.withOpacity(0.3),
-                            ),
-                          ),
-                          validator: (value) {
-                            if(phoneNumController.text.isEmpty) {
-                              return "Please Enter Phone Number";
-                            }
-                            // else if(!RegExp("/^[a-zA-Z0-9!@#\$%\^\&*\)\(+=._-]{10,}$/g")
-                            //     .hasMatch(phoneNumController.text)) {
-                            //   return "Please Enter Valid Phone Number";
-                            // }
-                            else if(phoneNumController.text.length<10) {
-                              return "Please Enter Valid Phone Number ";
-                            } else if(phoneNumController.text.length>10) {
-                              return "Please Enter Valid Phone Number";
-                            }
-                          },
-                          enabled: true,
-                          textInputType: TextInputType.phone,
-                          controller: phoneNumController,
+                        // TextFormCustom(
+                        //   onEditComplete: () {
+                        //     phoneNumFocus.unfocus();
+                        //     FocusScope.of(context).requestFocus(emailFocus);
+                        //   },
+                        //   radius: 6.0,
+                        //   error: "Enter Phone Number",
+                        //   textColor: Theme.of(context).primaryColor,
+                        //   borderColor: Theme.of(context).dividerColor,
+                        //   fillColor: Theme.of(context).focusColor,
+                        //   hintStyle: CustomWidget(context: context).CustomSizedTextStyle(
+                        //       14.0, Theme.of(context).primaryColor.withOpacity(0.3), FontWeight.w500, 'FontRegular'),
+                        //   textStyle: CustomWidget(context: context).CustomSizedTextStyle(
+                        //       14.0, Theme.of(context).primaryColor, FontWeight.w500, 'FontRegular'),
+                        //   textInputAction: TextInputAction.next,
+                        //   focusNode: phoneNumFocus,
+                        //   maxlines: 1,
+                        //   text: '',
+                        //   hintText: "Phone Number",
+                        //   obscureText: false,
+                        //   textChanged: (value) {},
+                        //   onChanged: () {},
+                        //   suffix: Container(
+                        //     width: 0.0,
+                        //   ),
+                        //   prefix: Container(
+                        //     child: Icon(
+                        //       Icons.phone,
+                        //       color: Theme.of(context).primaryColor.withOpacity(0.3),
+                        //     ),
+                        //   ),
+                        //   validator: (value) {
+                        //     if(phoneNumController.text.isEmpty) {
+                        //       return "Please Enter Phone Number";
+                        //     }
+                        //     // else if(!RegExp("/^[a-zA-Z0-9!@#\$%\^\&*\)\(+=._-]{10,}$/g")
+                        //     //     .hasMatch(phoneNumController.text)) {
+                        //     //   return "Please Enter Valid Phone Number";
+                        //     // }
+                        //     else if(phoneNumController.text.length<10) {
+                        //       return "Please Enter Valid Phone Number ";
+                        //     } else if(phoneNumController.text.length>10) {
+                        //       return "Please Enter Valid Phone Number";
+                        //     }
+                        //   },
+                        //   enabled: true,
+                        //   textInputType: TextInputType.phone,
+                        //   controller: phoneNumController,
+                        // ),
+
+                        Row(
+                          children: [
+                            Container(
+                                padding: const EdgeInsets.only(
+                                    left: 10.0, right: 10.0, top: 12.5, bottom: 12.5),
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                      color: Theme.of(context).dividerColor,
+                                      width: 1.0),
+                                  color: CustomTheme.of(context)
+                                      .focusColor,
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(5.0),
+                                    bottomLeft: Radius.circular(5.0),
+                                  ),
+                                ),
+                                child: Row(
+                                  children: [
+                                    InkWell(
+                                      onTap: (){
+                                        setState(() {
+                                          _onPressedShowBottomSheet();
+                                        });
+                                      },
+                                      child: Row(
+                                        children: [
+                                          countryB
+                                              ? Image.asset(
+                                            _selectedCountry!.flag.toString(),
+                                            package:
+                                            "country_calling_code_picker",
+                                            height: 15.0,
+                                            width: 25.0,
+                                          )
+                                              : Container(
+                                            width: 0.0,
+                                          ),
+                                          Text(
+                                            countryB
+                                                ? _selectedCountry!.callingCode.toString()
+                                                : "+1",
+                                            style: CustomWidget(context: context)
+                                                .CustomTextStyle(
+                                                countryB
+                                                    ? Theme.of(context).primaryColor: Theme.of(context).primaryColor.withOpacity(0.3),
+                                                FontWeight.normal,
+                                                'FontRegular'),
+                                          ),
+                                          const SizedBox(
+                                            width: 3.0,
+                                          ),
+                                          // Icon(
+                                          //   Icons.keyboard_arrow_down_outlined,
+                                          //   size: 15.0,
+                                          //   color: Theme.of(context).dialogBackgroundColor,
+                                          // )
+                                        ],
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      width: 10.0,
+                                    ),
+                                  ],
+                                )),
+                            Flexible(
+                              child: TextFormField(
+                                controller: mobile,
+                                focusNode: mobileFocus,
+                                maxLines: 1,
+                                enabled: mobileVerify,
+                                textInputAction: TextInputAction.next,
+                                keyboardType: TextInputType.number,
+                                style: CustomWidget(context: context).CustomSizedTextStyle(
+                                    14.0,
+                                    Theme.of(context).primaryColor,
+                                    FontWeight.w500,
+                                    'FontRegular'),
+                                decoration: InputDecoration(
+                                  contentPadding: const EdgeInsets.only(
+                                      left: 12, right: 0, top: 2, bottom: 2),
+                                  hintText: "Mobile number",
+                                  hintStyle: CustomWidget(context: context).CustomSizedTextStyle(
+                                      14.0, Theme.of(context).primaryColor.withOpacity(0.3), FontWeight.w500, 'FontRegular'),
+                                  filled: true,
+                                  fillColor: Theme.of(context).focusColor,
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.only(
+                                      topRight: Radius.circular(5.0),
+                                      bottomRight: Radius.circular(5.0),
+                                    ),
+                                    borderSide: BorderSide(
+                                        color: Theme.of(context).dividerColor,
+                                        width: 1.0),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.only(
+                                      topRight: Radius.circular(5.0),
+                                      bottomRight: Radius.circular(5.0),
+                                    ),
+                                    borderSide: BorderSide(
+                                        color: CustomTheme.of(context)
+                                            .splashColor
+                                            .withOpacity(0.5),
+                                        width: 1.0),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.only(
+                                      topRight: Radius.circular(5.0),
+                                      bottomRight: Radius.circular(5.0),
+                                    ),
+                                    borderSide: BorderSide(
+                                        color: CustomTheme.of(context)
+                                            .splashColor
+                                            .withOpacity(0.5),
+                                        width: 1.0),
+                                  ),
+                                  errorBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.only(
+                                      topRight: Radius.circular(5.0),
+                                      bottomRight: Radius.circular(5.0),
+                                    ),
+                                    borderSide: BorderSide(
+                                        color: CustomTheme.of(context)
+                                            .splashColor
+                                            .withOpacity(0.5),
+                                        width: 1.0),
+                                  ),
+                                ),
+                              ),
+                            )
+                          ],
                         ),
+
                         SizedBox(height: 15.0,),
                         TextFormCustom(
                           onEditComplete: () {
@@ -529,11 +683,22 @@ class _SignIn_ScreenState extends State<SignIn_Screen> {
     );
 }
 
+  void _onPressedShowBottomSheet() async {
+    final country = await showCountryPickerSheets(
+      context,
+    );
+    if (country != null) {
+      setState(() {
+        _selectedCountry = country;
+      });
+    }
+  }
+
   RegisterEmail() {
     apiUtils
         .doRegisterEmail(
-      nameController.text.toString(),
-      phoneNumController.text.toString(),
+      nameController.text.toString(),_selectedCountry!.callingCode.toString()+
+        mobile.text.toString(),
       emailController.text.toString(),
       passController.text.toString())
         .then((CommonModel loginData) {
