@@ -295,10 +295,8 @@ class _SignIn_ScreenState extends State<SignIn_Screen> {
                           validator: (value) {
                             if(passController.text.isEmpty) {
                               return "Please Enter Password ";
-                            } else if( passController.text.length< 8 ) {
+                            } else if( passController.text.length< 6 ) {
                               return "Please enter must not be less than 8 character";
-                            } else if(passController.text.length> 14){
-                              return "Please enter must not be greater than 14 character";
                             }
                           },
                           enabled: true,

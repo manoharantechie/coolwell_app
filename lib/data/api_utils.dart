@@ -114,11 +114,11 @@ class APIUtils {
 
   }
   Future<CommonModel> verifyOTP(
-       String email, String otp) async {
+       String email, String otp,String pass) async {
     var emailbodyData = {
-      'gmail': email,
+      'type': email,
       'otp': otp,
-      'phone': "null",
+      'password': pass,
     };
     final response = await http.post(Uri.parse(baseURL + activateURL),
         body: emailbodyData);

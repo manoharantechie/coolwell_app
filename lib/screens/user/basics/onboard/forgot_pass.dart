@@ -1,5 +1,6 @@
 import 'package:coolwell_app/common/custom_widget.dart';
 import 'package:coolwell_app/common/localization/localizations.dart';
+import 'package:coolwell_app/screens/user/basics/onboard/sent_otp.dart';
 import 'package:coolwell_app/screens/user/basics/onboard/verify_email.dart';
 import 'package:coolwell_app/screens/user/basics/onboard/location.dart';
 import 'package:coolwell_app/screens/user/basics/onboard/verify_mobile.dart';
@@ -115,10 +116,7 @@ class _Forgot_PasswordState extends State<Forgot_Password> {
                       email =true;
                       otp =false;
                     });
-                    Navigator.of(context).push(
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                EmailViaScreen(type: "forgot",mail: "",)));
+
                   },
                   child: Container(
                     padding: EdgeInsets.all(3.0),
@@ -149,10 +147,7 @@ class _Forgot_PasswordState extends State<Forgot_Password> {
                       setState(() {
                         email =false;
                         otp =true;
-                        Navigator.of(context).push(
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    OTP_Screen()));
+
                       });
                     },
                     child: Container(
@@ -188,10 +183,11 @@ class _Forgot_PasswordState extends State<Forgot_Password> {
              children: [
                InkWell(
                  onTap: (){
+
                    Navigator.of(context).push(
                        MaterialPageRoute(
                            builder: (context) =>
-                               LocationLoginScreen()));
+                               SentOtpScreen(type:email? true:false,)));
                  },
                  child: Container(
                    width: MediaQuery.of(context).size.width * 0.6,
