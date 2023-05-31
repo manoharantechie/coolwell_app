@@ -52,6 +52,8 @@ class _EmailViaScreenState extends State<EmailViaScreen> {
             Container(
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
+              margin: EdgeInsets.only(
+                  top: MediaQuery.of(context).size.height * 0.15),
               padding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
               child: SingleChildScrollView(
                 child: Form(
@@ -194,7 +196,7 @@ class _EmailViaScreenState extends State<EmailViaScreen> {
                                 if(passController.text.isEmpty) {
                                   return "Please Enter Password ";
                                 } else if( passController.text.length< 6 ) {
-                                  return "Please enter must not be less than 8 character";
+                                  return "Please enter must not be less than 6 character";
                                 }
                               },
                               enabled: true,
@@ -246,7 +248,7 @@ class _EmailViaScreenState extends State<EmailViaScreen> {
                                 if(con_PassController.text.isEmpty) {
                                   return "Please Enter Password ";
                                 } else if( con_PassController.text.length< 6 ) {
-                                  return "Please enter must not be less than 8 character";
+                                  return "Please enter must not be less than 6 character";
                                 }
                               },
                               enabled: true,
@@ -392,7 +394,7 @@ class _EmailViaScreenState extends State<EmailViaScreen> {
   doVerify() {
     apiUtils
         .verifyOTP(
-        "gmail",codeController.text.toString(),
+        widget.mail.toString(),codeController.text.toString(),
       passController.text.toString()
     )
         .then((CommonModel loginData) {
