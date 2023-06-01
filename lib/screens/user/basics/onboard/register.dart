@@ -231,6 +231,7 @@ class _SignIn_ScreenState extends State<SignIn_Screen> {
                         Row(
                           children: [
                             Container(
+                              height:45.0,
                                 padding: const EdgeInsets.only(
                                     left: 10.0, right: 10.0, top: 13.0, bottom: 14.0),
                                 decoration: BoxDecoration(
@@ -293,7 +294,9 @@ class _SignIn_ScreenState extends State<SignIn_Screen> {
                                   ],
                                 )),
                             Flexible(
-                              child: TextFormField(
+                              child: Container(
+                                height: 45.0,
+                                child: TextFormField(
                                 controller: mobile,
                                 focusNode: mobileFocus,
                                 maxLines: 1,
@@ -356,7 +359,7 @@ class _SignIn_ScreenState extends State<SignIn_Screen> {
                                         width: 1.0),
                                   ),
                                 ),
-                              ),
+                              ),),
                             )
                           ],
                         ),

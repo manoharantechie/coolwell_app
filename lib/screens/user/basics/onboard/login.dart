@@ -510,6 +510,7 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
                   _onPressedShowBottomSheet();
                 },
                 child: Container(
+                  height: 45.0,
                     padding: const EdgeInsets.only(
                         left: 10.0, right: 10.0, top: 13.0, bottom: 14.0),
                     decoration: BoxDecoration(
@@ -572,70 +573,73 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
                     )),
               ),
               Flexible(
-                child: TextFormField(
-                  controller: mobile,
-                  focusNode: mobileFocus,
-                  maxLines: 1,
-                  enabled: mobileVerify,
-                  textInputAction: TextInputAction.next,
-                  keyboardType: TextInputType.number,
-                  style: CustomWidget(context: context).CustomSizedTextStyle(
-                      14.0,
-                      Theme.of(context).primaryColor,
-                      FontWeight.w500,
-                      'FontRegular'),
-                  decoration: InputDecoration(
-                    contentPadding: const EdgeInsets.only(
-                        left: 12, right: 0, top: 2, bottom: 2),
-                    hintText: "Mobile number",
-                    hintStyle: CustomWidget(context: context).CustomSizedTextStyle(
+                child: Container(
+                  height: 45.0,
+                  child:  TextFormField(
+                    controller: mobile,
+                    focusNode: mobileFocus,
+                    maxLines: 1,
+                    enabled: mobileVerify,
+                    textInputAction: TextInputAction.next,
+                    keyboardType: TextInputType.number,
+                    style: CustomWidget(context: context).CustomSizedTextStyle(
                         14.0,
-                        Theme.of(context).primaryColor.withOpacity(0.5),
+                        Theme.of(context).primaryColor,
                         FontWeight.w500,
                         'FontRegular'),
-                    filled: true,
-                    fillColor: Theme.of(context).focusColor,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(5.0),
-                        bottomRight: Radius.circular(5.0),
+                    decoration: InputDecoration(
+                      contentPadding: const EdgeInsets.only(
+                          left: 12, right: 0, top: 2, bottom: 2),
+                      hintText: "Mobile number",
+                      hintStyle: CustomWidget(context: context).CustomSizedTextStyle(
+                          14.0,
+                          Theme.of(context).primaryColor.withOpacity(0.5),
+                          FontWeight.w500,
+                          'FontRegular'),
+                      filled: true,
+                      fillColor: Theme.of(context).focusColor,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(5.0),
+                          bottomRight: Radius.circular(5.0),
+                        ),
+                        borderSide: BorderSide(
+                            color: Theme.of(context).dividerColor,
+                            width: 1.0),
                       ),
-                      borderSide: BorderSide(
-                          color: Theme.of(context).dividerColor,
-                          width: 1.0),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(5.0),
-                        bottomRight: Radius.circular(5.0),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(5.0),
+                          bottomRight: Radius.circular(5.0),
+                        ),
+                        borderSide: BorderSide(
+                            color: CustomTheme.of(context)
+                                .splashColor
+                                .withOpacity(0.5),
+                            width: 1.0),
                       ),
-                      borderSide: BorderSide(
-                          color: CustomTheme.of(context)
-                              .splashColor
-                              .withOpacity(0.5),
-                          width: 1.0),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(5.0),
-                        bottomRight: Radius.circular(5.0),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(5.0),
+                          bottomRight: Radius.circular(5.0),
+                        ),
+                        borderSide: BorderSide(
+                            color: CustomTheme.of(context)
+                                .splashColor
+                                .withOpacity(0.5),
+                            width: 1.0),
                       ),
-                      borderSide: BorderSide(
-                          color: CustomTheme.of(context)
-                              .splashColor
-                              .withOpacity(0.5),
-                          width: 1.0),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(5.0),
-                        bottomRight: Radius.circular(5.0),
+                      errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(5.0),
+                          bottomRight: Radius.circular(5.0),
+                        ),
+                        borderSide: BorderSide(
+                            color: CustomTheme.of(context)
+                                .splashColor
+                                .withOpacity(0.5),
+                            width: 1.0),
                       ),
-                      borderSide: BorderSide(
-                          color: CustomTheme.of(context)
-                              .splashColor
-                              .withOpacity(0.5),
-                          width: 1.0),
                     ),
                   ),
                 ),
