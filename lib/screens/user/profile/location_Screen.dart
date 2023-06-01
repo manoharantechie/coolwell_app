@@ -325,7 +325,7 @@ class _Location_ScreenState extends State<Location_Screen> {
                     color: Theme.of(context).shadowColor,
                   ),
                   child: Text(
-                    AppLocalizations.instance.text("loc_Proceed_checkout"),
+                    AppLocalizations.instance.text("loc_select_loc"),
                     style: CustomWidget(context: context).CustomSizedTextStyle(
                         14.0,
                         Theme.of(context).focusColor,
@@ -952,7 +952,7 @@ class _Location_ScreenState extends State<Location_Screen> {
                                         ),
                                         child: Text(
                                           AppLocalizations.instance
-                                              .text("loc_Proceed_checkout"),
+                                              .text("loc_conf_loc"),
                                           style: CustomWidget(context: context)
                                               .CustomSizedTextStyle(
                                               14.0,

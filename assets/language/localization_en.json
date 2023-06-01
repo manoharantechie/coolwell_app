@@ -163,6 +163,9 @@
   "loc_address_detail": "Address details",
   "loc_address": "Address",
   "loc_register_mob": "Login with Mobile Number",
-  "loc_register_email": "Login with Email"
+  "loc_register_email": "Login with Email",
+  "loc_req_otp": "Request OTP",
+  "loc_select_loc": "Select Location",
+  "loc_conf_loc": "Confirm Location"
 
 }

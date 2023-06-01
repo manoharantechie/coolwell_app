@@ -23,6 +23,7 @@ import '../../../../common/textformfield_custom.dart';
 import '../../../../data/api_utils.dart';
 import '../../../../data/model/login.dart';
 import '../home.dart';
+import 'location.dart';
 import 'login_mobile_otp.dart';
 
 class SignUp_Screen extends StatefulWidget {
@@ -523,6 +524,7 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
                       ),
                     ),
                     child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         InkWell(
                           onTap: (){
@@ -542,6 +544,9 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
                               )
                                   : Container(
                                 width: 0.0,
+                              ),
+                              const SizedBox(
+                                width: 2.0,
                               ),
                               Text(
                                 countryB
@@ -670,7 +675,7 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
                     child: Center(
                       child: Text(
                         AppLocalizations.instance
-                            .text("loc_signin"),
+                            .text("loc_req_otp"),
                         style: CustomWidget(context: context)
                             .CustomSizedTextStyle(
                             17.0,
@@ -737,7 +742,8 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
 
               Navigator.of(context).pushReplacement(MaterialPageRoute(
                   builder: (context) =>
-                      Location_Screen(lat: lat,long: long,)));
+                      LocationLoginScreen()));
+                      // Location_Screen(lat: lat,long: long,)));
 
 
 

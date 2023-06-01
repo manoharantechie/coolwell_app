@@ -1,4 +1,5 @@
 
+import 'package:coolwell_app/screens/user/basics/home.dart';
 import 'package:coolwell_app/screens/user/service/service.dart';
 import 'package:coolwell_app/screens/user/basics/onboard/location_success.dart';
 import 'package:flutter/cupertino.dart';
@@ -7,6 +8,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:coolwell_app/common/custom_widget.dart';
 import 'package:coolwell_app/common/localization/localizations.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:permission_handler/permission_handler.dart';
+
+import '../../profile/location_Screen.dart';
 
 class LocationLoginScreen extends StatefulWidget {
   const LocationLoginScreen({Key? key}) : super(key: key);
@@ -16,6 +21,35 @@ class LocationLoginScreen extends StatefulWidget {
 }
 
 class _LocationLoginScreenState extends State<LocationLoginScreen> {
+
+  double lat = 0.00;
+  double long = 0.00;
+
+  getPermission() async {
+    if (await Permission.location.request().isGranted) {
+      _getCurrentLocation();
+    } else {
+      Map<Permission, PermissionStatus> statuses = await [
+        Permission.location,
+      ].request();
+      if (statuses[Permission.location] == PermissionStatus.granted) {
+        _getCurrentLocation();
+      }
+    }
+  }
+
+  _getCurrentLocation() async {
+    await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
+        .then((Position position) async {
+      setState(() {
+        lat = position.latitude;
+        long = position.longitude;
+      });
+    }).catchError((e) {
+
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,7 +109,7 @@ class _LocationLoginScreenState extends State<LocationLoginScreen> {
             onTap: (){
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) =>
-                      Location_Success_Screen()));
+                      Home_Screen()));
             },
             child: Container(
               padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 10.0),
@@ -112,7 +146,13 @@ class _LocationLoginScreenState extends State<LocationLoginScreen> {
           SizedBox(height: 25.0,),
           InkWell(
             onTap: (){
-
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) =>
+                      Location_Screen(lat: lat,long: long,)));
+              // Navigator.of(context).push(MaterialPageRoute(
+              //     builder: (context) =>
+              //      Location_Success_Screen()));
+                  // Location_Screen(lat: lat,long: long,)));
             },
             child: Container(
               padding: EdgeInsets.fromLTRB(0.0, 10.0, 0.0, 10.0),
