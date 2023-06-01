@@ -166,6 +166,7 @@
   "loc_register_email": "Login with Email",
   "loc_req_otp": "Request OTP",
   "loc_select_loc": "Select Location",
-  "loc_conf_loc": "Confirm Location"
+  "loc_conf_loc": "Confirm Location",
+  "loc_add_add": "Add Address"
 
 }

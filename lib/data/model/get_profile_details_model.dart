@@ -73,7 +73,7 @@ class GetProfileResult {
 }
 
 class Address {
-  AddressEnum? address;
+  dynamic address;
   City? city;
   String? zip;
   String? longitude;
@@ -88,7 +88,7 @@ class Address {
   });
 
   factory Address.fromJson(Map<String, dynamic> json) => Address(
-    address: addressEnumValues.map[json["Address"]],
+    address: json["Address"],
     city: cityValues.map[json["city"]],
     zip: json["zip"],
     longitude: json["longitude"],
@@ -96,7 +96,7 @@ class Address {
   );
 
   Map<String, dynamic> toJson() => {
-    "Address": addressEnumValues.reverse[address],
+    "Address": address,
     "city": cityValues.reverse[city],
     "zip": zip,
     "longitude": longitude,

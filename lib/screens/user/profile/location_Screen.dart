@@ -814,124 +814,124 @@ class _Location_ScreenState extends State<Location_Screen> {
                                         ],
                                       ),
                                     ),
-                                    const SizedBox(
-                                      height: 15.0,
-                                    ),
-                                    Container(
-                                      child: Row(
-                                        children: [
-                                          InkWell(
-                                            onTap: (){
-                                              ssetState(() {
-                                                home =true;
-                                                other =false;
-                                              });
-                                              },
-                                            child: Container(
-                                              padding: EdgeInsets.fromLTRB(
-                                                  10.0, 5.0, 10.0, 5.0),
-                                              decoration: home ? BoxDecoration(
-                                                borderRadius:
-                                                BorderRadius.circular(15.0),
-                                                gradient: LinearGradient(
-                                                  begin: Alignment.topLeft,
-                                                  end: Alignment.bottomRight,
-                                                  colors: [
-                                                    const Color(0xFF0DD8FF),
-                                                    const Color(0xFF0FABFF),
-                                                    const Color(0xFF1457FF),
-                                                    const Color(0xFF1636FF),
-                                                    const Color(0xFF0E69C7),
-                                                  ],
-                                                ),
-                                              ) : BoxDecoration(
-                                                  borderRadius:
-                                                  BorderRadius.circular(15.0),
-                                                  color: Theme.of(context)
-                                                      .focusColor,
-                                                  border: Border.all(
-                                                    width: 1.0,
-                                                    color: Theme.of(context)
-                                                        .dividerColor,
-                                                  )),
-                                              child: Center(
-                                                child: Text(
-                                                  AppLocalizations.instance
-                                                      .text("loc_home"),
-                                                  style: CustomWidget(
-                                                      context: context)
-                                                      .CustomSizedTextStyle(
-                                                      14.0,
-                                                      home ? Theme.of(context)
-                                                          .focusColor :Theme.of(context)
-                                                          .dialogBackgroundColor
-                                                          .withOpacity(0.5),
-                                                      FontWeight.w500,
-                                                      'FontRegular'),
-                                                  textAlign: TextAlign.center,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            width: 10.0,
-                                          ),
-                                          InkWell(
-                                            onTap: (){
-                                              ssetState(() {
-                                                home =false;
-                                                other =true;
-                                              });
-                                            },
-                                            child: Container(
-                                              padding: EdgeInsets.fromLTRB(
-                                                  10.0, 5.0, 10.0, 5.0),
-                                              decoration: other ?BoxDecoration(
-                                                borderRadius:
-                                                BorderRadius.circular(15.0),
-                                                gradient: LinearGradient(
-                                                  begin: Alignment.topLeft,
-                                                  end: Alignment.bottomRight,
-                                                  colors: [
-                                                    const Color(0xFF0DD8FF),
-                                                    const Color(0xFF0FABFF),
-                                                    const Color(0xFF1457FF),
-                                                    const Color(0xFF1636FF),
-                                                    const Color(0xFF0E69C7),
-                                                  ],
-                                                ),
-                                              ) : BoxDecoration(
-                                                  borderRadius:
-                                                  BorderRadius.circular(15.0),
-                                                  color: Theme.of(context)
-                                                      .focusColor,
-                                                  border: Border.all(
-                                                    width: 1.0,
-                                                    color: Theme.of(context)
-                                                        .dividerColor,
-                                                  )),
-                                              child: Center(
-                                                child: Text(
-                                                  AppLocalizations.instance
-                                                      .text("loc_other"),
-                                                  style: CustomWidget(
-                                                      context: context)
-                                                      .CustomSizedTextStyle(
-                                                      14.0,
-                                                      other ? Theme.of(context)
-                                                          .focusColor : Theme.of(context)
-                                                          .dialogBackgroundColor
-                                                          .withOpacity(0.5),
-                                                      FontWeight.w500,
-                                                      'FontRegular'),
-                                                  textAlign: TextAlign.center,
-                                                ),
-                                              ),
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
+                                    // const SizedBox(
+                                    //   height: 15.0,
+                                    // ),
+                                    // Container(
+                                    //   child: Row(
+                                    //     children: [
+                                    //       InkWell(
+                                    //         onTap: (){
+                                    //           ssetState(() {
+                                    //             home =true;
+                                    //             other =false;
+                                    //           });
+                                    //           },
+                                    //         child: Container(
+                                    //           padding: EdgeInsets.fromLTRB(
+                                    //               10.0, 5.0, 10.0, 5.0),
+                                    //           decoration: home ? BoxDecoration(
+                                    //             borderRadius:
+                                    //             BorderRadius.circular(15.0),
+                                    //             gradient: LinearGradient(
+                                    //               begin: Alignment.topLeft,
+                                    //               end: Alignment.bottomRight,
+                                    //               colors: [
+                                    //                 const Color(0xFF0DD8FF),
+                                    //                 const Color(0xFF0FABFF),
+                                    //                 const Color(0xFF1457FF),
+                                    //                 const Color(0xFF1636FF),
+                                    //                 const Color(0xFF0E69C7),
+                                    //               ],
+                                    //             ),
+                                    //           ) : BoxDecoration(
+                                    //               borderRadius:
+                                    //               BorderRadius.circular(15.0),
+                                    //               color: Theme.of(context)
+                                    //                   .focusColor,
+                                    //               border: Border.all(
+                                    //                 width: 1.0,
+                                    //                 color: Theme.of(context)
+                                    //                     .dividerColor,
+                                    //               )),
+                                    //           child: Center(
+                                    //             child: Text(
+                                    //               AppLocalizations.instance
+                                    //                   .text("loc_home"),
+                                    //               style: CustomWidget(
+                                    //                   context: context)
+                                    //                   .CustomSizedTextStyle(
+                                    //                   14.0,
+                                    //                   home ? Theme.of(context)
+                                    //                       .focusColor :Theme.of(context)
+                                    //                       .dialogBackgroundColor
+                                    //                       .withOpacity(0.5),
+                                    //                   FontWeight.w500,
+                                    //                   'FontRegular'),
+                                    //               textAlign: TextAlign.center,
+                                    //             ),
+                                    //           ),
+                                    //         ),
+                                    //       ),
+                                    //       const SizedBox(
+                                    //         width: 10.0,
+                                    //       ),
+                                    //       InkWell(
+                                    //         onTap: (){
+                                    //           ssetState(() {
+                                    //             home =false;
+                                    //             other =true;
+                                    //           });
+                                    //         },
+                                    //         child: Container(
+                                    //           padding: EdgeInsets.fromLTRB(
+                                    //               10.0, 5.0, 10.0, 5.0),
+                                    //           decoration: other ?BoxDecoration(
+                                    //             borderRadius:
+                                    //             BorderRadius.circular(15.0),
+                                    //             gradient: LinearGradient(
+                                    //               begin: Alignment.topLeft,
+                                    //               end: Alignment.bottomRight,
+                                    //               colors: [
+                                    //                 const Color(0xFF0DD8FF),
+                                    //                 const Color(0xFF0FABFF),
+                                    //                 const Color(0xFF1457FF),
+                                    //                 const Color(0xFF1636FF),
+                                    //                 const Color(0xFF0E69C7),
+                                    //               ],
+                                    //             ),
+                                    //           ) : BoxDecoration(
+                                    //               borderRadius:
+                                    //               BorderRadius.circular(15.0),
+                                    //               color: Theme.of(context)
+                                    //                   .focusColor,
+                                    //               border: Border.all(
+                                    //                 width: 1.0,
+                                    //                 color: Theme.of(context)
+                                    //                     .dividerColor,
+                                    //               )),
+                                    //           child: Center(
+                                    //             child: Text(
+                                    //               AppLocalizations.instance
+                                    //                   .text("loc_other"),
+                                    //               style: CustomWidget(
+                                    //                   context: context)
+                                    //                   .CustomSizedTextStyle(
+                                    //                   14.0,
+                                    //                   other ? Theme.of(context)
+                                    //                       .focusColor : Theme.of(context)
+                                    //                       .dialogBackgroundColor
+                                    //                       .withOpacity(0.5),
+                                    //                   FontWeight.w500,
+                                    //                   'FontRegular'),
+                                    //               textAlign: TextAlign.center,
+                                    //             ),
+                                    //           ),
+                                    //         ),
+                                    //       )
+                                    //     ],
+                                    //   ),
+                                    // ),
                                     const SizedBox(
                                       height: 20.0,
                                     ),

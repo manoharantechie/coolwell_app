@@ -162,6 +162,26 @@ class APIUtils {
     return CommonModel.fromJson(json.decode(response.body));
   }
 
+  Future<CommonModel> updateAddressDetails(
+      String name, String profileImage) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var auth = "Bearer " + preferences.getString("token").toString();
+    Map<String, String> requestHeaders = {
+      'authorization': auth.toString(),
+    };
+    var emailbodyData = {
+      "name": name,
+      // 'address': address,
+      // 'pincode': pincode,
+      'profile_pic': profileImage
+    };
+
+    final response = await http.patch(Uri.parse(baseURL + profileUpdateURL),
+        headers: requestHeaders, body: emailbodyData);
+
+    return CommonModel.fromJson(json.decode(response.body));
+  }
+
   Future<UploadImageModel> doUpload(String front) async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     var request =
@@ -294,7 +314,7 @@ class APIUtils {
     final response = await http.post(Uri.parse(baseURL + usersHistoryURL),
         headers: requestHeaders);
 
-    print(response.body);
+    // print(response.body);
 
 
     return UsersHistoryModel.fromJson(json.decode(response.body));
