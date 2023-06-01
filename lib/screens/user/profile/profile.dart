@@ -657,7 +657,7 @@ class _Profile_ScreenState extends State<Profile_Screen> {
             details = loginData.result!;
 
             var str = loginData.result!.name!.split(".");
-            print(str);
+            // print(str);
             userName =loginData.result!.name!.contains(".")?str[1].trim().toString():loginData.result!.name!;
             gender=loginData.result!.name!.contains(".")?str[0].trim().toString():"";
             email=details!.email.toString();
