@@ -294,6 +294,9 @@ class APIUtils {
     final response = await http.post(Uri.parse(baseURL + usersHistoryURL),
         headers: requestHeaders);
 
+    print(response.body);
+
+
     return UsersHistoryModel.fromJson(json.decode(response.body));
   }
 

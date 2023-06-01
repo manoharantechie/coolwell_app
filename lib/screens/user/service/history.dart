@@ -27,12 +27,7 @@ class _Service_historyState extends State<Service_history> {
   String ServiceName = "";
   String Amount = "";
   String Time = "";
-  List<String> texts = [
-    "Deep clean AC Service",
-    "Cleaning",
-    "Repair",
-    "Install"
-  ];
+
 
   List<Result> OrderList = [];
 
@@ -561,6 +556,7 @@ class _Service_historyState extends State<Service_history> {
 
     }).catchError((Object error) {
 
+      print("Mano");
 
       print(error);
       setState(() {

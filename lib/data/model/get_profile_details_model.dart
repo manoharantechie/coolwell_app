@@ -52,8 +52,8 @@ class GetProfileResult {
   factory GetProfileResult.fromJson(Map<String, dynamic> json) => GetProfileResult(
     profilePic: json["profile_pic"],
     addressDefault: json["addressDefault"],
-    addressHome: Address.fromJson(json["addressHome"]),
-    addressOther: List<Address>.from(json["addressOther"].map((x) => Address.fromJson(x))),
+    addressHome: json["addressHome"]==null || json["addressHome"]=="null"?Address():Address.fromJson(json["addressHome"]),
+    addressOther: json["addressOther"]==null || json["addressOther"]=="null"?[]:List<Address>.from(json["addressOther"].map((x) => Address.fromJson(x))),
     id: json["_id"],
     name: json["name"],
     email: json["email"],

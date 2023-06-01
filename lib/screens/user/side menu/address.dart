@@ -284,7 +284,6 @@ class _Address_Details_ScreenState extends State<Address_Details_Screen> {
                   top: MediaQuery.of(context).size.height * 0.1),
               child: otherAddressList.length >0 ? ListView.builder(
                 padding: EdgeInsets.zero,
-                reverse: true,
                 itemCount: otherAddressList.length,
                 scrollDirection: Axis.vertical,
                 shrinkWrap: true,
@@ -341,7 +340,7 @@ class _Address_Details_ScreenState extends State<Address_Details_Screen> {
                                  TextOverflow
                                      .ellipsis,
                                ),
-                               otherAddressList.length-1==index ? Container() :Container(
+                               0==index ? Container() :Container(
                                  padding: EdgeInsets.all(5.0),
                                  decoration: BoxDecoration(
                                    borderRadius: BorderRadius.circular(5.0),
@@ -495,8 +494,11 @@ class _Address_Details_ScreenState extends State<Address_Details_Screen> {
             zip=details!.addressHome!.zip.toString();
             mobileNo=details!.phone.toString();
             otherAddressList = details!.addressOther!;
-            otherAddressList.add(loginData.result!.addressHome!);
-            print(otherAddressList.length);
+            if(loginData.result!.addressHome!.address.toString() !="null"){
+              otherAddressList.add(loginData.result!.addressHome!);
+            }
+
+            otherAddressList=otherAddressList.reversed.toList();
 
           });
           // CustomWidget(context: context).
