@@ -186,7 +186,7 @@ class APIUtils {
 
     final response = await http.get(Uri.parse(baseURL + profileUpdateURL),
         headers: requestHeaders);
-    print(response.body + " jeeva");
+    // print(response.body + " jeeva");
     return GetProfileDetailsModel.fromJson(json.decode(response.body));
   }
 
