@@ -334,7 +334,7 @@ class _DashBoard_ScreenState extends State<DashBoard_Screen> {
                                         setState(() {
                                           Navigator.of(context).push(MaterialPageRoute(
                                               builder: (context) =>
-                                                  Service_Screen()));
+                                                  Service_Details_Screen(S_id: totalService[index].id.toString() )));
                                         });
 
                                       },
