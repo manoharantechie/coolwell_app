@@ -232,7 +232,7 @@ class _SignIn_ScreenState extends State<SignIn_Screen> {
                           children: [
                             Container(
                                 padding: const EdgeInsets.only(
-                                    left: 10.0, right: 10.0, top: 12.5, bottom: 12.5),
+                                    left: 10.0, right: 10.0, top: 13.0, bottom: 14.0),
                                 decoration: BoxDecoration(
                                   border: Border.all(
                                       color: Theme.of(context).dividerColor,
@@ -690,6 +690,7 @@ class _SignIn_ScreenState extends State<SignIn_Screen> {
     if (country != null) {
       setState(() {
         _selectedCountry = country;
+        countryB=true;
       });
     }
   }

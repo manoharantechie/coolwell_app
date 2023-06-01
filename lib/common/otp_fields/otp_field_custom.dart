@@ -142,10 +142,7 @@ class _OTPTextFieldState extends State<OTPTextField> {
     );
   }
 
-  /// This function Build and returns individual TextField item.
-  ///
-  /// * Requires a build context
-  /// * Requires Int position of the field
+
   Widget buildTextField(BuildContext context, int index) {
     FocusNode? focusNode = _focusNodes[index];
     TextEditingController? textEditingController = _textControllers[index];

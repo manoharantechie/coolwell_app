@@ -129,6 +129,18 @@ class APIUtils {
     print(response.body);
     return CommonModel.fromJson(json.decode(response.body));
   }
+  Future<Login> loginWithOTP(String email, String otp) async {
+
+    var phonebodyData = {
+      'gmail': "null",
+      'otp': otp,
+      'phone': email,
+    };
+    final response = await http.post(Uri.parse(baseURL + activateURL),
+        body: phonebodyData);
+    print(response.body);
+    return Login.fromJson(json.decode(response.body));
+  }
 
   Future<CommonModel> updateProfileDetails(
       String name, String profileImage) async {

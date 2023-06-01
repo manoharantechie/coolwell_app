@@ -1,6 +1,8 @@
 import 'package:coolwell_app/common/country.dart';
 import 'package:coolwell_app/common/text_field_custom_prefix.dart';
 import 'package:coolwell_app/common/theme/custom_theme.dart';
+import 'package:coolwell_app/data/model/register.dart';
+import 'package:coolwell_app/screens/user/basics/onboard/verify_mobile.dart';
 import 'package:coolwell_app/screens/user/profile/location_Screen.dart';
 import 'package:coolwell_app/screens/user/basics/onboard/forgot_pass.dart';
 import 'package:country_calling_code_picker/country.dart';
@@ -503,67 +505,72 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
 
           Row(
             children: [
-              Container(
-                  padding: const EdgeInsets.only(
-                      left: 10.0, right: 10.0, top: 12.5, bottom: 12.5),
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                        color: Theme.of(context).dividerColor,
-                        width: 1.0),
-                    color: CustomTheme.of(context)
-                        .focusColor,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(5.0),
-                      bottomLeft: Radius.circular(5.0),
+              InkWell(
+                onTap: (){
+                  _onPressedShowBottomSheet();
+                },
+                child: Container(
+                    padding: const EdgeInsets.only(
+                        left: 10.0, right: 10.0, top: 13.0, bottom: 14.0),
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                          color: Theme.of(context).dividerColor,
+                          width: 1.0),
+                      color: CustomTheme.of(context)
+                          .focusColor,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(5.0),
+                        bottomLeft: Radius.circular(5.0),
+                      ),
                     ),
-                  ),
-                  child: Row(
-                    children: [
-                      InkWell(
-                        onTap: (){
-                          setState(() {
-                            _onPressedShowBottomSheet();
-                          });
-                        },
-                        child: Row(
-                          children: [
-                            countryB
-                                ? Image.asset(
-                              _selectedCountry!.flag.toString(),
-                              package:
-                              "country_calling_code_picker",
-                              height: 15.0,
-                              width: 25.0,
-                            )
-                                : Container(
-                              width: 0.0,
-                            ),
-                            Text(
+                    child: Row(
+                      children: [
+                        InkWell(
+                          onTap: (){
+                            setState(() {
+                              _onPressedShowBottomSheet();
+                            });
+                          },
+                          child: Row(
+                            children: [
                               countryB
-                                  ? _selectedCountry!.callingCode.toString()
-                                  : "+1",
-                              style: CustomWidget(context: context)
-                                  .CustomTextStyle(
-                                  Theme.of(context).primaryColor,
-                                  FontWeight.normal,
-                                  'FontRegular'),
-                            ),
-                            const SizedBox(
-                              width: 3.0,
-                            ),
-                            // Icon(
-                            //   Icons.keyboard_arrow_down_outlined,
-                            //   size: 15.0,
-                            //   color: Theme.of(context).dialogBackgroundColor,
-                            // )
-                          ],
+                                  ? Image.asset(
+                                _selectedCountry!.flag.toString(),
+                                package:
+                                "country_calling_code_picker",
+                                height: 15.0,
+                                width: 25.0,
+                              )
+                                  : Container(
+                                width: 0.0,
+                              ),
+                              Text(
+                                countryB
+                                    ? _selectedCountry!.callingCode.toString()
+                                    : "+1",
+                                style: CustomWidget(context: context)
+                                    .CustomTextStyle(
+                                    Theme.of(context).primaryColor,
+                                    FontWeight.normal,
+                                    'FontRegular'),
+                              ),
+                              const SizedBox(
+                                width: 3.0,
+                              ),
+                              // Icon(
+                              //   Icons.keyboard_arrow_down_outlined,
+                              //   size: 15.0,
+                              //   color: Theme.of(context).dialogBackgroundColor,
+                              // )
+                            ],
+                          ),
                         ),
-                      ),
-                      const SizedBox(
-                        width: 10.0,
-                      ),
-                    ],
-                  )),
+                        const SizedBox(
+                          width: 10.0,
+                        ),
+                      ],
+                    )),
+              ),
               Flexible(
                 child: TextFormField(
                   controller: mobile,
@@ -642,8 +649,10 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
               children: [
                 InkWell(
                   onTap: (){
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (context) => Login_Mobile_Otp_Screen()));
+                    setState(() {
+                      loading=true;
+                      doSentOTP();
+                    });
                   },
                   child: Container(
                     width: MediaQuery.of(context).size.width * 0.6,
@@ -752,6 +761,31 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
     });
   }
 
+  doSentOTP() {
+    apiUtils
+        .sendMobileOTP(_selectedCountry!.callingCode.toString()+mobile.text.toString())
+        .then((CommonModel loginData) {
+      if (loginData.success!) {
+        setState(() {
+          loading = false;
+        });
+        CustomWidget(context: context)
+            .custombar("Forgot Password", loginData.message.toString(), true);
+        Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (context) => Login_Mobile_Otp_Screen(mobile: _selectedCountry!.callingCode.toString()+mobile.text.toString(),)));
+      } else {
+        setState(() {
+          loading = false;
+          CustomWidget(context: context).custombar(
+              "Forgot Password", loginData.message.toString(), false);
+        });
+      }
+    }).catchError((Object error) {
+      setState(() {
+        loading = false;
+      });
+    });
+  }
 
   void _onPressedShowBottomSheet() async {
     final country = await showCountryPickerSheets(
@@ -760,6 +794,7 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
     if (country != null) {
       setState(() {
         _selectedCountry = country;
+        countryB=true;
       });
     }
   }

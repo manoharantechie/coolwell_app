@@ -52,7 +52,7 @@ Future<Country?> showCountryPickerSheets(BuildContext context,
   return showModalBottomSheet<Country?>(
       context: context,
       isScrollControlled: true,
-      backgroundColor:  Theme.of(context).cardColor.withOpacity(0.8),
+      backgroundColor:  Theme.of(context).shadowColor,
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(cornerRadius),
