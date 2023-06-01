@@ -501,8 +501,6 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
           ),
           SizedBox(height: 30.0,),
 
-
-
           Row(
             children: [
               InkWell(
