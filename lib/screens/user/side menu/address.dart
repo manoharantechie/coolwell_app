@@ -1,3 +1,4 @@
+import 'package:coolwell_app/data/model/register.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -551,7 +552,7 @@ class _Address_Details_ScreenState extends State<Address_Details_Screen> {
         else {
           loading = false;
           CustomWidget(context: context)
-              .custombar("Profile", loginData.message.toString(), false);
+              .custombar("Address", loginData.message.toString(), false);
 
         }
       });
@@ -576,6 +577,7 @@ class _Address_Details_ScreenState extends State<Address_Details_Screen> {
           return StatefulBuilder(
               builder: (BuildContext context, StateSetter ssetState) {
                 return Container(
+                  height: MediaQuery.of(context).size.height * 0.8,
                   margin: EdgeInsets.only(top: 5.0),
                   width: MediaQuery.of(context).size.width,
                   padding: EdgeInsets.only(
@@ -1187,7 +1189,7 @@ class _Address_Details_ScreenState extends State<Address_Details_Screen> {
                                                 if (emailformKey.currentState!.validate()) {
                                                   setState(() {
                                                     loading = true;
-                                                    // verifyMail();
+                                                    updateAddress();
                                                   });
                                                 }
                                               });
@@ -1233,6 +1235,45 @@ class _Address_Details_ScreenState extends State<Address_Details_Screen> {
                 );
               });
         });
+  }
+
+  updateAddress() {
+    apiUtils
+        .updateAddDetails((streetController.text.toString()+ addressController.text.toString()+addressLineController.text.toString()), cityController.text.toString(), zipController.text.toString())
+        .then((CommonModel loginData) {
+      setState(() {
+        if (loginData.success!) {
+          setState(() {
+            loading = false;
+          });
+          CustomWidget(context: context).
+          custombar("Address", loginData.message.toString(), true);
+
+          Navigator.of(context).pop();
+          addressDetails();
+          streetController.clear();
+          addressController.clear();
+          addressLineController.clear();
+          cityController.clear();
+          zipController.clear();
+
+        }
+        else {
+          loading = false;
+          CustomWidget(context: context)
+              .custombar("Address", loginData.message.toString(), false);
+
+        }
+      });
+
+    }).catchError((Object error) {
+
+
+      print(error);
+      setState(() {
+        loading = false;
+      });
+    });
   }
 
 }

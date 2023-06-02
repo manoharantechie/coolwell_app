@@ -74,7 +74,7 @@ class GetProfileResult {
 
 class Address {
   dynamic address;
-  City? city;
+  dynamic city;
   String? zip;
   String? longitude;
   String? latitude;
@@ -89,7 +89,7 @@ class Address {
 
   factory Address.fromJson(Map<String, dynamic> json) => Address(
     address: json["Address"],
-    city: cityValues.map[json["city"]],
+    city: json["city"],
     zip: json["zip"],
     longitude: json["longitude"],
     latitude: json["latitude"],
@@ -97,36 +97,10 @@ class Address {
 
   Map<String, dynamic> toJson() => {
     "Address": address,
-    "city": cityValues.reverse[city],
+    "city": city,
     "zip": zip,
     "longitude": longitude,
     "latitude": latitude,
   };
 }
 
-enum AddressEnum { XX99_M29_POLLACHI_MAIN_ROAD_KURICHI, THE_7554_SUTTON_LANE_DUBLIN, THE_1135_GILBERT_COURT_FREMONT }
-
-final addressEnumValues = EnumValues({
-  "1135,Gilbert Court,Fremont": AddressEnum.THE_1135_GILBERT_COURT_FREMONT,
-  "7554,Sutton Lane,Dublin": AddressEnum.THE_7554_SUTTON_LANE_DUBLIN,
-  "XX99+M29,Pollachi Main Road,Kurichi": AddressEnum.XX99_M29_POLLACHI_MAIN_ROAD_KURICHI
-});
-
-enum City { TAMIL_NADU, CALIFORNIA }
-
-final cityValues = EnumValues({
-  "California": City.CALIFORNIA,
-  "Tamil Nadu": City.TAMIL_NADU
-});
-
-class EnumValues<T> {
-  Map<String, T> map;
-  late Map<T, String> reverseMap;
-
-  EnumValues(this.map);
-
-  Map<T, String> get reverse {
-    reverseMap = map.map((k, v) => MapEntry(v, k));
-    return reverseMap;
-  }
-}

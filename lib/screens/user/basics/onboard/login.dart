@@ -72,23 +72,27 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
 
   getPermission() async {
     if (await Permission.location.request().isGranted) {
-      _getCurrentLocation();
+      _getCurrentLocation(true);
     } else {
       Map<Permission, PermissionStatus> statuses = await [
         Permission.location,
       ].request();
       if (statuses[Permission.location] == PermissionStatus.granted) {
-        _getCurrentLocation();
+        _getCurrentLocation(true);
       }
     }
   }
 
-  _getCurrentLocation() async {
+  _getCurrentLocation(bool check) async {
     await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high)
         .then((Position position) async {
       setState(() {
         lat = position.latitude;
         long = position.longitude;
+        if(!check)
+          {
+            verifyMail();
+          }
       });
     }).catchError((e) {
 
@@ -298,7 +302,9 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
                                 if (emailformKey.currentState!.validate()) {
                                   setState(() {
                                     loading = true;
-                                    verifyMail();
+
+
+                                    _getCurrentLocation(false);
                                   });
                                 }
                                 // Navigator.of(context).push(MaterialPageRoute(
@@ -740,9 +746,10 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
               loginData.result!.user!.name.toString());
 
 
+
               Navigator.of(context).pushReplacement(MaterialPageRoute(
                   builder: (context) =>
-                      LocationLoginScreen()));
+                      LocationLoginScreen(lat: lat,long: long,)));
                       // Location_Screen(lat: lat,long: long,)));
 
 

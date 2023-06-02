@@ -1278,371 +1278,371 @@ class _Service_Details_ScreenState extends State<Service_Details_Screen> {
                 right: 15.0,
                 left: 15.0,
               ),
-              child: SingleChildScrollView(
-                controller: controller,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(
-                      height: 8.0,
-                    ),
-                    Center(
-                      child: GestureDetector(
-                        onTap: () {
-                          ssetState(() {
-                            Navigator.pop(context);
-                          });
-                        },
-                        child: Container(
-                          alignment: Alignment.center,
-                          width: 86.0,
-                          height: 3.0,
-                          color: Theme.of(context).backgroundColor,
+              child: Stack(
+                children: [
+                  SingleChildScrollView(
+                    controller: controller,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(
+                          height: 8.0,
                         ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 20.0,
-                    ),
-                    Align(
-                      alignment: Alignment.center,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Container(
-                            padding: EdgeInsets.all(3.0),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10.0),
-                                // image: DecorationImage(
-                                //   image: NetworkImage(details.coverImage.toString()),
-                                //   fit: BoxFit.cover,
-                                // ),
-                                border: Border.all(
-                                  width: 1.0,
-                                  color: Theme.of(context).cardColor,
-                                )),
-                            child: Image.network(
-                              details.category!.image.toString(),
-                              height: 160.0,
-                              fit: BoxFit.cover,
+                        Center(
+                          child: GestureDetector(
+                            onTap: () {
+                              ssetState(() {
+                                Navigator.pop(context);
+                              });
+                            },
+                            child: Container(
+                              alignment: Alignment.center,
+                              width: 86.0,
+                              height: 3.0,
+                              color: Theme.of(context).backgroundColor,
                             ),
                           ),
-                          SizedBox(
-                            height: 25.0,
-                          ),
-                          Container(
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  details.serviceName.toString(),
-                                  style: CustomWidget(context: context)
-                                      .CustomSizedTextStyle(
+                        ),
+                        SizedBox(
+                          height: 20.0,
+                        ),
+                        Align(
+                          alignment: Alignment.center,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Container(
+                                padding: EdgeInsets.all(3.0),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    // image: DecorationImage(
+                                    //   image: NetworkImage(details.coverImage.toString()),
+                                    //   fit: BoxFit.cover,
+                                    // ),
+                                    border: Border.all(
+                                      width: 1.0,
+                                      color: Theme.of(context).cardColor,
+                                    )),
+                                child: Image.network(
+                                  details.category!.image.toString(),
+                                  height: 160.0,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 25.0,
+                              ),
+                              Container(
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      details.serviceName.toString(),
+                                      style: CustomWidget(context: context)
+                                          .CustomSizedTextStyle(
                                           18.0,
                                           Theme.of(context).primaryColor,
                                           FontWeight.w600,
                                           'FontRegular'),
-                                  textAlign: TextAlign.center,
-                                ),
-                                InkWell(
-                                  onTap: () {
-                                    ssetState(() {
-                                      if (serviceAdd) {
-                                        serviceAdd = false;
-                                      } else {
-                                        serviceAdd = true;
-                                      }
-
-                                      setState(() {
-                                        selectedService.clear();
-                                        amount = "0";
-                                        if (selectedService.length > 0) {
-                                          if (selectedService.contains(
-                                              details.id.toString())) {
-                                            selectedService
-                                                .remove(details.id.toString());
-                                            amount = (double.parse(amount) -
-                                                    double.parse(details.amount
-                                                        .toString()))
-                                                .toString();
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    InkWell(
+                                      onTap: () {
+                                        ssetState(() {
+                                          if (serviceAdd) {
+                                            serviceAdd = false;
                                           } else {
-                                            selectedService
-                                                .add(details.id.toString());
-                                            addedServiceDetails = details;
-                                            amount = (double.parse(amount) +
+                                            serviceAdd = true;
+                                          }
+
+                                          setState(() {
+                                            selectedService.clear();
+                                            amount = "0";
+                                            if (selectedService.length > 0) {
+                                              if (selectedService.contains(
+                                                  details.id.toString())) {
+                                                selectedService
+                                                    .remove(details.id.toString());
+                                                amount = (double.parse(amount) -
                                                     double.parse(details.amount
                                                         .toString()))
-                                                .toString();
-                                          }
-                                        } else {
-                                          addedServiceDetails = details;
-                                          selectedService
-                                              .add(details.id.toString());
-                                          amount = (double.parse(amount) +
+                                                    .toString();
+                                              } else {
+                                                selectedService
+                                                    .add(details.id.toString());
+                                                addedServiceDetails = details;
+                                                amount = (double.parse(amount) +
+                                                    double.parse(details.amount
+                                                        .toString()))
+                                                    .toString();
+                                              }
+                                            } else {
+                                              addedServiceDetails = details;
+                                              selectedService
+                                                  .add(details.id.toString());
+                                              amount = (double.parse(amount) +
                                                   double.parse(details.amount
                                                       .toString()))
-                                              .toString();
-                                        }
-                                      });
-                                    });
-                                  },
-                                  child: Container(
-                                    padding: EdgeInsets.fromLTRB(
-                                        10.0, 5.0, 10.0, 5.0),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(15.0),
-                                      gradient: LinearGradient(
-                                        begin: Alignment.topLeft,
-                                        end: Alignment.bottomRight,
-                                        colors: [
-                                          const Color(0xFF0DD8FF),
-                                          const Color(0xFF0FABFF),
-                                          const Color(0xFF1457FF),
-                                          const Color(0xFF1636FF),
-                                          const Color(0xFF0E69C7),
-                                        ],
-                                      ),
-                                    ),
-                                    child: Row(
-                                      crossAxisAlignment:
+                                                  .toString();
+                                            }
+                                          });
+                                        });
+                                      },
+                                      child: Container(
+                                        padding: EdgeInsets.fromLTRB(
+                                            10.0, 5.0, 10.0, 5.0),
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(15.0),
+                                          gradient: LinearGradient(
+                                            begin: Alignment.topLeft,
+                                            end: Alignment.bottomRight,
+                                            colors: [
+                                              const Color(0xFF0DD8FF),
+                                              const Color(0xFF0FABFF),
+                                              const Color(0xFF1457FF),
+                                              const Color(0xFF1636FF),
+                                              const Color(0xFF0E69C7),
+                                            ],
+                                          ),
+                                        ),
+                                        child: Row(
+                                          crossAxisAlignment:
                                           CrossAxisAlignment.center,
-                                      mainAxisAlignment:
+                                          mainAxisAlignment:
                                           MainAxisAlignment.center,
-                                      children: [
-                                        SvgPicture.asset(
-                                          "assets/images/tools.svg",
-                                          color: Theme.of(context).focusColor,
-                                          height: 15.0,
-                                        ),
-                                        SizedBox(
-                                          width: 5.0,
-                                        ),
-                                        Text(
-                                          serviceAdd
-                                              ? AppLocalizations.instance
+                                          children: [
+                                            SvgPicture.asset(
+                                              "assets/images/tools.svg",
+                                              color: Theme.of(context).focusColor,
+                                              height: 15.0,
+                                            ),
+                                            SizedBox(
+                                              width: 5.0,
+                                            ),
+                                            Text(
+                                              serviceAdd
+                                                  ? AppLocalizations.instance
                                                   .text("loc_remove")
-                                              : AppLocalizations.instance
+                                                  : AppLocalizations.instance
                                                   .text("loc_add"),
-                                          style: CustomWidget(context: context)
-                                              .CustomSizedTextStyle(
+                                              style: CustomWidget(context: context)
+                                                  .CustomSizedTextStyle(
                                                   10.0,
                                                   Theme.of(context).focusColor,
                                                   FontWeight.w600,
                                                   'FontRegular'),
-                                          textAlign: TextAlign.center,
+                                              textAlign: TextAlign.center,
+                                            ),
+                                          ],
                                         ),
-                                      ],
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                          SizedBox(
-                            height: 5.0,
-                          ),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.star,
-                                size: 15.0,
-                                color: Theme.of(context).cardColor,
+                                      ),
+                                    )
+                                  ],
+                                ),
                               ),
                               SizedBox(
-                                width: 5.0,
-                              ),
-                              Text(
-                                "4.81 (1.2M)",
-                                style: CustomWidget(context: context)
-                                    .CustomSizedTextStyle(
-                                        10.0,
-                                        Theme.of(context).primaryColor,
-                                        FontWeight.w400,
-                                        'FontRegular'),
-                                textAlign: TextAlign.center,
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 5.0,
-                          ),
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text(
-                                "₹" + details.amount.toString(),
-                                style: CustomWidget(context: context)
-                                    .CustomSizedTextStyle(
-                                        13.0,
-                                        Theme.of(context).primaryColor,
-                                        FontWeight.w800,
-                                        'FontRegular'),
-                                textAlign: TextAlign.center,
-                              ),
-                              SizedBox(
-                                width: 10.0,
-                              ),
-                              Text(
-                                "₹649",
-                                style: TextStyle(
-                                    fontSize: 10.0,
-                                    decoration: TextDecoration.lineThrough,
-                                    fontWeight: FontWeight.w600,
-                                    color:
-                                        Theme.of(context).dialogBackgroundColor,
-                                    fontStyle: FontStyle.normal),
-                                textAlign: TextAlign.center,
-                              ),
-                              SizedBox(
-                                width: 20.0,
+                                height: 5.0,
                               ),
                               Row(
                                 crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: Theme.of(context).primaryColor,
-                                    ),
-                                    width: 2.0,
-                                    height: 2.0,
+                                  Icon(
+                                    Icons.star,
+                                    size: 15.0,
+                                    color: Theme.of(context).cardColor,
                                   ),
                                   SizedBox(
                                     width: 5.0,
                                   ),
                                   Text(
-                                    // "45 mins",
-                                    details.time.toString(),
+                                    "4.81 (1.2M)",
                                     style: CustomWidget(context: context)
                                         .CustomSizedTextStyle(
+                                        10.0,
+                                        Theme.of(context).primaryColor,
+                                        FontWeight.w400,
+                                        'FontRegular'),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ],
+                              ),
+                              SizedBox(
+                                height: 5.0,
+                              ),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    "₹" + details.amount.toString(),
+                                    style: CustomWidget(context: context)
+                                        .CustomSizedTextStyle(
+                                        13.0,
+                                        Theme.of(context).primaryColor,
+                                        FontWeight.w800,
+                                        'FontRegular'),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  SizedBox(
+                                    width: 10.0,
+                                  ),
+                                  Text(
+                                    "₹649",
+                                    style: TextStyle(
+                                        fontSize: 10.0,
+                                        decoration: TextDecoration.lineThrough,
+                                        fontWeight: FontWeight.w600,
+                                        color:
+                                        Theme.of(context).dialogBackgroundColor,
+                                        fontStyle: FontStyle.normal),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  SizedBox(
+                                    width: 20.0,
+                                  ),
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: Theme.of(context).primaryColor,
+                                        ),
+                                        width: 2.0,
+                                        height: 2.0,
+                                      ),
+                                      SizedBox(
+                                        width: 5.0,
+                                      ),
+                                      Text(
+                                        // "45 mins",
+                                        details.time.toString(),
+                                        style: CustomWidget(context: context)
+                                            .CustomSizedTextStyle(
                                             10.0,
                                             Theme.of(context).primaryColor,
                                             FontWeight.w400,
                                             'FontRegular'),
-                                    textAlign: TextAlign.center,
-                                  ),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ],
+                                  )
                                 ],
-                              )
-                            ],
-                          ),
-                          SizedBox(
-                            height: 10.0,
-                          ),
-                          DottedLine(
-                            dashColor: Theme.of(context).dialogBackgroundColor,
-                          ),
-                          SizedBox(
-                            height: 25.0,
-                          ),
-                          Container(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  AppLocalizations.instance
-                                      .text("loc_service_coolwell"),
-                                  style: CustomWidget(context: context)
-                                      .CustomSizedTextStyle(
+                              ),
+                              SizedBox(
+                                height: 10.0,
+                              ),
+                              DottedLine(
+                                dashColor: Theme.of(context).dialogBackgroundColor,
+                              ),
+                              SizedBox(
+                                height: 25.0,
+                              ),
+                              Container(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      AppLocalizations.instance
+                                          .text("loc_service_coolwell"),
+                                      style: CustomWidget(context: context)
+                                          .CustomSizedTextStyle(
                                           14.0,
                                           Theme.of(context).primaryColor,
                                           FontWeight.w800,
                                           'FontRegular'),
-                                  textAlign: TextAlign.start,
-                                ),
-                                SizedBox(
-                                  height: 10.0,
-                                ),
-                                Container(
-                                  height: 85.0,
-                                  child: ListView.builder(
-                                    itemCount: text_drop.length,
-                                    scrollDirection: Axis.horizontal,
-                                    shrinkWrap: true,
-                                    controller: _scrollController,
-                                    itemBuilder:
-                                        (BuildContext context, int index) {
-                                      return Row(
-                                        children: [
-                                          Container(
-                                            width: MediaQuery.of(context)
+                                      textAlign: TextAlign.start,
+                                    ),
+                                    SizedBox(
+                                      height: 10.0,
+                                    ),
+                                    Container(
+                                      height: 85.0,
+                                      child: ListView.builder(
+                                        itemCount: text_drop.length,
+                                        scrollDirection: Axis.horizontal,
+                                        shrinkWrap: true,
+                                        controller: _scrollController,
+                                        itemBuilder:
+                                            (BuildContext context, int index) {
+                                          return Row(
+                                            children: [
+                                              Container(
+                                                width: MediaQuery.of(context)
                                                     .size
                                                     .width *
-                                                0.45,
-                                            padding: EdgeInsets.fromLTRB(
-                                                15.0, 10.0, 15.0, 10.0),
-                                            decoration: BoxDecoration(
-                                                borderRadius:
+                                                    0.45,
+                                                padding: EdgeInsets.fromLTRB(
+                                                    15.0, 10.0, 15.0, 10.0),
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
                                                     BorderRadius.circular(10.0),
-                                                color: Color(0xFF0DD8FF)
-                                                    .withOpacity(0.5)),
-                                            child: Row(
-                                              crossAxisAlignment:
+                                                    color: Color(0xFF0DD8FF)
+                                                        .withOpacity(0.5)),
+                                                child: Row(
+                                                  crossAxisAlignment:
                                                   CrossAxisAlignment.start,
-                                              mainAxisAlignment:
+                                                  mainAxisAlignment:
                                                   MainAxisAlignment
                                                       .spaceBetween,
-                                              children: [
-                                                Flexible(
-                                                    child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
                                                   children: [
-                                                    Text(
-                                                      text_drop[index]
-                                                          .toString(),
-                                                      style: CustomWidget(
-                                                              context: context)
-                                                          .CustomSizedTextStyle(
-                                                              10.0,
-                                                              Theme.of(context)
-                                                                  .primaryColor,
-                                                              FontWeight.w500,
-                                                              'FontRegular'),
+                                                    Flexible(
+                                                        child: Column(
+                                                          crossAxisAlignment:
+                                                          CrossAxisAlignment.start,
+                                                          children: [
+                                                            Text(
+                                                              text_drop[index]
+                                                                  .toString(),
+                                                              style: CustomWidget(
+                                                                  context: context)
+                                                                  .CustomSizedTextStyle(
+                                                                  10.0,
+                                                                  Theme.of(context)
+                                                                      .primaryColor,
+                                                                  FontWeight.w500,
+                                                                  'FontRegular'),
+                                                            ),
+                                                          ],
+                                                        )),
+                                                    SizedBox(
+                                                      width: 5.0,
+                                                    ),
+                                                    Flexible(
+                                                      child: Image.asset(
+                                                          "assets/images/service_man.png"),
+                                                      flex: 1,
                                                     ),
                                                   ],
-                                                )),
-                                                SizedBox(
-                                                  width: 5.0,
                                                 ),
-                                                Flexible(
-                                                  child: Image.asset(
-                                                      "assets/images/service_man.png"),
-                                                  flex: 1,
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            width: 15.0,
-                                          )
-                                        ],
-                                      );
-                                    },
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                          SizedBox(
-                            height: 20.0,
-                          ),
-                          Container(
-                            height: 1.0,
-                            color: Theme.of(context).dialogBackgroundColor,
-                          ),
-                          SizedBox(
-                            height: 20.0,
-                          ),
-                          Container(
-                            child: Stack(
-                              children: [
-                                Column(
+                                              ),
+                                              SizedBox(
+                                                width: 15.0,
+                                              )
+                                            ],
+                                          );
+                                        },
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                              SizedBox(
+                                height: 20.0,
+                              ),
+                              Container(
+                                height: 1.0,
+                                color: Theme.of(context).dialogBackgroundColor,
+                              ),
+                              SizedBox(
+                                height: 20.0,
+                              ),
+                              Container(
+                                child:  Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
@@ -1651,34 +1651,34 @@ class _Service_Details_ScreenState extends State<Service_Details_Screen> {
                                         Flexible(
                                           child: Container(
                                             width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
+                                                .size
+                                                .width *
                                                 0.45,
                                             padding: EdgeInsets.fromLTRB(
                                                 15.0, 10.0, 15.0, 10.0),
                                             decoration: BoxDecoration(
                                                 borderRadius:
-                                                    BorderRadius.circular(10.0),
+                                                BorderRadius.circular(10.0),
                                                 color: Color(0xFF0DD8FF)
                                                     .withOpacity(0.5)),
                                             child: Column(
                                               crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                              CrossAxisAlignment.start,
                                               children: [
                                                 Text(
                                                   "CW verified repair quotes",
                                                   style: CustomWidget(
-                                                          context: context)
+                                                      context: context)
                                                       .CustomSizedTextStyle(
-                                                          14.0,
-                                                          Theme.of(context)
-                                                              .primaryColor,
-                                                          FontWeight.w600,
-                                                          'FontRegular'),
+                                                      14.0,
+                                                      Theme.of(context)
+                                                          .primaryColor,
+                                                      FontWeight.w600,
+                                                      'FontRegular'),
                                                 ),
                                                 Align(
                                                   alignment:
-                                                      Alignment.bottomRight,
+                                                  Alignment.bottomRight,
                                                   child: SvgPicture.asset(
                                                       "assets/images/verify.svg"),
                                                 )
@@ -1693,34 +1693,34 @@ class _Service_Details_ScreenState extends State<Service_Details_Screen> {
                                         Flexible(
                                           child: Container(
                                             width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
+                                                .size
+                                                .width *
                                                 0.45,
                                             padding: EdgeInsets.fromLTRB(
                                                 15.0, 10.0, 15.0, 10.0),
                                             decoration: BoxDecoration(
                                                 borderRadius:
-                                                    BorderRadius.circular(10.0),
+                                                BorderRadius.circular(10.0),
                                                 color: Color(0xFF0DD8FF)
                                                     .withOpacity(0.5)),
                                             child: Column(
                                               crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                              CrossAxisAlignment.start,
                                               children: [
                                                 Text(
                                                   "Talk to expert \nfree",
                                                   style: CustomWidget(
-                                                          context: context)
+                                                      context: context)
                                                       .CustomSizedTextStyle(
-                                                          14.0,
-                                                          Theme.of(context)
-                                                              .primaryColor,
-                                                          FontWeight.w600,
-                                                          'FontRegular'),
+                                                      14.0,
+                                                      Theme.of(context)
+                                                          .primaryColor,
+                                                      FontWeight.w600,
+                                                      'FontRegular'),
                                                 ),
                                                 Align(
                                                   alignment:
-                                                      Alignment.bottomRight,
+                                                  Alignment.bottomRight,
                                                   child: SvgPicture.asset(
                                                       "assets/images/customer.svg"),
                                                 )
@@ -1739,34 +1739,34 @@ class _Service_Details_ScreenState extends State<Service_Details_Screen> {
                                         Flexible(
                                           child: Container(
                                             width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
+                                                .size
+                                                .width *
                                                 0.45,
                                             padding: EdgeInsets.fromLTRB(
                                                 15.0, 10.0, 15.0, 10.0),
                                             decoration: BoxDecoration(
                                                 borderRadius:
-                                                    BorderRadius.circular(10.0),
+                                                BorderRadius.circular(10.0),
                                                 color: Color(0xFF0DD8FF)
                                                     .withOpacity(0.5)),
                                             child: Column(
                                               crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                              CrossAxisAlignment.start,
                                               children: [
                                                 Text(
                                                   "Upto 30 days\nwarranty ",
                                                   style: CustomWidget(
-                                                          context: context)
+                                                      context: context)
                                                       .CustomSizedTextStyle(
-                                                          14.0,
-                                                          Theme.of(context)
-                                                              .primaryColor,
-                                                          FontWeight.w600,
-                                                          'FontRegular'),
+                                                      14.0,
+                                                      Theme.of(context)
+                                                          .primaryColor,
+                                                      FontWeight.w600,
+                                                      'FontRegular'),
                                                 ),
                                                 Align(
                                                   alignment:
-                                                      Alignment.bottomRight,
+                                                  Alignment.bottomRight,
                                                   child: SvgPicture.asset(
                                                       "assets/images/certificate.svg"),
                                                 )
@@ -1781,34 +1781,34 @@ class _Service_Details_ScreenState extends State<Service_Details_Screen> {
                                         Flexible(
                                           child: Container(
                                             width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
+                                                .size
+                                                .width *
                                                 0.45,
                                             padding: EdgeInsets.fromLTRB(
                                                 15.0, 10.0, 15.0, 10.0),
                                             decoration: BoxDecoration(
                                                 borderRadius:
-                                                    BorderRadius.circular(10.0),
+                                                BorderRadius.circular(10.0),
                                                 color: Color(0xFF0DD8FF)
                                                     .withOpacity(0.5)),
                                             child: Column(
                                               crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
+                                              CrossAxisAlignment.start,
                                               children: [
                                                 Text(
                                                   "No questions/nasked claim",
                                                   style: CustomWidget(
-                                                          context: context)
+                                                      context: context)
                                                       .CustomSizedTextStyle(
-                                                          14.0,
-                                                          Theme.of(context)
-                                                              .primaryColor,
-                                                          FontWeight.w600,
-                                                          'FontRegular'),
+                                                      14.0,
+                                                      Theme.of(context)
+                                                          .primaryColor,
+                                                      FontWeight.w600,
+                                                      'FontRegular'),
                                                 ),
                                                 Align(
                                                   alignment:
-                                                      Alignment.bottomRight,
+                                                  Alignment.bottomRight,
                                                   child: SvgPicture.asset(
                                                       "assets/images/doller.svg"),
                                                 )
@@ -1821,313 +1821,314 @@ class _Service_Details_ScreenState extends State<Service_Details_Screen> {
                                     ),
                                   ],
                                 ),
-                                serviceAdd
-                                    ? Align(
-                                        alignment: Alignment.bottomCenter,
-                                        child: InkWell(
-                                          onTap: () {
-                                            Navigator.of(context).push(
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        Slot_Screen(
-                                                          addedServiceDetails:
-                                                              addedServiceDetails!,
-                                                        )));
-                                          },
-                                          child: Container(
-                                            margin: EdgeInsets.only(top: 170.0),
-                                            padding: EdgeInsets.fromLTRB(
-                                                20.0, 10.0, 20.0, 10.0),
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(30.0),
-                                              color:
-                                                  Theme.of(context).shadowColor,
+                              ),
+                              SizedBox(
+                                height: 20.0,
+                              ),
+                              Container(
+                                padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
+                                decoration: BoxDecoration(
+                                    color: Theme.of(context).focusColor,
+                                    boxShadow: [
+                                      BoxShadow(
+                                          color: Theme.of(context).splashColor,
+                                          blurRadius: 10.0,
+                                          offset: Offset(0.0, 0.5)),
+                                    ]),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      AppLocalizations.instance
+                                          .text("loc_service_note"),
+                                      style: CustomWidget(context: context)
+                                          .CustomSizedTextStyle(
+                                          14.0,
+                                          Theme.of(context).primaryColor,
+                                          FontWeight.w800,
+                                          'FontRegular'),
+                                      textAlign: TextAlign.start,
+                                    ),
+                                    SizedBox(
+                                      height: 10.0,
+                                    ),
+                                    TextFormFieldCustom(
+                                      onEditComplete: () {
+                                        issuesFocus.unfocus();
+                                        // FocusScope.of(context).requestFocus(phoneNumFocus);
+                                      },
+                                      radius: 6.0,
+                                      error: "Enter Full Name",
+                                      textColor: Theme.of(context).primaryColor,
+                                      borderColor: Theme.of(context).dividerColor,
+                                      fillColor: Theme.of(context)
+                                          .focusColor
+                                          .withOpacity(0.6),
+                                      hintStyle: CustomWidget(context: context)
+                                          .CustomSizedTextStyle(
+                                          14.0,
+                                          Theme.of(context).primaryColor,
+                                          FontWeight.w400,
+                                          'FontRegular'),
+                                      textStyle: CustomWidget(context: context)
+                                          .CustomSizedTextStyle(
+                                          14.0,
+                                          Theme.of(context).primaryColor,
+                                          FontWeight.w400,
+                                          'FontRegular'),
+                                      textInputAction: TextInputAction.next,
+                                      focusNode: issuesFocus,
+                                      maxlines: 6,
+                                      text: '',
+                                      hintText: "Explain your issues",
+                                      obscureText: false,
+                                      textChanged: (value) {},
+                                      onChanged: () {},
+                                      suffix: Container(
+                                        width: 0.0,
+                                      ),
+                                      validator: (value) {},
+                                      enabled: true,
+                                      textInputType: TextInputType.text,
+                                      controller: issuesController,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(
+                                height: 20.0,
+                              ),
+                              Container(
+                                width: MediaQuery.of(context).size.width,
+                                decoration: BoxDecoration(
+                                    color: Theme.of(context).focusColor,
+                                    boxShadow: [
+                                      BoxShadow(
+                                          color: Theme.of(context).splashColor,
+                                          blurRadius: 10.0,
+                                          offset: Offset(0.0, 0.5)),
+                                    ]),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    SizedBox(
+                                      height: 10.0,
+                                    ),
+                                    Text(
+                                      AppLocalizations.instance.text("loc_faq"),
+                                      style: CustomWidget(context: context)
+                                          .CustomSizedTextStyle(
+                                          14.0,
+                                          Theme.of(context).primaryColor,
+                                          FontWeight.w800,
+                                          'FontRegular'),
+                                      textAlign: TextAlign.start,
+                                    ),
+                                    SizedBox(
+                                      height: 10.0,
+                                    ),
+                                    ListTileTheme(
+                                      contentPadding: EdgeInsets.all(0),
+                                      child: Column(
+                                        children: [
+                                          ExpansionTile(
+                                            title: Text(
+                                              'Lorem ipsum dolor sit amet consectetur. Duis ?',
+                                              style: CustomWidget(context: context)
+                                                  .CustomSizedTextStyle(
+                                                  14.0,
+                                                  Theme.of(context)
+                                                      .primaryColor,
+                                                  FontWeight.w600,
+                                                  'FontRegular'),
+                                              textAlign: TextAlign.start,
                                             ),
-                                            child: Text(
-                                              AppLocalizations.instance
-                                                  .text("loc_proceed_book"),
-                                              style:
-                                                  CustomWidget(context: context)
-                                                      .CustomSizedTextStyle(
-                                                          14.0,
-                                                          Theme.of(context)
-                                                              .focusColor,
-                                                          FontWeight.w800,
-                                                          'FontRegular'),
-                                              textAlign: TextAlign.center,
-                                            ),
+                                            children: <Widget>[
+                                              ListTile(
+                                                  title: Text(
+                                                    'Lorem ipsum dolor sit amet consectetur. Pretium nulla lorem ultricies molestie sed euismod facilisis aliquet turpis. Tortor vitae ultricies condimentum sit. Vel diam ultrices ut felis duis potenti nunc lacinia. Et.',
+                                                    style:
+                                                    CustomWidget(context: context)
+                                                        .CustomSizedTextStyle(
+                                                        10.0,
+                                                        Theme.of(context)
+                                                            .primaryColor,
+                                                        FontWeight.w400,
+                                                        'FontRegular'),
+                                                    textAlign: TextAlign.start,
+                                                  )),
+                                            ],
                                           ),
-                                        ),
-                                      )
-                                    : Container()
-                              ],
-                            ),
-                          ),
-                          SizedBox(
-                            height: 20.0,
-                          ),
-                          Container(
-                            padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
-                            decoration: BoxDecoration(
-                                color: Theme.of(context).focusColor,
-                                boxShadow: [
-                                  BoxShadow(
-                                      color: Theme.of(context).splashColor,
-                                      blurRadius: 10.0,
-                                      offset: Offset(0.0, 0.5)),
-                                ]),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  AppLocalizations.instance
-                                      .text("loc_service_note"),
-                                  style: CustomWidget(context: context)
-                                      .CustomSizedTextStyle(
-                                          14.0,
-                                          Theme.of(context).primaryColor,
-                                          FontWeight.w800,
-                                          'FontRegular'),
-                                  textAlign: TextAlign.start,
-                                ),
-                                SizedBox(
-                                  height: 10.0,
-                                ),
-                                TextFormFieldCustom(
-                                  onEditComplete: () {
-                                    issuesFocus.unfocus();
-                                    // FocusScope.of(context).requestFocus(phoneNumFocus);
-                                  },
-                                  radius: 6.0,
-                                  error: "Enter Full Name",
-                                  textColor: Theme.of(context).primaryColor,
-                                  borderColor: Theme.of(context).dividerColor,
-                                  fillColor: Theme.of(context)
-                                      .focusColor
-                                      .withOpacity(0.6),
-                                  hintStyle: CustomWidget(context: context)
-                                      .CustomSizedTextStyle(
-                                          14.0,
-                                          Theme.of(context).primaryColor,
-                                          FontWeight.w400,
-                                          'FontRegular'),
-                                  textStyle: CustomWidget(context: context)
-                                      .CustomSizedTextStyle(
-                                          14.0,
-                                          Theme.of(context).primaryColor,
-                                          FontWeight.w400,
-                                          'FontRegular'),
-                                  textInputAction: TextInputAction.next,
-                                  focusNode: issuesFocus,
-                                  maxlines: 6,
-                                  text: '',
-                                  hintText: "Explain your issues",
-                                  obscureText: false,
-                                  textChanged: (value) {},
-                                  onChanged: () {},
-                                  suffix: Container(
-                                    width: 0.0,
-                                  ),
-                                  validator: (value) {},
-                                  enabled: true,
-                                  textInputType: TextInputType.text,
-                                  controller: issuesController,
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(
-                            height: 20.0,
-                          ),
-                          Container(
-                            width: MediaQuery.of(context).size.width,
-                            decoration: BoxDecoration(
-                                color: Theme.of(context).focusColor,
-                                boxShadow: [
-                                  BoxShadow(
-                                      color: Theme.of(context).splashColor,
-                                      blurRadius: 10.0,
-                                      offset: Offset(0.0, 0.5)),
-                                ]),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                SizedBox(
-                                  height: 10.0,
-                                ),
-                                Text(
-                                  AppLocalizations.instance.text("loc_faq"),
-                                  style: CustomWidget(context: context)
-                                      .CustomSizedTextStyle(
-                                          14.0,
-                                          Theme.of(context).primaryColor,
-                                          FontWeight.w800,
-                                          'FontRegular'),
-                                  textAlign: TextAlign.start,
-                                ),
-                                SizedBox(
-                                  height: 10.0,
-                                ),
-                                ListTileTheme(
-                                  contentPadding: EdgeInsets.all(0),
-                                  child: Column(
-                                    children: [
-                                      ExpansionTile(
-                                        title: Text(
-                                          'Lorem ipsum dolor sit amet consectetur. Duis ?',
-                                          style: CustomWidget(context: context)
-                                              .CustomSizedTextStyle(
+                                          ExpansionTile(
+                                            title: Text(
+                                              'Lorem ipsum dolor sit amet consectetur. Duis ?',
+                                              style: CustomWidget(context: context)
+                                                  .CustomSizedTextStyle(
                                                   14.0,
                                                   Theme.of(context)
                                                       .primaryColor,
                                                   FontWeight.w600,
                                                   'FontRegular'),
-                                          textAlign: TextAlign.start,
-                                        ),
-                                        children: <Widget>[
-                                          ListTile(
-                                              title: Text(
-                                            'Lorem ipsum dolor sit amet consectetur. Pretium nulla lorem ultricies molestie sed euismod facilisis aliquet turpis. Tortor vitae ultricies condimentum sit. Vel diam ultrices ut felis duis potenti nunc lacinia. Et.',
-                                            style:
-                                                CustomWidget(context: context)
-                                                    .CustomSizedTextStyle(
+                                              textAlign: TextAlign.start,
+                                            ),
+                                            children: <Widget>[
+                                              ListTile(
+                                                  title: Text(
+                                                    'Lorem ipsum dolor sit amet consectetur. Pretium nulla lorem ultricies molestie sed euismod facilisis aliquet turpis. Tortor vitae ultricies condimentum sit. Vel diam ultrices ut felis duis potenti nunc lacinia. Et.',
+                                                    style:
+                                                    CustomWidget(context: context)
+                                                        .CustomSizedTextStyle(
                                                         10.0,
                                                         Theme.of(context)
                                                             .primaryColor,
                                                         FontWeight.w400,
                                                         'FontRegular'),
-                                            textAlign: TextAlign.start,
-                                          )),
+                                                    textAlign: TextAlign.start,
+                                                  )),
+                                            ],
+                                          ),
+                                          ExpansionTile(
+                                            title: Text(
+                                              'Lorem ipsum dolor sit amet consectetur. Duis ?',
+                                              style: CustomWidget(context: context)
+                                                  .CustomSizedTextStyle(
+                                                  14.0,
+                                                  Theme.of(context)
+                                                      .primaryColor,
+                                                  FontWeight.w600,
+                                                  'FontRegular'),
+                                              textAlign: TextAlign.start,
+                                            ),
+                                            children: <Widget>[
+                                              ListTile(
+                                                  title: Text(
+                                                    'Lorem ipsum dolor sit amet consectetur. Pretium nulla lorem ultricies molestie sed euismod facilisis aliquet turpis. Tortor vitae ultricies condimentum sit. Vel diam ultrices ut felis duis potenti nunc lacinia. Et.',
+                                                    style:
+                                                    CustomWidget(context: context)
+                                                        .CustomSizedTextStyle(
+                                                        10.0,
+                                                        Theme.of(context)
+                                                            .primaryColor,
+                                                        FontWeight.w400,
+                                                        'FontRegular'),
+                                                    textAlign: TextAlign.start,
+                                                  )),
+                                            ],
+                                          ),
+                                          ExpansionTile(
+                                            title: Text(
+                                              'Lorem ipsum dolor sit amet consectetur. Duis ?',
+                                              style: CustomWidget(context: context)
+                                                  .CustomSizedTextStyle(
+                                                  14.0,
+                                                  Theme.of(context)
+                                                      .primaryColor,
+                                                  FontWeight.w600,
+                                                  'FontRegular'),
+                                              textAlign: TextAlign.start,
+                                            ),
+                                            children: <Widget>[
+                                              ListTile(
+                                                  title: Text(
+                                                    'Lorem ipsum dolor sit amet consectetur. Pretium nulla lorem ultricies molestie sed euismod facilisis aliquet turpis. Tortor vitae ultricies condimentum sit. Vel diam ultrices ut felis duis potenti nunc lacinia. Et.',
+                                                    style:
+                                                    CustomWidget(context: context)
+                                                        .CustomSizedTextStyle(
+                                                        10.0,
+                                                        Theme.of(context)
+                                                            .primaryColor,
+                                                        FontWeight.w400,
+                                                        'FontRegular'),
+                                                    textAlign: TextAlign.start,
+                                                  )),
+                                            ],
+                                          ),
+                                          ExpansionTile(
+                                            title: Text(
+                                              'Lorem ipsum dolor sit amet consectetur. Duis ?',
+                                              style: CustomWidget(context: context)
+                                                  .CustomSizedTextStyle(
+                                                  14.0,
+                                                  Theme.of(context)
+                                                      .primaryColor,
+                                                  FontWeight.w600,
+                                                  'FontRegular'),
+                                              textAlign: TextAlign.start,
+                                            ),
+                                            children: <Widget>[
+                                              ListTile(
+                                                  title: Text(
+                                                    'Lorem ipsum dolor sit amet consectetur. Pretium nulla lorem ultricies molestie sed euismod facilisis aliquet turpis. Tortor vitae ultricies condimentum sit. Vel diam ultrices ut felis duis potenti nunc lacinia. Et.',
+                                                    style:
+                                                    CustomWidget(context: context)
+                                                        .CustomSizedTextStyle(
+                                                        10.0,
+                                                        Theme.of(context)
+                                                            .primaryColor,
+                                                        FontWeight.w400,
+                                                        'FontRegular'),
+                                                    textAlign: TextAlign.start,
+                                                  )),
+                                            ],
+                                          )
                                         ],
                                       ),
-                                      ExpansionTile(
-                                        title: Text(
-                                          'Lorem ipsum dolor sit amet consectetur. Duis ?',
-                                          style: CustomWidget(context: context)
-                                              .CustomSizedTextStyle(
-                                                  14.0,
-                                                  Theme.of(context)
-                                                      .primaryColor,
-                                                  FontWeight.w600,
-                                                  'FontRegular'),
-                                          textAlign: TextAlign.start,
-                                        ),
-                                        children: <Widget>[
-                                          ListTile(
-                                              title: Text(
-                                            'Lorem ipsum dolor sit amet consectetur. Pretium nulla lorem ultricies molestie sed euismod facilisis aliquet turpis. Tortor vitae ultricies condimentum sit. Vel diam ultrices ut felis duis potenti nunc lacinia. Et.',
-                                            style:
-                                                CustomWidget(context: context)
-                                                    .CustomSizedTextStyle(
-                                                        10.0,
-                                                        Theme.of(context)
-                                                            .primaryColor,
-                                                        FontWeight.w400,
-                                                        'FontRegular'),
-                                            textAlign: TextAlign.start,
-                                          )),
-                                        ],
-                                      ),
-                                      ExpansionTile(
-                                        title: Text(
-                                          'Lorem ipsum dolor sit amet consectetur. Duis ?',
-                                          style: CustomWidget(context: context)
-                                              .CustomSizedTextStyle(
-                                                  14.0,
-                                                  Theme.of(context)
-                                                      .primaryColor,
-                                                  FontWeight.w600,
-                                                  'FontRegular'),
-                                          textAlign: TextAlign.start,
-                                        ),
-                                        children: <Widget>[
-                                          ListTile(
-                                              title: Text(
-                                            'Lorem ipsum dolor sit amet consectetur. Pretium nulla lorem ultricies molestie sed euismod facilisis aliquet turpis. Tortor vitae ultricies condimentum sit. Vel diam ultrices ut felis duis potenti nunc lacinia. Et.',
-                                            style:
-                                                CustomWidget(context: context)
-                                                    .CustomSizedTextStyle(
-                                                        10.0,
-                                                        Theme.of(context)
-                                                            .primaryColor,
-                                                        FontWeight.w400,
-                                                        'FontRegular'),
-                                            textAlign: TextAlign.start,
-                                          )),
-                                        ],
-                                      ),
-                                      ExpansionTile(
-                                        title: Text(
-                                          'Lorem ipsum dolor sit amet consectetur. Duis ?',
-                                          style: CustomWidget(context: context)
-                                              .CustomSizedTextStyle(
-                                                  14.0,
-                                                  Theme.of(context)
-                                                      .primaryColor,
-                                                  FontWeight.w600,
-                                                  'FontRegular'),
-                                          textAlign: TextAlign.start,
-                                        ),
-                                        children: <Widget>[
-                                          ListTile(
-                                              title: Text(
-                                            'Lorem ipsum dolor sit amet consectetur. Pretium nulla lorem ultricies molestie sed euismod facilisis aliquet turpis. Tortor vitae ultricies condimentum sit. Vel diam ultrices ut felis duis potenti nunc lacinia. Et.',
-                                            style:
-                                                CustomWidget(context: context)
-                                                    .CustomSizedTextStyle(
-                                                        10.0,
-                                                        Theme.of(context)
-                                                            .primaryColor,
-                                                        FontWeight.w400,
-                                                        'FontRegular'),
-                                            textAlign: TextAlign.start,
-                                          )),
-                                        ],
-                                      ),
-                                      ExpansionTile(
-                                        title: Text(
-                                          'Lorem ipsum dolor sit amet consectetur. Duis ?',
-                                          style: CustomWidget(context: context)
-                                              .CustomSizedTextStyle(
-                                                  14.0,
-                                                  Theme.of(context)
-                                                      .primaryColor,
-                                                  FontWeight.w600,
-                                                  'FontRegular'),
-                                          textAlign: TextAlign.start,
-                                        ),
-                                        children: <Widget>[
-                                          ListTile(
-                                              title: Text(
-                                            'Lorem ipsum dolor sit amet consectetur. Pretium nulla lorem ultricies molestie sed euismod facilisis aliquet turpis. Tortor vitae ultricies condimentum sit. Vel diam ultrices ut felis duis potenti nunc lacinia. Et.',
-                                            style:
-                                                CustomWidget(context: context)
-                                                    .CustomSizedTextStyle(
-                                                        10.0,
-                                                        Theme.of(context)
-                                                            .primaryColor,
-                                                        FontWeight.w400,
-                                                        'FontRegular'),
-                                            textAlign: TextAlign.start,
-                                          )),
-                                        ],
-                                      )
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
-                              ],
-                            ),
+                              ),
+                              SizedBox(
+                                height: 20.0,
+                              ),
+                            ],
                           ),
-                          SizedBox(
-                            height: 20.0,
-                          ),
-                        ],
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  serviceAdd
+                      ? Align(
+                    alignment: Alignment.bottomCenter,
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    Slot_Screen(
+                                      addedServiceDetails:
+                                      addedServiceDetails!,
+                                    )));
+                      },
+                      child: Container(
+                        margin: EdgeInsets.only(bottom: 20.0),
+                        padding: EdgeInsets.fromLTRB(
+                            35.0, 10.0, 35.0, 10.0),
+                        decoration: BoxDecoration(
+                          borderRadius:
+                          BorderRadius.circular(30.0),
+                          color:
+                          Theme.of(context).shadowColor,
+                        ),
+                        child: Text(
+                          AppLocalizations.instance
+                              .text("loc_proceed_book"),
+                          style:
+                          CustomWidget(context: context)
+                              .CustomSizedTextStyle(
+                              14.0,
+                              Theme.of(context)
+                                  .focusColor,
+                              FontWeight.w800,
+                              'FontRegular'),
+                          textAlign: TextAlign.center,
+                        ),
                       ),
                     ),
-                  ],
-                ),
+                  )
+                      : Container(),
+                ],
               ),
             );
           });

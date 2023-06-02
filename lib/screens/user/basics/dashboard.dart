@@ -130,40 +130,40 @@ class _DashBoard_ScreenState extends State<DashBoard_Screen> {
                   ),
                 ),
 
-                Padding(padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.fromLTRB(10.0, 12.0, 10.0, 12.0),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10.0),
-                      border: Border.all(width: 1.0,color: Theme.of(context).dialogBackgroundColor,)
-                  ),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      SvgPicture.asset("assets/images/search.svg", height: 20.0, color: Theme.of(context).dialogBackgroundColor,),
-                      SizedBox(width: 10.0,),
-                      Text(
-                        AppLocalizations.instance
-                            .text("loc_search"),
-                        style: CustomWidget(context: context)
-                            .CustomSizedTextStyle(
-                            14.0,
-                            Theme.of(context).dialogBackgroundColor,
-                            FontWeight.w400,
-                            'FontRegular'),
-                        textAlign: TextAlign.end,
-                      ),
-                    ],
-                  ),
-                ),),
+                // Padding(padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),child: Container(
+                //   width: MediaQuery.of(context).size.width,
+                //   padding: EdgeInsets.fromLTRB(10.0, 12.0, 10.0, 12.0),
+                //   decoration: BoxDecoration(
+                //       borderRadius: BorderRadius.circular(10.0),
+                //       border: Border.all(width: 1.0,color: Theme.of(context).dialogBackgroundColor,)
+                //   ),
+                //   child: Row(
+                //     crossAxisAlignment: CrossAxisAlignment.center,
+                //     mainAxisAlignment: MainAxisAlignment.start,
+                //     children: [
+                //       SvgPicture.asset("assets/images/search.svg", height: 20.0, color: Theme.of(context).dialogBackgroundColor,),
+                //       SizedBox(width: 10.0,),
+                //       Text(
+                //         AppLocalizations.instance
+                //             .text("loc_search"),
+                //         style: CustomWidget(context: context)
+                //             .CustomSizedTextStyle(
+                //             14.0,
+                //             Theme.of(context).dialogBackgroundColor,
+                //             FontWeight.w400,
+                //             'FontRegular'),
+                //         textAlign: TextAlign.end,
+                //       ),
+                //     ],
+                //   ),
+                // ),),
 
               ],
             ),
 
             Container(
               height: MediaQuery.of(context).size.height,
-              margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.34),
+              margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.28),
               child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -332,9 +332,9 @@ class _DashBoard_ScreenState extends State<DashBoard_Screen> {
                                     InkWell(
                                       onTap: (){
                                         setState(() {
-                                          Navigator.of(context).push(MaterialPageRoute(
-                                              builder: (context) =>
-                                                  Service_Details_Screen(S_id: totalService[index].id.toString() )));
+                                          // Navigator.of(context).push(MaterialPageRoute(
+                                          //     builder: (context) =>
+                                          //         Service_Details_Screen(S_id: totalService[index].id.toString() )));
                                         });
 
                                       },
@@ -438,26 +438,36 @@ class _DashBoard_ScreenState extends State<DashBoard_Screen> {
                           Container(
                             child: Stack(
                               children: [
-                                Container(
-                                  margin:EdgeInsets.only(top: 30.0),
-                                  padding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(7.0),
-                                    color: Theme.of(context).cardColor,
+                                InkWell(
+                                    onTap: () {
+                                      Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  Service_Screen()));
+                                    },
+                                    child: Container(
+                                      margin: EdgeInsets.only(top: 30.0),
+                                      padding: EdgeInsets.fromLTRB(
+                                          10.0, 10.0, 10.0, 10.0),
+                                      decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(7.0),
+                                        color: Theme.of(context).cardColor,
+                                      ),
+                                      child: Text(
+                                        AppLocalizations.instance
+                                            .text("loc_book"),
+                                        style: CustomWidget(context: context)
+                                            .CustomSizedTextStyle(
+                                                12.0,
+                                                Theme.of(context).focusColor,
+                                                FontWeight.w400,
+                                                'FontRegular'),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ),
                                   ),
-                                  child:  Text(
-                                    AppLocalizations.instance
-                                        .text("loc_book"),
-                                    style: CustomWidget(context: context)
-                                        .CustomSizedTextStyle(
-                                        12.0,
-                                        Theme.of(context).focusColor,
-                                        FontWeight.w400,
-                                        'FontRegular'),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                                SizedBox(height: 15.0,),
+                                  SizedBox(height: 15.0,),
                                 Container(
                                   margin:EdgeInsets.only(top: 80.0),
                                   width: MediaQuery.of(context).size.width,
@@ -479,140 +489,140 @@ class _DashBoard_ScreenState extends State<DashBoard_Screen> {
                       ),
                     ),
                     SizedBox(height: 20.0,),
-                    Container(
-                      decoration: BoxDecoration(
-                          boxShadow: [
-                            BoxShadow(
-                                color: Theme.of(context).splashColor,
-                                blurRadius: 20.0,
-                                offset: Offset(0.0, 0.5)
-                            ),
-                          ]
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Container(
-                            margin: EdgeInsets.only(top: 20.0),
-                            padding: EdgeInsets.fromLTRB(20.0, 0.0, 0.0, 20.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Text(
-                                  AppLocalizations.instance
-                                      .text("loc_recent_book"),
-                                  style: CustomWidget(context: context)
-                                      .CustomSizedTextStyle(
-                                      18.0,
-                                      Theme.of(context).primaryColor,
-                                      FontWeight.w600,
-                                      'FontRegular'),
-                                  textAlign: TextAlign.center,
-                                ),
-                                SizedBox(height: 15.0,),
-
-                                Container(
-                                  height: 170.0,
-                                  child:  ListView.builder(
-                                    itemCount: texts.length,
-                                    scrollDirection: Axis.horizontal,
-                                    shrinkWrap: true,
-                                    controller: _scrollController,
-                                    itemBuilder: (BuildContext context, int index) {
-                                      return Row(
-                                        crossAxisAlignment: CrossAxisAlignment.center,
-                                        children: [
-                                          Container(
-                                            child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              mainAxisAlignment: MainAxisAlignment.start,
-                                              children: [
-                                                Image.asset(img_texts[index].toString(),),
-                                                SizedBox(height: 15.0,),
-                                                Container(
-                                                  width: MediaQuery.of(context).size.width * 0.25,
-                                                  child: Text(
-                                                    texts[index].toString(),
-                                                    style: CustomWidget(context: context)
-                                                        .CustomSizedTextStyle(
-                                                        14.0,
-                                                        Theme.of(context).primaryColor,
-                                                        FontWeight.w500,
-                                                        'FontRegular'),
-                                                    textAlign: TextAlign.start,
-                                                    overflow: TextOverflow.ellipsis,
-                                                  ),
-                                                ),
-                                                SizedBox(height: 10.0,),
-                                                Row(
-                                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                                  children: [
-                                                    Icon(
-                                                      Icons.star,
-                                                      size: 10.0,
-                                                      color: Theme.of(context).cardColor,
-                                                    ),
-                                                    SizedBox(width: 3.0,),
-                                                    Text(
-                                                      "4.81 (1.2M)",
-                                                      style: CustomWidget(context: context)
-                                                          .CustomSizedTextStyle(
-                                                          10.0,
-                                                          Theme.of(context).primaryColor,
-                                                          FontWeight.w400,
-                                                          'FontRegular'),
-                                                      textAlign: TextAlign.center,
-                                                    ),
-                                                  ],
-                                                ),
-                                                SizedBox(height: 3.0,),
-                                                Row(
-                                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                                  mainAxisAlignment: MainAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      "₹499",
-                                                      style: CustomWidget(context: context)
-                                                          .CustomSizedTextStyle(
-                                                          10.0,
-                                                          Theme.of(context).primaryColor,
-                                                          FontWeight.w400,
-                                                          'FontRegular'),
-                                                      textAlign: TextAlign.center,
-                                                    ),
-                                                    SizedBox(width: 10.0,),
-                                                    Text(
-                                                      "₹649",
-                                                      style: TextStyle(
-                                                          fontSize: 8.0,
-                                                          decoration: TextDecoration.lineThrough,
-                                                          fontWeight: FontWeight.w400,
-                                                          color: Theme.of(context).dialogBackgroundColor,
-                                                          fontStyle: FontStyle.normal
-                                                      ),
-                                                      textAlign: TextAlign.center,
-                                                    ),
-                                                  ],
-                                                ),
-                                                SizedBox(height: 10.0,),
-
-                                              ],
-                                            ),
-                                          ),
-                                          SizedBox(width: 20.0,)
-                                        ],
-                                      );
-                                    },
-                                  ),
-                                )
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                    )
+                    // Container(
+                    //   decoration: BoxDecoration(
+                    //       boxShadow: [
+                    //         BoxShadow(
+                    //             color: Theme.of(context).splashColor,
+                    //             blurRadius: 20.0,
+                    //             offset: Offset(0.0, 0.5)
+                    //         ),
+                    //       ]
+                    //   ),
+                    //   child: Column(
+                    //     crossAxisAlignment: CrossAxisAlignment.start,
+                    //     mainAxisAlignment: MainAxisAlignment.start,
+                    //     children: [
+                    //       Container(
+                    //         margin: EdgeInsets.only(top: 20.0),
+                    //         padding: EdgeInsets.fromLTRB(20.0, 0.0, 0.0, 20.0),
+                    //         child: Column(
+                    //           crossAxisAlignment: CrossAxisAlignment.start,
+                    //           mainAxisAlignment: MainAxisAlignment.start,
+                    //           children: [
+                    //             Text(
+                    //               AppLocalizations.instance
+                    //                   .text("loc_recent_book"),
+                    //               style: CustomWidget(context: context)
+                    //                   .CustomSizedTextStyle(
+                    //                   18.0,
+                    //                   Theme.of(context).primaryColor,
+                    //                   FontWeight.w600,
+                    //                   'FontRegular'),
+                    //               textAlign: TextAlign.center,
+                    //             ),
+                    //             SizedBox(height: 15.0,),
+                    //
+                    //             Container(
+                    //               height: 170.0,
+                    //               child:  ListView.builder(
+                    //                 itemCount: texts.length,
+                    //                 scrollDirection: Axis.horizontal,
+                    //                 shrinkWrap: true,
+                    //                 controller: _scrollController,
+                    //                 itemBuilder: (BuildContext context, int index) {
+                    //                   return Row(
+                    //                     crossAxisAlignment: CrossAxisAlignment.center,
+                    //                     children: [
+                    //                       Container(
+                    //                         child: Column(
+                    //                           crossAxisAlignment: CrossAxisAlignment.start,
+                    //                           mainAxisAlignment: MainAxisAlignment.start,
+                    //                           children: [
+                    //                             Image.asset(img_texts[index].toString(),),
+                    //                             SizedBox(height: 15.0,),
+                    //                             Container(
+                    //                               width: MediaQuery.of(context).size.width * 0.25,
+                    //                               child: Text(
+                    //                                 texts[index].toString(),
+                    //                                 style: CustomWidget(context: context)
+                    //                                     .CustomSizedTextStyle(
+                    //                                     14.0,
+                    //                                     Theme.of(context).primaryColor,
+                    //                                     FontWeight.w500,
+                    //                                     'FontRegular'),
+                    //                                 textAlign: TextAlign.start,
+                    //                                 overflow: TextOverflow.ellipsis,
+                    //                               ),
+                    //                             ),
+                    //                             SizedBox(height: 10.0,),
+                    //                             Row(
+                    //                               crossAxisAlignment: CrossAxisAlignment.center,
+                    //                               children: [
+                    //                                 Icon(
+                    //                                   Icons.star,
+                    //                                   size: 10.0,
+                    //                                   color: Theme.of(context).cardColor,
+                    //                                 ),
+                    //                                 SizedBox(width: 3.0,),
+                    //                                 Text(
+                    //                                   "4.81 (1.2M)",
+                    //                                   style: CustomWidget(context: context)
+                    //                                       .CustomSizedTextStyle(
+                    //                                       10.0,
+                    //                                       Theme.of(context).primaryColor,
+                    //                                       FontWeight.w400,
+                    //                                       'FontRegular'),
+                    //                                   textAlign: TextAlign.center,
+                    //                                 ),
+                    //                               ],
+                    //                             ),
+                    //                             SizedBox(height: 3.0,),
+                    //                             Row(
+                    //                               crossAxisAlignment: CrossAxisAlignment.center,
+                    //                               mainAxisAlignment: MainAxisAlignment.start,
+                    //                               children: [
+                    //                                 Text(
+                    //                                   "₹499",
+                    //                                   style: CustomWidget(context: context)
+                    //                                       .CustomSizedTextStyle(
+                    //                                       10.0,
+                    //                                       Theme.of(context).primaryColor,
+                    //                                       FontWeight.w400,
+                    //                                       'FontRegular'),
+                    //                                   textAlign: TextAlign.center,
+                    //                                 ),
+                    //                                 SizedBox(width: 10.0,),
+                    //                                 Text(
+                    //                                   "₹649",
+                    //                                   style: TextStyle(
+                    //                                       fontSize: 8.0,
+                    //                                       decoration: TextDecoration.lineThrough,
+                    //                                       fontWeight: FontWeight.w400,
+                    //                                       color: Theme.of(context).dialogBackgroundColor,
+                    //                                       fontStyle: FontStyle.normal
+                    //                                   ),
+                    //                                   textAlign: TextAlign.center,
+                    //                                 ),
+                    //                               ],
+                    //                             ),
+                    //                             SizedBox(height: 10.0,),
+                    //
+                    //                           ],
+                    //                         ),
+                    //                       ),
+                    //                       SizedBox(width: 20.0,)
+                    //                     ],
+                    //                   );
+                    //                 },
+                    //               ),
+                    //             )
+                    //           ],
+                    //         ),
+                    //       )
+                    //     ],
+                    //   ),
+                    // )
                   ],
                 ),
               ),

@@ -38,6 +38,7 @@ class APIUtils {
   static const String usersHistoryURL = '/users/getHistory';
   static const String serviceCategoryURL = '/admin/GetCategory';
   static const String serviceGetTimeURL = '/admin/GetServiceTime';
+  static const String updateAddressURL = '/users/updateAddress';
 
   Future<CommonModel> doRegisterEmail(
       String name, String phone, String email, String pass) async {
@@ -151,27 +152,7 @@ class APIUtils {
     };
     var emailbodyData = {
       "name": name,
-      // 'address': address,
-      // 'pincode': pincode,
-      'profile_pic': profileImage
-    };
-
-    final response = await http.patch(Uri.parse(baseURL + profileUpdateURL),
-        headers: requestHeaders, body: emailbodyData);
-
-    return CommonModel.fromJson(json.decode(response.body));
-  }
-
-  Future<CommonModel> updateAddressDetails(
-      String name, String profileImage) async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    var auth = "Bearer " + preferences.getString("token").toString();
-    Map<String, String> requestHeaders = {
-      'authorization': auth.toString(),
-    };
-    var emailbodyData = {
-      "name": name,
-      // 'address': address,
+      // 'Address': address,
       // 'pincode': pincode,
       'profile_pic': profileImage
     };
@@ -206,7 +187,7 @@ class APIUtils {
 
     final response = await http.get(Uri.parse(baseURL + profileUpdateURL),
         headers: requestHeaders);
-    // print(response.body + " jeeva");
+    print(response.body + " jeeva");
     return GetProfileDetailsModel.fromJson(json.decode(response.body));
   }
 
@@ -267,7 +248,7 @@ class APIUtils {
       'authorization': auth.toString(),
     };
     var bodyData = {
-      'address': address,
+      'Address': address,
       'latitude': latitude,
       'longitude': longitude,
     };
@@ -359,5 +340,27 @@ class APIUtils {
         headers: requestHeaders);
 
     return GetServiceTimeModel.fromJson(json.decode(response.body));
+  }
+
+  Future<CommonModel> updateAddDetails(
+      String address, String city, String zip) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var auth = "Bearer " + preferences.getString("token").toString();
+    Map<String, String> requestHeaders = {
+      'authorization': auth.toString(),
+    };
+    var bodyData = {
+      'type': "other",
+      'Address': address,
+      'city': city,
+      'zip': zip,
+      'latitude': "0.00",
+      'longitude': "0.00"
+    };
+
+    final response = await http.post(Uri.parse(baseURL + updateAddressURL),
+        headers: requestHeaders, body: bodyData);
+    print(response.body);
+    return CommonModel.fromJson(json.decode(response.body));
   }
 }
