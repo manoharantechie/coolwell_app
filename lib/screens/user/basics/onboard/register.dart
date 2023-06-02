@@ -230,69 +230,76 @@ class _SignIn_ScreenState extends State<SignIn_Screen> {
 
                         Row(
                           children: [
-                            Container(
-                              height:45.0,
-                                padding: const EdgeInsets.only(
-                                    left: 10.0, right: 10.0, top: 13.0, bottom: 14.0),
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                      color: Theme.of(context).dividerColor,
-                                      width: 1.0),
-                                  color: CustomTheme.of(context)
-                                      .focusColor,
-                                  borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(5.0),
-                                    bottomLeft: Radius.circular(5.0),
+                            InkWell(
+                              onTap:(){
+                                setState(() {
+                                  _onPressedShowBottomSheet();
+                                });
+                                },
+                              child: Container(
+                                  height:45.0,
+                                  padding: const EdgeInsets.only(
+                                      left: 10.0, right: 10.0, top: 13.0, bottom: 14.0),
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: Theme.of(context).dividerColor,
+                                        width: 1.0),
+                                    color: CustomTheme.of(context)
+                                        .focusColor,
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(5.0),
+                                      bottomLeft: Radius.circular(5.0),
+                                    ),
                                   ),
-                                ),
-                                child: Row(
-                                  children: [
-                                    InkWell(
-                                      onTap: (){
-                                        setState(() {
-                                          _onPressedShowBottomSheet();
-                                        });
-                                      },
-                                      child: Row(
-                                        children: [
-                                          countryB
-                                              ? Image.asset(
-                                            _selectedCountry!.flag.toString(),
-                                            package:
-                                            "country_calling_code_picker",
-                                            height: 15.0,
-                                            width: 25.0,
-                                          )
-                                              : Container(
-                                            width: 0.0,
-                                          ),
-                                          Text(
+                                  child: Row(
+                                    children: [
+                                      InkWell(
+                                        onTap: (){
+                                          setState(() {
+                                            _onPressedShowBottomSheet();
+                                          });
+                                        },
+                                        child: Row(
+                                          children: [
                                             countryB
-                                                ? _selectedCountry!.callingCode.toString()
-                                                : "+1",
-                                            style: CustomWidget(context: context)
-                                                .CustomTextStyle(
-                                                countryB
-                                                    ? Theme.of(context).primaryColor: Theme.of(context).primaryColor.withOpacity(0.3),
-                                                FontWeight.normal,
-                                                'FontRegular'),
-                                          ),
-                                          const SizedBox(
-                                            width: 3.0,
-                                          ),
-                                          // Icon(
-                                          //   Icons.keyboard_arrow_down_outlined,
-                                          //   size: 15.0,
-                                          //   color: Theme.of(context).dialogBackgroundColor,
-                                          // )
-                                        ],
+                                                ? Image.asset(
+                                              _selectedCountry!.flag.toString(),
+                                              package:
+                                              "country_calling_code_picker",
+                                              height: 15.0,
+                                              width: 25.0,
+                                            )
+                                                : Container(
+                                              width: 0.0,
+                                            ),
+                                            Text(
+                                              countryB
+                                                  ? _selectedCountry!.callingCode.toString()
+                                                  : "+1",
+                                              style: CustomWidget(context: context)
+                                                  .CustomTextStyle(
+                                                  countryB
+                                                      ? Theme.of(context).primaryColor: Theme.of(context).primaryColor.withOpacity(0.3),
+                                                  FontWeight.normal,
+                                                  'FontRegular'),
+                                            ),
+                                            const SizedBox(
+                                              width: 3.0,
+                                            ),
+                                            Icon(
+                                              Icons.keyboard_arrow_down_outlined,
+                                              size: 15.0,
+                                              color: Theme.of(context).dialogBackgroundColor,
+                                            )
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                    const SizedBox(
-                                      width: 10.0,
-                                    ),
-                                  ],
-                                )),
+                                      const SizedBox(
+                                        width: 10.0,
+                                      ),
+                                    ],
+                                  )),
+                            ),
                             Flexible(
                               child: Container(
                                 height: 45.0,

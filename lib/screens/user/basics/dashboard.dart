@@ -1,6 +1,7 @@
 
 import 'package:coolwell_app/common/custom_widget.dart';
 import 'package:coolwell_app/common/localization/localizations.dart';
+import 'package:coolwell_app/data/model/get_profile_details_model.dart';
 import 'package:coolwell_app/screens/user/service/service.dart';
 import 'package:coolwell_app/screens/user/service/service_details.dart';
 import 'package:coolwell_app/screens/user/service/service_details.dart';
@@ -43,6 +44,8 @@ class _DashBoard_ScreenState extends State<DashBoard_Screen> {
   String address="";
   String lat="";
   String long="";
+  String userName ="";
+  GetProfileResult? details;
 
   @override
   void initState() {
@@ -50,6 +53,7 @@ class _DashBoard_ScreenState extends State<DashBoard_Screen> {
     super.initState();
     getData();
     getServicesDetaile();
+    profile();
     loading = true;
 
   }
@@ -105,15 +109,25 @@ class _DashBoard_ScreenState extends State<DashBoard_Screen> {
                         height: 50.0,
                       ),
                       Text(
-                        "Your are in",
+                        userName.toString()+", You are at",
                         style: CustomWidget(context: context)
                             .CustomSizedTextStyle(
-                            10.0,
+                            12.0,
                             Theme.of(context).focusColor,
-                            FontWeight.w400,
+                            FontWeight.w600,
                             'FontRegular'),
-                        textAlign: TextAlign.end,
+                        textAlign: TextAlign.start,
                       ),
+                      // Text(
+                      //   "Your are at",
+                      //   style: CustomWidget(context: context)
+                      //       .CustomSizedTextStyle(
+                      //       10.0,
+                      //       Theme.of(context).focusColor,
+                      //       FontWeight.w400,
+                      //       'FontRegular'),
+                      //   textAlign: TextAlign.start,
+                      // ),
                       Text(
                         address,
                         style: CustomWidget(context: context)
@@ -438,7 +452,14 @@ class _DashBoard_ScreenState extends State<DashBoard_Screen> {
                           Container(
                             child: Stack(
                               children: [
-                                InkWell(
+                                Container(
+                                  margin: EdgeInsets.only(top: 30.0),
+                                  padding: EdgeInsets.all(2.0),
+                                  decoration: BoxDecoration(
+                                    border: Border.all(width: 1.0, color:  Theme.of(context).focusColor,),
+                                    borderRadius: BorderRadius.circular(7.0)
+                                  ),
+                                  child: InkWell(
                                     onTap: () {
                                       Navigator.of(context).push(
                                           MaterialPageRoute(
@@ -446,27 +467,28 @@ class _DashBoard_ScreenState extends State<DashBoard_Screen> {
                                                   Service_Screen()));
                                     },
                                     child: Container(
-                                      margin: EdgeInsets.only(top: 30.0),
+
                                       padding: EdgeInsets.fromLTRB(
                                           10.0, 10.0, 10.0, 10.0),
                                       decoration: BoxDecoration(
                                         borderRadius:
-                                            BorderRadius.circular(7.0),
-                                        color: Theme.of(context).cardColor,
+                                        BorderRadius.circular(7.0),
+                                        color: Theme.of(context).shadowColor,
                                       ),
                                       child: Text(
                                         AppLocalizations.instance
                                             .text("loc_book"),
                                         style: CustomWidget(context: context)
                                             .CustomSizedTextStyle(
-                                                12.0,
-                                                Theme.of(context).focusColor,
-                                                FontWeight.w400,
-                                                'FontRegular'),
+                                            12.0,
+                                            Theme.of(context).focusColor,
+                                            FontWeight.w400,
+                                            'FontRegular'),
                                         textAlign: TextAlign.center,
                                       ),
                                     ),
                                   ),
+                                ),
                                   SizedBox(height: 15.0,),
                                 Container(
                                   margin:EdgeInsets.only(top: 80.0),
@@ -488,7 +510,7 @@ class _DashBoard_ScreenState extends State<DashBoard_Screen> {
                         ],
                       ),
                     ),
-                    SizedBox(height: 20.0,),
+                    // SizedBox(height: 20.0,),
                     // Container(
                     //   decoration: BoxDecoration(
                     //       boxShadow: [
@@ -654,6 +676,43 @@ class _DashBoard_ScreenState extends State<DashBoard_Screen> {
         });
       }
     }).catchError((Object error) {
+      setState(() {
+        loading = false;
+      });
+    });
+  }
+
+  profile() {
+    apiUtils
+        .getProfileDetails()
+        .then((GetProfileDetailsModel loginData) {
+      setState(() {
+        if (loginData.success!) {
+          setState(() {
+            loading = false;
+            details = loginData.result!;
+
+            var str = loginData.result!.name!.split(".");
+            // print(str);
+            userName =loginData.result!.name!.contains(".")?str[1].trim().toString():loginData.result!.name!;
+
+          });
+          // CustomWidget(context: context).
+          // custombar("Profile", loginData.message.toString(), true);
+
+        }
+        else {
+          loading = false;
+          CustomWidget(context: context)
+              .custombar("Profile", loginData.message.toString(), false);
+
+        }
+      });
+
+    }).catchError((Object error) {
+
+
+      print(error);
       setState(() {
         loading = false;
       });

@@ -103,8 +103,8 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    nameController=TextEditingController(text: "lucy@mailinator.com");
-    passController=TextEditingController(text: "Lucky@123");
+    // nameController=TextEditingController(text: "lucy@mailinator.com");
+    // passController=TextEditingController(text: "Lucky@123");
   }
   @override
   Widget build(BuildContext context) {
@@ -512,7 +512,9 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
             children: [
               InkWell(
                 onTap: (){
-                  _onPressedShowBottomSheet();
+                  setState(() {
+                    _onPressedShowBottomSheet();
+                  });
                 },
                 child: Container(
                   height: 45.0,
@@ -534,9 +536,6 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
                       children: [
                         InkWell(
                           onTap: (){
-                            setState(() {
-                              _onPressedShowBottomSheet();
-                            });
                           },
                           child: Row(
                             children: [
@@ -567,11 +566,11 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
                               const SizedBox(
                                 width: 3.0,
                               ),
-                              // Icon(
-                              //   Icons.keyboard_arrow_down_outlined,
-                              //   size: 15.0,
-                              //   color: Theme.of(context).dialogBackgroundColor,
-                              // )
+                              Icon(
+                                Icons.keyboard_arrow_down_outlined,
+                                size: 15.0,
+                                color: Theme.of(context).primaryColor,
+                              )
                             ],
                           ),
                         ),

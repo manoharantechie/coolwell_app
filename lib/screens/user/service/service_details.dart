@@ -106,29 +106,29 @@ class _Service_Details_ScreenState extends State<Service_Details_Screen> {
                                 SizedBox(
                                   width: 20.0,
                                 ),
-                                InkWell(
-                                  onTap: () {
-                                    setState(() {});
-                                  },
-                                  child: Container(
-                                    padding:
-                                        EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),
-                                    decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: Theme.of(context).splashColor,
-                                        border: Border.all(
-                                          width: 1.0,
-                                          color: Theme.of(context).focusColor,
-                                        )),
-                                    child: Center(
-                                      child: SvgPicture.asset(
-                                        "assets/images/search.svg",
-                                        height: 22.0,
-                                        color: Theme.of(context).focusColor,
-                                      ),
-                                    ),
-                                  ),
-                                ),
+                                // InkWell(
+                                //   onTap: () {
+                                //     setState(() {});
+                                //   },
+                                //   child: Container(
+                                //     padding:
+                                //         EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),
+                                //     decoration: BoxDecoration(
+                                //         shape: BoxShape.circle,
+                                //         color: Theme.of(context).splashColor,
+                                //         border: Border.all(
+                                //           width: 1.0,
+                                //           color: Theme.of(context).focusColor,
+                                //         )),
+                                //     child: Center(
+                                //       child: SvgPicture.asset(
+                                //         "assets/images/search.svg",
+                                //         height: 22.0,
+                                //         color: Theme.of(context).focusColor,
+                                //       ),
+                                //     ),
+                                //   ),
+                                // ),
                               ],
                             ),
                             const SizedBox(
@@ -186,89 +186,89 @@ class _Service_Details_ScreenState extends State<Service_Details_Screen> {
                     const SizedBox(
                       height: 20.0,
                     ),
-                    Container(
-                      color: Theme.of(context).focusColor,
-                      padding: EdgeInsets.only(left: 20.0),
-                      height: 90.0,
-                      child: ListView.builder(
-                        itemCount: 3,
-                        scrollDirection: Axis.horizontal,
-                        shrinkWrap: true,
-                        controller: _scrollController,
-                        itemBuilder: (BuildContext context, int index) {
-                          return Row(
-                            children: [
-                              Container(
-                                width: MediaQuery.of(context).size.width * 0.75,
-                                padding:
-                                    EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 10.0),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(15.0),
-                                  gradient: LinearGradient(
-                                    begin: Alignment.topLeft,
-                                    end: Alignment.bottomRight,
-                                    colors: [
-                                      const Color(0xFF0DD8FF).withOpacity(0.5),
-                                      const Color(0xFF0FABFF).withOpacity(0.5),
-                                      const Color(0xFF1457FF).withOpacity(0.5),
-                                      const Color(0xFF1636FF).withOpacity(0.5),
-                                      const Color(0xFF0E69C7).withOpacity(0.5),
-                                    ],
-                                  ),
-                                ),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Flexible(
-                                      child:
-                                          Image.asset("assets/images/tag.png"),
-                                      flex: 1,
-                                    ),
-                                    SizedBox(
-                                      width: 5.0,
-                                    ),
-                                    Flexible(
-                                        child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          AppLocalizations.instance
-                                              .text("loc_buy_save"),
-                                          style: CustomWidget(context: context)
-                                              .CustomSizedTextStyle(
-                                                  14.0,
-                                                  Theme.of(context)
-                                                      .primaryColor,
-                                                  FontWeight.w400,
-                                                  'FontRegular'),
-                                        ),
-                                        SizedBox(
-                                          height: 5.0,
-                                        ),
-                                        Text(
-                                          "30% off 2nd item onwards",
-                                          style: CustomWidget(context: context)
-                                              .CustomSizedTextStyle(
-                                                  10.0,
-                                                  Theme.of(context)
-                                                      .primaryColor,
-                                                  FontWeight.w400,
-                                                  'FontRegular'),
-                                        ),
-                                      ],
-                                    ))
-                                  ],
-                                ),
-                              ),
-                              SizedBox(
-                                width: 15.0,
-                              )
-                            ],
-                          );
-                        },
-                      ),
-                    ),
+                    // Container(
+                    //   color: Theme.of(context).focusColor,
+                    //   padding: EdgeInsets.only(left: 20.0),
+                    //   height: 90.0,
+                    //   child: ListView.builder(
+                    //     itemCount: 3,
+                    //     scrollDirection: Axis.horizontal,
+                    //     shrinkWrap: true,
+                    //     controller: _scrollController,
+                    //     itemBuilder: (BuildContext context, int index) {
+                    //       return Row(
+                    //         children: [
+                    //           Container(
+                    //             width: MediaQuery.of(context).size.width * 0.75,
+                    //             padding:
+                    //                 EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 10.0),
+                    //             decoration: BoxDecoration(
+                    //               borderRadius: BorderRadius.circular(15.0),
+                    //               gradient: LinearGradient(
+                    //                 begin: Alignment.topLeft,
+                    //                 end: Alignment.bottomRight,
+                    //                 colors: [
+                    //                   const Color(0xFF0DD8FF).withOpacity(0.5),
+                    //                   const Color(0xFF0FABFF).withOpacity(0.5),
+                    //                   const Color(0xFF1457FF).withOpacity(0.5),
+                    //                   const Color(0xFF1636FF).withOpacity(0.5),
+                    //                   const Color(0xFF0E69C7).withOpacity(0.5),
+                    //                 ],
+                    //               ),
+                    //             ),
+                    //             child: Row(
+                    //               crossAxisAlignment: CrossAxisAlignment.start,
+                    //               children: [
+                    //                 Flexible(
+                    //                   child:
+                    //                       Image.asset("assets/images/tag.png"),
+                    //                   flex: 1,
+                    //                 ),
+                    //                 SizedBox(
+                    //                   width: 5.0,
+                    //                 ),
+                    //                 Flexible(
+                    //                     child: Column(
+                    //                   crossAxisAlignment:
+                    //                       CrossAxisAlignment.start,
+                    //                   children: [
+                    //                     Text(
+                    //                       AppLocalizations.instance
+                    //                           .text("loc_buy_save"),
+                    //                       style: CustomWidget(context: context)
+                    //                           .CustomSizedTextStyle(
+                    //                               14.0,
+                    //                               Theme.of(context)
+                    //                                   .primaryColor,
+                    //                               FontWeight.w400,
+                    //                               'FontRegular'),
+                    //                     ),
+                    //                     SizedBox(
+                    //                       height: 5.0,
+                    //                     ),
+                    //                     Text(
+                    //                       "30% off 2nd item onwards",
+                    //                       style: CustomWidget(context: context)
+                    //                           .CustomSizedTextStyle(
+                    //                               10.0,
+                    //                               Theme.of(context)
+                    //                                   .primaryColor,
+                    //                               FontWeight.w400,
+                    //                               'FontRegular'),
+                    //                     ),
+                    //                   ],
+                    //                 ))
+                    //               ],
+                    //             ),
+                    //           ),
+                    //           SizedBox(
+                    //             width: 15.0,
+                    //           )
+                    //         ],
+                    //       );
+                    //     },
+                    //   ),
+                    // ),
                   ],
                 ),
               ),
@@ -276,7 +276,7 @@ class _Service_Details_ScreenState extends State<Service_Details_Screen> {
                   ? Container(
                       color: Theme.of(context).focusColor,
                       margin: EdgeInsets.only(
-                          top: MediaQuery.of(context).size.height * 0.44),
+                          top: MediaQuery.of(context).size.height * 0.31),
                       child: Padding(
                           padding: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 20.0),
                           child: Container(
@@ -900,7 +900,7 @@ class _Service_Details_ScreenState extends State<Service_Details_Screen> {
                                                                   : AppLocalizations
                                                                       .instance
                                                                       .text(
-                                                                          "loc_add"),
+                                                                          "loc_select"),
                                                               style: CustomWidget(
                                                                       context:
                                                                           context)
@@ -1018,8 +1018,7 @@ class _Service_Details_ScreenState extends State<Service_Details_Screen> {
                                             width: 5.0,
                                           ),
                                           Text(
-                                            AppLocalizations.instance
-                                                .text("loc_service"),
+                                            "Cost",
                                             style:
                                                 CustomWidget(context: context)
                                                     .CustomSizedTextStyle(
@@ -1893,6 +1892,36 @@ class _Service_Details_ScreenState extends State<Service_Details_Screen> {
                                       controller: issuesController,
                                     ),
                                   ],
+                                ),
+                              ),
+                              SizedBox(
+                                height: 20.0,
+                              ),
+                              Align(
+                                alignment: Alignment.center,
+                                child: InkWell(
+                                  onTap: () {
+                                    setState(() {
+
+                                    });
+                                  },
+                                  child: Container(
+                                    padding: EdgeInsets.fromLTRB(25.0, 10.0, 25.0, 10.0),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(30.0),
+                                      color: Theme.of(context).shadowColor,
+                                    ),
+                                    child: Text(
+                                      AppLocalizations.instance.text("loc_submit"),
+                                      style: CustomWidget(context: context)
+                                          .CustomSizedTextStyle(
+                                          14.0,
+                                          Theme.of(context).focusColor,
+                                          FontWeight.w600,
+                                          'FontRegular'),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
                                 ),
                               ),
                               SizedBox(

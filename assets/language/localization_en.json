@@ -106,7 +106,7 @@
   "loc_tax_fee": "Tax and fee",
   "loc_total": "Total",
   "loc_pay_method": "Payment method",
-  "loc_view_cart": "View cart",
+  "loc_view_cart": "Proceed",
   "loc_ac_txt1": "AC Safety Guidelines",
   "loc_ac_txt2": "These steps to ensure your safty",
   "loc_proceed": "Proceed",
@@ -167,6 +167,9 @@
   "loc_req_otp": "Request OTP",
   "loc_select_loc": "Select Location",
   "loc_conf_loc": "Confirm Location",
-  "loc_add_add": "Add Address"
+  "loc_add_add": "Add Address",
+  "loc_select": "Select",
+  "loc_con_sup": "Contact Support",
+  "loc_talk": "Talk to Technician"
 
 }

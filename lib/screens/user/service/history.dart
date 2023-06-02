@@ -164,7 +164,7 @@ class _Service_historyState extends State<Service_history> {
                                 onTap: () {
                                   if(OrderList[index].serviceStatus==0){
                                     CustomWidget(context: context)
-                                        .custombar("Service", "Waiting for job Assign", false);
+                                        .custombar("Service", "Our Technician will reach soon", false);
 
                                   } else if(OrderList[index].serviceStatus==1){
                                     Navigator.of(context).push(MaterialPageRoute(

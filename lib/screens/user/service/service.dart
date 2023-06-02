@@ -73,35 +73,35 @@ class _Service_ScreenState extends State<Service_Screen> {
                          crossAxisAlignment: CrossAxisAlignment.start,
                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                          children: [
-                           Row(
-                             crossAxisAlignment: CrossAxisAlignment.center,
-                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                             children: [
-
-                               SizedBox(width: 20.0,),
-                               InkWell(
-                                 onTap: (){
-
-                                 },
-                                 child: Container(
-                                   padding: EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),
-                                   decoration: BoxDecoration(
-                                       shape: BoxShape.circle,
-                                       color: Theme.of(context).splashColor,
-                                       border: Border.all(width: 1.0,color: Theme.of(context).focusColor,)
-                                   ),
-                                   child: Center(
-                                     child: SvgPicture.asset(
-                                       "assets/images/search.svg",
-                                       height: 22.0,
-                                       color:  Theme.of(context).focusColor,
-                                     ),
-                                   ),
-                                 ),
-                               ),
-
-                             ],
-                           ),
+                           // Row(
+                           //   crossAxisAlignment: CrossAxisAlignment.center,
+                           //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                           //   children: [
+                           //
+                           //     SizedBox(width: 20.0,),
+                           //     InkWell(
+                           //       onTap: (){
+                           //
+                           //       },
+                           //       child: Container(
+                           //         padding: EdgeInsets.fromLTRB(5.0, 5.0, 5.0, 5.0),
+                           //         decoration: BoxDecoration(
+                           //             shape: BoxShape.circle,
+                           //             color: Theme.of(context).splashColor,
+                           //             border: Border.all(width: 1.0,color: Theme.of(context).focusColor,)
+                           //         ),
+                           //         child: Center(
+                           //           child: SvgPicture.asset(
+                           //             "assets/images/search.svg",
+                           //             height: 22.0,
+                           //             color:  Theme.of(context).focusColor,
+                           //           ),
+                           //         ),
+                           //       ),
+                           //     ),
+                           //
+                           //   ],
+                           // ),
                            const SizedBox(height: 50.0,),
                            Container(
                              child: Column(
@@ -148,82 +148,82 @@ class _Service_ScreenState extends State<Service_Screen> {
                      ),
                    ),
                    const SizedBox(height: 20.0,),
-                   Container(
-                     color: Theme.of(context).backgroundColor,
-                     padding: EdgeInsets.only(left: 20.0),
-                     height: 85.0,
-                     child:  ListView.builder(
-                       itemCount: 2,
-                       scrollDirection: Axis.horizontal,
-                       shrinkWrap: true,
-                       controller: _scrollController,
-                       itemBuilder: (BuildContext context, int index) {
-                         return Row(
-                           children: [
-                             Container(
-                               width: MediaQuery.of(context).size.width * 0.75,
-                               padding: EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 10.0),
-                               decoration: BoxDecoration(
-                                 borderRadius: BorderRadius.circular(15.0),
-                                 gradient: LinearGradient(
-                                   begin: Alignment.topLeft,
-                                   end: Alignment.bottomRight,
-                                   colors: [
-                                     const Color(0xFF0DD8FF).withOpacity(0.5),
-                                     const Color(0xFF0FABFF).withOpacity(0.5),
-                                     const Color(0xFF1457FF).withOpacity(0.5),
-                                     const Color(0xFF1636FF).withOpacity(0.5),
-                                     const Color(0xFF0E69C7).withOpacity(0.5),
-                                   ],
-                                 ),
-                               ),
-                               child: Row(
-                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                 children: [
-                                   Flexible(child: Image.asset("assets/images/tag.png"),flex: 1,),
-                                   SizedBox(width: 5.0,),
-                                   Flexible(child: Column(
-                                     crossAxisAlignment: CrossAxisAlignment.start,
-                                     children: [
-                                       Text(
-                                         AppLocalizations.instance
-                                             .text("loc_buy_save"),
-                                         style: CustomWidget(context: context)
-                                             .CustomSizedTextStyle(
-                                             14.0,
-                                             Theme.of(context).primaryColor,
-                                             FontWeight.w400,
-                                             'FontRegular'),
-                                       ),
-                                       SizedBox(height: 5.0,),
-                                       Text(
-                                         "30% off 2nd item onwards",
-                                         // totalDetails[index].notes!.toString(),
-                                         style: CustomWidget(context: context)
-                                             .CustomSizedTextStyle(
-                                             10.0,
-                                             Theme.of(context).primaryColor,
-                                             FontWeight.w400,
-                                             'FontRegular'),
-                                       ),
-                                     ],
-                                   ))
-                                 ],
-                               ),
-                             ),
-                             SizedBox(width: 15.0,)
-                           ],
-                         );
-                       },
-                     ),
-                   ),
+                   // Container(
+                   //   color: Theme.of(context).backgroundColor,
+                   //   padding: EdgeInsets.only(left: 20.0),
+                   //   height: 85.0,
+                   //   child:  ListView.builder(
+                   //     itemCount: 2,
+                   //     scrollDirection: Axis.horizontal,
+                   //     shrinkWrap: true,
+                   //     controller: _scrollController,
+                   //     itemBuilder: (BuildContext context, int index) {
+                   //       return Row(
+                   //         children: [
+                   //           Container(
+                   //             width: MediaQuery.of(context).size.width * 0.75,
+                   //             padding: EdgeInsets.fromLTRB(15.0, 10.0, 15.0, 10.0),
+                   //             decoration: BoxDecoration(
+                   //               borderRadius: BorderRadius.circular(15.0),
+                   //               gradient: LinearGradient(
+                   //                 begin: Alignment.topLeft,
+                   //                 end: Alignment.bottomRight,
+                   //                 colors: [
+                   //                   const Color(0xFF0DD8FF).withOpacity(0.5),
+                   //                   const Color(0xFF0FABFF).withOpacity(0.5),
+                   //                   const Color(0xFF1457FF).withOpacity(0.5),
+                   //                   const Color(0xFF1636FF).withOpacity(0.5),
+                   //                   const Color(0xFF0E69C7).withOpacity(0.5),
+                   //                 ],
+                   //               ),
+                   //             ),
+                   //             child: Row(
+                   //               crossAxisAlignment: CrossAxisAlignment.start,
+                   //               children: [
+                   //                 Flexible(child: Image.asset("assets/images/tag.png"),flex: 1,),
+                   //                 SizedBox(width: 5.0,),
+                   //                 Flexible(child: Column(
+                   //                   crossAxisAlignment: CrossAxisAlignment.start,
+                   //                   children: [
+                   //                     Text(
+                   //                       AppLocalizations.instance
+                   //                           .text("loc_buy_save"),
+                   //                       style: CustomWidget(context: context)
+                   //                           .CustomSizedTextStyle(
+                   //                           14.0,
+                   //                           Theme.of(context).primaryColor,
+                   //                           FontWeight.w400,
+                   //                           'FontRegular'),
+                   //                     ),
+                   //                     SizedBox(height: 5.0,),
+                   //                     Text(
+                   //                       "30% off 2nd item onwards",
+                   //                       // totalDetails[index].notes!.toString(),
+                   //                       style: CustomWidget(context: context)
+                   //                           .CustomSizedTextStyle(
+                   //                           10.0,
+                   //                           Theme.of(context).primaryColor,
+                   //                           FontWeight.w400,
+                   //                           'FontRegular'),
+                   //                     ),
+                   //                   ],
+                   //                 ))
+                   //               ],
+                   //             ),
+                   //           ),
+                   //           SizedBox(width: 15.0,)
+                   //         ],
+                   //       );
+                   //     },
+                   //   ),
+                   // ),
                  ],
                ),
              ),
         totalService.length >0 ? Container(
               color: Theme.of(context).backgroundColor,
               margin: EdgeInsets.only(
-                  top: MediaQuery.of(context).size.height * 0.41),
+                  top: MediaQuery.of(context).size.height * 0.28),
               child: Padding(
                   padding: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
                   child: Container(
