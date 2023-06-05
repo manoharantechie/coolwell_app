@@ -768,13 +768,10 @@ class _Service_Details_ScreenState extends State<Service_Details_Screen> {
                                                     InkWell(
                                                       onTap: () {
                                                         setState(() {
-
-                                                          selectedService
-                                                              .clear();
-                                                          amount = "0";
                                                           if (selectedService
                                                                   .length >
                                                               0) {
+                                                            print("Service"+selectedService.length.toString());
                                                             if (selectedService
                                                                 .contains(totalDetails[
                                                                         index]
