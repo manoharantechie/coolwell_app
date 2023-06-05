@@ -103,8 +103,8 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    // nameController=TextEditingController(text: "lucy@mailinator.com");
-    // passController=TextEditingController(text: "Lucky@123");
+    nameController=TextEditingController(text: "lucy@mailinator.com");
+    passController=TextEditingController(text: "Lucky@123");
   }
   @override
   Widget build(BuildContext context) {
@@ -176,7 +176,7 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
                         FocusScope.of(context).requestFocus(passFocus);
                       },
                       radius: 6.0,
-                      error: "Enter Username or mail",
+                      error: "Enter Email",
                       textColor: Theme.of(context).primaryColor,
                       borderColor: Theme.of(context).dividerColor,
                       fillColor: Theme.of(context).focusColor,
@@ -188,7 +188,7 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
                       focusNode: nameFocus,
                       maxlines: 1,
                       text: '',
-                      hintText: "Username or mail",
+                      hintText: "Email",
                       obscureText: false,
                       textChanged: (value) {},
                       onChanged: () {},
@@ -206,7 +206,7 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
                           return "Please Enter Email Details";
                         } else if(!RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                             .hasMatch(nameController.text)) {
-                          return "Please enter valid email format";
+                          return "Please enter valid Email format";
                         }
                       },
                       enabled: true,

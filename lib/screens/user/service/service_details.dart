@@ -768,6 +768,7 @@ class _Service_Details_ScreenState extends State<Service_Details_Screen> {
                                                     InkWell(
                                                       onTap: () {
                                                         setState(() {
+
                                                           selectedService
                                                               .clear();
                                                           amount = "0";
@@ -792,6 +793,7 @@ class _Service_Details_ScreenState extends State<Service_Details_Screen> {
                                                                           .amount
                                                                           .toString()))
                                                                   .toString();
+
                                                             } else {
                                                               addedServiceDetails =
                                                                   totalDetails[
@@ -808,25 +810,34 @@ class _Service_Details_ScreenState extends State<Service_Details_Screen> {
                                                                           .amount
                                                                           .toString()))
                                                                   .toString();
+
                                                             }
                                                           } else {
-                                                            addedServiceDetails =
-                                                                totalDetails[
-                                                                    index];
 
-                                                            selectedService.add(
-                                                                totalDetails[
-                                                                        index]
-                                                                    .id
-                                                                    .toString());
-                                                            amount = (double.parse(
-                                                                        amount) +
-                                                                    double.parse(totalDetails[
-                                                                            index]
-                                                                        .amount
-                                                                        .toString()))
-                                                                .toString();
-                                                          }
+                                                              addedServiceDetails =
+                                                              totalDetails[
+                                                              index];
+
+                                                              selectedService
+                                                                  .add(
+                                                                  totalDetails[
+                                                                  index]
+                                                                      .id
+                                                                      .toString());
+
+                                                              amount =
+                                                                  (double.parse(
+                                                                      amount) +
+                                                                      double
+                                                                          .parse(
+                                                                          totalDetails[
+                                                                          index]
+                                                                              .amount
+                                                                              .toString()))
+                                                                      .toString();
+                                                              print("hi");
+                                                            }
+
                                                         });
                                                       },
                                                       child: Container(
@@ -1386,6 +1397,7 @@ class _Service_Details_ScreenState extends State<Service_Details_Screen> {
                                                   double.parse(details.amount
                                                       .toString()))
                                                   .toString();
+                                              print("hi");
                                             }
                                           });
                                         });
