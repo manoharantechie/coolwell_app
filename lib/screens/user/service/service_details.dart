@@ -792,6 +792,9 @@ class _Service_Details_ScreenState extends State<Service_Details_Screen> {
                                                                   .toString();
 
                                                             } else {
+                                                              selectedService
+                                                                  .clear();
+                                                              amount = "0";
                                                               addedServiceDetails =
                                                                   totalDetails[
                                                                       index];
