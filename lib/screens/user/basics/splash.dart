@@ -8,6 +8,8 @@ import 'package:geolocator/geolocator.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'onboard/welcome.dart';
+
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
 
@@ -83,18 +85,21 @@ class _SplashScreenState extends State<SplashScreen> {
 
   onLoad() {
 
-
+    Future.delayed(const Duration(seconds: 5), () {
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => WelcomeScreen()));
+    });
 
     if (address.toString() == "" ||
         address.toString() == null ||
         address.toString() == "null") {
       setState(() {
 
-        Future.delayed(const Duration(seconds: 2), () {
+        Future.delayed(const Duration(seconds: 5), () {
           Navigator.of(context)
-              .pushReplacement(MaterialPageRoute(builder: (context) => SplashHomeScreen()));
+              .pushReplacement(MaterialPageRoute(builder: (context) => WelcomeScreen()));
         });
-
+        // checkDeviceID(deviceData['device_id'].toString());
       });
     } else {
       Future.delayed(const Duration(seconds: 2), () {
