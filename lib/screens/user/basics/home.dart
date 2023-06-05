@@ -2,11 +2,14 @@ import 'dart:io';
 
 import 'package:coolwell_app/common/bottom_nav.dart';
 import 'package:coolwell_app/common/custom_widget.dart';
+import 'package:coolwell_app/common/localization/localizations.dart';
+import 'package:coolwell_app/common/theme/custom_theme.dart';
 import 'package:coolwell_app/screens/user/profile/profile.dart';
 import 'package:coolwell_app/screens/user/service/history.dart';
 import 'package:coolwell_app/screens/user/service/service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 
 import 'dashboard.dart';
@@ -50,47 +53,17 @@ class _Home_ScreenState extends State<Home_Screen> {
     _bottomItems = createBottomItems();
   }
 
+
+
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
         child: Scaffold(
         backgroundColor: Theme.of(context).backgroundColor,
         body:  PageStorage(child:  screen, bucket: bucket),
-        bottomNavigationBar: BottomNav(
-          index: currentIndex,
-          selectedIndex: selectIndex,
-          color: Theme.of(context).cardColor,
-          iconStyle: IconStyle(
-            color: Theme.of(context).cardColor,
-            onSelectColor: Theme.of(context).cardColor,
-            size: 20.0,
-          ),
-          bgStyle: BgStyle(
-            color: Theme.of(context).focusColor,
-            onSelectColor: Theme.of(context).focusColor,
-          ),
-          labelStyle: LabelStyle(
-            visible: true,
-            textStyle: CustomWidget(context: context).CustomSizedTextStyle(
-                10.0,
-                Theme.of(context).primaryColor,
-                FontWeight.w600,
-                'FontRegular'),
-            onSelectTextStyle: CustomWidget(context: context).CustomSizedTextStyle(
-                10.0,
-                Theme.of(context).cardColor,
-                FontWeight.w600,
-                'FontRegular'),
-          ),
-          onTap: (i) {
-            setState(() {
-              onSelectItem(i);
-              currentIndex=i;
 
-            });
-          },
-          items: _bottomItems,
-        )
+          bottomNavigationBar: bottomBar(),
     ), onWillPop: () async {
       if (currentIndex != 0) {
         setState(() {
@@ -107,6 +80,165 @@ class _Home_ScreenState extends State<Home_Screen> {
     },);
   }
 
+
+  Widget bottomBar() {
+    return Container(
+        height: 70,
+        width: MediaQuery.of(context).size.width,
+        color: CustomTheme.of(context).focusColor,
+        padding: EdgeInsets.only(left: 10.0,right: 10.0),
+        child: Stack(
+          children: [
+            Container(
+              height: 70,
+              width: MediaQuery.of(context).size.width,
+              color: Theme.of(context).focusColor,
+              padding: EdgeInsets.only(left: 10.0, right: 10.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  InkWell(
+                    onTap: () {
+                      setState(() {
+                        currentIndex = 0;
+                        onSelectItem(0);
+                      });
+                    },
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SvgPicture.asset('assets/menu/cool.svg',
+                            color: currentIndex == 0
+                                ? Theme.of(context).cardColor
+                                : Theme.of(context)
+                                .primaryColor),
+                        const SizedBox(
+                          height: 10.0,
+                        ),
+                        Text( AppLocalizations.instance.text('loc_side_cool'),
+                            textAlign: TextAlign.center,
+                            style: CustomWidget(context: context)
+                                .CustomTextStyle(
+                                currentIndex == 0
+                                    ? Theme.of(context).cardColor
+                                : Theme.of(context)
+                            .primaryColor,
+                                FontWeight.normal,
+                                'FontRegular')),
+                      ],
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      setState(() {
+                        currentIndex = 1;
+
+                        onSelectItem(1);
+                      });
+                    },
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SvgPicture.asset('assets/menu/service.svg',
+                            color: currentIndex == 1
+                                ? Theme.of(context).cardColor
+                                : Theme.of(context)
+                                .primaryColor),
+                        const SizedBox(
+                          height: 10.0,
+                        ),
+                        Text(
+                            AppLocalizations.instance.text('loc_side_service'),
+                            textAlign: TextAlign.center,
+                            style: CustomWidget(context: context)
+                                .CustomTextStyle(
+                                currentIndex == 1
+                                    ? Theme.of(context).cardColor
+                                    : Theme.of(context)
+                                    .primaryColor,
+                                FontWeight.normal,
+                                'FontRegular')
+                        ),
+                      ],
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      setState(() {
+                        currentIndex = 2;
+                        onSelectItem(2);
+                      });
+                    },
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SvgPicture.asset('assets/menu/history.svg',
+                            color: currentIndex == 2
+                                ? Theme.of(context).cardColor
+                                : Theme.of(context)
+                                .primaryColor),
+                        const SizedBox(
+                          height: 10.0,
+                        ),
+                        Text(
+                          AppLocalizations.instance.text('loc_side_history'),
+                          textAlign: TextAlign.center,
+                          style: CustomWidget(context: context)
+                              .CustomTextStyle(
+                              currentIndex == 2
+                                  ? Theme.of(context).cardColor
+                                  : Theme.of(context)
+                                  .primaryColor,
+                              FontWeight.normal,
+                              'FontRegular'
+
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      setState(() {
+                        currentIndex = 3;
+                        onSelectItem(3);
+                      });
+                    },
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SvgPicture.asset('assets/menu/account.svg',
+                            color: currentIndex == 3
+                                ? Theme.of(context).cardColor
+                                : Theme.of(context)
+                                .primaryColor,),
+                        const SizedBox(
+                          height: 10.0,
+                        ),
+                        Text(
+                          AppLocalizations.instance.text('loc_side_account'),
+                          textAlign: TextAlign.center,
+                          style: CustomWidget(context: context)
+                              .CustomTextStyle(
+                              currentIndex == 3
+                                  ? Theme.of(context).cardColor
+                                  : Theme.of(context)
+                                  .primaryColor,
+                              FontWeight.normal,
+                              'FontRegular'
+
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+
+                ],
+              ),
+            ),
+          ],
+        ));
+  }
 
   List<BottomNavItem> createBottomItems() {
     final bottomItems = [

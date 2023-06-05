@@ -135,7 +135,8 @@ class CustomWidget {
     return TextStyle(
       fontFamily: family,
       color: color,
-      fontWeight: weight,
+      fontSize: 12.0,
+      fontWeight: FontWeight.w600,
     );
   }
 
