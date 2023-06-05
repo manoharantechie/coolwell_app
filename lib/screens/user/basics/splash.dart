@@ -88,9 +88,9 @@ class _SplashScreenState extends State<SplashScreen> {
   onLoad() {
 
 
-       if (address.toString() == "" ||
-    address.toString() == null ||
-    address.toString() == "null") {
+       if (first.toString() == "" ||
+           first.toString() == null ||
+           first.toString() == "null") {
 
          Future.delayed(const Duration(seconds: 5), () {
            Navigator.of(context)
