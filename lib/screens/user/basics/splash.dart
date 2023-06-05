@@ -20,6 +20,7 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
 
   String address="";
+  String first="";
   double lat = 0.00;
   double long = 0.00;
   @override
@@ -31,6 +32,7 @@ class _SplashScreenState extends State<SplashScreen> {
   getdata() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     address = preferences.getString("token").toString();
+    first = preferences.getString("first").toString();
     getPermission();
 
   }
@@ -85,19 +87,28 @@ class _SplashScreenState extends State<SplashScreen> {
 
   onLoad() {
 
-    Future.delayed(const Duration(seconds: 5), () {
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => WelcomeScreen()));
-    });
 
-    if (address.toString() == "" ||
+       if (address.toString() == "" ||
+    address.toString() == null ||
+    address.toString() == "null") {
+
+         Future.delayed(const Duration(seconds: 5), () {
+           Navigator.of(context)
+               .pushReplacement(MaterialPageRoute(builder: (context) => WelcomeScreen()));
+         });
+       }
+
+
+
+
+  else  if (address.toString() == "" ||
         address.toString() == null ||
         address.toString() == "null") {
       setState(() {
 
         Future.delayed(const Duration(seconds: 5), () {
           Navigator.of(context)
-              .pushReplacement(MaterialPageRoute(builder: (context) => WelcomeScreen()));
+              .pushReplacement(MaterialPageRoute(builder: (context) => SplashHomeScreen()));
         });
         // checkDeviceID(deviceData['device_id'].toString());
       });
