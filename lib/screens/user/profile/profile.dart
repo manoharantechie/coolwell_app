@@ -11,6 +11,7 @@ import 'package:coolwell_app/common/custom_widget.dart';
 import 'package:coolwell_app/common/localization/localizations.dart';
 import '../../../data/api_utils.dart';
 import '../../../data/model/get_profile_details_model.dart';
+import '../basics/onboard/google_login.dart';
 import '../side menu/address.dart';
 import 'slot_screen.dart';
 import 'edit_profile.dart';
@@ -295,9 +296,9 @@ class _Profile_ScreenState extends State<Profile_Screen> {
                       const SizedBox(height: 5.0,),
                       InkWell(
                         onTap: (){
-                          // Navigator.of(context).push(MaterialPageRoute(
-                          //     builder: (context) =>
-                          //         PaymentSuccessScreen()));
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) =>
+                                  SocialLogin()));
                         },
                         child: Container(
                           padding: EdgeInsets.only(top: 10.0, bottom: 10.0, left: 20.0, right: 20.0),
@@ -422,7 +423,7 @@ class _Profile_ScreenState extends State<Profile_Screen> {
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Flexible(child: SvgPicture.asset("assets/profile/help.svg", height: 20.0, color: Theme.of(context).primaryColor,),flex: 1,),
+                              Flexible(child: SvgPicture.asset("assets/profile/exit.svg", height: 20.0, color: Theme.of(context).primaryColor,),flex: 1,),
                               const SizedBox(width: 15.0,),
                               Flexible(child: Text(
                                 AppLocalizations.instance

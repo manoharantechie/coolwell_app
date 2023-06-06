@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:coolwell_app/common/custom_widget.dart';
 import 'package:coolwell_app/common/localization/localizations.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -57,6 +58,12 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
   TextEditingController passController = TextEditingController();
   TextEditingController mobileController = TextEditingController();
   final emailformKey = GlobalKey<FormState>();
+
+  bool _isLoggedIn = false;
+  bool _isFBLoggedIn = false;
+  GoogleSignInAccount ?_userObj;
+  GoogleSignIn _googleSignIn = GoogleSignIn();
+  Map ?_userFBObj = {};
 
 
   void initCountry() async {
@@ -407,29 +414,42 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Column(
-                          children: [
-                            Container(
-                              padding: EdgeInsets.fromLTRB(15.0, 15.0, 15.0, 15.0),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                  border: Border.all(width: 1.0, color: Theme.of(context).dividerColor,)
+                        InkWell(
+                          onTap: (){
+                            _googleSignIn.signIn().then((userData) {
+                              setState(() {
+                                _isLoggedIn = true;
+                                _userObj = userData;
+                                print("userData"+userData.toString());
+                              });
+                            }).catchError((e) {
+                              print(e);
+                            });
+                          },
+                          child: Column(
+                            children: [
+                              Container(
+                                padding: EdgeInsets.fromLTRB(15.0, 15.0, 15.0, 15.0),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10.0),
+                                    border: Border.all(width: 1.0, color: Theme.of(context).dividerColor,)
+                                ),
+                                // child: SvgPicture.asset("assets/images/g_logo.svg", height: 25.0,),
+                                child: Image.asset("assets/images/g_logo.png", height: 25.0,),
                               ),
-                              // child: SvgPicture.asset("assets/images/g_logo.svg", height: 25.0,),
-                              child: Image.asset("assets/images/g_logo.png", height: 25.0,),
-                            ),
-                            SizedBox(height: 5.0,),
-                            Text(
-                              AppLocalizations.instance
-                                  .text("loc_google_txt"),
-                              style: CustomWidget(context: context)
-                                  .CustomSizedTextStyle(
-                                  10.0,
-                                  Theme.of(context).bottomAppBarColor,
-                                  FontWeight.w600,
-                                  'FontRegular'),
-                            ),
-                          ],
+                              SizedBox(height: 5.0,),
+                              Text(
+                                AppLocalizations.instance
+                                    .text("loc_google_txt"),
+                                style: CustomWidget(context: context)
+                                    .CustomSizedTextStyle(
+                                    10.0,
+                                    Theme.of(context).bottomAppBarColor,
+                                    FontWeight.w600,
+                                    'FontRegular'),
+                              ),
+                            ],
+                          ),
                         ),
                         // SizedBox(width: 15.0,),
                         Column(

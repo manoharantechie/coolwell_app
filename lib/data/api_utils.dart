@@ -50,6 +50,7 @@ class APIUtils {
     };
     final response =
         await http.post(Uri.parse(baseURL + registerURL), body: emailbodyData);
+    print(response.body);
     return CommonModel.fromJson(json.decode(response.body));
   }
 

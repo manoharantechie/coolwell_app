@@ -30,7 +30,7 @@ class _SignIn_ScreenState extends State<SignIn_Screen> {
   FocusNode mobileFocus = FocusNode();
   bool mobileVerify = true;
   TextEditingController mobile = TextEditingController();
-
+  List<String> coinlist = ["Mr", "Mrs",];
   APIUtils apiUtils = APIUtils();
   bool loading = false;
   var snackBar;
@@ -45,6 +45,7 @@ class _SignIn_ScreenState extends State<SignIn_Screen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passController = TextEditingController();
   final emailformKey = GlobalKey<FormState>();
+  String selectedValue = "";
 
   custombar(String title, String message, bool status) {
     snackBar = SnackBar(
@@ -68,6 +69,13 @@ class _SignIn_ScreenState extends State<SignIn_Screen> {
 
 
     });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    selectedValue = coinlist.first;
   }
 
   @override
@@ -134,50 +142,184 @@ class _SignIn_ScreenState extends State<SignIn_Screen> {
                               'FontRegular'),
                         ),
                         SizedBox(height: 30.0,),
+                        Container(
+                          child:  Row(
+                            children: [
+                              Container(
+                                width: MediaQuery.of(context).size.width * 0.15,
+                                padding: EdgeInsets.fromLTRB(8, 0.0, 5, 0.0),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.only(
+                                      bottomLeft: Radius.circular(6.0),
+                                      topLeft: Radius.circular(6.0)
+                                  ),
+                                  color: Theme.of(context).focusColor,
+                                ),
+                                child: Theme(
+                                  data: Theme.of(context).copyWith(
+                                    canvasColor: Theme.of(context).backgroundColor,
+                                  ),
+                                  child: DropdownButtonHideUnderline(
+                                    child: DropdownButton(
+                                      menuMaxHeight: MediaQuery.of(context).size.height * 0.7,
+                                      items: coinlist
+                                          .map((value) => DropdownMenuItem(
+                                        child: Text(
+                                          value.toString(),
+                                          style: CustomWidget(context: context)
+                                              .CustomSizedTextStyle(
+                                              14.0,
+                                              Theme.of(context).primaryColor,
+                                              FontWeight.w500,
+                                              'FontRegular'),
+                                        ),
+                                        value: value,
+                                      )).toList(),
+                                      onChanged: (value) async {
+                                        setState(() {
+                                          selectedValue = value.toString();
+                                          // loading=true;
 
-                        TextFormCustom(
-                          onEditComplete: () {
-                            nameFocus.unfocus();
-                            FocusScope.of(context).requestFocus(phoneNumFocus);
-                          },
-                          radius: 6.0,
-                          error: "Enter Full Name",
-                          textColor: Theme.of(context).primaryColor,
-                          borderColor: Theme.of(context).dividerColor,
-                          fillColor: Theme.of(context).focusColor,
-                          hintStyle: CustomWidget(context: context).CustomSizedTextStyle(
-                              14.0, Theme.of(context).primaryColor.withOpacity(0.3), FontWeight.w500, 'FontRegular'),
-                          textStyle: CustomWidget(context: context).CustomSizedTextStyle(
-                              14.0, Theme.of(context).primaryColor, FontWeight.w500, 'FontRegular'),
-                          textInputAction: TextInputAction.next,
-                          focusNode: nameFocus,
-                          maxlines: 1,
-                          text: '',
-                          hintText: "Full Name",
-                          obscureText: false,
-                          textChanged: (value) {},
-                          onChanged: () {},
-                          suffix: Container(
-                            width: 0.0,
+                                        });
+                                      },
+                                      hint: Text(
+                                        " ",
+                                        style: CustomWidget(context: context)
+                                            .CustomSizedTextStyle(
+                                            14.0,
+                                            Theme.of(context).primaryColor,
+                                            FontWeight.w600,
+                                            'FontRegular'),
+                                      ),
+                                      isExpanded: true,
+                                      value: selectedValue,
+                                      icon: Icon(
+                                        Icons.keyboard_arrow_down_outlined,
+                                        color: Theme.of(context).primaryColor,
+                                        size: 15.0,
+                                        // color: Them,
+                                        // color: AppColors.otherTextColor,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Flexible(child: TextFormField(
+                                controller: nameController,
+                                focusNode: nameFocus,
+                                maxLines: 1,
+                                textInputAction: TextInputAction.next,
+                                keyboardType: TextInputType.name,
+                                style: CustomWidget(context: context).CustomSizedTextStyle(
+                                    14.0,
+                                    Theme.of(context).primaryColor,
+                                    FontWeight.w500,
+                                    'FontRegular'),
+                                decoration: InputDecoration(
+                                  contentPadding: const EdgeInsets.only(
+                                      left: 12, right: 0, top: 2, bottom: 2),
+                                  hintText: "Name",
+                                  hintStyle: CustomWidget(context: context).CustomSizedTextStyle(
+                                      14.0,
+                                      Theme.of(context).primaryColor.withOpacity(0.3),
+                                      FontWeight.w500,
+                                      'FontRegular'),
+                                  filled: true,
+                                  fillColor: Theme.of(context)
+                                      .focusColor,
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.only(
+                                      topRight: Radius.circular(5.0),
+                                      bottomRight: Radius.circular(5.0),
+                                    ),
+                                    borderSide: BorderSide(
+                                        color: Theme.of(context)
+                                            .splashColor
+                                            .withOpacity(0.5),
+                                        width: 1.0),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.only(
+                                      topRight: Radius.circular(5.0),
+                                      bottomRight: Radius.circular(5.0),
+                                    ),
+                                    borderSide: BorderSide(
+                                        color: Theme.of(context)
+                                            .splashColor
+                                            .withOpacity(0.5),
+                                        width: 1.0),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.only(
+                                      topRight: Radius.circular(5.0),
+                                      bottomRight: Radius.circular(5.0),
+                                    ),
+                                    borderSide: BorderSide(
+                                        color: Theme.of(context)
+                                            .splashColor
+                                            .withOpacity(0.5),
+                                        width: 1.0),
+                                  ),
+                                  errorBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.only(
+                                      topRight: Radius.circular(5.0),
+                                      bottomRight: Radius.circular(5.0),
+                                    ),
+                                    borderSide: BorderSide(
+                                        color: Theme.of(context)
+                                            .splashColor
+                                            .withOpacity(0.5),
+                                        width: 1.0),
+                                  ),
+                                ),
+                              )),
+                            ],
                           ),
-                          prefix: Container(
-                            child: Icon(
-                              Icons.person,
-                              color: Theme.of(context).primaryColor.withOpacity(0.3),
-                            ),
-                          ),
-                          validator: (value) {
-                            if (nameController.text.isEmpty) {
-                              return "Please Enter UserName";
-                            } else if( nameController.text.length< 2 ) {
-                              return "Please Enter Minimum 2 Letters Name";
-                            }
-                          },
-                          enabled: true,
-                          textInputType: TextInputType.name,
-                          controller: nameController,
                         ),
                         SizedBox(height: 15.0,),
+                        // TextFormCustom(
+                        //   onEditComplete: () {
+                        //     nameFocus.unfocus();
+                        //     FocusScope.of(context).requestFocus(phoneNumFocus);
+                        //   },
+                        //   radius: 6.0,
+                        //   error: "Enter Full Name",
+                        //   textColor: Theme.of(context).primaryColor,
+                        //   borderColor: Theme.of(context).dividerColor,
+                        //   fillColor: Theme.of(context).focusColor,
+                        //   hintStyle: CustomWidget(context: context).CustomSizedTextStyle(
+                        //       14.0, Theme.of(context).primaryColor.withOpacity(0.3), FontWeight.w500, 'FontRegular'),
+                        //   textStyle: CustomWidget(context: context).CustomSizedTextStyle(
+                        //       14.0, Theme.of(context).primaryColor, FontWeight.w500, 'FontRegular'),
+                        //   textInputAction: TextInputAction.next,
+                        //   focusNode: nameFocus,
+                        //   maxlines: 1,
+                        //   text: '',
+                        //   hintText: "Full Name",
+                        //   obscureText: false,
+                        //   textChanged: (value) {},
+                        //   onChanged: () {},
+                        //   suffix: Container(
+                        //     width: 0.0,
+                        //   ),
+                        //   prefix: Container(
+                        //     child: Icon(
+                        //       Icons.person,
+                        //       color: Theme.of(context).primaryColor.withOpacity(0.3),
+                        //     ),
+                        //   ),
+                        //   validator: (value) {
+                        //     if (nameController.text.isEmpty) {
+                        //       return "Please Enter UserName";
+                        //     } else if( nameController.text.length< 2 ) {
+                        //       return "Please Enter Minimum 2 Letters Name";
+                        //     }
+                        //   },
+                        //   enabled: true,
+                        //   textInputType: TextInputType.name,
+                        //   controller: nameController,
+                        // ),
+                        // SizedBox(height: 15.0,),
                         // TextFormCustom(
                         //   onEditComplete: () {
                         //     phoneNumFocus.unfocus();
@@ -707,7 +849,7 @@ class _SignIn_ScreenState extends State<SignIn_Screen> {
 
   RegisterEmail() {
     apiUtils
-        .doRegisterEmail(
+        .doRegisterEmail(selectedValue.toString()+
       nameController.text.toString(),_selectedCountry!.callingCode.toString()+
         mobile.text.toString(),
       emailController.text.toString(),
