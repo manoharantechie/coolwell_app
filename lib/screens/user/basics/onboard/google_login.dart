@@ -78,6 +78,7 @@ class _SocialLoginState extends State<SocialLogin> {
                         setState(() {
                           _isLoggedIn = false;
                           _userFBObj = {};
+                          print(_userObj );
                         });
                       });
                     },

@@ -260,7 +260,7 @@ class APIUtils {
     return CommonModel.fromJson(json.decode(response.body));
   }
 
-  Future<CommonModel> googleRegistration(
+  Future<Login> googleRegistration(
       String name, String email, String type) async {
     var bodyData = {
       'name': name,
@@ -270,7 +270,7 @@ class APIUtils {
 
     final response =
         await http.post(Uri.parse(baseURL + googleRegisterURL), body: bodyData);
-    return CommonModel.fromJson(json.decode(response.body));
+    return Login.fromJson(json.decode(response.body));
   }
 
   Future<CommonModel> sendMobileOTP(String number) async {

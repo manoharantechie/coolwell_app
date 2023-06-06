@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 
 import 'package:coolwell_app/common/custom_widget.dart';
 import 'package:coolwell_app/common/localization/localizations.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -421,6 +422,10 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
                                 _isLoggedIn = true;
                                 _userObj = userData;
                                 print("userData"+userData.toString());
+                                print(userData!.email.toString());
+                                print(userData.displayName.toString());
+                                googleLogin();
+                                loading=true;
                               });
                             }).catchError((e) {
                               print(e);
@@ -452,30 +457,43 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
                           ),
                         ),
                         // SizedBox(width: 15.0,),
-                        Column(
-                          children: [
-                            Container(
-                              padding: EdgeInsets.fromLTRB(15.0, 15.0, 15.0, 15.0),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                  border: Border.all(width: 1.0, color: Theme.of(context).dividerColor,)
-                              ),
-                              // child: SvgPicture.asset("assets/images/g_logo.svg", height: 25.0,),
-                              child: Image.asset("assets/images/f_logo.png", height: 25.0,),
-                            ),
-                            SizedBox(height: 5.0,),
-                            Text(
-                              AppLocalizations.instance
-                                  .text("loc_fb_txt"),
-                              style: CustomWidget(context: context)
-                                  .CustomSizedTextStyle(
-                                  10.0,
-                                  Theme.of(context).bottomAppBarColor,
-                                  FontWeight.w600,
-                                  'FontRegular'),
-                            ),
-                          ],
-                        )
+                       InkWell(
+                         onTap: () async {
+                           FacebookAuth.instance.login(
+                               permissions: ["public_profile", "email"]).then((value) {
+                             FacebookAuth.instance.getUserData().then((userData) {
+                               setState(() {
+                                 _isLoggedIn = true;
+                                 _userFBObj = userData;
+                               });
+                             });
+                           });
+                         },
+                         child:  Column(
+                           children: [
+                             Container(
+                               padding: EdgeInsets.fromLTRB(15.0, 15.0, 15.0, 15.0),
+                               decoration: BoxDecoration(
+                                   borderRadius: BorderRadius.circular(10.0),
+                                   border: Border.all(width: 1.0, color: Theme.of(context).dividerColor,)
+                               ),
+                               // child: SvgPicture.asset("assets/images/g_logo.svg", height: 25.0,),
+                               child: Image.asset("assets/images/f_logo.png", height: 25.0,),
+                             ),
+                             SizedBox(height: 5.0,),
+                             Text(
+                               AppLocalizations.instance
+                                   .text("loc_fb_txt"),
+                               style: CustomWidget(context: context)
+                                   .CustomSizedTextStyle(
+                                   10.0,
+                                   Theme.of(context).bottomAppBarColor,
+                                   FontWeight.w600,
+                                   'FontRegular'),
+                             ),
+                           ],
+                         ),
+                       )
                       ],
                     ),
                   ),
@@ -820,6 +838,52 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
       });
     });
   }
+
+
+  googleLogin() {
+    apiUtils
+        .googleRegistration(_userObj!.displayName.toString(), _userObj!.email.toString(), "google")
+        .then((Login loginData) {
+      if (loginData.success!) {
+        setState(() {
+          loading = false;
+        });
+        CustomWidget(context: context).
+        custombar("Login", loginData.message.toString(), true);
+
+        storeData(
+            loginData.result!.token.toString(),
+            loginData.result!.user!.id.toString(),
+            loginData.result!.user!.email.toString(),
+            loginData.result!.user!.role.toString(),
+            loginData.result!.user!.name.toString());
+
+
+
+        Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (context) =>
+                LocationLoginScreen(lat: lat,long: long,)));
+        // Location_Screen(lat: lat,long: long,)));
+
+
+
+        // nameController.clear();
+        // passController.clear();
+
+      } else {
+
+        loading = false;
+        CustomWidget(context: context)
+            .custombar("Login", loginData.message.toString(), false);
+
+      }
+    }).catchError((Object error) {
+      setState(() {
+        loading = false;
+      });
+    });
+  }
+
 
   void _onPressedShowBottomSheet() async {
     final country = await showCountryPickerSheets(
