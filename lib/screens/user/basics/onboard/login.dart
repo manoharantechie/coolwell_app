@@ -65,6 +65,7 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
   GoogleSignInAccount ?_userObj;
   GoogleSignIn _googleSignIn = GoogleSignIn();
   Map ?_userFBObj = {};
+  String loginType = "";
 
 
   void initCountry() async {
@@ -113,6 +114,7 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
     super.initState();
     nameController=TextEditingController(text: "lucy@mailinator.com");
     passController=TextEditingController(text: "Lucky@123");
+    _googleSignIn.disconnect();
   }
   @override
   Widget build(BuildContext context) {
@@ -417,9 +419,11 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
                       children: [
                         InkWell(
                           onTap: (){
+                            _googleSignIn.disconnect();
                             _googleSignIn.signIn().then((userData) {
                               setState(() {
                                 _isLoggedIn = true;
+                                loginType= _isLoggedIn.toString();
                                 _userObj = userData;
                                 print("userData"+userData.toString());
                                 print(userData!.email.toString());
@@ -463,8 +467,9 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
                                permissions: ["public_profile", "email"]).then((value) {
                              FacebookAuth.instance.getUserData().then((userData) {
                                setState(() {
-                                 _isLoggedIn = true;
+                                 _isFBLoggedIn = true;
                                  _userFBObj = userData;
+                                 loginType =  _isFBLoggedIn.toString();
                                });
                              });
                            });
