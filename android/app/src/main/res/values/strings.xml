@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<resources>
+    <string name="app_name">Coolwell</string>
+    <string name="facebook_app_id">1296087784613102</string>
+    <string name="fb_login_protocol_scheme">fb1296087784613102</string>
+    <string name="facebook_client_token">3336649c645be4130e17b4b481eda9f3</string>
+
+</resources>

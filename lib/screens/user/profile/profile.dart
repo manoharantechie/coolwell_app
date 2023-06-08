@@ -296,9 +296,9 @@ class _Profile_ScreenState extends State<Profile_Screen> {
                       const SizedBox(height: 5.0,),
                       InkWell(
                         onTap: (){
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) =>
-                                  SocialLogin()));
+                          // Navigator.of(context).push(MaterialPageRoute(
+                          //     builder: (context) =>
+                          //         SocialLogin()));
                         },
                         child: Container(
                           padding: EdgeInsets.only(top: 10.0, bottom: 10.0, left: 20.0, right: 20.0),

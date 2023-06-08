@@ -27,6 +27,8 @@ import '../../../../data/model/login.dart';
 import '../home.dart';
 import 'location.dart';
 import 'login_mobile_otp.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
 class SignUp_Screen extends StatefulWidget {
 
@@ -115,6 +117,7 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
     nameController=TextEditingController(text: "lucy@mailinator.com");
     passController=TextEditingController(text: "Lucky@123");
     _googleSignIn.disconnect();
+    print("mano");
   }
   @override
   Widget build(BuildContext context) {
@@ -419,6 +422,7 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
                       children: [
                         InkWell(
                           onTap: (){
+                            print("ytest");
                             _googleSignIn.disconnect();
                             _googleSignIn.signIn().then((userData) {
                               setState(() {
@@ -462,17 +466,11 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
                         ),
                         // SizedBox(width: 15.0,),
                        InkWell(
-                         onTap: () async {
-                           FacebookAuth.instance.login(
-                               permissions: ["public_profile", "email"]).then((value) {
-                             FacebookAuth.instance.getUserData().then((userData) {
-                               setState(() {
-                                 _isFBLoggedIn = true;
-                                 _userFBObj = userData;
-                                 loginType =  _isFBLoggedIn.toString();
-                               });
-                             });
-                           });
+                         onTap: () {
+                           print("tesdt");
+                           signInWithFacebook();
+                           print("tetsdd");
+
                          },
                          child:  Column(
                            children: [
@@ -763,6 +761,17 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
         ],
       ),
     );
+  }
+
+  Future<UserCredential> signInWithFacebook() async {
+    // Trigger the sign-in flow
+    final LoginResult loginResult = await FacebookAuth.instance.login();
+
+    // Create a credential from the access token
+    final OAuthCredential facebookAuthCredential = FacebookAuthProvider.credential(loginResult.accessToken!.token);
+
+    // Once signed in, return the UserCredential
+    return FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
   }
 
 
