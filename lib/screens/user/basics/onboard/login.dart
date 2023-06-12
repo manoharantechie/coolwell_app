@@ -421,7 +421,7 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         InkWell(
-                          onTap: (){
+                          onTap: () {
                             print("ytest");
                             _googleSignIn.disconnect();
                             _googleSignIn.signIn().then((userData) {
@@ -467,9 +467,7 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
                         // SizedBox(width: 15.0,),
                        InkWell(
                          onTap: () {
-                           print("tesdt");
                            signInWithFacebook();
-                           print("tetsdd");
 
                          },
                          child:  Column(

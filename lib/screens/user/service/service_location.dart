@@ -47,6 +47,7 @@ class _Add_Service_Location_ScreenState extends State<Add_Service_Location_Scree
   bool other = false;
   List<Marker> markers = [];
   ScrollController controller = ScrollController();
+  ScrollController addController = ScrollController();
   FocusNode nameFocus = FocusNode();
   FocusNode addressFocus = FocusNode();
   FocusNode addressLineFocus = FocusNode();
@@ -466,52 +467,59 @@ class _Add_Service_Location_ScreenState extends State<Add_Service_Location_Scree
                                             ],
                                           ),
                                         ),
-                                        Container(
-                                          padding: EdgeInsets.fromLTRB(
-                                              10.0, 5.0, 10.0, 5.0),
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                            BorderRadius.circular(15.0),
-                                            gradient: LinearGradient(
-                                              begin: Alignment.topLeft,
-                                              end: Alignment.bottomRight,
-                                              colors: [
-                                                const Color(0xFF0DD8FF),
-                                                const Color(0xFF0FABFF),
-                                                const Color(0xFF1457FF),
-                                                const Color(0xFF1636FF),
-                                                const Color(0xFF0E69C7),
+                                        InkWell(
+                                          onTap: (){
+                                            setState(() {
+                                              viewAddressDetails();
+                                            });
+                                          },
+                                          child: Container(
+                                            padding: EdgeInsets.fromLTRB(
+                                                10.0, 5.0, 10.0, 5.0),
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                              BorderRadius.circular(15.0),
+                                              gradient: LinearGradient(
+                                                begin: Alignment.topLeft,
+                                                end: Alignment.bottomRight,
+                                                colors: [
+                                                  const Color(0xFF0DD8FF),
+                                                  const Color(0xFF0FABFF),
+                                                  const Color(0xFF1457FF),
+                                                  const Color(0xFF1636FF),
+                                                  const Color(0xFF0E69C7),
+                                                ],
+                                              ),
+                                            ),
+                                            child: Row(
+                                              crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                              mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                              children: [
+                                                Icon(
+                                                  Icons.location_on_outlined,
+                                                  size: 20.0,
+                                                  color: Theme.of(context).focusColor,
+                                                ),
+                                                const SizedBox(
+                                                  width: 5.0,
+                                                ),
+                                                Text(
+                                                  AppLocalizations.instance
+                                                      .text("loc_change"),
+                                                  style:
+                                                  CustomWidget(context: context)
+                                                      .CustomSizedTextStyle(
+                                                      14.0,
+                                                      Theme.of(context)
+                                                          .focusColor,
+                                                      FontWeight.w500,
+                                                      'FontRegular'),
+                                                  textAlign: TextAlign.center,
+                                                ),
                                               ],
                                             ),
-                                          ),
-                                          child: Row(
-                                            crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                            mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                            children: [
-                                              Icon(
-                                                Icons.location_on_outlined,
-                                                size: 20.0,
-                                                color: Theme.of(context).focusColor,
-                                              ),
-                                              const SizedBox(
-                                                width: 5.0,
-                                              ),
-                                              Text(
-                                                AppLocalizations.instance
-                                                    .text("loc_change"),
-                                                style:
-                                                CustomWidget(context: context)
-                                                    .CustomSizedTextStyle(
-                                                    14.0,
-                                                    Theme.of(context)
-                                                        .focusColor,
-                                                    FontWeight.w500,
-                                                    'FontRegular'),
-                                                textAlign: TextAlign.center,
-                                              ),
-                                            ],
                                           ),
                                         )
                                       ],
@@ -994,6 +1002,218 @@ class _Add_Service_Location_ScreenState extends State<Add_Service_Location_Scree
                 );
               });
         });
+  }
+
+  viewAddressDetails(){
+    showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        backgroundColor: Colors.transparent,
+        enableDrag: true,
+        builder: (BuildContext con){
+          return StatefulBuilder(builder: (BuildContext context, StateSetter ssetState){
+            return Container(
+              margin: EdgeInsets.only(top: 5.0),
+              width: MediaQuery.of(context).size.width,
+              padding: EdgeInsets.only(
+                right: 15.0,
+                left: 15.0,
+              ),
+              decoration: BoxDecoration(
+                  color: Theme.of(context).focusColor,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(30.0),
+                    topRight: Radius.circular(30.0),
+                  )),
+              child: SingleChildScrollView(
+                controller: addController,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(
+                      height: 8.0,
+                    ),
+                    Center(
+                      child: GestureDetector(
+                        onTap: () {
+                          ssetState(() {
+                            Navigator.pop(context);
+                          });
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15.0),
+                            color:
+                            Theme.of(context).dialogBackgroundColor.withOpacity(0.5),
+                          ),
+                          alignment: Alignment.center,
+                          width: 40.0,
+                          height: 4.0,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20.0,
+                    ),
+                    Stack(
+                      children: [
+                        Align(
+                          alignment: Alignment.center,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Container(
+                                width: MediaQuery.of(context).size.width,
+                                padding: EdgeInsets.fromLTRB(8.0, 10.0, 8.0, 8.0),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  // border: Border.all(width: 1.0, color: Theme.of(context).dialogBackgroundColor.withOpacity(0.5),),
+                                  gradient: LinearGradient(
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomRight,
+                                  colors: [
+                                    const Color(0xFF0DD8FF),
+                                    const Color(0xFF0FABFF),
+                                    const Color(0xFF1457FF),
+                                    const Color(0xFF1636FF),
+                                    const Color(0xFF0E69C7),
+                                  ],
+                                ),
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      child: Text(
+                                        "Anna Nagar",
+                                        style: CustomWidget(context: context).CustomSizedTextStyle(
+                                            14.0,
+                                            Theme.of(
+                                                context)
+                                                .focusColor,
+                                            FontWeight
+                                                .w600,
+                                            'FontRegular'),
+                                        textAlign:
+                                        TextAlign
+                                            .start,
+                                        overflow:
+                                        TextOverflow
+                                            .ellipsis,
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 5.0,
+                                    ),
+                                    Text(
+                                      "Suguna store",
+                                      style: CustomWidget(context: context).CustomSizedTextStyle(
+                                          14.0,
+                                          Theme.of(
+                                              context)
+                                              .focusColor,
+                                          FontWeight
+                                              .w600,
+                                          'FontRegular'),
+                                      textAlign:
+                                      TextAlign
+                                          .start,
+                                      overflow:
+                                      TextOverflow
+                                          .ellipsis,
+                                    ),
+                                    const SizedBox(
+                                      height: 5.0,
+                                    ),
+                                    Text(
+                                      "Theppakulam",
+                                      style: CustomWidget(context: context).CustomSizedTextStyle(
+                                          14.0,
+                                          Theme.of(
+                                              context)
+                                              .focusColor,
+                                          FontWeight
+                                              .w600,
+                                          'FontRegular'),
+                                      textAlign:
+                                      TextAlign
+                                          .start,
+                                      overflow:
+                                      TextOverflow
+                                          .ellipsis,
+                                    ),
+                                    const SizedBox(
+                                      height: 5.0,
+                                    ),
+                                    Text(
+                                      "Madurai",
+                                      style: CustomWidget(context: context).CustomSizedTextStyle(
+                                          14.0,
+                                          Theme.of(
+                                              context)
+                                              .focusColor,
+                                          FontWeight
+                                              .w600,
+                                          'FontRegular'),
+                                      textAlign:
+                                      TextAlign
+                                          .start,
+                                      overflow:
+                                      TextOverflow
+                                          .ellipsis,
+                                    ),
+                                    const SizedBox(
+                                      height: 5.0,
+                                    ),
+                                    Text(
+                                      "625502",
+                                      style: CustomWidget(context: context).CustomSizedTextStyle(
+                                          14.0,
+                                          Theme.of(
+                                              context)
+                                              .focusColor,
+                                          FontWeight
+                                              .w600,
+                                          'FontRegular'),
+                                      textAlign:
+                                      TextAlign
+                                          .start,
+                                      overflow:
+                                      TextOverflow
+                                          .ellipsis,
+                                    ),
+                                    const SizedBox(
+                                      height: 5.0,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 30.0,
+                              ),
+                              Container(
+                                color: Theme.of(context).splashColor,
+                                height: 1.0,
+                              ),
+                              const SizedBox(
+                                height: 15.0,
+                              ),
+
+
+                            ],
+                          ),
+                        ),
+
+                      ],
+                    )
+                  ],
+                ),
+              ),
+            );
+          });
+    });
   }
 
 

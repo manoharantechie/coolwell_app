@@ -1,7 +1,5 @@
 
 import 'package:coolwell_app/screens/user/basics/onboard/login.dart';
-import 'package:coolwell_app/screens/user/payment/payment_success.dart';
-import 'package:coolwell_app/screens/user/payment/payment_summary.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -11,9 +9,7 @@ import 'package:coolwell_app/common/custom_widget.dart';
 import 'package:coolwell_app/common/localization/localizations.dart';
 import '../../../data/api_utils.dart';
 import '../../../data/model/get_profile_details_model.dart';
-import '../basics/onboard/google_login.dart';
 import '../side menu/address.dart';
-import 'slot_screen.dart';
 import 'edit_profile.dart';
 
 class Profile_Screen extends StatefulWidget {
