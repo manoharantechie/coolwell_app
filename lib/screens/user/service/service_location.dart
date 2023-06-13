@@ -16,8 +16,10 @@ import 'package:coolwell_app/common/localization/localizations.dart';
 import 'package:coolwell_app/common/textformfield_custom.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../common/theme/custom_theme.dart';
 import '../../../data/api_utils.dart';
 import '../../../data/model/create_complaint_model.dart';
+import '../../../data/model/get_profile_details_model.dart';
 import '../basics/home.dart';
 import '../payment/payment_summary.dart';
 
@@ -48,6 +50,7 @@ class _Add_Service_Location_ScreenState extends State<Add_Service_Location_Scree
   List<Marker> markers = [];
   ScrollController controller = ScrollController();
   ScrollController addController = ScrollController();
+  ScrollController _scrollController = ScrollController();
   FocusNode nameFocus = FocusNode();
   FocusNode addressFocus = FocusNode();
   FocusNode addressLineFocus = FocusNode();
@@ -58,6 +61,11 @@ class _Add_Service_Location_ScreenState extends State<Add_Service_Location_Scree
   TextEditingController addressLineController = TextEditingController();
   TextEditingController cityController = TextEditingController();
   TextEditingController zipController = TextEditingController();
+  List<Address> otherAddressList = [];
+  GetProfileResult? details;
+  String city ="";
+  String addressdetails ="";
+  String zip ="";
 
 
   int interActiveFlags = InteractiveFlag.all;
@@ -471,6 +479,8 @@ class _Add_Service_Location_ScreenState extends State<Add_Service_Location_Scree
                                           onTap: (){
                                             setState(() {
                                               viewAddressDetails();
+                                              addressDetails();
+                                              loading= true;
                                             });
                                           },
                                           child: Container(
@@ -1053,9 +1063,6 @@ class _Add_Service_Location_ScreenState extends State<Add_Service_Location_Scree
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      height: 20.0,
-                    ),
                     Stack(
                       children: [
                         Align(
@@ -1064,130 +1071,195 @@ class _Add_Service_Location_ScreenState extends State<Add_Service_Location_Scree
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
+                              const SizedBox(
+                                height: 20.0,
+                              ),
                               Container(
-                                width: MediaQuery.of(context).size.width,
-                                padding: EdgeInsets.fromLTRB(8.0, 10.0, 8.0, 8.0),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10.0),
-                                  // border: Border.all(width: 1.0, color: Theme.of(context).dialogBackgroundColor.withOpacity(0.5),),
-                                  gradient: LinearGradient(
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomRight,
-                                  colors: [
-                                    const Color(0xFF0DD8FF),
-                                    const Color(0xFF0FABFF),
-                                    const Color(0xFF1457FF),
-                                    const Color(0xFF1636FF),
-                                    const Color(0xFF0E69C7),
-                                  ],
-                                ),
-                                ),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Container(
+                                child: otherAddressList.length >0 ? ListView.builder(
+                                  padding: EdgeInsets.zero,
+                                  itemCount: otherAddressList.length,
+                                  scrollDirection: Axis.vertical,
+                                  shrinkWrap: true,
+                                  controller: _scrollController,
+                                  itemBuilder: (BuildContext context, int index) {
+                                    return Column(
+                                      children: [
+                                        Container(
+                                          padding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+                                          width: MediaQuery.of(context).size.width,
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(15.0),
+                                            gradient: new LinearGradient(
+                                                colors: [
+                                                  CustomTheme.of(context)
+                                                      .cardColor
+                                                      .withOpacity(0.5),
+                                                  CustomTheme.of(context)
+                                                      .shadowColor
+                                                      .withOpacity(0.5)
+                                                ],
+                                                begin: Alignment.center,
+                                                end: Alignment.topRight,
+                                                stops: [0.0, 1.0],
+                                                tileMode: TileMode.clamp),
+                                          ),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                            CrossAxisAlignment
+                                                .start,
+                                            children: [
+                                              Row(
+                                                crossAxisAlignment: CrossAxisAlignment.center,
+                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                children: [
+                                                  Text(
+                                                    AppLocalizations.instance
+                                                        .text("loc_address")+" :",
+                                                    style: CustomWidget(context: context).CustomSizedTextStyle(
+                                                        18.0,
+                                                        Theme.of(
+                                                            context)
+                                                            .focusColor,
+                                                        FontWeight
+                                                            .w600,
+                                                        'FontRegular'),
+                                                    textAlign:
+                                                    TextAlign
+                                                        .start,
+                                                    overflow:
+                                                    TextOverflow
+                                                        .ellipsis,
+                                                  ),
+                                                  0==index ? Container() :Container(
+                                                    padding: EdgeInsets.all(5.0),
+                                                    decoration: BoxDecoration(
+                                                      borderRadius: BorderRadius.circular(5.0),
+                                                      color: CustomTheme.of(context)
+                                                          .cardColor
+                                                          .withOpacity(0.5),
+                                                    ),
+                                                    child: Text(
+                                                      "Others",
+                                                      style: CustomWidget(context: context).CustomSizedTextStyle(
+                                                          10.0,
+                                                          Theme.of(
+                                                              context)
+                                                              .focusColor,
+                                                          FontWeight
+                                                              .w600,
+                                                          'FontRegular'),
+                                                      textAlign:
+                                                      TextAlign
+                                                          .start,
+                                                      overflow:
+                                                      TextOverflow
+                                                          .ellipsis,
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                              const SizedBox(
+                                                height: 5.0,
+                                              ),
+                                              Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: [
+                                                  Container(
+                                                    child: Text(
+                                                      otherAddressList[index].address.toString(),
+                                                      style: CustomWidget(context: context).CustomSizedTextStyle(
+                                                          14.0,
+                                                          Theme.of(
+                                                              context)
+                                                              .focusColor,
+                                                          FontWeight
+                                                              .w600,
+                                                          'FontRegular'),
+                                                      textAlign:
+                                                      TextAlign
+                                                          .start,
+                                                      overflow:
+                                                      TextOverflow
+                                                          .ellipsis,
+                                                    ),
+                                                  ),
+                                                  const SizedBox(
+                                                    height: 5.0,
+                                                  ),
+                                                  Text(
+                                                    otherAddressList[index].city.toString(),
+                                                    style: CustomWidget(context: context).CustomSizedTextStyle(
+                                                        14.0,
+                                                        Theme.of(
+                                                            context)
+                                                            .focusColor,
+                                                        FontWeight
+                                                            .w600,
+                                                        'FontRegular'),
+                                                    textAlign:
+                                                    TextAlign
+                                                        .start,
+                                                    overflow:
+                                                    TextOverflow
+                                                        .ellipsis,
+                                                  ),
+                                                  const SizedBox(
+                                                    height: 5.0,
+                                                  ),
+                                                  Text(
+                                                    otherAddressList[index].zip.toString(),
+                                                    style: CustomWidget(context: context).CustomSizedTextStyle(
+                                                        14.0,
+                                                        Theme.of(
+                                                            context)
+                                                            .focusColor,
+                                                        FontWeight
+                                                            .w600,
+                                                        'FontRegular'),
+                                                    textAlign:
+                                                    TextAlign
+                                                        .start,
+                                                    overflow:
+                                                    TextOverflow
+                                                        .ellipsis,
+                                                  ),
+                                                  const SizedBox(
+                                                    height: 5.0,
+                                                  ),
+                                                ],
+                                              ),
+                                              const SizedBox(
+                                                height: 15.0,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height: 15.0,
+                                        ),
+
+                                      ],
+                                    );
+                                  },
+                                )
+                                    :
+                                loading
+                                    ? CustomWidget(context: context).loadingIndicator(
+                                  Theme.of(context).cardColor,
+                                )
+                                    : Container(
+                                    child:
+                                    Center(
                                       child: Text(
-                                        "Anna Nagar",
-                                        style: CustomWidget(context: context).CustomSizedTextStyle(
-                                            14.0,
-                                            Theme.of(
-                                                context)
-                                                .focusColor,
-                                            FontWeight
-                                                .w600,
+                                        AppLocalizations.instance.text('loc_no_records'),
+                                        style: CustomWidget(context: context)
+                                            .CustomSizedTextStyle(
+                                            16.0,
+                                            Theme.of(context).primaryColor,
+                                            FontWeight.w700,
                                             'FontRegular'),
-                                        textAlign:
-                                        TextAlign
-                                            .start,
-                                        overflow:
-                                        TextOverflow
-                                            .ellipsis,
                                       ),
-                                    ),
-                                    const SizedBox(
-                                      height: 5.0,
-                                    ),
-                                    Text(
-                                      "Suguna store",
-                                      style: CustomWidget(context: context).CustomSizedTextStyle(
-                                          14.0,
-                                          Theme.of(
-                                              context)
-                                              .focusColor,
-                                          FontWeight
-                                              .w600,
-                                          'FontRegular'),
-                                      textAlign:
-                                      TextAlign
-                                          .start,
-                                      overflow:
-                                      TextOverflow
-                                          .ellipsis,
-                                    ),
-                                    const SizedBox(
-                                      height: 5.0,
-                                    ),
-                                    Text(
-                                      "Theppakulam",
-                                      style: CustomWidget(context: context).CustomSizedTextStyle(
-                                          14.0,
-                                          Theme.of(
-                                              context)
-                                              .focusColor,
-                                          FontWeight
-                                              .w600,
-                                          'FontRegular'),
-                                      textAlign:
-                                      TextAlign
-                                          .start,
-                                      overflow:
-                                      TextOverflow
-                                          .ellipsis,
-                                    ),
-                                    const SizedBox(
-                                      height: 5.0,
-                                    ),
-                                    Text(
-                                      "Madurai",
-                                      style: CustomWidget(context: context).CustomSizedTextStyle(
-                                          14.0,
-                                          Theme.of(
-                                              context)
-                                              .focusColor,
-                                          FontWeight
-                                              .w600,
-                                          'FontRegular'),
-                                      textAlign:
-                                      TextAlign
-                                          .start,
-                                      overflow:
-                                      TextOverflow
-                                          .ellipsis,
-                                    ),
-                                    const SizedBox(
-                                      height: 5.0,
-                                    ),
-                                    Text(
-                                      "625502",
-                                      style: CustomWidget(context: context).CustomSizedTextStyle(
-                                          14.0,
-                                          Theme.of(
-                                              context)
-                                              .focusColor,
-                                          FontWeight
-                                              .w600,
-                                          'FontRegular'),
-                                      textAlign:
-                                      TextAlign
-                                          .start,
-                                      overflow:
-                                      TextOverflow
-                                          .ellipsis,
-                                    ),
-                                    const SizedBox(
-                                      height: 5.0,
-                                    ),
-                                  ],
+                                    )
                                 ),
                               ),
                               const SizedBox(
@@ -1216,6 +1288,50 @@ class _Add_Service_Location_ScreenState extends State<Add_Service_Location_Scree
     });
   }
 
+
+  addressDetails() {
+    apiUtils
+        .getProfileDetails()
+        .then((GetProfileDetailsModel loginData) {
+      setState(() {
+        if (loginData.success!) {
+          setState(() {
+            loading = false;
+            details = loginData.result!;
+            // userName=details!.name.toString();
+            addressdetails=details!.addressHome!.address.toString();
+            city=details!.addressHome!.city.toString();
+            zip=details!.addressHome!.zip.toString();
+            otherAddressList = details!.addressOther!;
+            print(loginData.result!.addressHome!.address.toString());
+            if(loginData.result!.addressHome!.address.toString() !="null"){
+              otherAddressList.add(loginData.result!.addressHome!);
+            }
+
+            otherAddressList=otherAddressList.reversed.toList();
+
+          });
+          // CustomWidget(context: context).
+          // custombar("Profile", loginData.message.toString(), true);
+
+        }
+        else {
+          loading = false;
+          CustomWidget(context: context)
+              .custombar("Address", loginData.message.toString(), false);
+
+        }
+      });
+
+    }).catchError((Object error) {
+
+
+      print(error);
+      setState(() {
+        loading = false;
+      });
+    });
+  }
 
 
 }
