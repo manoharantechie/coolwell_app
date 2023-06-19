@@ -117,7 +117,6 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
     nameController=TextEditingController(text: "lucy@mailinator.com");
     passController=TextEditingController(text: "Lucky@123");
     _googleSignIn.disconnect();
-    print("mano");
   }
   @override
   Widget build(BuildContext context) {
@@ -422,16 +421,15 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
                       children: [
                         InkWell(
                           onTap: () {
-                            print("ytest");
                             _googleSignIn.disconnect();
                             _googleSignIn.signIn().then((userData) {
                               setState(() {
                                 _isLoggedIn = true;
                                 loginType= _isLoggedIn.toString();
                                 _userObj = userData;
-                                print("userData"+userData.toString());
-                                print(userData!.email.toString());
-                                print(userData.displayName.toString());
+                                // print("userData"+userData.toString());
+                                // print(userData!.email.toString());
+                                // print(userData.displayName.toString());
                                 googleLogin();
                                 loading=true;
                               });

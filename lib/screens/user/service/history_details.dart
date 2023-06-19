@@ -37,13 +37,16 @@ class _Service_History_DetailsState extends State<Service_History_Details> {
     super.initState();
     loading = true;
     servicesDetails();
-
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
+      body: loading
+          ? CustomWidget(context: context).loadingIndicator(
+        Theme.of(context).cardColor,
+      )
+          :  Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         margin: EdgeInsets.only(top: 30.0),
@@ -241,17 +244,17 @@ class _Service_History_DetailsState extends State<Service_History_Details> {
                                   const SizedBox(
                                     height: 2.0,
                                   ),
-                                  Text(
-                                    AppLocalizations.instance
-                                        .text("loc_tech_id"),
-                                    style: CustomWidget(context: context)
-                                        .CustomSizedTextStyle(
-                                            10.0,
-                                            Theme.of(context).primaryColor,
-                                            FontWeight.w700,
-                                            'FontRegular'),
-                                    textAlign: TextAlign.start,
-                                  ),
+                                  // Text(
+                                  //   AppLocalizations.instance
+                                  //       .text("loc_tech_id"),
+                                  //   style: CustomWidget(context: context)
+                                  //       .CustomSizedTextStyle(
+                                  //           10.0,
+                                  //           Theme.of(context).primaryColor,
+                                  //           FontWeight.w700,
+                                  //           'FontRegular'),
+                                  //   textAlign: TextAlign.start,
+                                  // ),
                                   const SizedBox(
                                     height: 10.0,
                                   ),
@@ -266,7 +269,7 @@ class _Service_History_DetailsState extends State<Service_History_Details> {
                                         width: 5.0,
                                       ),
                                       Text(
-                                        "+91 "+ technicianNum.toString(),
+                                        technicianNum.toString(),
                                         style: CustomWidget(context: context)
                                             .CustomSizedTextStyle(
                                                 12.0,
@@ -551,76 +554,58 @@ class _Service_History_DetailsState extends State<Service_History_Details> {
                             const SizedBox(
                               height: 10.0,
                             ),
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Flexible(
-                                  child: Text(
-                                    AppLocalizations.instance
-                                        .text("loc_clean_foam"),
-                                    style: CustomWidget(context: context)
-                                        .CustomSizedTextStyle(
-                                            14.0,
-                                            Theme.of(context).primaryColor,
-                                            FontWeight.w400,
-                                            'FontRegular'),
-                                    textAlign: TextAlign.start,
-                                  ),
-                                  flex: 3,
-                                ),
-                                const SizedBox(
-                                  width: 2.0,
-                                ),
-                                Flexible(
-                                  child: Container(
-                                    child: Center(
-                                      child: Icon(
-                                        Icons.check,
-                                        color:
-                                            Theme.of(context).selectedRowColor,
-                                      ),
+
+                            ListView.builder(
+                              padding: EdgeInsets.zero,
+                              itemCount: OrderFullList!.service!.checkList!.length,
+                              scrollDirection: Axis.vertical,
+                              shrinkWrap: true,
+                              controller: _scrollController,
+                              itemBuilder: (BuildContext context,
+                                  int index) {
+                                return Column(
+                                  children: [
+                                    Row(
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Flexible(
+                                          child: Text(
+                                            // AppLocalizations.instance
+                                            //     .text("loc_clean_foam"),
+                                            OrderFullList!.service!.checkList![index].toString(),
+                                            style: CustomWidget(context: context)
+                                                .CustomSizedTextStyle(
+                                                14.0,
+                                                Theme.of(context).primaryColor,
+                                                FontWeight.w400,
+                                                'FontRegular'),
+                                            textAlign: TextAlign.start,
+                                          ),
+                                          flex: 3,
+                                        ),
+                                        const SizedBox(
+                                          width: 2.0,
+                                        ),
+                                        Flexible(
+                                          child: Container(
+                                            child: Center(
+                                              child: Icon(
+                                                Icons.check,
+                                                color:
+                                                Theme.of(context).selectedRowColor,
+                                              ),
+                                            ),
+                                          ),
+                                          flex: 1,
+                                        ),
+                                      ],
                                     ),
-                                  ),
-                                  flex: 1,
-                                ),
-                              ],
+                                  ],
+                                );
+                              },
                             ),
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Flexible(
-                                  child: Text(
-                                    AppLocalizations.instance
-                                        .text("loc_clean_power"),
-                                    style: CustomWidget(context: context)
-                                        .CustomSizedTextStyle(
-                                            14.0,
-                                            Theme.of(context).primaryColor,
-                                            FontWeight.w400,
-                                            'FontRegular'),
-                                    textAlign: TextAlign.start,
-                                  ),
-                                  flex: 3,
-                                ),
-                                const SizedBox(
-                                  width: 2.0,
-                                ),
-                                Flexible(
-                                  child: Container(
-                                    child: Center(
-                                      child: Icon(
-                                        Icons.check,
-                                        color:
-                                            Theme.of(context).selectedRowColor,
-                                      ),
-                                    ),
-                                  ),
-                                  flex: 1,
-                                ),
-                              ],
-                            ),
+
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -1384,9 +1369,10 @@ class _Service_History_DetailsState extends State<Service_History_Details> {
             loading = false;
 
             OrderFullList = loginData.result!;
+            // print(OrderFullList);
             servicename =OrderFullList!.service!.serviceName.toString();
-            technicianName = OrderFullList!.technician!.name.toString();
-            technicianNum = OrderFullList!.technician!.phone.toString();
+            technicianName = OrderFullList!.technician!.technician!.name.toString();
+            technicianNum = OrderFullList!.technician!.technician!.phone.toString();
 
           });
           // CustomWidget(context: context).
@@ -1407,7 +1393,7 @@ class _Service_History_DetailsState extends State<Service_History_Details> {
       print(error);
       setState(() {
         loading = false;
-        print("jeeva");
+        // print("jeeva");
       });
     });
   }

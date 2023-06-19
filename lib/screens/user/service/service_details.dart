@@ -771,7 +771,7 @@ class _Service_Details_ScreenState extends State<Service_Details_Screen> {
                                                           if (selectedService
                                                                   .length >
                                                               0) {
-                                                            print("Service"+selectedService.length.toString());
+                                                            // print("Service"+selectedService.length.toString());
                                                             if (selectedService
                                                                 .contains(totalDetails[
                                                                         index]
@@ -835,7 +835,7 @@ class _Service_Details_ScreenState extends State<Service_Details_Screen> {
                                                                               .amount
                                                                               .toString()))
                                                                       .toString();
-                                                              print("hi");
+                                                              // print("hi");
                                                             }
 
                                                         });
@@ -1397,7 +1397,7 @@ class _Service_Details_ScreenState extends State<Service_Details_Screen> {
                                                   double.parse(details.amount
                                                       .toString()))
                                                   .toString();
-                                              print("hi");
+                                              // print("hi");
                                             }
                                           });
                                         });

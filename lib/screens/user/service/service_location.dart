@@ -1303,7 +1303,7 @@ class _Add_Service_Location_ScreenState extends State<Add_Service_Location_Scree
             city=details!.addressHome!.city.toString();
             zip=details!.addressHome!.zip.toString();
             otherAddressList = details!.addressOther!;
-            print(loginData.result!.addressHome!.address.toString());
+            // print(loginData.result!.addressHome!.address.toString());
             if(loginData.result!.addressHome!.address.toString() !="null"){
               otherAddressList.add(loginData.result!.addressHome!);
             }

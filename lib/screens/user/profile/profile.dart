@@ -149,7 +149,7 @@ class _Profile_ScreenState extends State<Profile_Screen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    gender,
+                                    gender==""? "": gender,
                                     style: CustomWidget(context: context)
                                         .CustomSizedTextStyle(
                                         14.0,
@@ -167,7 +167,7 @@ class _Profile_ScreenState extends State<Profile_Screen> {
                                         Theme.of(context).primaryColor,
                                         FontWeight.w700,
                                         'FontRegular'),
-                                    textAlign: TextAlign.center,
+                                    textAlign: TextAlign.start,
                                   ),
                                   const SizedBox(height: 5.0,),
                                   Text(
@@ -178,19 +178,19 @@ class _Profile_ScreenState extends State<Profile_Screen> {
                                         Theme.of(context).primaryColor,
                                         FontWeight.w400,
                                         'FontRegular'),
-                                    textAlign: TextAlign.center,
+                                    textAlign: TextAlign.start,
                                   ),
                                   const SizedBox(height: 5.0,),
                                   Text(
                                     // "+91 9876543210",
-                                     "+91 "+ mobileNo,
+                                    mobileNo==""? "" : "+91 "+ mobileNo,
                                     style: CustomWidget(context: context)
                                         .CustomSizedTextStyle(
                                         12.0,
                                         Theme.of(context).primaryColor,
                                         FontWeight.w400,
                                         'FontRegular'),
-                                    textAlign: TextAlign.center,
+                                    textAlign: TextAlign.start,
                                   ),
 
                                 ],

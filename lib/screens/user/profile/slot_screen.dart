@@ -489,7 +489,7 @@ class Slot_ScreenState extends State<Slot_Screen> {
         setState(() {
           serviceTimes = details.result!;
           startTime = serviceTimes!.startTime.toString();
-          print(serviceTimes!.endTime.toString());
+          // print(serviceTimes!.endTime.toString());
 
           endTime = (12+int.parse(serviceTimes!.endTime.toString().split(":")[0])).toString();
           String tt=DateTime.now().hour.toString();
@@ -504,7 +504,7 @@ class Slot_ScreenState extends State<Slot_Screen> {
             {
               startpoint=start.toString();
             }
-          print(endTime);
+          // print(endTime);
 
           for(int m= int.parse(startpoint);m<=int.parse(endTime);m++)
             {

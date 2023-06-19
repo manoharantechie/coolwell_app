@@ -154,7 +154,7 @@ class _Login_Mobile_Otp_ScreenState extends State<Login_Mobile_Otp_Screen> {
                                 textFieldAlignment: MainAxisAlignment.spaceAround,
                                 fieldStyle: FieldStyle.underline,
                                 onCompleted: (pin) {
-                                  print("Completed: " + pin);
+                                  // print("Completed: " + pin);
                                   setState(() {
                                     pinValue=pin;
                                   });

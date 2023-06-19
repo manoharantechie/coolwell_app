@@ -537,7 +537,7 @@ class _Address_Details_ScreenState extends State<Address_Details_Screen> {
             zip=details!.addressHome!.zip.toString();
             mobileNo=details!.phone.toString();
             otherAddressList = details!.addressOther!;
-            print(loginData.result!.addressHome!.address.toString());
+            // print(loginData.result!.addressHome!.address.toString());
             if(loginData.result!.addressHome!.address.toString() !="null"){
               otherAddressList.add(loginData.result!.addressHome!);
             }

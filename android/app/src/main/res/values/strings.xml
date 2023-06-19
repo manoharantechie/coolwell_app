@@ -2,8 +2,8 @@
 
 <resources>
     <string name="app_name">Coolwell</string>
-    <string name="facebook_app_id">1296087784613102</string>
-    <string name="fb_login_protocol_scheme">fb1296087784613102</string>
-    <string name="facebook_client_token">3336649c645be4130e17b4b481eda9f3</string>
+    <string name="facebook_app_id">633677438821264</string>
+    <string name="fb_login_protocol_scheme">fb633677438821264</string>
+    <string name="facebook_client_token">6bb4cd5ad45ffd1ef347464f1e0957de</string>
 
 </resources>

@@ -50,7 +50,7 @@ class APIUtils {
     };
     final response =
         await http.post(Uri.parse(baseURL + registerURL), body: emailbodyData);
-    print(response.body);
+    // print(response.body);
     return CommonModel.fromJson(json.decode(response.body));
   }
 
@@ -128,7 +128,7 @@ class APIUtils {
     };
     final response = await http.post(Uri.parse(baseURL + activateURL),
         body: type ? emailbodyData : phonebodyData);
-    print(response.body);
+    // print(response.body);
     return CommonModel.fromJson(json.decode(response.body));
   }
   Future<Login> loginWithOTP(String email, String otp) async {
@@ -140,7 +140,7 @@ class APIUtils {
     };
     final response = await http.post(Uri.parse(baseURL + activateURL),
         body: phonebodyData);
-    print(response.body);
+    // print(response.body);
     return Login.fromJson(json.decode(response.body));
   }
 
@@ -188,7 +188,7 @@ class APIUtils {
 
     final response = await http.get(Uri.parse(baseURL + profileUpdateURL),
         headers: requestHeaders);
-    print(response.body + " jeeva");
+    // print(response.body + " jeeva");
     return GetProfileDetailsModel.fromJson(json.decode(response.body));
   }
 
@@ -361,7 +361,7 @@ class APIUtils {
 
     final response = await http.post(Uri.parse(baseURL + updateAddressURL),
         headers: requestHeaders, body: bodyData);
-    print(response.body);
+    // print(response.body);
     return CommonModel.fromJson(json.decode(response.body));
   }
 }
