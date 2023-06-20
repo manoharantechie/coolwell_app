@@ -30,6 +30,7 @@ class _Service_History_DetailsState extends State<Service_History_Details> {
   String servicename ="";
   String technicianNum ="";
   String technicianName ="";
+  var diff ="";
 
   @override
   void initState() {
@@ -37,10 +38,13 @@ class _Service_History_DetailsState extends State<Service_History_Details> {
     super.initState();
     loading = true;
     servicesDetails();
+
+
   }
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: loading
           ? CustomWidget(context: context).loadingIndicator(
@@ -555,14 +559,13 @@ class _Service_History_DetailsState extends State<Service_History_Details> {
                               height: 10.0,
                             ),
 
-                            ListView.builder(
+                            OrderFullList!.service!.checkList!.length>0 ? ListView.builder(
                               padding: EdgeInsets.zero,
                               itemCount: OrderFullList!.service!.checkList!.length,
                               scrollDirection: Axis.vertical,
                               shrinkWrap: true,
                               controller: _scrollController,
-                              itemBuilder: (BuildContext context,
-                                  int index) {
+                              itemBuilder: (BuildContext context, int index) {
                                 return Column(
                                   children: [
                                     Row(
@@ -604,7 +607,7 @@ class _Service_History_DetailsState extends State<Service_History_Details> {
                                   ],
                                 );
                               },
-                            ),
+                            ) : Container(),
 
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -670,7 +673,7 @@ class _Service_History_DetailsState extends State<Service_History_Details> {
                                   child: Container(
                                     child: Center(
                                         child: Text(
-                                      "45 mins",
+                                          diff.toString(),
                                       style: CustomWidget(context: context)
                                           .CustomSizedTextStyle(
                                               12.0,
@@ -1373,6 +1376,15 @@ class _Service_History_DetailsState extends State<Service_History_Details> {
             servicename =OrderFullList!.service!.serviceName.toString();
             technicianName = OrderFullList!.technician!.technician!.name.toString();
             technicianNum = OrderFullList!.technician!.technician!.phone.toString();
+
+            var StartTime = DateTime.fromMillisecondsSinceEpoch(int.parse(OrderFullList!.technician!.startTime.toString())*1000);
+            var timeStart = "${int.parse(StartTime.toString().substring(11,13))}:${StartTime.toString().substring(14,16)}  ${int.parse(StartTime.toString().substring(11,13))}";
+            var EndTime = DateTime.fromMillisecondsSinceEpoch(int.parse(OrderFullList!.technician!.endTime.toString())*1000);
+            var timeEnd = "${int.parse(EndTime.toString().substring(11,13))}:${EndTime.toString().substring(14,16)}  ${int.parse(EndTime.toString().substring(11,13))}";
+            print(timeStart);
+            var DiffTime = EndTime.difference(StartTime).inMinutes;
+            diff = DiffTime.toString();
+            print(diff.toString()+" hi");
 
           });
           // CustomWidget(context: context).

@@ -170,6 +170,7 @@ class _Service_historyState extends State<Service_history> {
                                     Navigator.of(context).push(MaterialPageRoute(
                                         builder: (context) =>
                                             Service_History_Details(h_id: OrderList[index].id!.toString(),)));
+                                    print( OrderList[index].id!.toString());
                                   }else {
                                     Navigator.of(context).push(MaterialPageRoute(
                                         builder: (context) =>

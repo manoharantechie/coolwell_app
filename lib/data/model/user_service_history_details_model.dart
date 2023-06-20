@@ -90,20 +90,28 @@ class Service {
 
 class Technician {
   String? id;
+  dynamic startTime;
+  dynamic endTime;
   TechnicianClass? technician;
 
   Technician({
     this.id,
+    this.startTime,
+    this.endTime,
     this.technician,
   });
 
   factory Technician.fromJson(Map<String, dynamic> json) => Technician(
     id: json["_id"],
+    startTime: json["Start_Time"],
+    endTime: json["End_Time"],
     technician: TechnicianClass.fromJson(json["Technician"]),
   );
 
   Map<String, dynamic> toJson() => {
     "_id": id,
+    "Start_Time": startTime,
+    "End_Time": endTime,
     "Technician": technician!.toJson(),
   };
 }

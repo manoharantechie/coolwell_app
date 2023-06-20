@@ -20,7 +20,7 @@ class APIUtils {
   final appName = 'Coolwell';
 
   // static const baseURL = "http://164.92.128.14:5000";
-  static const baseURL = "http://139.59.30.46";
+  static const baseURL = "http://139.59.30.46/api";
 
   static const String registerURL = '/register';
   static const String logInURL = '/login';
