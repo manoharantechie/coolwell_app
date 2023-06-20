@@ -171,6 +171,10 @@ class _Service_historyState extends State<Service_history> {
                                         builder: (context) =>
                                             Service_History_Details(h_id: OrderList[index].id!.toString(),)));
                                     print( OrderList[index].id!.toString());
+                                  } else if(OrderList[index].serviceStatus==3){
+                                    CustomWidget(context: context)
+                                        .custombar("Service", "Our Technician will reach soon", false);
+                                    print( OrderList[index].id!.toString());
                                   }else {
                                     Navigator.of(context).push(MaterialPageRoute(
                                         builder: (context) =>
@@ -258,7 +262,7 @@ class _Service_historyState extends State<Service_history> {
                                                               .circular(
                                                               20.0),
                                                           color: OrderList[index].serviceStatus==0? Colors.deepOrangeAccent.withOpacity(0.8) : OrderList[index].serviceStatus==1? Theme.of(context).shadowColor
-                                                              .withOpacity(0.8) : Theme.of(
+                                                              .withOpacity(0.8) :  OrderList[index].serviceStatus==3? Theme.of(context).hoverColor.withOpacity(0.8) : Theme.of(
                                                               context)
                                                               .selectedRowColor
                                                               .withOpacity(0.8),
@@ -271,7 +275,8 @@ class _Service_historyState extends State<Service_history> {
                                                               : OrderList[index]
                                                               .serviceStatus ==
                                                               1
-                                                              ? "Processing"
+                                                              ? "Processing" : OrderList[index]
+                                                              .serviceStatus == 3 ? "In Progress"
                                                               : "Success",
                                                           style: CustomWidget(
                                                               context:
