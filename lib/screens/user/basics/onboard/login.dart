@@ -114,8 +114,8 @@ class _SignUp_ScreenState extends State<SignUp_Screen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    nameController=TextEditingController(text: "lucy@mailinator.com");
-    passController=TextEditingController(text: "Lucky@123");
+    // nameController=TextEditingController(text: "lucy@mailinator.com");
+    // passController=TextEditingController(text: "Lucky@123");
     _googleSignIn.disconnect();
   }
   @override

@@ -673,7 +673,8 @@ class _Service_History_DetailsState extends State<Service_History_Details> {
                                   child: Container(
                                     child: Center(
                                         child: Text(
-                                          diff.toString(),
+                                          // diff.toString(),
+                                          "-",
                                       style: CustomWidget(context: context)
                                           .CustomSizedTextStyle(
                                               12.0,

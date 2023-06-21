@@ -468,7 +468,7 @@ class Slot_ScreenState extends State<Slot_Screen> {
           activeDayColor: Colors.black,
           activeBackgroundDayColor: Theme.of(context).cardColor,
           dotsColor: const Color(0xFF333A47),
-          selectableDayPredicate: (date) => date.day != 23,
+          selectableDayPredicate: (date) => date.day != 32,
           locale: 'en',
         ),
       ],
