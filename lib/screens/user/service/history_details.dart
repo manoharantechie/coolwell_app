@@ -31,6 +31,8 @@ class _Service_History_DetailsState extends State<Service_History_Details> {
   String technicianNum ="";
   String technicianName ="";
   var diff ="";
+  var  finalStartTime ="";
+  var  finalEndTime ="";
 
   @override
   void initState() {
@@ -38,8 +40,6 @@ class _Service_History_DetailsState extends State<Service_History_Details> {
     super.initState();
     loading = true;
     servicesDetails();
-
-
   }
 
   @override
@@ -616,45 +616,6 @@ class _Service_History_DetailsState extends State<Service_History_Details> {
                                 Flexible(
                                   child: Text(
                                     AppLocalizations.instance
-                                        .text("loc_indoor_outer"),
-                                    style: CustomWidget(context: context)
-                                        .CustomSizedTextStyle(
-                                            14.0,
-                                            Theme.of(context).primaryColor,
-                                            FontWeight.w400,
-                                            'FontRegular'),
-                                    textAlign: TextAlign.start,
-                                  ),
-                                  flex: 3,
-                                ),
-                                const SizedBox(
-                                  width: 2.0,
-                                ),
-                                Flexible(
-                                  child: Container(
-                                    child: Center(
-                                        child: Text(
-                                      "Intence",
-                                      style: CustomWidget(context: context)
-                                          .CustomSizedTextStyle(
-                                              12.0,
-                                              Theme.of(context).primaryColor,
-                                              FontWeight.w600,
-                                              'FontRegular'),
-                                      textAlign: TextAlign.center,
-                                    )),
-                                  ),
-                                  flex: 1,
-                                ),
-                              ],
-                            ),
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Flexible(
-                                  child: Text(
-                                    AppLocalizations.instance
                                         .text("loc_duration"),
                                     style: CustomWidget(context: context)
                                         .CustomSizedTextStyle(
@@ -674,10 +635,10 @@ class _Service_History_DetailsState extends State<Service_History_Details> {
                                     child: Center(
                                         child: Text(
                                           // diff.toString(),
-                                          "-",
+                                          OrderFullList!.serviceStatus! ==2 ? finalStartTime.toString() +" - "+finalEndTime.toString() : "-",
                                       style: CustomWidget(context: context)
                                           .CustomSizedTextStyle(
-                                              12.0,
+                                              10.0,
                                               Theme.of(context).primaryColor,
                                               FontWeight.w600,
                                               'FontRegular'),
@@ -1379,13 +1340,15 @@ class _Service_History_DetailsState extends State<Service_History_Details> {
             technicianNum = OrderFullList!.technician!.technician!.phone.toString();
 
             var StartTime = DateTime.fromMillisecondsSinceEpoch(int.parse(OrderFullList!.technician!.startTime.toString())*1000);
-            var timeStart = "${int.parse(StartTime.toString().substring(11,13))}:${StartTime.toString().substring(14,16)}  ${int.parse(StartTime.toString().substring(11,13))}";
+            var timeStart = "${int.parse(StartTime.toString().substring(11,13))}:${StartTime.toString().substring(14,16)}";
             var EndTime = DateTime.fromMillisecondsSinceEpoch(int.parse(OrderFullList!.technician!.endTime.toString())*1000);
-            var timeEnd = "${int.parse(EndTime.toString().substring(11,13))}:${EndTime.toString().substring(14,16)}  ${int.parse(EndTime.toString().substring(11,13))}";
-            print(timeStart);
-            var DiffTime = EndTime.difference(StartTime).inMinutes;
-            diff = DiffTime.toString();
-            print(diff.toString()+" hi");
+            var timeEnd = "${int.parse(EndTime.toString().substring(11,13))}:${EndTime.toString().substring(14,16)}";
+             finalEndTime = timeEnd.toString();
+             finalStartTime = timeStart.toString();
+            print(timeEnd + " jeeva");
+            // var DiffTime = EndTime.difference(StartTime).inMinutes;
+            // diff = DiffTime.toString();
+            // print(diff.toString()+" hi");
 
           });
           // CustomWidget(context: context).

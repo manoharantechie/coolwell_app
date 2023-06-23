@@ -245,6 +245,7 @@ class _Service_ScreenState extends State<Service_Screen> {
                                     Navigator.of(context).push(MaterialPageRoute(
                                         builder: (context) =>
                                             Service_Details_Screen(S_id: totalService[index].id.toString() )));
+                                    print(totalService[index].id.toString() +" Jeeva");
                                   },
                                   child: Container(
                                     padding: EdgeInsets.all(5.0),

@@ -574,82 +574,62 @@ class _Service_Details_ScreenState extends State<Service_Details_Screen> {
                                                     SizedBox(
                                                       height: 10.0,
                                                     ),
-                                                    Row(
-                                                      children: [
-                                                        Container(
-                                                          width: 2.0,
-                                                          height: 2.0,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            shape:
-                                                                BoxShape.circle,
-                                                            color: Theme.of(
-                                                                    context)
-                                                                .selectedRowColor,
-                                                          ),
-                                                        ),
-                                                        SizedBox(
-                                                          width: 5.0,
-                                                        ),
-                                                        Text(
-                                                          // "Get 2x deeper dust removel with unique technology",
-                                                          totalDetails[index]
-                                                              .checkList![index]
-                                                              .toString(),
-                                                          style: CustomWidget(
-                                                                  context:
-                                                                      context)
-                                                              .CustomSizedTextStyle(
-                                                                  7.0,
-                                                                  Theme.of(
+
+                                                    Container(
+                                                      // height: MediaQuery.of(context).size.height * 0.03,
+                                                      height: 26.0,
+                                                      child: totalDetails[index].checkList!.length >0 ? ListView.builder(
+                                                        padding: EdgeInsets.zero,
+                                                        itemCount: totalDetails[index].checkList!.length,
+                                                        shrinkWrap: true,
+                                                        controller: _scrollController,
+                                                        itemBuilder: (BuildContext context, int indext) {
+                                                          return Column(
+                                                            children: [
+                                                              Row(
+                                                                children: [
+                                                                  Container(
+                                                                    width: 2.0,
+                                                                    height: 2.0,
+                                                                    decoration:
+                                                                    BoxDecoration(
+                                                                      shape:
+                                                                      BoxShape.circle,
+                                                                      color: Theme.of(
                                                                           context)
-                                                                      .primaryColor,
-                                                                  FontWeight
-                                                                      .w400,
-                                                                  'FontRegular'),
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                        ),
-                                                      ],
+                                                                          .selectedRowColor,
+                                                                    ),
+                                                                  ),
+                                                                  SizedBox(
+                                                                    width: 5.0,
+                                                                  ),
+                                                                  Text(
+                                                                    // "Get 2x deeper dust removel with unique technology",
+                                                                    totalDetails[index]
+                                                                        .checkList![indext]
+                                                                        .toString(),
+                                                                    style: CustomWidget(
+                                                                        context:
+                                                                        context)
+                                                                        .CustomSizedTextStyle(
+                                                                        7.0,
+                                                                        Theme.of(
+                                                                            context)
+                                                                            .primaryColor,
+                                                                        FontWeight
+                                                                            .w400,
+                                                                        'FontRegular'),
+                                                                    textAlign:
+                                                                    TextAlign.start,
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ],
+                                                          );
+                                                        },
+                                                      ): Container(),
                                                     ),
-                                                    Row(
-                                                      children: [
-                                                        Container(
-                                                          width: 2.0,
-                                                          height: 2.0,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            shape:
-                                                                BoxShape.circle,
-                                                            color: Theme.of(
-                                                                    context)
-                                                                .selectedRowColor,
-                                                          ),
-                                                        ),
-                                                        SizedBox(
-                                                          width: 5.0,
-                                                        ),
-                                                        Text(
-                                                          // "Get 2x deeper dust removel with unique technology",
-                                                          totalDetails[index]
-                                                              .checkList![index]
-                                                              .toString(),
-                                                          style: CustomWidget(
-                                                                  context:
-                                                                      context)
-                                                              .CustomSizedTextStyle(
-                                                                  7.0,
-                                                                  Theme.of(
-                                                                          context)
-                                                                      .primaryColor,
-                                                                  FontWeight
-                                                                      .w400,
-                                                                  'FontRegular'),
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                        ),
-                                                      ],
-                                                    ),
+
                                                     SizedBox(
                                                       height: 5.0,
                                                     ),
